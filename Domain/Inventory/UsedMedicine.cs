@@ -1,12 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using Domain.Hospitalization;
 
-namespace Domain
+namespace Domain.Inventory
 {
-    class UsedMedicine
+    [DataContract]
+    public class UsedMedicine
     {
+        [DataMember]
+        public Guid UsedMedicineId { get; set; }
+        [DataMember]
+        public Guid TreatmentId { get; set; }
+        [DataMember]
+        public Guid MedicineId { get; set; }
+        [DataMember]
+        public double Dose { get; set; }
+        [DataMember]
+        public virtual Treatment Treatment { get; set; }
+        [DataMember]
+        public virtual Medicine Medicine { get; set; }
     }
 }
