@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
-namespace Domain
+namespace Domain.Inventory
 {
-    class Medicine
+    [DataContract]
+    public class Medicine
     {
+        [DataMember]
+        public Guid MedicineId { get; set; }
+        [DataMember]
+        public string MedicineName { get; set; }
     }
 }

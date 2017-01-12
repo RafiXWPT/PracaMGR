@@ -1,12 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
-namespace Domain
+namespace Domain.Hospitalization
 {
-    class Examination
+    [DataContract]
+    public class Examination
     {
+        [DataMember]
+        public Guid ExaminationId { get; set; }
+        [DataMember]
+        public Guid HospitalizationId { get; set; }
+        [DataMember]
+        public DateTime ExaminationStartTime { get; set; }
+        [DataMember]
+        public DateTime ExaminationEndTime { get; set; }
+        [DataMember]
+        public string ExaminationDetails { get; set; }
+        public virtual Hospitalization Hospitalization { get; set; }
     }
 }
