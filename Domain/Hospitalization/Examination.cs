@@ -16,7 +16,6 @@ namespace Domain.Hospitalization
         public DateTime ExaminationEndTime { get; set; }
         [DataMember]
         public string ExaminationDetails { get; set; }
-        [DataMember]
         public virtual Hospitalization Hospitalization { get; set; }
     }
 }

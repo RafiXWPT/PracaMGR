@@ -14,7 +14,6 @@ namespace Domain.Hospitalization
         public Guid HospitalizationId { get; set; }
         [DataMember]
         public DateTime TreatmentDateTime { get; set; }
-        [DataMember]
         public virtual Hospitalization Hospitalization { get; set; }
         [DataMember]
         public virtual ICollection<UsedMedicine> UsedMedicines { get; set; }

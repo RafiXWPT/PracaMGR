@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Domain.Interfaces;
 using InstitutionService.Host.Code.Core;
+using InstitutionService.Host.Code.DataAccessLayer;
 using InstitutionService.Host.Code.DummyDatabaseInitializer;
-using DependencyContainer = InstitutionService.Host.Code.Core.SimpleInjector;
 
 namespace InstitutionService.Host
 {
@@ -14,9 +15,16 @@ namespace InstitutionService.Host
     {
         static void Main(string[] args)
         {
-            DependencyContainer.Initialize();
-            var init = new InstitutionDatabaseInitializer();
-            init.Seed(DependencyContainer.Instance.GetInstance<IDatabaseContext>());
+            Console.WriteLine("Initializing object builder");
+            ObjectBuilder.Initialize();
+            Console.WriteLine("Initialize Automapper");
+            AutoMapperBuilder.RegisterAutoMapper();
+            Console.WriteLine("Seeding database");
+
+            var t = new InstitutionDatabaseInitializer(ObjectBuilder.Container.GetInstance<IDatabaseContext>());
+            t.Seed();
+            
+            Console.WriteLine("Running service");
             var wcfProvider = new WcfServiceProvider();
             wcfProvider.RunService();
         }

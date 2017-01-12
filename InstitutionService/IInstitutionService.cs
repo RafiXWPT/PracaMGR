@@ -11,5 +11,7 @@ namespace InstitutionService
         string GetInstitutionName();
         [OperationContract]
         Patient GetPatientBasicInfo(string pesel);
+        [OperationContract]
+        Patient GetPatientFullInfo(string pesel);
     }
 }

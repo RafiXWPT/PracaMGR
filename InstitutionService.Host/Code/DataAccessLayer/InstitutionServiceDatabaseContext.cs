@@ -27,7 +27,7 @@ namespace InstitutionService.Host.Code.DataAccessLayer
             Database.SetInitializer<InstitutionServiceDatabaseContext>(null);
         }
 
-        public InstitutionServiceDatabaseContext() : base("mgrDatabase") { }
+        public InstitutionServiceDatabaseContext(string connectionName) : base(connectionName) { }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -15,9 +15,7 @@ namespace Domain.Inventory
         public Guid MedicineId { get; set; }
         [DataMember]
         public double Dose { get; set; }
-        [DataMember]
         public virtual Treatment Treatment { get; set; }
-        [DataMember]
         public virtual Medicine Medicine { get; set; }
     }
 }
