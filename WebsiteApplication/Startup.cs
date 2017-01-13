@@ -36,7 +36,6 @@ namespace WebsiteApplication
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
             container.Verify();
 
-
             ConfigureAuth(app, container);
         }
 
