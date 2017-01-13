@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain;
-using Domain.Hospitalization;
 using Domain.Interfaces;
 using Domain.Inventory;
+using Domain.Residence;
 using InstitutionService.Host.Code.Core;
 using InstitutionService.Host.Code.DataAccessLayer;
 
@@ -15,7 +15,6 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
 {
     public class InstitutionDatabaseInitializer
     {
-        private readonly InstitutionServiceDatabaseContext _context;
         private Random _rnd = new Random();
         private List<Medicine> _medicines = new List<Medicine>();
         private List<Patient> _patients = new List<Patient>();
@@ -24,14 +23,11 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
         private List<Treatment> _treatments = new List<Treatment>();
         private List<UsedMedicine> _usedMedicines = new List<UsedMedicine>();
 
-        public InstitutionDatabaseInitializer(IDatabaseContext context)
-        {
-            _context = context as InstitutionServiceDatabaseContext;
-        }
-
         public void Seed()
         {
-            if (_context.Patients.Any())
+            var patientRepository = new InstitutionServiceDatabaseContext("InstitutionContext");//ObjectBuilder.Container.GetInstance<IPatientRepository>().Patients;
+
+            if (patientRepository.Patients.Any())
                 return;
 
             AddMedicines();
@@ -44,6 +40,8 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
 
         private void AddMedicines()
         {
+            var medicineRepository = new InstitutionServiceDatabaseContext("InstitutionContext"); //ObjectBuilder.Container.GetInstance<IMedicineRepository>();
+
             _medicines.Add(new Medicine() { MedicineId = Guid.NewGuid(), MedicineName = "Witamina C" });
             _medicines.Add(new Medicine() { MedicineId = Guid.NewGuid(), MedicineName = "Rutinoskorbin" });
             _medicines.Add(new Medicine() { MedicineId = Guid.NewGuid(), MedicineName = "Morfina" });
@@ -56,12 +54,14 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
             _medicines.Add(new Medicine() { MedicineId = Guid.NewGuid(), MedicineName = "Soda" });
 
 
-            _medicines.ForEach(s => _context.Medicines.Add(s));
-            _context.SaveChanges();
+            _medicines.ForEach(s => medicineRepository.Medicines.Add(s));
+            medicineRepository.SaveChanges();
         }
 
         private void AddPatients()
         {
+            var patientRepository = new InstitutionServiceDatabaseContext("InstitutionContext");//= ObjectBuilder.Container.GetInstance<IPatientRepository>();
+
             var patients = new List<Patient>
             {
                 new Patient()
@@ -268,12 +268,14 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                     i--;
             }
 
-            _patients.ForEach(s => _context.Patients.Add(s));
-            _context.SaveChanges();
+            _patients.ForEach(s => patientRepository.Patients.Add(s));
+            patientRepository.SaveChanges();
         }
 
         private void AddHospitalizations()
         {
+            var hospitalizationRepository = new InstitutionServiceDatabaseContext("InstitutionContext");//= ObjectBuilder.Container.GetInstance<IHospitalizationRepository>();
+
             foreach (var patient in _patients)
             {
                 var takeCount = _rnd.Next(0, 10);
@@ -285,12 +287,14 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                 }
             }
 
-            _hospitalizations.ForEach(s => _context.Hospitalizations.Add(s));
-            _context.SaveChanges();
+            _hospitalizations.ForEach(s => hospitalizationRepository.Hospitalizations.Add(s));
+            hospitalizationRepository.SaveChanges();
         }
 
         private void AddExaminations()
         {
+            var examinationRepository = new InstitutionServiceDatabaseContext("InstitutionContext");//= ObjectBuilder.Container.GetInstance<IExaminationRepository>();
+
             foreach (var hospitalization in _hospitalizations)
             {
                 var takeCount = _rnd.Next(0, 10);
@@ -302,12 +306,14 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                 }
             }
 
-            _examinations.ForEach(s => _context.Examinations.Add(s));
-            _context.SaveChanges();
+            _examinations.ForEach(s => examinationRepository.Examinations.Add(s));
+            examinationRepository.SaveChanges();
         }
 
         private void AddTreatments()
         {
+            var treatmentRepository = new InstitutionServiceDatabaseContext("InstitutionContext");//= ObjectBuilder.Container.GetInstance<ITreatmentRepository>();
+
             foreach (var hospitalization in _hospitalizations)
             {
                 var takeCount = _rnd.Next(0, 5);
@@ -317,12 +323,13 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                 }
             }
 
-            _treatments.ForEach(s => _context.Treatments.Add(s));
-            _context.SaveChanges();
+            _treatments.ForEach(s => treatmentRepository.Treatments.Add(s));
+            treatmentRepository.SaveChanges();
         }
 
         private void AddUsedMedicines()
         {
+            var usedMedicineRepository = new InstitutionServiceDatabaseContext("InstitutionContext");//= ObjectBuilder.Container.GetInstance<IUsedMedicineRepository>();
             foreach (var treatment in _treatments)
             {
                 var takeCount = _rnd.Next(0, 20);
@@ -332,8 +339,8 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                 }
             }
 
-            _usedMedicines.ForEach(s => _context.UsedMedicines.Add(s));
-            _context.SaveChanges();
+            _usedMedicines.ForEach(s => usedMedicineRepository.UsedMedicines.Add(s));
+            usedMedicineRepository.SaveChanges();
         }
 
         private DateTime GenRandomDate(DateTime min)

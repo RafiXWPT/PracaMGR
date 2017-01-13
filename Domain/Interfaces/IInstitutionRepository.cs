@@ -5,8 +5,8 @@ namespace Domain.Interfaces
     public interface IInstitutionRepository
     {
         IQueryable<Institution> Institutions { get; }
-        void Add();
-        void Update();
+        void Add(Institution institution);
+        void Update(Institution institution);
         void SaveChanges();
     }
 }

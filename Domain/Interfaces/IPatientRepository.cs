@@ -6,7 +6,7 @@ namespace Domain.Interfaces
     {
         IQueryable<Patient> Patients { get; }
         void Update(Patient patient);
-        void Add();
+        void Add(Patient patient);
         void SaveChanges();
     }
 }

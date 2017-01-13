@@ -1,21 +1,24 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using Domain.Hospitalization;
+using Domain.Residence;
 
 namespace Domain.Inventory
 {
-    [DataContract]
     public class UsedMedicine
     {
-        [DataMember]
         public Guid UsedMedicineId { get; set; }
-        [DataMember]
         public Guid TreatmentId { get; set; }
-        [DataMember]
         public Guid MedicineId { get; set; }
-        [DataMember]
         public double Dose { get; set; }
         public virtual Treatment Treatment { get; set; }
         public virtual Medicine Medicine { get; set; }
+    }
+
+    [DataContract]
+    public class UsedMedicineTransferObject
+    {
+        [DataMember]
+        public double Dose { get; set; }
+        public MedicineTransferObject Medicine { get; set; }
     }
 }

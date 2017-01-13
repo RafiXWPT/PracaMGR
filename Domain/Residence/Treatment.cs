@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Domain.Inventory;
 
-namespace Domain.Hospitalization
+namespace Domain.Residence
 {
-    [DataContract]
     public class Treatment
     {
-        [DataMember]
         public Guid TreatmentId { get; set; }
-        [DataMember]
         public Guid HospitalizationId { get; set; }
-        [DataMember]
         public DateTime TreatmentDateTime { get; set; }
         public virtual Hospitalization Hospitalization { get; set; }
-        [DataMember]
         public virtual ICollection<UsedMedicine> UsedMedicines { get; set; }
+    }
+
+    [DataContract]
+    public class TreatmentTransferObject
+    {
+        [DataMember]
+        public DateTime TreatmentDateTime { get; set; }
+        [DataMember]
+        public List<UsedMedicineTransferObject> UsedMedicines { get; set; }
     }
 }
