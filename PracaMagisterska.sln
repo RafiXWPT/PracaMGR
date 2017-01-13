@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DummyApp", "DummyApp", "{8D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DumyConsoleApplication", "DumyConsoleApplication\DumyConsoleApplication.csproj", "{D61725D6-009E-4B48-BEFA-3C8276429609}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstitutionService.Host.Tests", "InstitutionService.Host.Tests\InstitutionService.Host.Tests.csproj", "{5E4596BE-3440-4322-8BA9-03EB2BA2A96C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{D61725D6-009E-4B48-BEFA-3C8276429609}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D61725D6-009E-4B48-BEFA-3C8276429609}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D61725D6-009E-4B48-BEFA-3C8276429609}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E4596BE-3440-4322-8BA9-03EB2BA2A96C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E4596BE-3440-4322-8BA9-03EB2BA2A96C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E4596BE-3440-4322-8BA9-03EB2BA2A96C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E4596BE-3440-4322-8BA9-03EB2BA2A96C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,5 +67,6 @@ Global
 		{59223861-97E2-4DF0-A8FA-E724FB5AA8B0} = {476D37FF-A1C4-4D41-964C-5F811DD9149F}
 		{F42A4C32-807A-4DB6-B797-022DDDBFFC3E} = {476D37FF-A1C4-4D41-964C-5F811DD9149F}
 		{D61725D6-009E-4B48-BEFA-3C8276429609} = {8DF41903-B332-470D-913E-0102D0C9A39D}
+		{5E4596BE-3440-4322-8BA9-03EB2BA2A96C} = {14C37033-6FEA-45F4-9BAD-1FE39AF2FA78}
 	EndGlobalSection
 EndGlobal
