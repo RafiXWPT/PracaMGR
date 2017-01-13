@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain;
-using Domain.Hospitalization;
 using Domain.Interfaces;
 using Domain.Inventory;
+using Domain.Residence;
 
 namespace InstitutionService.Host.Code.DataAccessLayer
 {
-    public class InstitutionServiceDatabaseContext : DbContext, IDatabaseContext
+    public class InstitutionServiceDatabaseContext : DbContext, IRepository
     {
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Patient> Patients { get; set; }

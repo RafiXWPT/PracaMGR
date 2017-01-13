@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
+using System.ServiceModel;
 using AutoMapper;
 using Domain;
 using Domain.Interfaces;
-using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.Core
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
     class InstitutionService : IInstitutionService
     {
         public string GetInstitutionName()
@@ -14,24 +16,24 @@ namespace InstitutionService.Host.Code.Core
             return ConfigurationProvider.Instance.GetInstitutionName();
         }
 
-        public Patient GetPatientBasicInfo(string pesel)
+        public PatientTransferObject GetPatientBasicInfo(string pesel)
         {
-            var context = ObjectBuilder.Container.GetInstance<IDatabaseContext>() as InstitutionServiceDatabaseContext;
+            var patientRepository = ObjectBuilder.Container.GetInstance<IPatientRepository>();
 
-            var patient = context?.Patients.AsNoTracking().FirstOrDefault(p => p.Pesel == pesel);
+            var patient = patientRepository?.Patients.AsNoTracking().FirstOrDefault(p => p.Pesel == pesel);
             if (patient == null)
-                return new Patient();
+                return new PatientTransferObject();
 
             patient.Hospitalizations.Clear();
-            return Mapper.Map<Patient>(patient);
+            return Mapper.Map<PatientTransferObject>(patient);
         }
 
-        public Patient GetPatientFullInfo(string pesel)
+        public PatientTransferObject GetPatientFullInfo(string pesel)
         {
-            var context = ObjectBuilder.Container.GetInstance<IDatabaseContext>() as InstitutionServiceDatabaseContext;
+            var patientRepository = ObjectBuilder.Container.GetInstance<IPatientRepository>();
 
-            var patient = context?.Patients.FirstOrDefault(p => p.Pesel == pesel);
-            return patient == null ? new Patient() : Mapper.Map<Patient>(patient);
+            var patient = patientRepository?.Patients.FirstOrDefault(p => p.Pesel == pesel);
+            return patient == null ? new PatientTransferObject() : Mapper.Map<PatientTransferObject>(patient);
         }
     }
 }

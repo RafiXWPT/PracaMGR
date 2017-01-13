@@ -13,4 +13,10 @@ namespace Domain
         public string InstitutionEndpointAddress { get; set; }
         public virtual Address Address { get; set; }
     }
+
+    public class InstitutionTransferObject
+    {
+        public string InstitutionEndpointAddress { get; set; }
+        public AddressTransferObject Address { get; set; }
+    }
 }

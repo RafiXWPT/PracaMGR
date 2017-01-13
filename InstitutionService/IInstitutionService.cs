@@ -10,8 +10,8 @@ namespace InstitutionService
         [OperationContract]
         string GetInstitutionName();
         [OperationContract]
-        Patient GetPatientBasicInfo(string pesel);
+        PatientTransferObject GetPatientBasicInfo(string pesel);
         [OperationContract]
-        Patient GetPatientFullInfo(string pesel);
+        PatientTransferObject GetPatientFullInfo(string pesel);
     }
 }

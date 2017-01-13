@@ -9,29 +9,29 @@ using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    public class DatabaseRepository : IPatientRepository
+    class DatabaseAddressRepository : IAddressRepository
     {
         private readonly InstitutionServiceDatabaseContext _context;
+        public IQueryable<Address> Addresses => _context.Addresses;
 
-        public IQueryable<Patient> Patients => _context.Patients;
-
-        public DatabaseRepository(IDatabaseContext context)
+        public DatabaseAddressRepository(IRepository context)
         {
             _context = context as InstitutionServiceDatabaseContext;
         }
-        public void Update(Patient patient)
+
+        public void Update(Address address)
         {
             throw new NotImplementedException();
         }
 
-        public void Add()
+        public void Add(Address address)
         {
-            throw new NotImplementedException();
+            _context.Addresses.Add(address);
         }
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
     }
 }

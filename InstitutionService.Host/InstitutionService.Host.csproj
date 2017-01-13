@@ -105,7 +105,13 @@
     <Compile Include="Code\Core\ObjectBuilder.cs" />
     <Compile Include="Code\Core\WcfServiceProvider.cs" />
     <Compile Include="Code\DataAccessLayer\InstitutionServiceDatabaseContext.cs" />
-    <Compile Include="Code\DatabaseProvider\DatabaseRepository.cs" />
+    <Compile Include="Code\DatabaseProvider\DatabaseAddressRepository.cs" />
+    <Compile Include="Code\DatabaseProvider\DatabaseExaminationRepository.cs" />
+    <Compile Include="Code\DatabaseProvider\DatabaseHospitalizationRepository.cs" />
+    <Compile Include="Code\DatabaseProvider\DatabaseMedicineRepository.cs" />
+    <Compile Include="Code\DatabaseProvider\DatabasePatientRepository.cs" />
+    <Compile Include="Code\DatabaseProvider\DatabaseTreatmentRepository.cs" />
+    <Compile Include="Code\DatabaseProvider\DatabaseUsedMedicineRepository.cs" />
     <Compile Include="Code\DummyDatabaseInitializer\InstitutionDatabaseInitializer.cs" />
     <Compile Include="Migrations\201701121856597_Init.cs" />
     <Compile Include="Migrations\201701121856597_Init.Designer.cs">

@@ -21,7 +21,7 @@ namespace InstitutionService.Host
             AutoMapperBuilder.RegisterAutoMapper();
             Console.WriteLine("Seeding database");
 
-            var t = new InstitutionDatabaseInitializer(ObjectBuilder.Container.GetInstance<IDatabaseContext>());
+            var t = new InstitutionDatabaseInitializer();
             t.Seed();
             
             Console.WriteLine("Running service");
