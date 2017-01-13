@@ -14,7 +14,7 @@ namespace WebsiteApplication.DataAccessLayer
     class WebsiteDatabaseContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Institution> Institutions { get; set; }
-        public WebsiteDatabaseContext() : base("WebsiteContext", false) { }
+        public WebsiteDatabaseContext() : base("WebsiteDatabase", false) { }
         public WebsiteDatabaseContext(string connectionName) : base(connectionName, false) { }
 
         static WebsiteDatabaseContext()

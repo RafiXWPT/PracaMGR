@@ -184,17 +184,17 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ASP.NET Identity\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ASP.NET Identity\ManageController.cs" />
     <Compile Include="DataAccessLayer\DatabaseInstitutionRepository.cs" />
     <Compile Include="DataAccessLayer\WebsiteDatabaseContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701131907338_Init.cs" />
-    <Compile Include="Migrations\201701131907338_Init.Designer.cs">
-      <DependentUpon>201701131907338_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201701132038082_Init.cs" />
+    <Compile Include="Migrations\201701132038082_Init.Designer.cs">
+      <DependentUpon>201701132038082_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -295,8 +295,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701131907338_Init.resx">
-      <DependentUpon>201701131907338_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701132038082_Init.resx">
+      <DependentUpon>201701132038082_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
