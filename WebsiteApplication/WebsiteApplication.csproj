@@ -184,18 +184,19 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ASP.NET Identity\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ASP.NET Identity\ManageController.cs" />
+    <Compile Include="Controllers\InstitutionController.cs" />
+    <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="DataAccessLayer\DatabaseInstitutionRepository.cs" />
-    <Compile Include="DataAccessLayer\IApplicationDataProvider.cs" />
     <Compile Include="DataAccessLayer\WebsiteDatabaseContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701131907338_Init.cs" />
-    <Compile Include="Migrations\201701131907338_Init.Designer.cs">
-      <DependentUpon>201701131907338_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201701132038082_Init.cs" />
+    <Compile Include="Migrations\201701132038082_Init.Designer.cs">
+      <DependentUpon>201701132038082_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -229,6 +230,8 @@
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -276,6 +279,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Institution\" />
+    <Folder Include="Views\Patient\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -294,8 +299,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701131907338_Init.resx">
-      <DependentUpon>201701131907338_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701132038082_Init.resx">
+      <DependentUpon>201701132038082_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

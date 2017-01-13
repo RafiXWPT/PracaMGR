@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Web;
+using System.Web.Mvc;
 using Domain.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -11,6 +12,7 @@ using Microsoft.Owin.Security.DataProtection;
 using Owin;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
+using SimpleInjector.Integration.Web.Mvc;
 using WebsiteApplication.DataAccessLayer;
 using WebsiteApplication.Models;
 
@@ -24,7 +26,7 @@ namespace WebsiteApplication
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
             container.RegisterSingleton(app);
-            container.Register(() => new WebsiteDatabaseContext("WebsiteContext"), Lifestyle.Scoped);
+            container.Register(() => new WebsiteDatabaseContext("WebsiteDatabase"), Lifestyle.Scoped);
             container.Register<ApplicationUserManager>(Lifestyle.Scoped);
             container.Register<ApplicationSignInManager>(Lifestyle.Scoped);
             container.Register<IInstitutionRepository, DatabaseInstitutionRepository>(Lifestyle.Scoped);
@@ -34,8 +36,10 @@ namespace WebsiteApplication
             container.RegisterInitializer<ApplicationUserManager>(manager => InitializeUserManager(manager, app));
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
+
             container.Verify();
 
+            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
 
             ConfigureAuth(app, container);
         }
