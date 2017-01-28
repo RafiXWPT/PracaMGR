@@ -14,18 +14,19 @@ namespace InstitutionService.Host.Code.DataAccessLayer
 {
     public class InstitutionServiceDatabaseContext : DbContext, IRepository
     {
-        public DbSet<Address> Addresses { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Hospitalization> Hospitalizations { get; set; }
         public DbSet<Examination> Examinations { get; set; }
         public DbSet<Treatment> Treatments { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<UsedMedicine> UsedMedicines { get; set; }
-
+        
         static InstitutionServiceDatabaseContext()
         {
-            Database.SetInitializer<InstitutionServiceDatabaseContext>(null);
+            Database.SetInitializer<InstitutionServiceDatabaseContext>(null);           
         }
+
+        public InstitutionServiceDatabaseContext() : base(ConfigurationProvider.Instance.GetValue("INSTITUTION_DATABASE_NAME")) { }
 
         public InstitutionServiceDatabaseContext(string connectionName) : base(connectionName) { }
 

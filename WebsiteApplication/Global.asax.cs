@@ -26,7 +26,7 @@ namespace WebsiteApplication
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Institution, InstitutionTransferObject>();
-                cfg.CreateMap<PatientTransferObject, PatientBasicViewModel>();
+                cfg.CreateMap<PatientTransferObject, PersonViewModel>();
             });
         }
     }

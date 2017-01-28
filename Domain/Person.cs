@@ -1,23 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
-using Domain.Residence;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Patient
+    public class Person
     {
-        public Guid PatientId { get; set; }
+        public Guid PersonId { get; set; }
         public string Pesel { get; set; }
-        public virtual ICollection<Hospitalization> Hospitalizations { get; set; }
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string InsuranceId { get; set; }
+        public virtual Address Address { get; set; }
     }
 
     [DataContract]
-    public class PatientTransferObject
+    public class PersonTransferObject
     {
         [DataMember]
         public string Pesel { get; set; }
-        /*[DataMember]
+        [DataMember]
         public string FirstName { get; set; }
         [DataMember]
         public string SecondName { get; set; }
@@ -26,8 +32,6 @@ namespace Domain
         [DataMember]
         public string InsuranceId { get; set; }
         [DataMember]
-        public AddressTransferObject Address { get; set; }*/
-        [DataMember]
-        public List<HospitalizationTransferObject> Hospitalizations { get; set; }
+        public AddressTransferObject Address { get; set; }
     }
 }

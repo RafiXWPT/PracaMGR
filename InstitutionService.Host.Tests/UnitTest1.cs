@@ -43,13 +43,6 @@ namespace InstitutionService.Host.Tests
         }
 
         [TestMethod]
-        public void GetAddressRepository()
-        {
-            var repository = ObjectBuilder.Container.GetInstance<IAddressRepository>();
-            Assert.IsNotNull(repository);
-        }
-
-        [TestMethod]
         public void GetMedicineRepository()
         {
             var repository = ObjectBuilder.Container.GetInstance<IMedicineRepository>();

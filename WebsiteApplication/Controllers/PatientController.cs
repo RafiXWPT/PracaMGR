@@ -19,12 +19,21 @@ namespace WebsiteApplication.Controllers
             _repository = repository;
         }
 
-        [Route("GetPatient/{pesel}")]
-        public ActionResult GetPatient(string pesel)
+        [Route("History/{pesel}")]
+        public ActionResult GetHistory(string pesel)
         {
-            var fetcher = new WcfDataFetcher(_repository);
-            var patient = Mapper.Map<PatientBasicViewModel>(fetcher.GetPatient(pesel));
-            return View(patient);
+            throw new NotImplementedException();
+            /*var fetcher = new WcfDataFetcher(_repository);
+            var patient = Mapper.Map<PersonViewModel>(fetcher.GetPatientHistory(pesel));
+            return View(patient);*/
+        }
+
+        [Route("Person/{pesel}")]
+        public ActionResult GetPersonInfo(string pesel)
+        {
+            var wcf = new WcfPersonInfoFetcher();
+            var person = wcf.GetPersonInfo(pesel);
+            return View();
         }
     }
 }

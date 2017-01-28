@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebsiteApplication.Models.ViewModels.Patient
 {
-    public class PatientBasicViewModel
+    public class PersonViewModel
     {
         public string Pesel { get; set; }
         public string FirstName { get; set; }

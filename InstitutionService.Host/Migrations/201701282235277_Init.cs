@@ -8,20 +8,6 @@ namespace InstitutionService.Host.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Address",
-                c => new
-                    {
-                        AddressId = c.Guid(nullable: false),
-                        Country = c.String(),
-                        Province = c.String(),
-                        City = c.String(),
-                        Street = c.String(),
-                        ZipCode = c.String(),
-                        HomeNumber = c.String(),
-                    })
-                .PrimaryKey(t => t.AddressId);
-            
-            CreateTable(
                 "dbo.Examination",
                 c => new
                     {
@@ -54,15 +40,8 @@ namespace InstitutionService.Host.Migrations
                     {
                         PatientId = c.Guid(nullable: false),
                         Pesel = c.String(),
-                        FirstName = c.String(),
-                        SecondName = c.String(),
-                        BirthDate = c.DateTime(nullable: false),
-                        InsuranceId = c.String(),
-                        Address_AddressId = c.Guid(),
                     })
-                .PrimaryKey(t => t.PatientId)
-                .ForeignKey("dbo.Address", t => t.Address_AddressId)
-                .Index(t => t.Address_AddressId);
+                .PrimaryKey(t => t.PatientId);
             
             CreateTable(
                 "dbo.Treatment",
@@ -108,12 +87,10 @@ namespace InstitutionService.Host.Migrations
             DropForeignKey("dbo.UsedMedicine", "MedicineId", "dbo.Medicine");
             DropForeignKey("dbo.Treatment", "HospitalizationId", "dbo.Hospitalization");
             DropForeignKey("dbo.Hospitalization", "PatientId", "dbo.Patient");
-            DropForeignKey("dbo.Patient", "Address_AddressId", "dbo.Address");
             DropForeignKey("dbo.Examination", "HospitalizationId", "dbo.Hospitalization");
             DropIndex("dbo.UsedMedicine", new[] { "MedicineId" });
             DropIndex("dbo.UsedMedicine", new[] { "TreatmentId" });
             DropIndex("dbo.Treatment", new[] { "HospitalizationId" });
-            DropIndex("dbo.Patient", new[] { "Address_AddressId" });
             DropIndex("dbo.Hospitalization", new[] { "PatientId" });
             DropIndex("dbo.Examination", new[] { "HospitalizationId" });
             DropTable("dbo.Medicine");
@@ -122,7 +99,6 @@ namespace InstitutionService.Host.Migrations
             DropTable("dbo.Patient");
             DropTable("dbo.Hospitalization");
             DropTable("dbo.Examination");
-            DropTable("dbo.Address");
         }
     }
 }

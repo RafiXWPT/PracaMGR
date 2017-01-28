@@ -28,7 +28,6 @@ namespace InstitutionService.Host.Code.Core
 
             Container.Register<IRepository>(() => new InstitutionServiceDatabaseContext("InstitutionContext"));
             Container.Register<IPatientRepository, DatabasePatientRepository>();
-            Container.Register<IAddressRepository, DatabaseAddressRepository>();
             Container.Register<IHospitalizationRepository, DatabaseHospitalizationRepository>();
             Container.Register<ITreatmentRepository, DatabaseTreatmentRepository>();
             Container.Register<IExaminationRepository, DatabaseExaminationRepository>();
