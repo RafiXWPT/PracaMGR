@@ -11,7 +11,7 @@ namespace WebsiteApplication.DataAccessLayer
     class DatabaseInstitutionRepository : IInstitutionRepository
     {
         private readonly WebsiteDatabaseContext _context;
-        public IQueryable<Institution> Institutions { get; }
+        public IQueryable<Institution> Institutions => _context.Institutions;
 
         public DatabaseInstitutionRepository(WebsiteDatabaseContext context)
         {
@@ -21,9 +21,15 @@ namespace WebsiteApplication.DataAccessLayer
         public void Add(Institution institution)
         {
             _context.Institutions.Add(institution);
+            _context.SaveChanges();
         }
 
         public void Update(Institution institution)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(Institution institution)
         {
             throw new NotImplementedException();
         }

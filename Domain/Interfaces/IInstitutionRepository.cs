@@ -7,6 +7,7 @@ namespace Domain.Interfaces
         IQueryable<Institution> Institutions { get; }
         void Add(Institution institution);
         void Update(Institution institution);
+        void Delete(Institution institution);
         void SaveChanges();
     }
 }

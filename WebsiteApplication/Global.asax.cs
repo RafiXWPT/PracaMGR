@@ -10,6 +10,7 @@ using AutoMapper;
 using Domain;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
+using WebsiteApplication.Models.ViewModels.Patient;
 
 namespace WebsiteApplication
 {
@@ -25,6 +26,7 @@ namespace WebsiteApplication
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Institution, InstitutionTransferObject>();
+                cfg.CreateMap<PatientTransferObject, PatientBasicViewModel>();
             });
         }
     }
