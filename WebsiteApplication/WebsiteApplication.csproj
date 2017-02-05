@@ -294,6 +294,9 @@
     <Content Include="Views\Patient\GetHistory.cshtml" />
     <Content Include="Views\Patient\_PersonInfo.cshtml" />
     <Content Include="Views\Patient\_PatientInfo.cshtml" />
+    <Content Include="Views\Patient\_HospitalizationInfo.cshtml" />
+    <Content Include="Views\Patient\_Examinations.cshtml" />
+    <Content Include="Views\Patient\_Treatments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

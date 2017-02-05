@@ -1,0 +1,22 @@
+﻿@model ICollection<WebsiteApplication.Models.ViewModels.Patient.Hospitalization.TreatmentViewModel>
+   
+@{ var dataPanel = Guid.NewGuid().ToString();}
+<div class="panel-group" id="accordion@(dataPanel)">
+    @foreach (var record in Model.OrderBy(x => x.TreatmentDateTime).ToList())
+    {
+        var treatmentId = Guid.NewGuid().ToString();
+
+        <div class="panel panel-default">
+            <div class="panel-heading bg-info">
+                <a data-toggle="collapse" data-parent="#accordion@(dataPanel)" href="#@treatmentId">
+                    Data leczenia @record.TreatmentDateTime
+                </a>
+            </div>
+            <div id="@treatmentId" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Użyte leki:
+                </div>
+            </div>
+        </div>
+    }
+</div>

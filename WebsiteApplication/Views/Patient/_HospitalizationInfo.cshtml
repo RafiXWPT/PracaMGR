@@ -1,0 +1,49 @@
+﻿@model WebsiteApplication.Models.ViewModels.Patient.Hospitalization.HospitalizationViewModel
+    
+<hr/>
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.HospitalizationStartTime)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.HospitalizationStartTime)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.HospitalizationEndTime)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.HospitalizationEndTime)
+    </dd>
+</dl>
+<div class="panel-group" id="accordion@(ViewData["dataBox"])">
+    @{
+        var boxId = Guid.NewGuid().ToString();
+        <div class="panel panel-default">
+            <div class="panel-heading bg-info">
+                <a data-toggle="collapse" data-parent="#accordion@(ViewData["dataBox"])" href="#@boxId">
+                    Przeprowadzone badania podczas pobytu
+                </a>
+            </div>
+            <div id="@boxId" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @{ Html.RenderPartial("_Examinations", Model.Examinations); }
+                </div>
+            </div>
+        </div>
+        boxId = Guid.NewGuid().ToString();
+        <div class="panel panel-default">
+            <div class="panel-heading bg-info">
+                <a data-toggle="collapse" data-parent="#accordion@(ViewData["dataBox"])" href="#@boxId">
+                    Przeprowadzone kuracje podczas pobytu
+                </a>
+            </div>
+            <div id="@boxId" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @{ Html.RenderPartial("_Treatments", Model.Treatments); }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+

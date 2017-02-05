@@ -8,5 +8,8 @@ namespace WebsiteApplication.Models.ViewModels.Patient.Hospitalization
 {
     public class ExaminationViewModel
     {
+        public DateTime ExaminationStartTime { get; set; }
+        public DateTime ExaminationEndTime { get; set; }
+        public string ExaminationDetails { get; set; }
     }
 }
