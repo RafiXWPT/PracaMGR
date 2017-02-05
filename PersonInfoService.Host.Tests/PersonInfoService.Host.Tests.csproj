@@ -63,7 +63,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PersonInfoService\PersonInfoService.Host.csproj">
+    <ProjectReference Include="..\PersonInfoService.Host\PersonInfoService.Host.csproj">
       <Project>{BC65F8F5-79B2-4662-AE4A-1422337CF63E}</Project>
       <Name>PersonInfoService.Host</Name>
     </ProjectReference>

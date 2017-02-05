@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DumyConsoleApplication", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstitutionService.Host.Tests", "InstitutionService.Host.Tests\InstitutionService.Host.Tests.csproj", "{5E4596BE-3440-4322-8BA9-03EB2BA2A96C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonInfoService.Host", "PersonInfoService\PersonInfoService.Host.csproj", "{BC65F8F5-79B2-4662-AE4A-1422337CF63E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonInfoService.Host", "PersonInfoService.Host\PersonInfoService.Host.csproj", "{BC65F8F5-79B2-4662-AE4A-1422337CF63E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonInfoService.Host.Tests", "PersonInfoService.Host.Tests\PersonInfoService.Host.Tests.csproj", "{F5A91A5D-E703-4568-866A-6AF248336A1E}"
 EndProject

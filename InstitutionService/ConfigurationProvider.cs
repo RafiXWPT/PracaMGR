@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace PersonInfoService.Host.Code
+namespace InstitutionService
 {
     public sealed class ConfigurationProvider
     {

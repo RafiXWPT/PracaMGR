@@ -28,7 +28,7 @@ namespace DumyConsoleApplication
 
         static void GetPatientInfo(IInstitutionService client)
         {
-            var patient = client.GetPatientBasicInfo("26112804811");
+            var patient = client.GetPatientInfo("26112804811");
         }
 
         static void Main(string[] args)

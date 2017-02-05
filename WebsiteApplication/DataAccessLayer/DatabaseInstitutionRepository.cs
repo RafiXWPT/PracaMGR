@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,12 +27,14 @@ namespace WebsiteApplication.DataAccessLayer
 
         public void Update(Institution institution)
         {
-            throw new NotImplementedException();
+            _context.Entry(institution).State = EntityState.Modified;
+            _context.SaveChanges();
         }
 
         public void Delete(Institution institution)
         {
-            throw new NotImplementedException();
+            _context.Institutions.Remove(institution);
+            _context.SaveChanges();
         }
 
         public void SaveChanges()

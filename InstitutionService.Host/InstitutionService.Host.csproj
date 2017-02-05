@@ -99,7 +99,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\ConfigurationProvider.cs" />
     <Compile Include="Code\Core\AutoMapperBuilder.cs" />
     <Compile Include="Code\Core\InstitutionService.cs" />
     <Compile Include="Code\Core\ObjectBuilder.cs" />

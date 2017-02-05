@@ -14,25 +14,29 @@ namespace WebsiteApplication.Controllers
     public class PatientController : Controller
     {
         private readonly IInstitutionRepository _repository;
+        private readonly WcfPersonInfoFetcher _personInfoFetcher;
+        private readonly WcfDataFetcher _patientInfoFetcher;
         public PatientController(IInstitutionRepository repository)
         {
             _repository = repository;
+            _personInfoFetcher = new WcfPersonInfoFetcher();
+            _patientInfoFetcher = new WcfDataFetcher(_repository);
         }
 
         [Route("History/{pesel}")]
         public ActionResult GetHistory(string pesel)
         {
-            throw new NotImplementedException();
-            /*var fetcher = new WcfDataFetcher(_repository);
-            var patient = Mapper.Map<PersonViewModel>(fetcher.GetPatientHistory(pesel));
-            return View(patient);*/
-        }
+            var person = Mapper.Map<PersonViewModel>(_personInfoFetcher.GetPersonInfo(pesel));
+            if (person != null)
+            {
+                var patientRecordList = new List<PatientViewModel>();
+                foreach (var record in _patientInfoFetcher.GetPatientHistory(pesel))
+                {
+                    patientRecordList.Add(Mapper.Map<PatientViewModel>(record));
+                }
+                return View(new PersonizedPatientViewModel {PersonViewModel = person, PatientViewModels = patientRecordList });
+            }
 
-        [Route("Person/{pesel}")]
-        public ActionResult GetPersonInfo(string pesel)
-        {
-            var wcf = new WcfPersonInfoFetcher();
-            var person = wcf.GetPersonInfo(pesel);
             return View();
         }
     }

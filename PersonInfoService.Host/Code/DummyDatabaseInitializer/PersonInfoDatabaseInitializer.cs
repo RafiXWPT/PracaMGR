@@ -10,7 +10,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
     {
         public void Seed()
         {
-            var personRepository = new PersonInfoServiceDatabaseContext();//ObjectBuilder.Container.GetInstance<IPatientRepository>().Patients;
+            var personRepository = new PersonInfoServiceDatabaseContext();
 
             if (personRepository.Persons.Any())
                 return;

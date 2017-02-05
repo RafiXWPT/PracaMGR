@@ -26,7 +26,7 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
 
         public void Seed()
         {
-            var patientRepository = new InstitutionServiceDatabaseContext("InstitutionContext");//ObjectBuilder.Container.GetInstance<IPatientRepository>().Patients;
+            var patientRepository = new InstitutionServiceDatabaseContext("InstitutionContext");
 
             if (patientRepository.Patients.Any())
                 return;
@@ -41,7 +41,7 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
 
         private void AddMedicines()
         {
-            var medicineRepository = new InstitutionServiceDatabaseContext("InstitutionContext"); //ObjectBuilder.Container.GetInstance<IMedicineRepository>();
+            var medicineRepository = new InstitutionServiceDatabaseContext("InstitutionContext");
 
             _medicines.Add(new Medicine() { MedicineId = Guid.NewGuid(), MedicineName = "Witamina C" });
             _medicines.Add(new Medicine() { MedicineId = Guid.NewGuid(), MedicineName = "Rutinoskorbin" });

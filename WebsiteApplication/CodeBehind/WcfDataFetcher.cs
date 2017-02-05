@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Web.WebSockets;
+using AutoMapper;
 using Domain;
 using Domain.Interfaces;
+using Domain.Residence;
 using InstitutionService;
+using WebsiteApplication.Models.ViewModels.Patient;
+using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;
 
 namespace WebsiteApplication.CodeBehind
 {
@@ -21,7 +26,7 @@ namespace WebsiteApplication.CodeBehind
             }
             catch (Exception)
             {
-                //(client as ICommunicationObject)?.Abort();
+
                 return null;
             }
 
@@ -40,17 +45,7 @@ namespace WebsiteApplication.CodeBehind
             _repository = repository;
         }
 
-        public PatientTransferObject GetPatientBasicInfo(string pesel, Institution institution)
-        {
-            return GetPatientHistory(pesel, institution, false);
-        }
-
-        public PatientTransferObject GetPatientFullInfo(string pesel, Institution institution)
-        {
-            return GetPatientHistory(pesel, institution, true);
-        }
-
-        public PatientTransferObject GetPatientHistory(string pesel)
+        public List<PatientTransferObject> GetPatientHistory(string pesel)
         {
             if (!_repository.Institutions.Any())
                 return null;
@@ -58,23 +53,16 @@ namespace WebsiteApplication.CodeBehind
             var patientRecords = new List<PatientTransferObject>();
             foreach (var institution in _repository.Institutions)
             {
-                patientRecords.Add(GetPatientFullInfo(pesel, institution));
+                patientRecords.Add(GetPatientHistory(pesel, institution));
             }
-
-            var outputPatientData = new PatientTransferObject();
-
-            foreach (var outputHospitalization in patientRecords)
-            {
-                outputPatientData.Hospitalizations.AddRange(outputHospitalization.Hospitalizations);
-            }
-
-            return outputPatientData;
+       
+            return patientRecords;
         }
 
-        private PatientTransferObject GetPatientHistory(string pesel, Institution institution, bool fullHistory)
+        private PatientTransferObject GetPatientHistory(string pesel, Institution institution)
         {
             var connection = EstablishConnection(institution.InstitutionEndpointAddress);
-            var patient = fullHistory ? connection.GetPatientBasicInfo(pesel) : connection.GetPatientFullInfo(pesel);
+            var patient = connection.GetPatientInfo(pesel);
             CloseConnection(connection);
             return patient;
         }

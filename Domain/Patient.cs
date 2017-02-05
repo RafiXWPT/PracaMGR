@@ -17,17 +17,9 @@ namespace Domain
     {
         [DataMember]
         public string Pesel { get; set; }
-        /*[DataMember]
-        public string FirstName { get; set; }
         [DataMember]
-        public string SecondName { get; set; }
+        public string InstitutionName { get; set; }
         [DataMember]
-        public DateTime BirthDate { get; set; }
-        [DataMember]
-        public string InsuranceId { get; set; }
-        [DataMember]
-        public AddressTransferObject Address { get; set; }*/
-        [DataMember]
-        public List<HospitalizationTransferObject> Hospitalizations { get; set; }
+        public List<HospitalizationTransferObject> Hospitalizations { get; set; } = new List<HospitalizationTransferObject>();
     }
 }

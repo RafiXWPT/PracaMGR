@@ -12,12 +12,12 @@ namespace WebsiteApplication.CodeBehind
 {
     class WcfPersonInfoFetcher
     {
-        private readonly string personDatabaseEndpoint = ConfigurationManager.AppSettings["PERSON_DATABASE_ENDPOINT"];
+        private readonly string _personDatabaseEndpoint = ConfigurationManager.AppSettings["PERSON_DATABASE_ENDPOINT"];
 
         private IPersonInfoService EstablishConnection()
         {
             var binding = new NetTcpBinding();
-            var channel = new ChannelFactory<IPersonInfoService>(binding, personDatabaseEndpoint);
+            var channel = new ChannelFactory<IPersonInfoService>(binding, _personDatabaseEndpoint);
             IPersonInfoService client;
             try
             {

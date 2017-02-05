@@ -1,0 +1,41 @@
+﻿@model ICollection<WebsiteApplication.Models.ViewModels.Patient.PatientViewModel>
+
+<div>
+    <h4>Hospitalizacje</h4>
+
+    @foreach (var record in Model)
+    {
+        var id = Guid.NewGuid().ToString();
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading bg-info">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#@id">
+                        @record.InstitutionName
+                    </a>
+                </div>
+                <div id="@id" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @foreach (var hospitalization in record.Hospitalizations)
+                        {
+
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    @Html.DisplayNameFor(modelItem => hospitalization.HospitalizationStartTime)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(modelItem => hospitalization.HospitalizationStartTime)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(modelItem => hospitalization.HospitalizationEndTime)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(modelItem => hospitalization.HospitalizationEndTime)
+                                </dd>
+                            </dl>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

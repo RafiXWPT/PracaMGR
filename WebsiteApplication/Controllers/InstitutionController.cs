@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Domain;
 using Domain.Interfaces;
@@ -13,7 +9,7 @@ namespace WebsiteApplication.Controllers
 {
     public class InstitutionController : Controller
     {
-        private IInstitutionRepository _repository;
+        private readonly IInstitutionRepository _repository;
 
         public InstitutionController(IInstitutionRepository repository)
         {
@@ -56,8 +52,7 @@ namespace WebsiteApplication.Controllers
             if (ModelState.IsValid)
             {
                 institution.InstitutionId = Guid.NewGuid();
-                _repository.Add(institution);//.Institutions.Add(institution);
-                //db.SaveChanges();
+                _repository.Add(institution);
                 return RedirectToAction("Index");
             }
 
@@ -89,8 +84,6 @@ namespace WebsiteApplication.Controllers
             if (ModelState.IsValid)
             {
                 _repository.Update(institution);
-                //db.Entry(institution).State = EntityState.Modified;
-                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(institution);
@@ -119,8 +112,6 @@ namespace WebsiteApplication.Controllers
         {
             Institution institution = _repository.Institutions.First(x => x.InstitutionId == id);
             _repository.Delete(institution);
-            //db.Institutions.Remove(institution);
-            //db.SaveChanges();
             return RedirectToAction("Index");
         }
     }

@@ -21,7 +21,7 @@ namespace InstitutionService.Host.Code.Core
             using (var host = new ServiceHost(typeof(InstitutionService)))
             {
                 host.Open();
-                Console.WriteLine("Service Host Started");
+                Console.WriteLine($"Service Host Started");
                 Console.ReadLine();
             }
         }

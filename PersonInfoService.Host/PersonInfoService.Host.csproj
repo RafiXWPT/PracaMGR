@@ -58,7 +58,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\ConfigurationProvider.cs" />
     <Compile Include="Code\Core\AutoMapperBuilder.cs" />
     <Compile Include="Code\Core\PersonInfoService.cs" />
     <Compile Include="Code\Core\WcfServiceProvider.cs" />

@@ -8,9 +8,11 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
 using Domain;
+using Domain.Residence;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using WebsiteApplication.Models.ViewModels.Patient;
+using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;
 
 namespace WebsiteApplication
 {
@@ -25,8 +27,14 @@ namespace WebsiteApplication
 
             Mapper.Initialize(cfg =>
             {
+                // DTO OBJECTS
                 cfg.CreateMap<Institution, InstitutionTransferObject>();
-                cfg.CreateMap<PatientTransferObject, PersonViewModel>();
+                // VIEW MODELS
+                cfg.CreateMap<PersonTransferObject, PersonViewModel>();
+                cfg.CreateMap<PatientTransferObject, PatientViewModel>();
+                cfg.CreateMap<HospitalizationTransferObject, HospitalizationViewModel>();
+                cfg.CreateMap<TreatmentTransferObject, TreatmentViewModel>();
+                cfg.CreateMap<ExaminationTransferObject, ExaminationViewModel>();
             });
         }
     }
