@@ -4,10 +4,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.WebPages;
 using Domain;
-using Domain.Hospitalization;
 using Domain.Interfaces;
 using Domain.Inventory;
+using Domain.Residence;
 using InstitutionService.Host.Code.Core;
 using InstitutionService.Host.Code.DataAccessLayer;
 
@@ -15,7 +16,6 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
 {
     public class InstitutionDatabaseInitializer
     {
-        private readonly InstitutionServiceDatabaseContext _context;
         private Random _rnd = new Random();
         private List<Medicine> _medicines = new List<Medicine>();
         private List<Patient> _patients = new List<Patient>();
@@ -24,14 +24,11 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
         private List<Treatment> _treatments = new List<Treatment>();
         private List<UsedMedicine> _usedMedicines = new List<UsedMedicine>();
 
-        public InstitutionDatabaseInitializer(IDatabaseContext context)
-        {
-            _context = context as InstitutionServiceDatabaseContext;
-        }
-
         public void Seed()
         {
-            if (_context.Patients.Any())
+            var patientRepository = new InstitutionServiceDatabaseContext("InstitutionContext");
+
+            if (patientRepository.Patients.Any())
                 return;
 
             AddMedicines();
@@ -44,6 +41,8 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
 
         private void AddMedicines()
         {
+            var medicineRepository = new InstitutionServiceDatabaseContext("InstitutionContext");
+
             _medicines.Add(new Medicine() { MedicineId = Guid.NewGuid(), MedicineName = "Witamina C" });
             _medicines.Add(new Medicine() { MedicineId = Guid.NewGuid(), MedicineName = "Rutinoskorbin" });
             _medicines.Add(new Medicine() { MedicineId = Guid.NewGuid(), MedicineName = "Morfina" });
@@ -56,203 +55,73 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
             _medicines.Add(new Medicine() { MedicineId = Guid.NewGuid(), MedicineName = "Soda" });
 
 
-            _medicines.ForEach(s => _context.Medicines.Add(s));
-            _context.SaveChanges();
+            _medicines.ForEach(s => medicineRepository.Medicines.Add(s));
+            medicineRepository.SaveChanges();
         }
 
         private void AddPatients()
         {
+            var patientRepository = new InstitutionServiceDatabaseContext("InstitutionContext");//= ObjectBuilder.Container.GetInstance<IPatientRepository>();
+
             var patients = new List<Patient>
             {
                 new Patient()
                 {
                     PatientId = Guid.NewGuid(),
                     Pesel = "93070114133",
-                    FirstName = "Rafał",
-                    SecondName = "Palej",
-                    BirthDate = new DateTime(1993, 7, 1),
-                    InsuranceId = "259024",
-                    Address = new Address
-                    {
-                        AddressId = Guid.NewGuid(),
-                        Country = "Poland",
-                        Province = "Małopolska",
-                        ZipCode = "33-370",
-                        City = "Muszyna",
-                        Street = "Ogrodowa",
-                        HomeNumber = "109"
-                    }
                 },
                 new Patient()
                 {
                     PatientId = Guid.NewGuid(),
-                    Pesel = "24020809720",
-                    FirstName = "Anna",
-                    SecondName = "Nowak",
-                    BirthDate = new DateTime(1924,2,8),
-                    InsuranceId = "259001",
-                    Address = new Address
-                    {
-                        AddressId = Guid.NewGuid(),
-                        Country = "Poland",
-                        Province = "Małopolska",
-                        ZipCode = "30-006",
-                        City = "Kraków",
-                        Street = "Wrocławska",
-                        HomeNumber = "13"
-                    }
+                    Pesel = "24020809720",                  
                 },
                 new Patient()
                 {
                     PatientId = Guid.NewGuid(),
                     Pesel = "62012210646",
-                    FirstName = "Bogusław",
-                    SecondName = "Zbych",
-                    BirthDate = new DateTime(1962,1,22),
-                    InsuranceId = "259234",
-                    Address = new Address
-                    {
-                        AddressId = Guid.NewGuid(),
-                        Country = "Poland",
-                        Province = "Małopolska",
-                        ZipCode = "33-300",
-                        City = "Nowy Sącz",
-                        Street = "Tajemnicza",
-                        HomeNumber = "42"
-                    }
+                    
                 },
                 new Patient()
                 {
                     PatientId = Guid.NewGuid(),
                     Pesel = "64121311834",
-                    FirstName = "Adam",
-                    SecondName = "Nawałka",
-                    BirthDate = new DateTime(1964, 12, 13),
-                    InsuranceId = "215469",
-                    Address = new Address
-                    {
-                        AddressId = Guid.NewGuid(),
-                        Country = "Poland",
-                        Province = "Małopolska",
-                        ZipCode = "27-120",
-                        City = "Tarnów",
-                        Street = "Wiejska",
-                        HomeNumber = "33"
-                    }
+                    
                 },
                 new Patient()
                 {
                     PatientId = Guid.NewGuid(),
                     Pesel = "26112804811",
-                    FirstName = "Teodor",
-                    SecondName = "Krawczyk",
-                    BirthDate = new DateTime(1926,11,28),
-                    InsuranceId = "556125",
-                    Address = new Address
-                    {
-                        AddressId = Guid.NewGuid(),
-                        Country = "Poland",
-                        Province = "Małopolska",
-                        ZipCode = "17-270",
-                        City = "Lipnica",
-                        Street = "Czysta",
-                        HomeNumber = "42"
-                    }
+                    
                 },
                 new Patient()
                 {
                     PatientId = Guid.NewGuid(),
                     Pesel = "61061910064",
-                    FirstName = "Maria",
-                    SecondName = "Dadał",
-                    BirthDate = new DateTime(1961,6,19),
-                    InsuranceId = "221545",
-                    Address = new Address
-                    {
-                        AddressId = Guid.NewGuid(),
-                        Country = "Poland",
-                        Province = "Małopolska",
-                        ZipCode = "33-370",
-                        City = "Muszyna",
-                        Street = "Rolanda",
-                        HomeNumber = "41"
-                    }
+                    
                 },
                 new Patient()
                 {
                     PatientId = Guid.NewGuid(),
                     Pesel = "26031604565",
-                    FirstName = "Ewa",
-                    SecondName = "Palej",
-                    BirthDate = new DateTime(1926,3,16),
-                    InsuranceId = "996565",
-                    Address = new Address
-                    {
-                        AddressId = Guid.NewGuid(),
-                        Country = "Poland",
-                        Province = "Małopolska",
-                        ZipCode = "33-370",
-                        City = "Muszyna",
-                        Street = "Ogrodowa",
-                        HomeNumber = "109"
-                    }
+                    
                 },
                 new Patient()
                 {
                     PatientId = Guid.NewGuid(),
                     Pesel = "03300900942",
-                    FirstName = "Filip",
-                    SecondName = "Gościński",
-                    BirthDate = new DateTime(2003,3,1),
-                    InsuranceId = "259024",
-                    Address = new Address
-                    {
-                        AddressId = Guid.NewGuid(),
-                        Country = "Poland",
-                        Province = "Małopolska",
-                        ZipCode = "40-170",
-                        City = "Krynica-Zdrój",
-                        Street = "Niewiadoma",
-                        HomeNumber = "220"
-                    }
+                    
                 },
                 new Patient()
                 {
                     PatientId = Guid.NewGuid(),
                     Pesel = "89021303161",
-                    FirstName = "Kinga",
-                    SecondName = "Szepielak",
-                    BirthDate = new DateTime(1989,2,13),
-                    InsuranceId = "5124585",
-                    Address = new Address
-                    {
-                        AddressId = Guid.NewGuid(),
-                        Country = "Poland",
-                        Province = "Małopolska",
-                        ZipCode = "22-180",
-                        City = "Tarnów",
-                        Street = "Wola Rzędzińska",
-                        HomeNumber = "530"
-                    }
+                    
                 },
                 new Patient()
                 {
                     PatientId = Guid.NewGuid(),
                     Pesel = "60092601196",
-                    FirstName = "Sarys",
-                    SecondName = "Sire",
-                    BirthDate = new DateTime(1960,9,26),
-                    InsuranceId = "221546",
-                    Address = new Address
-                    {
-                        AddressId = Guid.NewGuid(),
-                        Country = "Tibia",
-                        Province = "Mainland",
-                        ZipCode = "00-001",
-                        City = "Venore",
-                        Street = "Depo",
-                        HomeNumber = "1"
-                    }
+                    
                 }
             };
 
@@ -268,29 +137,35 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                     i--;
             }
 
-            _patients.ForEach(s => _context.Patients.Add(s));
-            _context.SaveChanges();
+            _patients.ForEach(s => patientRepository.Patients.Add(s));
+            patientRepository.SaveChanges();
         }
 
         private void AddHospitalizations()
         {
+            var hospitalizationRepository = new InstitutionServiceDatabaseContext("InstitutionContext");//= ObjectBuilder.Container.GetInstance<IHospitalizationRepository>();
+
             foreach (var patient in _patients)
             {
                 var takeCount = _rnd.Next(0, 10);
                 for (var i = 0; i < takeCount; i++)
                 {
-                    var dateOfHospitalizationBegin = GenRandomDate(patient.BirthDate);
+                    var st = new DateTime(1995, 1, 1);
+
+                    var dateOfHospitalizationBegin = GenRandomDate(st.AddDays(_rnd.Next((DateTime.Today - st).Days)));
                     var dateOfHospitalizationEnd = dateOfHospitalizationBegin.AddDays(_rnd.Next(1, 14));
                     _hospitalizations.Add(new Hospitalization() { HospitalizationId = Guid.NewGuid(), PatientId = patient.PatientId, HospitalizationStartTime = dateOfHospitalizationBegin, HospitalizationEndTime = dateOfHospitalizationEnd });
                 }
             }
 
-            _hospitalizations.ForEach(s => _context.Hospitalizations.Add(s));
-            _context.SaveChanges();
+            _hospitalizations.ForEach(s => hospitalizationRepository.Hospitalizations.Add(s));
+            hospitalizationRepository.SaveChanges();
         }
 
         private void AddExaminations()
         {
+            var examinationRepository = new InstitutionServiceDatabaseContext("InstitutionContext");//= ObjectBuilder.Container.GetInstance<IExaminationRepository>();
+
             foreach (var hospitalization in _hospitalizations)
             {
                 var takeCount = _rnd.Next(0, 10);
@@ -302,12 +177,14 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                 }
             }
 
-            _examinations.ForEach(s => _context.Examinations.Add(s));
-            _context.SaveChanges();
+            _examinations.ForEach(s => examinationRepository.Examinations.Add(s));
+            examinationRepository.SaveChanges();
         }
 
         private void AddTreatments()
         {
+            var treatmentRepository = new InstitutionServiceDatabaseContext("InstitutionContext");//= ObjectBuilder.Container.GetInstance<ITreatmentRepository>();
+
             foreach (var hospitalization in _hospitalizations)
             {
                 var takeCount = _rnd.Next(0, 5);
@@ -317,12 +194,13 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                 }
             }
 
-            _treatments.ForEach(s => _context.Treatments.Add(s));
-            _context.SaveChanges();
+            _treatments.ForEach(s => treatmentRepository.Treatments.Add(s));
+            treatmentRepository.SaveChanges();
         }
 
         private void AddUsedMedicines()
         {
+            var usedMedicineRepository = new InstitutionServiceDatabaseContext("InstitutionContext");//= ObjectBuilder.Container.GetInstance<IUsedMedicineRepository>();
             foreach (var treatment in _treatments)
             {
                 var takeCount = _rnd.Next(0, 20);
@@ -332,8 +210,8 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                 }
             }
 
-            _usedMedicines.ForEach(s => _context.UsedMedicines.Add(s));
-            _context.SaveChanges();
+            _usedMedicines.ForEach(s => usedMedicineRepository.UsedMedicines.Add(s));
+            usedMedicineRepository.SaveChanges();
         }
 
         private DateTime GenRandomDate(DateTime min)

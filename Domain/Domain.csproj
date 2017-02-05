@@ -50,17 +50,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Hospitalization\Examination.cs" />
-    <Compile Include="Hospitalization\Hospitalization.cs" />
+    <Compile Include="Interfaces\IExaminationRepository.cs" />
+    <Compile Include="Interfaces\IHospitalizationRepository.cs" />
+    <Compile Include="Interfaces\IMedicineRepository.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\ITreatmentRepository.cs" />
+    <Compile Include="Interfaces\IUsedMedicineRepository.cs" />
+    <Compile Include="Person.cs" />
+    <Compile Include="Residence\Examination.cs" />
+    <Compile Include="Residence\Hospitalization.cs" />
     <Compile Include="Institution.cs" />
-    <Compile Include="Interfaces\IDatabaseContext.cs" />
     <Compile Include="Interfaces\IInstitutionRepository.cs" />
     <Compile Include="Interfaces\IPatientRepository.cs" />
     <Compile Include="Inventory\Medicine.cs" />
     <Compile Include="Patient.cs" />
     <Compile Include="Address.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Hospitalization\Treatment.cs" />
+    <Compile Include="Residence\Treatment.cs" />
     <Compile Include="Inventory\UsedMedicine.cs" />
   </ItemGroup>
   <ItemGroup>

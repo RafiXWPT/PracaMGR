@@ -1,0 +1,72 @@
+﻿@model WebsiteApplication.Models.ViewModels.Patient.PersonViewModel
+    
+<div>
+    <h4>Dane personalne</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Pesel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pesel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecondName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+    </dl>
+    <hr/>
+    <h4>Adres</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AddressCountry)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AddressCountry)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AddressProvince)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AddressProvince)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AddressZipCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AddressZipCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AddressCity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AddressCity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AddressStreet)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AddressStreet) @Html.DisplayFor(model => model.AddressHomeNumber)
+        </dd>
+    </dl>
+</div>

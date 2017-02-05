@@ -1,0 +1,32 @@
+﻿@model ICollection<WebsiteApplication.Models.ViewModels.Patient.PatientViewModel>
+
+<div>
+    <h4>Hospitalizacje</h4>
+    
+    <div class="panel-group" id="accordion">
+        @foreach (var record in Model.Where(x => x.Hospitalizations.Any()))
+        {
+            var id = Guid.NewGuid().ToString();
+
+            <div class="panel panel-default">
+                <div class="panel-heading bg-info">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#@id">
+                        @record.InstitutionName
+                    </a>
+                </div>
+                <div id="@id" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @{
+                            var dataBox = Guid.NewGuid().ToString();
+                            ViewData["dataBox"] = dataBox;
+                        }
+                        @foreach (var hospitalization in record.Hospitalizations)
+                        {
+                            Html.RenderPartial("_HospitalizationInfo", hospitalization, ViewData);
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
