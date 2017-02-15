@@ -16,14 +16,14 @@
 <hr />
 
 
-<div class="panel panel-primary">
+<div id="personInfoHolder" class="panel panel-primary">
     <div class="panel-heading">Dane osobowe Pacjenta</div>
     <div id="personInfo">
         <img class="waiter" src="@Url.Content("~/Content/Images/waiting.gif")" alt=""/>
     </div>
 </div>
 <hr/>
-<div class="panel panel-info">
+<div id="personHistoryHolder" class="panel panel-info">
     <div class="panel-heading">
         Dane na temat hospitalizacji Pacjenta</div>
     <div id="personHistory">
@@ -33,13 +33,29 @@
 
 
 <script>
+    
+    function GetView(holderId, contentId, viewUrl) {
+        $.ajax({
+            type: "GET",
+            url: viewUrl,
+            success: function(result) {
+                $(contentId).html(result);
+            },
+            error: function (req, status, err) {
+                $(holderId).addClass('panel-danger');
+                $(contentId).html('<img class="waiter" src=@(Url.Content("~/Content/Images/error.png")) />');
+            }
+        });
+    }
+
     $(document)
-        .ready(function() {
-            $('#personInfo').load('@Url.Action("GetPatientInfo", "Patient")');
+        .ready(function () {
+            GetView('#personInfoHolder', '#personInfo', '@Url.Action("GetPatientInfo", "Patient")');
         });
 
     $(document)
-    .ready(function () {
-        $('#personHistory').load('@Url.Action("GetPatientHistory", "Patient")');
-    });
+        .ready(function () {
+            GetView('#personHistoryHolder', '#personHistory', '@Url.Action("GetPatientHistory", "Patient")');
+        });
+
 </script>
