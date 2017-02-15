@@ -223,6 +223,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\waiting.gif" />
     <Content Include="Content\kendo\Black\editor.png" />
     <Content Include="Content\kendo\Black\imagebrowser.png" />
     <Content Include="Content\kendo\Black\indeterminate.gif" />
@@ -1334,12 +1335,7 @@
     <Content Include="Views\Institution\Details.cshtml" />
     <Content Include="Views\Institution\Edit.cshtml" />
     <Content Include="Views\Institution\Index.cshtml" />
-    <Content Include="Views\Patient\GetHistory.cshtml" />
     <Content Include="Views\Patient\_PersonInfo.cshtml" />
-    <Content Include="Views\Patient\_PatientInfo.cshtml" />
-    <Content Include="Views\Patient\_HospitalizationInfo.cshtml" />
-    <Content Include="Views\Patient\_Examinations.cshtml" />
-    <Content Include="Views\Patient\_Treatments.cshtml" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.af-ZA.min.js.map" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.af.min.js.map" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.am-ET.min.js.map" />
@@ -1942,6 +1938,7 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.zh-CN.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.zh-HK.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.zh-TW.min.js.map" />
+    <Content Include="Views\Patient\_PersonHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

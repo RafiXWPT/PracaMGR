@@ -10,7 +10,7 @@ using WebsiteApplication.Models.ViewModels.Patient;
 
 namespace WebsiteApplication.Controllers
 {
-    [RoutePrefix("Patients")]
+    [RoutePrefix("Patient")]
     public class PatientController : Controller
     {
         private readonly IInstitutionRepository _repository;
@@ -23,21 +23,24 @@ namespace WebsiteApplication.Controllers
             _patientInfoFetcher = new WcfDataFetcher(_repository);
         }
 
-        [Route("History/{pesel}")]
-        public ActionResult GetHistory(string pesel)
+        [Route("{pesel}")]
+        public ActionResult Patient(string pesel)
+        {
+            return View();
+        }
+
+        [Route("Info/{pesel}")]
+        public ActionResult GetPatientInfo(string pesel)
         {
             var person = Mapper.Map<PersonViewModel>(_personInfoFetcher.GetPersonInfo(pesel));
-            if (person != null)
-            {
-                var patientRecordList = new List<PatientViewModel>();
-                foreach (var record in _patientInfoFetcher.GetPatientHistory(pesel))
-                {
-                    patientRecordList.Add(Mapper.Map<PatientViewModel>(record));
-                }
-                return View(new PersonizedPatientViewModel {PersonViewModel = person, PatientViewModels = patientRecordList });
-            }
+            return PartialView("_PersonInfo", person);
+        }
 
-            return View();
+        [Route("History/{pesel}")]
+        public ActionResult GetPatientHistory(string pesel)
+        {
+            var patientRecordList = _patientInfoFetcher.GetPatientHistory(pesel).Select(Mapper.Map<PatientViewModel>).ToList();
+            return PartialView("_PersonHistory", patientRecordList);
         }
     }
 }

@@ -1,0 +1,9 @@
+﻿@model ICollection<WebsiteApplication.Models.ViewModels.Patient.PatientViewModel>
+    
+<div>
+    @foreach (var record in Model)
+    {
+        <p>@record.InstitutionName</p>
+        <p>@record.Hospitalizations.Count</p>
+    }
+</div>

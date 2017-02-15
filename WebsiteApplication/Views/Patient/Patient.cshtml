@@ -1,7 +1,45 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Patient";
 }
 
-<h2>Patient</h2>
+<style>
+   img.waiter {
+        width: 100px;
+        height: 100px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
 
+<h2>Historia pacjenta</h2>
+<hr />
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Dane osobowe Pacjenta</div>
+    <div id="personInfo">
+        <img class="waiter" src="@Url.Content("~/Content/Images/waiting.gif")" alt=""/>
+    </div>
+</div>
+<hr/>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        Dane na temat hospitalizacji Pacjenta</div>
+    <div id="personHistory">
+        <img class="waiter" src="@Url.Content("~/Content/Images/waiting.gif")" alt="" />
+    </div>
+</div>
+
+
+<script>
+    $(document)
+        .ready(function() {
+            $('#personInfo').load('@Url.Action("GetPatientInfo", "Patient")');
+        });
+
+    $(document)
+    .ready(function () {
+        $('#personHistory').load('@Url.Action("GetPatientHistory", "Patient")');
+    });
+</script>
