@@ -33,7 +33,7 @@
 
 
 <script>
-    
+
     function GetView(holderId, contentId, viewUrl) {
         $.ajax({
             type: "GET",
@@ -42,7 +42,7 @@
                 $(contentId).html(result);
             },
             error: function (req, status, err) {
-                $(holderId).addClass('panel-danger');
+                $(holderId).attr('class', 'panel panel-danger');
                 $(contentId).html('<img class="waiter" src=@(Url.Content("~/Content/Images/error.png")) />');
             }
         });
@@ -51,11 +51,13 @@
     $(document)
         .ready(function () {
             GetView('#personInfoHolder', '#personInfo', '@Url.Action("GetPatientInfo", "Patient")');
-        });
-
-    $(document)
-        .ready(function () {
             GetView('#personHistoryHolder', '#personHistory', '@Url.Action("GetPatientHistory", "Patient")');
         });
+
+    function showDetails(e) {
+        e.preventDefault();
+        var item = this.dataItem($(e.currentTarget).closest("tr")).HospitalizationId;
+        location.href = kendo.format('@Server.UrlDecode(Url.Action("HospitalizationDetails", "Patient", new { id = "{0}"}))', item);
+    }
 
 </script>

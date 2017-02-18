@@ -19,6 +19,8 @@ namespace Domain.Residence
     public class HospitalizationTransferObject
     {
         [DataMember]
+        public Guid HospitalizationId { get; set; }
+        [DataMember]
         public DateTime HospitalizationStartTime { get; set; }
         [DataMember]
         public DateTime HospitalizationEndTime { get; set; }

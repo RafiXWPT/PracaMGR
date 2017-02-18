@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
@@ -41,6 +42,12 @@ namespace WebsiteApplication.Controllers
         {
             var patientRecordList = _patientInfoFetcher.GetPatientHistory(pesel).Select(Mapper.Map<PatientViewModel>).ToList();
             return PartialView("_PersonHistory", patientRecordList);
+        }
+
+        [Route("HospitalizationDetails/{hospitalizationId}")]
+        public ActionResult HospitalizationDetails(Guid hospitalizationId)
+        {
+            return View();
         }
     }
 }
