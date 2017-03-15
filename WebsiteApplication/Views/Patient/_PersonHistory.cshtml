@@ -4,12 +4,14 @@
 <div class="panel-group" id="accordion">
     @foreach (var record in Model)
     {
-        var identifier = Guid.NewGuid().ToString();
-        var collapseIdentifier = Guid.NewGuid().ToString();
         if (!record.Hospitalizations.Any())
         {
             continue;
         }
+
+        var identifier = Guid.NewGuid().ToString();
+        var collapseIdentifier = Guid.NewGuid().ToString();
+
 
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -21,6 +23,7 @@
                 <div class="panel-body">
                     @(Html.Kendo().Grid(record.Hospitalizations).Name(identifier).Columns(column =>
                       {
+                          column.Bound(x => x.InstitutionId).Hidden();
                           column.Bound(x => x.HospitalizationId).Hidden();
                           column.Bound(x => x.HospitalizationStartTime).Width(100);
                           column.Bound(x => x.HospitalizationEndTime).Width(100);

@@ -15,7 +15,6 @@
 <h2>Historia pacjenta</h2>
 <hr />
 
-
 <div id="personInfoHolder" class="panel panel-primary">
     <div class="panel-heading">Dane osobowe Pacjenta</div>
     <div id="personInfo">
@@ -27,37 +26,67 @@
     <div class="panel-heading">
         Dane na temat hospitalizacji Pacjenta</div>
     <div id="personHistory">
-        <img class="waiter" src="@Url.Content("~/Content/Images/waiting.gif")" alt="" />
     </div>
 </div>
 
 
 <script>
 
-    function GetView(holderId, contentId, viewUrl) {
+    $(document)
+        .ready(function () {
+            checkPatientData();
+        });
+
+    function checkPatientData() {
         $.ajax({
             type: "GET",
-            url: viewUrl,
+            url: '@Url.Action("GetPatientInfo", "Patient")',
             success: function(result) {
-                $(contentId).html(result);
+                $('#personInfo').html(result);
+                getPatientHistory();
             },
             error: function (req, status, err) {
-                $(holderId).attr('class', 'panel panel-danger');
-                $(contentId).html('<img class="waiter" src=@(Url.Content("~/Content/Images/error.png")) />');
+                alert(err);
+                $('#personInfoHolder').attr('class', 'panel panel-danger');
+                $('#personInfo').html('<img class="waiter" src=@(Url.Content("~/Content/Images/error.png")) />');
+                getPatientHistory(true);
             }
         });
     }
 
-    $(document)
-        .ready(function () {
-            GetView('#personInfoHolder', '#personInfo', '@Url.Action("GetPatientInfo", "Patient")');
-            GetView('#personHistoryHolder', '#personHistory', '@Url.Action("GetPatientHistory", "Patient")');
+    function getPatientHistory(isError) {
+        if (isError == true)
+        {
+            $('#personHistoryHolder').attr('class', 'panel panel-default');
+            return;
+        }
+
+        $('#personHistory').html('<img class="waiter" src=@(Url.Content("~/Content/Images/waiting.gif")) />');
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetPatientHistory", "Patient")',
+            success: function(result) {
+                $('#personHistory').html(result);
+            },
+            error: function (req, status, err) {
+                if (req.status == 404)
+                {
+                    $('#personHistoryHolder').attr('class', 'panel panel-default');
+                    $('#personHistory').html("");
+                    return;
+                }
+                alert(err);
+                $('#personHistoryHolder').attr('class', 'panel panel-danger');
+                $('#personHistory').html('<img class="waiter" src=@(Url.Content("~/Content/Images/error.png")) />');
+            }
         });
+    }
 
     function showDetails(e) {
         e.preventDefault();
-        var item = this.dataItem($(e.currentTarget).closest("tr")).HospitalizationId;
-        location.href = kendo.format('@Server.UrlDecode(Url.Action("HospitalizationDetails", "Patient", new { id = "{0}"}))', item);
+        var hospitalizationId = this.dataItem($(e.currentTarget).closest("tr")).HospitalizationId;
+        var institutionId = this.dataItem($(e.currentTarget).closest("tr")).InstitutionId;
+        location.href = kendo.format('@Server.UrlDecode(Url.Action("HospitalizationDetails", "Patient", new { hospitalizationId = "{0}", institutionId = "{1}" }))', hospitalizationId, institutionId);
     }
-
 </script>

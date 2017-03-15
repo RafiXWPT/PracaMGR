@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Domain;
 using Domain.Interfaces;
 using InstitutionService;
+using Domain.Residence;
 
 namespace WebsiteApplication.CodeBehind
 {
@@ -65,8 +66,25 @@ namespace WebsiteApplication.CodeBehind
                 return null;
 
             var patient = connection.GetPatientInfo(pesel);
+            if (patient != null)
+                patient.InstitutionId = institution.InstitutionId;
+
             CloseConnection(connection);
             return patient;
+        }
+
+        public HospitalizationTransferObject GetHospitalization(Guid hospitalizationId, string endpoint)
+        {
+            var connection = EstablishConnection(endpoint);
+
+            if (connection == null)
+                return null;
+
+            var hospitalization = connection.GetHospitalization(hospitalizationId);
+
+            CloseConnection(connection);
+
+            return hospitalization;
         }
     }
 }

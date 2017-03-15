@@ -18,6 +18,7 @@ namespace InstitutionService.Host.Code.DatabaseProvider
         {
             _context = context as InstitutionServiceDatabaseContext;
         }
+
         public void Update(Patient patient)
         {
             throw new NotImplementedException();

@@ -5,6 +5,7 @@ using System.ServiceModel;
 using AutoMapper;
 using Domain;
 using Domain.Interfaces;
+using Domain.Residence;
 
 namespace InstitutionService.Host.Code.Core
 {
@@ -20,19 +21,28 @@ namespace InstitutionService.Host.Code.Core
         {
             var patientRepository = ObjectBuilder.Container.GetInstance<IPatientRepository>();
 
-            var patient = patientRepository?.Patients.FirstOrDefault(p => p.Pesel == pesel);
+            var patient = patientRepository.Patients.FirstOrDefault(p => p.Pesel == pesel);
+
             return SignWithInstitution(patient);
+        }
+
+        public HospitalizationTransferObject GetHospitalization(Guid hospitalizationId)
+        {
+            var hospitalizationRepository = ObjectBuilder.Container.GetInstance<IHospitalizationRepository>();
+
+            var hospitalization = hospitalizationRepository.Hospitalizations.FirstOrDefault(h => h.HospitalizationId == hospitalizationId);
+
+            return hospitalization == null ? new HospitalizationTransferObject() : Mapper.Map<HospitalizationTransferObject>(hospitalization);
         }
 
         private PatientTransferObject SignWithInstitution(Patient patientObject)
         {
             if (patientObject == null)
-            {
                 return new PatientTransferObject {InstitutionName = GetInstitutionName()};
-            }
 
             var patientTransferObject = Mapper.Map<PatientTransferObject>(patientObject);
             patientTransferObject.InstitutionName = GetInstitutionName();
+
             return patientTransferObject;
         }
     }
