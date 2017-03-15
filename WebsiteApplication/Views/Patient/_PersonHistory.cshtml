@@ -1,0 +1,47 @@
+﻿@model ICollection<WebsiteApplication.Models.ViewModels.Patient.PatientViewModel>
+
+<hr />
+<div class="panel-group" id="accordion">
+    @foreach (var record in Model)
+    {
+        if (!record.Hospitalizations.Any())
+        {
+            continue;
+        }
+
+        var identifier = Guid.NewGuid().ToString();
+        var collapseIdentifier = Guid.NewGuid().ToString();
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#@collapseIdentifier">@record.InstitutionName</a>
+                </h4>
+            </div>
+            <div id="@collapseIdentifier" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @(Html.Kendo().Grid(record.Hospitalizations).Name(identifier).Columns(column =>
+                      {
+                          column.Bound(x => x.InstitutionId).Hidden();
+                          column.Bound(x => x.HospitalizationId).Hidden();
+                          column.Bound(x => x.HospitalizationStartTime).Width(100);
+                          column.Bound(x => x.HospitalizationEndTime).Width(100);
+                          column.Command(command => command.Custom("Szczegóły").Click("showDetails")).Width(100);
+
+                      })
+                          .Pageable()
+                          .Sortable()
+                          .Scrollable()
+                          .Filterable()
+                          .DataSource(dataSource => dataSource
+                              .Ajax()
+                              .ServerOperation(false)
+                              .Model(model => model.Id(i => i.HospitalizationId))
+                          ))
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<hr />

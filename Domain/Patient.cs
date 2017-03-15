@@ -15,11 +15,13 @@ namespace Domain
     [DataContract]
     public class PatientTransferObject
     {
+        public Guid InstitutionId { get; set; }
+
         [DataMember]
         public string Pesel { get; set; }
         [DataMember]
         public string InstitutionName { get; set; }
         [DataMember]
-        public List<HospitalizationTransferObject> Hospitalizations { get; set; } = new List<HospitalizationTransferObject>();
+        public List<HospitalizationInfoTransferObject> Hospitalizations { get; set; } = new List<HospitalizationInfoTransferObject>();
     }
 }

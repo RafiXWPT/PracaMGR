@@ -141,7 +141,13 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>XCOPY "$(SolutionDir)InstitutionService.Host\Configuration" "$(TargetDir)\Configuration\" /S /Y</PostBuildEvent>
+    <PostBuildEvent>XCOPY "$(SolutionDir)InstitutionService.Host\Configuration" "$(TargetDir)\Configuration\" /S /Y
+XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\SzpitalUniwersytecki\" /S /Y
+XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\SzpitalWKrynicy\" /S /Y
+XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\SzpitalWNowymSaczu\" /S /Y
+XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\SzpitalUniwersytecki\" /S /Y
+XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\SzpitalWKrynicy\" /S /Y
+XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\SzpitalWNowymSaczu\" /S /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

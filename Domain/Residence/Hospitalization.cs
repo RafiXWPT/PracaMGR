@@ -16,15 +16,22 @@ namespace Domain.Residence
     }
 
     [DataContract]
-    public class HospitalizationTransferObject
+    public class HospitalizationInfoTransferObject
     {
+        [DataMember]
+        public Guid HospitalizationId { get; set; }
         [DataMember]
         public DateTime HospitalizationStartTime { get; set; }
         [DataMember]
         public DateTime HospitalizationEndTime { get; set; }
+    }
+
+    [DataContract]
+    public class HospitalizationTransferObject
+    {
         [DataMember]
-        public List<ExaminationTransferObject> Examinations { get; set; }
+        public List<ExaminationTransferObject> Examinations { get; set; } = new List<ExaminationTransferObject>();
         [DataMember]
-        public List<TreatmentTransferObject> Treatments { get; set; }
+        public List<TreatmentTransferObject> Treatments { get; set; } = new List<TreatmentTransferObject>();
     }
 }

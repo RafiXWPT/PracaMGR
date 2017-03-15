@@ -18,6 +18,7 @@ namespace InstitutionService.Host.Code.Core
             {
                 cfg.CreateMap<Patient, PatientTransferObject>();
                 cfg.CreateMap<Hospitalization, HospitalizationTransferObject>();
+                cfg.CreateMap<Hospitalization, HospitalizationInfoTransferObject>();
                 cfg.CreateMap<Examination, ExaminationTransferObject>();
                 cfg.CreateMap<Treatment, TreatmentTransferObject>();
                 cfg.CreateMap<Medicine, MedicineTransferObject>();

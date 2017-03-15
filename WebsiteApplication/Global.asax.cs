@@ -32,7 +32,8 @@ namespace WebsiteApplication
                 // VIEW MODELS
                 cfg.CreateMap<PersonTransferObject, PersonViewModel>();
                 cfg.CreateMap<PatientTransferObject, PatientViewModel>();
-                cfg.CreateMap<HospitalizationTransferObject, HospitalizationViewModel>();
+                cfg.CreateMap<HospitalizationInfoTransferObject, HospitalizationViewModel>();
+                cfg.CreateMap<HospitalizationTransferObject, HospitalizationContainerViewModel>();
                 cfg.CreateMap<TreatmentTransferObject, TreatmentViewModel>();
                 cfg.CreateMap<ExaminationTransferObject, ExaminationViewModel>();
             });

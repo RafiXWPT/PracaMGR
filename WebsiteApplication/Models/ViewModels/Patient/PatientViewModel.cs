@@ -9,6 +9,7 @@ namespace WebsiteApplication.Models.ViewModels.Patient
 {
     public class PatientViewModel
     {
+        public Guid InstitutionId { get; set; }
         public string InstitutionName { get; set; }
         public List<HospitalizationViewModel> Hospitalizations { get; set; }
     }

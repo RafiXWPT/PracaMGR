@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
-using System.Web.WebSockets;
-using AutoMapper;
+using System.Threading.Tasks;
 using Domain;
 using Domain.Interfaces;
-using Domain.Residence;
 using InstitutionService;
-using WebsiteApplication.Models.ViewModels.Patient;
-using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;
+using Domain.Residence;
 
 namespace WebsiteApplication.CodeBehind
 {
@@ -51,20 +48,43 @@ namespace WebsiteApplication.CodeBehind
                 return null;
 
             var patientRecords = new List<PatientTransferObject>();
-            foreach (var institution in _repository.Institutions)
+            Parallel.ForEach(_repository.Institutions, institution =>
             {
-                patientRecords.Add(GetPatientHistory(pesel, institution));
-            }
-       
+                var patientHistory = GetPatientHistory(pesel, institution);
+                if (patientHistory != null)
+                    patientRecords.Add(patientHistory);
+            });
+
             return patientRecords;
         }
 
         private PatientTransferObject GetPatientHistory(string pesel, Institution institution)
         {
             var connection = EstablishConnection(institution.InstitutionEndpointAddress);
+
+            if(connection == null)
+                return null;
+
             var patient = connection.GetPatientInfo(pesel);
+            if (patient != null)
+                patient.InstitutionId = institution.InstitutionId;
+
             CloseConnection(connection);
             return patient;
+        }
+
+        public HospitalizationTransferObject GetHospitalization(Guid hospitalizationId, string endpoint)
+        {
+            var connection = EstablishConnection(endpoint);
+
+            if (connection == null)
+                return null;
+
+            var hospitalization = connection.GetHospitalization(hospitalizationId);
+
+            CloseConnection(connection);
+
+            return hospitalization;
         }
     }
 }

@@ -1,7 +1,92 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Patient";
 }
 
-<h2>Patient</h2>
+<style>
+   img.waiter {
+        width: 100px;
+        height: 100px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
 
+<h2>Historia pacjenta</h2>
+<hr />
+
+<div id="personInfoHolder" class="panel panel-primary">
+    <div class="panel-heading">Dane osobowe Pacjenta</div>
+    <div id="personInfo">
+        <img class="waiter" src="@Url.Content("~/Content/Images/waiting.gif")" alt=""/>
+    </div>
+</div>
+<hr/>
+<div id="personHistoryHolder" class="panel panel-info">
+    <div class="panel-heading">
+        Dane na temat hospitalizacji Pacjenta</div>
+    <div id="personHistory">
+    </div>
+</div>
+
+
+<script>
+
+    $(document)
+        .ready(function () {
+            checkPatientData();
+        });
+
+    function checkPatientData() {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetPatientInfo", "Patient")',
+            success: function(result) {
+                $('#personInfo').html(result);
+                getPatientHistory();
+            },
+            error: function (req, status, err) {
+                alert(err);
+                $('#personInfoHolder').attr('class', 'panel panel-danger');
+                $('#personInfo').html('<img class="waiter" src=@(Url.Content("~/Content/Images/error.png")) />');
+                getPatientHistory(true);
+            }
+        });
+    }
+
+    function getPatientHistory(isError) {
+        if (isError == true)
+        {
+            $('#personHistoryHolder').attr('class', 'panel panel-default');
+            return;
+        }
+
+        $('#personHistory').html('<img class="waiter" src=@(Url.Content("~/Content/Images/waiting.gif")) />');
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetPatientHistory", "Patient")',
+            success: function(result) {
+                $('#personHistory').html(result);
+            },
+            error: function (req, status, err) {
+                if (req.status == 404)
+                {
+                    $('#personHistoryHolder').attr('class', 'panel panel-default');
+                    $('#personHistory').html("");
+                    return;
+                }
+                alert(err);
+                $('#personHistoryHolder').attr('class', 'panel panel-danger');
+                $('#personHistory').html('<img class="waiter" src=@(Url.Content("~/Content/Images/error.png")) />');
+            }
+        });
+    }
+
+    function showDetails(e) {
+        e.preventDefault();
+        var hospitalizationId = this.dataItem($(e.currentTarget).closest("tr")).HospitalizationId;
+        var institutionId = this.dataItem($(e.currentTarget).closest("tr")).InstitutionId;
+        location.href = kendo.format('@Server.UrlDecode(Url.Action("HospitalizationDetails", "Patient", new { hospitalizationId = "{0}", institutionId = "{1}" }))', hospitalizationId, institutionId);
+    }
+</script>
