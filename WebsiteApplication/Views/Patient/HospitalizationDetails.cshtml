@@ -18,6 +18,7 @@
         .Name("ExaminationGrid")
         .Columns(columns =>
         {
+            columns.Bound(c => c.InstitutionId).Hidden();
             columns.Bound(c => c.ExaminationId).Hidden();
             columns.Bound(c => c.ExaminationStartTime).Width(100);
             columns.Bound(c => c.ExaminationEndTime).Width(100);
@@ -36,11 +37,26 @@
         .Columns(columns =>
         {
             columns.Bound(c => c.TreatmentDateTime).Width(100);
-            columns.Command(command => command.Custom("Szczegóły").Click("showTreatmentDetails")).Width(15);
+            columns.Command(command => command.Custom("Szczegóły").Click("showTreatmentDetails")).Width(25);
         })
         .Scrollable()
         .Sortable()
         .Pageable()
         .DataSource(ds =>
             ds.Ajax().ServerOperation(false).PageSize(10)))
+
+
+<script>
+    function showExaminationDetails(e) {
+        e.preventDefault();
+        var viewModel = this.dataItem($(e.currentTarget).closest("tr"));
+        var institutionId = viewModel.InstitutionId;
+        var examinationId = viewModel.ExaminationId;
+        location.href = kendo.format('@Server.UrlDecode(Url.Action("ExaminationDetails", "Patient", new { examinationId = "{0}", institutionId = "{1}" }))', examinationId, institutionId);
+    }
+
+    function showTreatmentDetails(e) {
+        e.preventDefault();
+    }
+</script>
 

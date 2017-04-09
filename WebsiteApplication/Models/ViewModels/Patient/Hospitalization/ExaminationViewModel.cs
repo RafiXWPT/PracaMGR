@@ -1,16 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebsiteApplication.Models.ViewModels.Patient.Hospitalization
 {
     public class ExaminationViewModel
     {
-        public int ExaminationId { get; set; }
+        public Guid InstitutionId { get; set; }
+        public Guid ExaminationId { get; set; }
+        [Display(Name = "Początek badania")]
         public DateTime ExaminationStartTime { get; set; }
+        [Display(Name = "Zakończenie badania")]
         public DateTime ExaminationEndTime { get; set; }
+    }
+
+    public class ExaminationContainerViewModel
+    {
+        public Guid ExaminationId { get; set; }
+        [Display(Name = "Początek badania")]
+        public DateTime ExaminationStartTime { get; set; }
+        [Display(Name = "Zakończenie badania")]
+        public DateTime ExaminationEndTime { get; set; }
+        [Display(Name = "Szczegóły badania")]
         public string ExaminationDetails { get; set; }
     }
 }

@@ -1,14 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Inventory;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebsiteApplication.Models.ViewModels.Patient.Hospitalization
 {
     public class TreatmentViewModel
     {
+        public Guid TreatmentId { get; set; }
+        [Display(Name = "Data przeprowadzenia leczenia")]
+        public DateTime TreatmentDateTime { get; set; }
+    }
+
+    public class TreatmentContainerViewModel
+    {
+        public Guid TreatmentId { get; set; }
+        [Display(Name = "Data przeprowadzenia leczenia")]
         public DateTime TreatmentDateTime { get; set; }
     }
 }

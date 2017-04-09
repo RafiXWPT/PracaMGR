@@ -22,6 +22,6 @@ namespace Domain
         [DataMember]
         public string InstitutionName { get; set; }
         [DataMember]
-        public List<HospitalizationInfoTransferObject> Hospitalizations { get; set; } = new List<HospitalizationInfoTransferObject>();
+        public List<HospitalizationBasicTransferObject> Hospitalizations { get; set; } = new List<HospitalizationBasicTransferObject>();
     }
 }

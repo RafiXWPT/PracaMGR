@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain
 {
@@ -11,12 +6,14 @@ namespace Domain
     {
         public Guid InstitutionId { get; set; }
         public string InstitutionEndpointAddress { get; set; }
+        public string InstitutionName { get; set; }
         public virtual Address Address { get; set; }
     }
 
     public class InstitutionTransferObject
     {
         public string InstitutionEndpointAddress { get; set; }
+        public string InstitutionName { get; set; }
         public AddressTransferObject Address { get; set; }
     }
 }

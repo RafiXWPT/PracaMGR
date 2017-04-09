@@ -10,12 +10,21 @@ using Domain.Residence;
 
 namespace WebsiteApplication.CodeBehind
 {
-    internal class WcfDataFetcher
+    internal class WcfDataFetcher : IDisposable
     {
+        private IInstitutionService Connection;
+        private readonly IInstitutionRepository _repository;
+
+        public WcfDataFetcher(IInstitutionRepository repository)
+        {
+            _repository = repository;
+        }
+
         private IInstitutionService EstablishConnection(string urlEndpoint)
         {
             var binding = new NetTcpBinding();
             var channel = new ChannelFactory<IInstitutionService>(binding, urlEndpoint);
+
             IInstitutionService client;
             try
             {
@@ -23,7 +32,6 @@ namespace WebsiteApplication.CodeBehind
             }
             catch (Exception)
             {
-
                 return null;
             }
 
@@ -33,13 +41,6 @@ namespace WebsiteApplication.CodeBehind
         private void CloseConnection(IInstitutionService client)
         {
             (client as ICommunicationObject)?.Close();
-        }
-
-        private readonly IInstitutionRepository _repository;
-
-        public WcfDataFetcher(IInstitutionRepository repository)
-        {
-            _repository = repository;
         }
 
         public List<PatientTransferObject> GetPatientHistory(string pesel)
@@ -60,31 +61,45 @@ namespace WebsiteApplication.CodeBehind
 
         private PatientTransferObject GetPatientHistory(string pesel, Institution institution)
         {
-            var connection = EstablishConnection(institution.InstitutionEndpointAddress);
+            Connection = EstablishConnection(institution.InstitutionEndpointAddress);
 
-            if(connection == null)
+            if(Connection == null)
                 return null;
 
-            var patient = connection.GetPatientInfo(pesel);
+            var patient = Connection.GetPatientInfo(pesel);
             if (patient != null)
                 patient.InstitutionId = institution.InstitutionId;
 
-            CloseConnection(connection);
             return patient;
         }
 
         public HospitalizationTransferObject GetHospitalization(Guid hospitalizationId, string endpoint)
         {
-            var connection = EstablishConnection(endpoint);
+            Connection = EstablishConnection(endpoint);
 
-            if (connection == null)
+            if (Connection == null)
                 return null;
 
-            var hospitalization = connection.GetHospitalization(hospitalizationId);
-
-            CloseConnection(connection);
+            var hospitalization = Connection.GetHospitalization(hospitalizationId);
 
             return hospitalization;
+        }
+
+        public ExaminationTransferObject GetExamination(Guid examinationId, string endpoint)
+        {
+            Connection = EstablishConnection(endpoint);
+
+            if (Connection == null)
+                return null;
+
+            var examination = Connection.GetExamination(examinationId);
+
+            return examination;
+        }
+
+        public void Dispose()
+        {
+            CloseConnection(Connection);
         }
     }
 }

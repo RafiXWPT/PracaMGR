@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebsiteApplication.Models.ViewModels.Patient.Hospitalization
 {
@@ -10,7 +8,9 @@ namespace WebsiteApplication.Models.ViewModels.Patient.Hospitalization
     {
         public Guid HospitalizationId { get; set; }
         public Guid InstitutionId { get; set; }
+        [Display(Name = "Początek hospitalizacji")]
         public DateTime HospitalizationStartTime { get; set; }
+        [Display(Name = "Zakończenie hospitalizacji")]
         public DateTime HospitalizationEndTime { get; set; }
     }
 
