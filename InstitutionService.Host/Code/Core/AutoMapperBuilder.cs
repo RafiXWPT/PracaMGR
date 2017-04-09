@@ -17,9 +17,11 @@ namespace InstitutionService.Host.Code.Core
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Patient, PatientTransferObject>();
+                cfg.CreateMap<Hospitalization, HospitalizationBasicTransferObject>();
                 cfg.CreateMap<Hospitalization, HospitalizationTransferObject>();
-                cfg.CreateMap<Hospitalization, HospitalizationInfoTransferObject>();
+                cfg.CreateMap<Examination, ExaminationBasicTransferObject>();
                 cfg.CreateMap<Examination, ExaminationTransferObject>();
+                cfg.CreateMap<Treatment, TreatmentBasicTransferObject>();
                 cfg.CreateMap<Treatment, TreatmentTransferObject>();
                 cfg.CreateMap<Medicine, MedicineTransferObject>();
                 cfg.CreateMap<UsedMedicine, UsedMedicineTransferObject>();

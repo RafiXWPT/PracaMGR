@@ -7,7 +7,7 @@ using Domain.Interfaces;
 
 namespace WebsiteApplication.Controllers
 {
-    public class InstitutionController : Controller
+    public class InstitutionController : CultureController
     {
         private readonly IInstitutionRepository _repository;
 
@@ -47,11 +47,12 @@ namespace WebsiteApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "InstitutionId,InstitutionEndpointAddress")] Institution institution)
+        public ActionResult Create([Bind(Include = "InstitutionEndpointAddress,InstitutionName,Address")] Institution institution)
         {
             if (ModelState.IsValid)
             {
                 institution.InstitutionId = Guid.NewGuid();
+                institution.Address.AddressId = Guid.NewGuid();
                 _repository.Add(institution);
                 return RedirectToAction("Index");
             }

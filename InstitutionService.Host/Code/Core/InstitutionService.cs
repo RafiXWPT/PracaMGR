@@ -22,7 +22,7 @@ namespace InstitutionService.Host.Code.Core
             var patientRepository = ObjectBuilder.Container.GetInstance<IPatientRepository>();
 
             var patient = patientRepository.Patients.FirstOrDefault(p => p.Pesel == pesel);
-
+            
             return SignWithInstitution(patient);
         }
 
@@ -35,6 +35,18 @@ namespace InstitutionService.Host.Code.Core
             return hospitalization == null ? new HospitalizationTransferObject() : Mapper.Map<HospitalizationTransferObject>(hospitalization);
         }
 
+        public ExaminationTransferObject GetExamination(Guid examinationId)
+        {
+            var examinationRepository = ObjectBuilder.Container.GetInstance<IExaminationRepository>();
+            var examination = examinationRepository.Examinations.FirstOrDefault(e => e.ExaminationId == examinationId);
+            return examination == null ? new ExaminationTransferObject() : Mapper.Map<ExaminationTransferObject>(examination);
+        }
+
+        public TreatmentTransferObject GetTreatment(Guid treatmentId)
+        {
+            throw new NotImplementedException();
+        }
+
         private PatientTransferObject SignWithInstitution(Patient patientObject)
         {
             if (patientObject == null)
@@ -45,5 +57,7 @@ namespace InstitutionService.Host.Code.Core
 
             return patientTransferObject;
         }
+
+
     }
 }

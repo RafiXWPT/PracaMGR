@@ -16,7 +16,7 @@ namespace Domain.Residence
     }
 
     [DataContract]
-    public class HospitalizationInfoTransferObject
+    public class HospitalizationBasicTransferObject
     {
         [DataMember]
         public Guid HospitalizationId { get; set; }
@@ -30,8 +30,8 @@ namespace Domain.Residence
     public class HospitalizationTransferObject
     {
         [DataMember]
-        public List<ExaminationTransferObject> Examinations { get; set; } = new List<ExaminationTransferObject>();
+        public List<ExaminationBasicTransferObject> Examinations { get; set; } = new List<ExaminationBasicTransferObject>();
         [DataMember]
-        public List<TreatmentTransferObject> Treatments { get; set; } = new List<TreatmentTransferObject>();
+        public List<TreatmentBasicTransferObject> Treatments { get; set; } = new List<TreatmentBasicTransferObject>();
     }
 }

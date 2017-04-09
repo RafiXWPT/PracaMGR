@@ -10,11 +10,12 @@ using WebsiteApplication.CodeBehind;
 using WebsiteApplication.Models.ViewModels.Patient;
 using System.Web.Routing;
 using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;
+using Newtonsoft.Json;
 
 namespace WebsiteApplication.Controllers
 {
     [RoutePrefix("Patient")]
-    public class PatientController : Controller
+    public class PatientController : CultureController
     {
         private readonly IInstitutionRepository _repository;
         private readonly WcfPersonInfoFetcher _personInfoFetcher;
@@ -26,7 +27,6 @@ namespace WebsiteApplication.Controllers
             _patientInfoFetcher = new WcfDataFetcher(repository);
         }
 
-        [HttpGet]
         public ActionResult Index(string pesel)
         {
             if(pesel == null)
@@ -104,8 +104,18 @@ namespace WebsiteApplication.Controllers
             var institution = _repository.Institutions.First(x => x.InstitutionId == institutionId);
             var hospitalization = Mapper.Map<HospitalizationContainerViewModel>(_patientInfoFetcher.GetHospitalization(hospitalizationId, institution.InstitutionEndpointAddress));
             hospitalization.Person = personViewModel;
+            hospitalization.Examinations.ForEach(x => x.InstitutionId = institutionId);
+            //hospitalization.Treatments.ForEach(x => x.InstitutionId = institutionId);
             
             return View(hospitalization);
+        }
+
+        [Route("ExaminationDetails/{examinationId}")]
+        public ActionResult ExaminationDetails(Guid examinationId, Guid institutionId)
+        {
+            var institution = _repository.Institutions.First(x => x.InstitutionId == institutionId);
+            var examination = Mapper.Map<ExaminationContainerViewModel>(_patientInfoFetcher.GetExamination(examinationId, institution.InstitutionEndpointAddress));
+            return View(examination);
         }
     }
 }

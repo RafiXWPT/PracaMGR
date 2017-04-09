@@ -14,5 +14,9 @@ namespace InstitutionService
         PatientTransferObject GetPatientInfo(string pesel);
         [OperationContract]
         HospitalizationTransferObject GetHospitalization(Guid hospitalizationId);
+        [OperationContract]
+        ExaminationTransferObject GetExamination(Guid examinationId);
+        [OperationContract]
+        TreatmentTransferObject GetTreatment(Guid treatmentId);
     }
 }

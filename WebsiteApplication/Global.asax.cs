@@ -32,10 +32,12 @@ namespace WebsiteApplication
                 // VIEW MODELS
                 cfg.CreateMap<PersonTransferObject, PersonViewModel>();
                 cfg.CreateMap<PatientTransferObject, PatientViewModel>();
-                cfg.CreateMap<HospitalizationInfoTransferObject, HospitalizationViewModel>();
+                cfg.CreateMap<HospitalizationBasicTransferObject, HospitalizationViewModel>();
                 cfg.CreateMap<HospitalizationTransferObject, HospitalizationContainerViewModel>();
-                cfg.CreateMap<TreatmentTransferObject, TreatmentViewModel>();
-                cfg.CreateMap<ExaminationTransferObject, ExaminationViewModel>();
+                cfg.CreateMap<ExaminationBasicTransferObject, ExaminationViewModel>();
+                cfg.CreateMap<ExaminationTransferObject, ExaminationContainerViewModel>();
+                cfg.CreateMap<TreatmentBasicTransferObject, TreatmentViewModel>();
+                cfg.CreateMap<TreatmentTransferObject, TreatmentContainerViewModel>();
             });
         }
     }

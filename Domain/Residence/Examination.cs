@@ -14,8 +14,21 @@ namespace Domain.Residence
     }
 
     [DataContract]
+    public class ExaminationBasicTransferObject
+    {
+        [DataMember]
+        public Guid ExaminationId { get; set; }
+        [DataMember]
+        public DateTime ExaminationStartTime { get; set; }
+        [DataMember]
+        public DateTime ExaminationEndTime { get; set; }
+    }
+
+    [DataContract]
     public class ExaminationTransferObject
     {
+        [DataMember]
+        public Guid ExaminationId { get; set; }
         [DataMember]
         public DateTime ExaminationStartTime { get; set; }
         [DataMember]
