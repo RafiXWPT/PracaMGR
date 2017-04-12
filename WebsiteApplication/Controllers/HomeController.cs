@@ -30,9 +30,7 @@ namespace WebsiteApplication.Controllers
 
         public ActionResult SetCulture(string culture)
         {
-            // Validate input
             culture = CultureHelper.GetImplementedCulture(culture);
-            // Save culture in a cookie
             HttpCookie cookie = Request.Cookies["_culture"];
             if (cookie != null)
                 cookie.Value = culture;   // update cookie value
@@ -45,7 +43,7 @@ namespace WebsiteApplication.Controllers
                 };
             }
             Response.Cookies.Add(cookie);
-            return RedirectToAction("Index");
+            return Json("OK");
         }
     }
 }

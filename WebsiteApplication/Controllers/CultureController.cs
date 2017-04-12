@@ -24,11 +24,9 @@ namespace WebsiteApplication.Controllers
                         null;
             // Validate culture name
             cultureName = CultureHelper.GetImplementedCulture(cultureName); // This is safe
-
-            // Modify current thread's cultures            
+          
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(cultureName);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-
             return base.BeginExecuteCore(callback, state);
         }
     }

@@ -215,6 +215,7 @@
     <Compile Include="Models\ViewModels\ASPNET.Identity\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ViewModels\ASPNET.Identity\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\Home\CultureListItem.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\ExaminationViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\HospitalizationViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\TreatmentViewModel.cs" />
@@ -1966,6 +1967,7 @@
     <Content Include="Views\Patient\Index.cshtml" />
     <Content Include="Views\Patient\HospitalizationDetails.cshtml" />
     <Content Include="Views\Patient\ExaminationDetails.cshtml" />
+    <Content Include="Views\Shared\_CultureSelector.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

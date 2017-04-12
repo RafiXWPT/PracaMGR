@@ -1,0 +1,41 @@
+﻿@using WebsiteApplication.Models.ViewModels.Home
+@{ 
+    var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
+}
+<ul class="nav navbar-nav">
+    <li>
+        @(Html.Kendo().DropDownList()
+        .Name("cultureSelector")
+        .Events(e => e.Change("onChange"))
+        .DataTextField("CultureFullName")
+        .DataValueField("CultureId")
+        .BindTo(new List<CultureListItem>() {
+            new CultureListItem
+            {
+                CultureId = "pl-PL",
+                CultureFullName = "Polski",
+                Flag = "polska"
+            },
+            new CultureListItem
+            {
+                CultureId = "en-US",
+                CultureFullName = "English",
+                Flag = "english"
+            },
+        })
+        .Events(e => e.DataBound("setCurrentCultureFlag"))
+    )
+    </li>
+</ul>
+
+<script>
+    function onChange(e) {
+            var value = $('#cultureSelector').val();
+            $.post("@Url.Action("SetCulture", "Home")", { culture: value });
+        }
+        function setCurrentCultureFlag(e)
+        {
+            $('#cultureSelector').data('kendoDropDownList').value('@culture');
+        }
+</script>
+
