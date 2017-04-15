@@ -28,14 +28,14 @@ namespace WebsiteApplication.Models
     public class SetPasswordViewModel
     {
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.The0MustBeAtLeast2CharactersLong), MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = nameof(Resources.GlobalTranslations.Password), ResourceType = typeof(Resources.GlobalTranslations))]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = nameof(ConfirmPassword), ResourceType = typeof(Resources.GlobalTranslations))]
+        [Compare("Password", ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.PasswordConfirmationError))]
         public string ConfirmPassword { get; set; }
     }
 
@@ -43,18 +43,18 @@ namespace WebsiteApplication.Models
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = nameof(Resources.GlobalTranslations.CurrentPassword), ResourceType = typeof(Resources.GlobalTranslations))]
         public string OldPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.The0MustBeAtLeast2CharactersLong), MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = nameof(Resources.GlobalTranslations.NewPassword), ResourceType = typeof(Resources.GlobalTranslations))]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = nameof(ConfirmPassword), ResourceType = typeof(Resources.GlobalTranslations))]
+        [Compare("Password", ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.PasswordConfirmationError))]
         public string ConfirmPassword { get; set; }
     }
 

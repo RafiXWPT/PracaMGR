@@ -7,7 +7,7 @@ using Domain.Interfaces;
 
 namespace WebsiteApplication.Controllers
 {
-    public class InstitutionController : CultureController
+    public class InstitutionController : BaseController
     {
         private readonly IInstitutionRepository _repository;
 

@@ -2,36 +2,53 @@
 @{ 
     var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
 }
-<ul class="nav navbar-nav">
-    <li>
-        @(Html.Kendo().DropDownList()
+
+<script id="cultureTemplate" type="text/x-kendo-template">
+    <div style="display: block; text-align: right;">
+        <span>#=data.CultureFullName#</span>
+        <span>
+            <img src="/Content/Images/flag-#=data.Flag#.png" />
+        </span>
+    </div>
+</script>
+
+<div>
+    <ul class="nav navbar-nav" style="margin-top: 7px;">
+        <li>
+            @(Html.Kendo().DropDownList()
         .Name("cultureSelector")
+        .HtmlAttributes(new { style = "width: 130px" })
         .Events(e => e.Change("onChange"))
         .DataTextField("CultureFullName")
         .DataValueField("CultureId")
+        .TemplateId("cultureTemplate")
+        .ValueTemplateId("cultureTemplate")
         .BindTo(new List<CultureListItem>() {
             new CultureListItem
             {
                 CultureId = "pl-PL",
                 CultureFullName = "Polski",
-                Flag = "polska"
+                Flag = "pl"
             },
             new CultureListItem
             {
                 CultureId = "en-US",
                 CultureFullName = "English",
-                Flag = "english"
+                Flag = "uk"
             },
         })
         .Events(e => e.DataBound("setCurrentCultureFlag"))
-    )
-    </li>
-</ul>
+            )
+        </li>
+    </ul>
+</div>
 
 <script>
     function onChange(e) {
-            var value = $('#cultureSelector').val();
-            $.post("@Url.Action("SetCulture", "Home")", { culture: value });
+        var value = $('#cultureSelector').val();
+        $.post("@Url.Action("SetCulture", "Culture")", { culture: value }, function (result) {
+            window.location.reload();
+        });
         }
         function setCurrentCultureFlag(e)
         {

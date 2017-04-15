@@ -193,6 +193,7 @@
     <Compile Include="CodeBehind\WcfDataFetcher.cs" />
     <Compile Include="CodeBehind\WcfPersonInfoFetcher.cs" />
     <Compile Include="Controllers\ASP.NET Identity\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CultureController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ASP.NET Identity\ManageController.cs" />
@@ -211,9 +212,13 @@
     <Compile Include="Migrations\201704091917148_NazwaInstytucji.Designer.cs">
       <DependentUpon>201704091917148_NazwaInstytucji.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704151543519_AddressForUser.cs" />
+    <Compile Include="Migrations\201704151543519_AddressForUser.Designer.cs">
+      <DependentUpon>201704151543519_AddressForUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ViewModels\ASPNET.Identity\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ViewModels\ASPNET.Identity\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\Home\CultureListItem.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\ExaminationViewModel.cs" />
@@ -246,6 +251,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\error.png" />
+    <Content Include="Content\Images\flag-pl.png" />
+    <Content Include="Content\Images\flag-uk.png" />
     <Content Include="Content\Images\waiting.gif" />
     <Content Include="Content\kendo\Black\editor.png" />
     <Content Include="Content\kendo\Black\imagebrowser.png" />
@@ -1971,6 +1978,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Culture\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1994,6 +2002,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704091917148_NazwaInstytucji.resx">
       <DependentUpon>201704091917148_NazwaInstytucji.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704151543519_AddressForUser.resx">
+      <DependentUpon>201704151543519_AddressForUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\GlobalTranslations.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

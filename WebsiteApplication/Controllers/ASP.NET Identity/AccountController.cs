@@ -13,7 +13,7 @@ using WebsiteApplication.Models;
 namespace WebsiteApplication.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -58,7 +58,7 @@ namespace WebsiteApplication.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", Resources.GlobalTranslations.InvalidLoginAttempt);
                     return View(model);
             }
         }
@@ -101,7 +101,7 @@ namespace WebsiteApplication.Controllers
                     return View("Lockout");
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid code.");
+                    ModelState.AddModelError("", WebsiteApplication.Resources.GlobalTranslations.InvalidCode);
                     return View(model);
             }
         }

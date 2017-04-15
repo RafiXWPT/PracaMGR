@@ -15,7 +15,7 @@ using Newtonsoft.Json;
 namespace WebsiteApplication.Controllers
 {
     [RoutePrefix("Patient")]
-    public class PatientController : CultureController
+    public class PatientController : BaseController
     {
         private readonly IInstitutionRepository _repository;
         private readonly WcfPersonInfoFetcher _personInfoFetcher;
