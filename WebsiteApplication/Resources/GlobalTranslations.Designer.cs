@@ -106,6 +106,87 @@ namespace WebsiteApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kod.
+        /// </summary>
+        public static string Code {
+            get {
+                return ResourceManager.GetString("Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Powróż hasło.
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontakt.
+        /// </summary>
+        public static string Contact {
+            get {
+                return ResourceManager.GetString("Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aktualne hasło.
+        /// </summary>
+        public static string CurrentPassword {
+            get {
+                return ResourceManager.GetString("CurrentPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieprawidłowy kod.
+        /// </summary>
+        public static string InvalidCode {
+            get {
+                return ResourceManager.GetString("InvalidCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieprawidłowe dane logowania.
+        /// </summary>
+        public static string InvalidLoginAttempt {
+            get {
+                return ResourceManager.GetString("InvalidLoginAttempt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nowe hasło.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hasło.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hasła nie zgadzają się.
+        /// </summary>
+        public static string PasswordConfirmationError {
+            get {
+                return ResourceManager.GetString("PasswordConfirmationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data urodzenia.
         /// </summary>
         public static string PersonBirthDate {
@@ -138,6 +219,60 @@ namespace WebsiteApplication.Resources {
         public static string PersonSecondName {
             get {
                 return ResourceManager.GetString("PersonSecondName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Praca magisterska.
+        /// </summary>
+        public static string PracaMagisterska {
+            get {
+                return ResourceManager.GetString("PracaMagisterska", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zarejestruj się jako nowy użytkownik.
+        /// </summary>
+        public static string RegisterAsANewUser {
+            get {
+                return ResourceManager.GetString("RegisterAsANewUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zapamiętać przeglądarkę?.
+        /// </summary>
+        public static string RememberBrowser {
+            get {
+                return ResourceManager.GetString("RememberBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zapamiętaj mnie.
+        /// </summary>
+        public static string RememberMe {
+            get {
+                return ResourceManager.GetString("RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} musi być przynajmniej o długości {2}.
+        /// </summary>
+        public static string The0MustBeAtLeast2CharactersLong {
+            get {
+                return ResourceManager.GetString("The0MustBeAtLeast2CharactersLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Podaj dane konta aby się zalogować.
+        /// </summary>
+        public static string UseALocalAccountToLogIn {
+            get {
+                return ResourceManager.GetString("UseALocalAccountToLogIn", resourceCulture);
             }
         }
     }

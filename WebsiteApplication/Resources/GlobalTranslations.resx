@@ -144,4 +144,49 @@
   <data name="PersonSecondName" xml:space="preserve">
     <value>Nazwisko</value>
   </data>
+  <data name="RememberBrowser" xml:space="preserve">
+    <value>Zapamiętać przeglądarkę?</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Hasło</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Zapamiętaj mnie</value>
+  </data>
+  <data name="The0MustBeAtLeast2CharactersLong" xml:space="preserve">
+    <value>{0} musi być przynajmniej o długości {2}</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Powróż hasło</value>
+  </data>
+  <data name="PasswordConfirmationError" xml:space="preserve">
+    <value>Hasła nie zgadzają się</value>
+  </data>
+  <data name="InvalidLoginAttempt" xml:space="preserve">
+    <value>Nieprawidłowe dane logowania</value>
+  </data>
+  <data name="InvalidCode" xml:space="preserve">
+    <value>Nieprawidłowy kod</value>
+  </data>
+  <data name="PracaMagisterska" xml:space="preserve">
+    <value>Praca magisterska</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="UseALocalAccountToLogIn" xml:space="preserve">
+    <value>Podaj dane konta aby się zalogować</value>
+  </data>
+  <data name="RegisterAsANewUser" xml:space="preserve">
+    <value>Zarejestruj się jako nowy użytkownik</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Kod</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Aktualne hasło</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nowe hasło</value>
+  </data>
 </root>

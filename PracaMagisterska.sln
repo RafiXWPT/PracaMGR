@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{7D5DDCBE-C973-42AD-BEB1-2F3743373085}"
 EndProject
@@ -82,5 +82,8 @@ Global
 		{5E4596BE-3440-4322-8BA9-03EB2BA2A96C} = {14C37033-6FEA-45F4-9BAD-1FE39AF2FA78}
 		{BC65F8F5-79B2-4662-AE4A-1422337CF63E} = {14C37033-6FEA-45F4-9BAD-1FE39AF2FA78}
 		{F5A91A5D-E703-4568-866A-6AF248336A1E} = {14C37033-6FEA-45F4-9BAD-1FE39AF2FA78}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		RESX_NeutralResourcesLanguage = pl-PL
 	EndGlobalSection
 EndGlobal

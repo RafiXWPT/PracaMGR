@@ -29,11 +29,11 @@ namespace WebsiteApplication.Models
         public string Provider { get; set; }
 
         [Required]
-        [Display(Name = "Code")]
+        [Display(Name = nameof(Code), ResourceType = typeof(Resources.GlobalTranslations))]
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Remember this browser?")]
+        [Display(Name = nameof(RememberBrowser), ResourceType = typeof(Resources.GlobalTranslations))]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
@@ -55,10 +55,10 @@ namespace WebsiteApplication.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = nameof(Password), ResourceType = typeof(Resources.GlobalTranslations))]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = nameof(RememberMe), ResourceType = typeof(Resources.GlobalTranslations))]
         public bool RememberMe { get; set; }
     }
 
@@ -70,14 +70,14 @@ namespace WebsiteApplication.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.The0MustBeAtLeast2CharactersLong), MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = nameof(Password), ResourceType = typeof(Resources.GlobalTranslations))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = nameof(ConfirmPassword), ResourceType = typeof(Resources.GlobalTranslations))]
+        [Compare("Password", ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.PasswordConfirmationError))]
         public string ConfirmPassword { get; set; }
     }
 
@@ -89,14 +89,14 @@ namespace WebsiteApplication.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.The0MustBeAtLeast2CharactersLong), MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = nameof(Password), ResourceType = typeof(Resources.GlobalTranslations))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = nameof(ConfirmPassword), ResourceType = typeof(Resources.GlobalTranslations))]
+        [Compare("Password", ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.PasswordConfirmationError))]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

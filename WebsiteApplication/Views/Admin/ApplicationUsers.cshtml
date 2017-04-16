@@ -1,0 +1,44 @@
+﻿@using WebsiteApplication.Models.ViewModels.Admin
+
+@{
+    ViewBag.Title = "ApplicationUsers";
+}
+
+<h2>ApplicationUsers</h2>
+
+<script type="text/kendo" id="rightsTemplate">
+    <ul>
+        #for(var i = 0; i< data.length; i++){#
+        <li>#:data[i].RightDescription#</li>
+        #}#
+    </ul>
+</script>
+
+<script type="text/javascript">
+    var rightsTemplate = kendo.template($("#rightsTemplate").html(), { useWithBlock: false });
+</script>
+
+@(Html.Kendo().Grid<UserViewModel>()
+      .Name("users-grid")
+      .Sortable()
+      .Pageable()
+      .Columns(columns =>
+      {
+          columns.Bound(vm => vm.Username);
+          columns.Bound(vm => vm.UserRoles).Sortable(false).ClientTemplate("#=rightsTemplate(UserRoles)#");
+          columns.Command(cmd =>
+          {
+              cmd.Edit();
+              cmd.Destroy();
+          }).Width("20%");
+      })
+      .Editable(e => e.Mode(GridEditMode.InLine))
+      .DataSource(ds => 
+          ds
+              .Ajax()
+              .Model(m => m.Id(vm => vm.UserId))
+              .Read(r => r.Action("ReadUsers", "Admin"))
+              .Update(u => u.Action("UpdateUser", "Admin"))
+              .Destroy(d => d.Action("DeleteUser", "Admin"))
+              .PageSize(10)))
+

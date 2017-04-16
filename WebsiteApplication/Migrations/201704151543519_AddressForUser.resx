@@ -117,76 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddressCity" xml:space="preserve">
-    <value>Miasto</value>
+  <data name="Target" xml:space="preserve">
+    <value>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</value>
   </data>
-  <data name="AddressCountry" xml:space="preserve">
-    <value>Państwo</value>
-  </data>
-  <data name="AddressProvince" xml:space="preserve">
-    <value>Województwo</value>
-  </data>
-  <data name="AddressStreet" xml:space="preserve">
-    <value>Ulica</value>
-  </data>
-  <data name="AddressZipCode" xml:space="preserve">
-    <value>Kod pocztowy</value>
-  </data>
-  <data name="PersonBirthDate" xml:space="preserve">
-    <value>Data urodzenia</value>
-  </data>
-  <data name="PersonFirstName" xml:space="preserve">
-    <value>Imię</value>
-  </data>
-  <data name="PersonInsuranceNumber" xml:space="preserve">
-    <value>Numer ubezpieczenia</value>
-  </data>
-  <data name="PersonSecondName" xml:space="preserve">
-    <value>Nazwisko</value>
-  </data>
-  <data name="RememberBrowser" xml:space="preserve">
-    <value>Zapamiętać przeglądarkę?</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>Hasło</value>
-  </data>
-  <data name="RememberMe" xml:space="preserve">
-    <value>Zapamiętaj mnie</value>
-  </data>
-  <data name="The0MustBeAtLeast2CharactersLong" xml:space="preserve">
-    <value>{0} musi być przynajmniej o długości {2}</value>
-  </data>
-  <data name="ConfirmPassword" xml:space="preserve">
-    <value>Powróż hasło</value>
-  </data>
-  <data name="PasswordConfirmationError" xml:space="preserve">
-    <value>Hasła nie zgadzają się</value>
-  </data>
-  <data name="InvalidLoginAttempt" xml:space="preserve">
-    <value>Nieprawidłowe dane logowania</value>
-  </data>
-  <data name="InvalidCode" xml:space="preserve">
-    <value>Nieprawidłowy kod</value>
-  </data>
-  <data name="PracaMagisterska" xml:space="preserve">
-    <value>Praca magisterska</value>
-  </data>
-  <data name="Contact" xml:space="preserve">
-    <value>Kontakt</value>
-  </data>
-  <data name="UseALocalAccountToLogIn" xml:space="preserve">
-    <value>Podaj dane konta aby się zalogować</value>
-  </data>
-  <data name="RegisterAsANewUser" xml:space="preserve">
-    <value>Zarejestruj się jako nowy użytkownik</value>
-  </data>
-  <data name="Code" xml:space="preserve">
-    <value>Kod</value>
-  </data>
-  <data name="CurrentPassword" xml:space="preserve">
-    <value>Aktualne hasło</value>
-  </data>
-  <data name="NewPassword" xml:space="preserve">
-    <value>Nowe hasło</value>
+  <data name="DefaultSchema" xml:space="preserve">
+    <value>dbo</value>
   </data>
 </root>
