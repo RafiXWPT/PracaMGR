@@ -17,30 +17,36 @@ namespace WebsiteApplication.Migrations
 
         protected override void Seed(WebsiteApplication.DataAccessLayer.WebsiteDatabaseContext context)
         {
-            if(context.Users.FirstOrDefault(x => x.Email == "admin@admin.admin") == null)
-            {
-                var userStore = new UserStore<ApplicationUser>(context);
-                var userManager = new UserManager<ApplicationUser>(userStore);
-                //var userManager = new ApplicationUserManager(new Microsoft.AspNet.Identity.EntityFramework.UserStore<Models.ApplicationUser>(context));
-                userManager.Create(new ApplicationUser { Email = "admin@admin.admin", UserName = "admin"}, "P@ssword123");
-                userManager.Create(new ApplicationUser { Email = "admin_tech@tech.tech", UserName = "admin_tech" }, "P@ssword123");
-                userManager.Create(new ApplicationUser { Email = "doctor@doctor.doctor", UserName = "doctor" }, "P@ssword123");
-                userManager.Create(new ApplicationUser { Email = "tech@tech.tech", UserName = "tech" }, "P@ssword123");
-                context.SaveChanges();
+            if (context.Users.FirstOrDefault(x => x.Email == "admin@admin.admin") != null)
+                return;
 
-                var adminUser = context.Users.FirstOrDefault(x => x.UserName == "admin");
-                userManager.AddToRole(adminUser.Id, "ADMIN");
 
-                var adminTechUser = context.Users.FirstOrDefault(x => x.UserName == "admin_tech");
-                userManager.AddToRole(adminTechUser.Id, "ADMIN_TECH");
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
 
-                var doctorUser = context.Users.FirstOrDefault(x => x.UserName == "doctor");
-                userManager.AddToRole(doctorUser.Id, "DOCTOR");
+            userManager.Create(new ApplicationUser {Email = "admin@admin.admin", UserName = "admin@admin.admin"},
+                "P@ssword123");
+            userManager.Create(new ApplicationUser {Email = "admin_tech@tech.tech", UserName = "admin_tech@tech.tech"},
+                "P@ssword123");
+            userManager.Create(new ApplicationUser {Email = "doctor@doctor.doctor", UserName = "doctor@doctor.doctor"},
+                "P@ssword123");
+            userManager.Create(new ApplicationUser {Email = "tech@tech.tech", UserName = "tech@tech.tech"},
+                "P@ssword123");
+            context.SaveChanges();
 
-                var techUser = context.Users.FirstOrDefault(x => x.UserName == "tech");
-                userManager.AddToRole(techUser.Id, "TECHNICAN");
-                context.SaveChanges();
-            }
+            var adminUser = context.Users.FirstOrDefault(x => x.UserName == "admin@admin.admin");
+            userManager.AddToRole(adminUser.Id, "ADMIN");
+
+            var adminTechUser = context.Users.FirstOrDefault(x => x.UserName == "admin_tech@tech.tech");
+            userManager.AddToRole(adminTechUser.Id, "ADMIN_TECH");
+
+            var doctorUser = context.Users.FirstOrDefault(x => x.UserName == "doctor@doctor.doctor");
+            userManager.AddToRole(doctorUser.Id, "DOCTOR");
+
+            var techUser = context.Users.FirstOrDefault(x => x.UserName == "tech@tech.tech");
+            userManager.AddToRole(techUser.Id, "TECHNICAN");
+            context.SaveChanges();
+
 
             //  This method will be called after migrating to the latest version.
 

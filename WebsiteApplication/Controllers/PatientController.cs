@@ -11,10 +11,12 @@ using WebsiteApplication.Models.ViewModels.Patient;
 using System.Web.Routing;
 using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;
 using Newtonsoft.Json;
+using WebsiteApplication.Filters;
 
 namespace WebsiteApplication.Controllers
 {
     [RoutePrefix("Patient")]
+    [RoleAuthorize(Roles = "ADMIN,ADMIN_TECH,DOCTOR")]
     public class PatientController : BaseController
     {
         private readonly IInstitutionRepository _repository;
@@ -105,7 +107,7 @@ namespace WebsiteApplication.Controllers
             var hospitalization = Mapper.Map<HospitalizationContainerViewModel>(_patientInfoFetcher.GetHospitalization(hospitalizationId, institution.InstitutionEndpointAddress));
             hospitalization.Person = personViewModel;
             hospitalization.Examinations.ForEach(x => x.InstitutionId = institutionId);
-            //hospitalization.Treatments.ForEach(x => x.InstitutionId = institutionId);
+            hospitalization.Treatments.ForEach(x => x.InstitutionId = institutionId);
             
             return View(hospitalization);
         }

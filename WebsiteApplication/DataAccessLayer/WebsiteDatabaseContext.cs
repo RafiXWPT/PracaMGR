@@ -6,7 +6,7 @@ using WebsiteApplication.Models;
 
 namespace WebsiteApplication.DataAccessLayer
 {
-    class WebsiteDatabaseContext : IdentityDbContext<ApplicationUser>
+    public class WebsiteDatabaseContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Institution> Institutions { get; set; }
         public WebsiteDatabaseContext() : base("WebsiteDatabase", false) { }

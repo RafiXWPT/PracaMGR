@@ -5,6 +5,7 @@ namespace WebsiteApplication.Models.ViewModels.Patient.Hospitalization
 {
     public class TreatmentViewModel
     {
+        public Guid InstitutionId { get; set; }
         public Guid TreatmentId { get; set; }
         [Display(Name = "Data przeprowadzenia leczenia")]
         public DateTime TreatmentDateTime { get; set; }

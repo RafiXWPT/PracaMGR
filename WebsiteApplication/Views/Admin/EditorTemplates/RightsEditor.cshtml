@@ -1,0 +1,7 @@
+﻿@using WebsiteApplication.Models.ViewModels.Admin
+@model IEnumerable<RightViewModel>
+@(Html.Kendo().MultiSelectFor(vm => vm)
+      .DataTextField("RightDescription")
+      .DataValueField("RightId").AutoBind(true).Value(Model)
+      .BindTo((IEnumerable<RightViewModel>)ViewData["rights"])
+      )

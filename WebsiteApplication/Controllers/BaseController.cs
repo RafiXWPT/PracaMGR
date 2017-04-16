@@ -5,11 +5,25 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using WebsiteApplication.CodeBehind;
+using WebsiteApplication.DataAccessLayer;
 
 namespace WebsiteApplication.Controllers
 {
     public class BaseController : Controller
     {
+        public WebsiteDatabaseContext Context { get; }
+        public ApplicationUserManager UserManager { get; }
+        
+        public BaseController() : this(null, null) { }
+
+        protected BaseController(WebsiteDatabaseContext context) : this(context, null) { }
+
+        protected BaseController(WebsiteDatabaseContext context, ApplicationUserManager manager)
+        {
+            Context = context;
+            UserManager = manager;
+        }
+
         protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
         {
             string cultureName = null;
