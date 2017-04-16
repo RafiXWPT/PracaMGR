@@ -19,14 +19,19 @@ namespace Domain
     {
         [DataMember]
         public string Country { get; set; }
+
         [DataMember]
         public string Province { get; set; }
+
         [DataMember]
         public string City { get; set; }
+
         [DataMember]
         public string Street { get; set; }
+
         [DataMember]
         public string ZipCode { get; set; }
+
         [DataMember]
         public string HomeNumber { get; set; }
     }

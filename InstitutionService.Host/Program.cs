@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using Domain.Interfaces;
 using InstitutionService.Host.Code.Core;
-using InstitutionService.Host.Code.DataAccessLayer;
 using InstitutionService.Host.Code.DummyDatabaseInitializer;
 
 namespace InstitutionService.Host
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Initializing object builder");
             ObjectBuilder.Initialize();
@@ -23,7 +16,7 @@ namespace InstitutionService.Host
 
             var t = new InstitutionDatabaseInitializer();
             t.Seed();
-            
+
             Console.WriteLine("Running service");
             var wcfProvider = new WcfServiceProvider();
             wcfProvider.RunService();

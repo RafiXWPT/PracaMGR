@@ -1,26 +1,28 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logoutForm", @class = "navbar-right"}))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav">
-        <li>
-            @Html.ActionLink("Witaj " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-        <li>
-            @Html.Partial("_CultureSelector")
-        </li>
-    </ul>
+        <ul class="nav navbar-nav">
+            <li>
+                @Html.ActionLink("Witaj " + User.Identity.GetUserName() + "!", "Index", "Manage", null, new {title = "Manage"})
+            </li>
+            <li>
+                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+            </li>
+            <li>
+                @Html.Partial("_CultureSelector")
+            </li>
+        </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav">
-        <li>@Html.ActionLink("Rejestracja", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Logowanie", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Rejestracja", "Register", "Account", null, new {id = "registerLink"})</li>
+        <li>@Html.ActionLink("Logowanie", "Login", "Account", null, new {id = "loginLink"})</li>
         <li>
             @Html.Partial("_CultureSelector")
         </li>

@@ -12,7 +12,7 @@ namespace Domain.Residence
         public DateTime HospitalizationEndTime { get; set; }
         public virtual Patient Patient { get; set; }
         public virtual ICollection<Examination> Examinations { get; set; }
-        public virtual ICollection<Treatment> Treatments { get; set; }           
+        public virtual ICollection<Treatment> Treatments { get; set; }
     }
 
     [DataContract]
@@ -20,8 +20,10 @@ namespace Domain.Residence
     {
         [DataMember]
         public Guid HospitalizationId { get; set; }
+
         [DataMember]
         public DateTime HospitalizationStartTime { get; set; }
+
         [DataMember]
         public DateTime HospitalizationEndTime { get; set; }
     }
@@ -30,7 +32,9 @@ namespace Domain.Residence
     public class HospitalizationTransferObject
     {
         [DataMember]
-        public List<ExaminationBasicTransferObject> Examinations { get; set; } = new List<ExaminationBasicTransferObject>();
+        public List<ExaminationBasicTransferObject> Examinations { get; set; } =
+            new List<ExaminationBasicTransferObject>();
+
         [DataMember]
         public List<TreatmentBasicTransferObject> Treatments { get; set; } = new List<TreatmentBasicTransferObject>();
     }

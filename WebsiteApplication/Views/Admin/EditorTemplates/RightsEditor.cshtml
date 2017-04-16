@@ -1,7 +1,7 @@
 ﻿@using WebsiteApplication.Models.ViewModels.Admin
-@model IEnumerable<RightViewModel>
+@model IEnumerable<WebsiteApplication.Models.ViewModels.Admin.RoleViewModel>
 @(Html.Kendo().MultiSelectFor(vm => vm)
-      .DataTextField("RightDescription")
-      .DataValueField("RightId").AutoBind(true).Value(Model)
-      .BindTo((IEnumerable<RightViewModel>)ViewData["rights"])
+      .DataTextField("RoleName")
+      .DataValueField("RoleId").AutoBind(true).Value(Model)
+      .BindTo((IEnumerable<RoleViewModel>) ViewData["rights"])
       )

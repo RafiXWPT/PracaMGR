@@ -22,7 +22,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
         {
             var persons = new List<Person>
             {
-                new Person()
+                new Person
                 {
                     PersonId = Guid.NewGuid(),
                     Pesel = "93070114133",
@@ -41,13 +41,13 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                         HomeNumber = "109"
                     }
                 },
-                new Person()
+                new Person
                 {
                     PersonId = Guid.NewGuid(),
                     Pesel = "24020809720",
                     FirstName = "Anna",
                     SecondName = "Nowak",
-                    BirthDate = new DateTime(1924,2,8),
+                    BirthDate = new DateTime(1924, 2, 8),
                     InsuranceId = "259001",
                     Address = new Address
                     {
@@ -60,13 +60,13 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                         HomeNumber = "13"
                     }
                 },
-                new Person()
+                new Person
                 {
                     PersonId = Guid.NewGuid(),
                     Pesel = "62012210646",
                     FirstName = "Bogusław",
                     SecondName = "Zbych",
-                    BirthDate = new DateTime(1962,1,22),
+                    BirthDate = new DateTime(1962, 1, 22),
                     InsuranceId = "259234",
                     Address = new Address
                     {
@@ -79,7 +79,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                         HomeNumber = "42"
                     }
                 },
-                new Person()
+                new Person
                 {
                     PersonId = Guid.NewGuid(),
                     Pesel = "64121311834",
@@ -98,13 +98,13 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                         HomeNumber = "33"
                     }
                 },
-                new Person()
+                new Person
                 {
                     PersonId = Guid.NewGuid(),
                     Pesel = "26112804811",
                     FirstName = "Teodor",
                     SecondName = "Krawczyk",
-                    BirthDate = new DateTime(1926,11,28),
+                    BirthDate = new DateTime(1926, 11, 28),
                     InsuranceId = "556125",
                     Address = new Address
                     {
@@ -117,13 +117,13 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                         HomeNumber = "42"
                     }
                 },
-                new Person()
+                new Person
                 {
                     PersonId = Guid.NewGuid(),
                     Pesel = "61061910064",
                     FirstName = "Maria",
                     SecondName = "Dadał",
-                    BirthDate = new DateTime(1961,6,19),
+                    BirthDate = new DateTime(1961, 6, 19),
                     InsuranceId = "221545",
                     Address = new Address
                     {
@@ -136,13 +136,13 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                         HomeNumber = "41"
                     }
                 },
-                new Person()
+                new Person
                 {
                     PersonId = Guid.NewGuid(),
                     Pesel = "26031604565",
                     FirstName = "Ewa",
                     SecondName = "Palej",
-                    BirthDate = new DateTime(1926,3,16),
+                    BirthDate = new DateTime(1926, 3, 16),
                     InsuranceId = "996565",
                     Address = new Address
                     {
@@ -155,13 +155,13 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                         HomeNumber = "109"
                     }
                 },
-                new Person()
+                new Person
                 {
                     PersonId = Guid.NewGuid(),
                     Pesel = "03300900942",
                     FirstName = "Filip",
                     SecondName = "Gościński",
-                    BirthDate = new DateTime(2003,3,1),
+                    BirthDate = new DateTime(2003, 3, 1),
                     InsuranceId = "259024",
                     Address = new Address
                     {
@@ -174,13 +174,13 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                         HomeNumber = "220"
                     }
                 },
-                new Person()
+                new Person
                 {
                     PersonId = Guid.NewGuid(),
                     Pesel = "89021303161",
                     FirstName = "Kinga",
                     SecondName = "Szepielak",
-                    BirthDate = new DateTime(1989,2,13),
+                    BirthDate = new DateTime(1989, 2, 13),
                     InsuranceId = "5124585",
                     Address = new Address
                     {
@@ -193,13 +193,13 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                         HomeNumber = "530"
                     }
                 },
-                new Person()
+                new Person
                 {
                     PersonId = Guid.NewGuid(),
                     Pesel = "60092601196",
                     FirstName = "Sarys",
                     SecondName = "Sire",
-                    BirthDate = new DateTime(1960,9,26),
+                    BirthDate = new DateTime(1960, 9, 26),
                     InsuranceId = "221546",
                     Address = new Address
                     {

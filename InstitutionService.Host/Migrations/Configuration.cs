@@ -1,18 +1,16 @@
+using System.Data.Entity.Migrations;
+using InstitutionService.Host.Code.DataAccessLayer;
+
 namespace InstitutionService.Host.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    internal sealed class Configuration : DbMigrationsConfiguration<InstitutionService.Host.Code.DataAccessLayer.InstitutionServiceDatabaseContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<InstitutionServiceDatabaseContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(InstitutionService.Host.Code.DataAccessLayer.InstitutionServiceDatabaseContext context)
+        protected override void Seed(InstitutionServiceDatabaseContext context)
         {
             //  This method will be called after migrating to the latest version.
 

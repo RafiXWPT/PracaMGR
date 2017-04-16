@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PersonInfoService.Host.Code.DataAccessLayer;
 
 namespace PersonInfoService.Host.Tests

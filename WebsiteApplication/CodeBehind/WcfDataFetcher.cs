@@ -5,19 +5,24 @@ using System.ServiceModel;
 using System.Threading.Tasks;
 using Domain;
 using Domain.Interfaces;
-using InstitutionService;
 using Domain.Residence;
+using InstitutionService;
 
 namespace WebsiteApplication.CodeBehind
 {
     internal class WcfDataFetcher : IDisposable
     {
-        private IInstitutionService Connection;
         private readonly IInstitutionRepository _repository;
+        private IInstitutionService Connection;
 
         public WcfDataFetcher(IInstitutionRepository repository)
         {
             _repository = repository;
+        }
+
+        public void Dispose()
+        {
+            CloseConnection(Connection);
         }
 
         private IInstitutionService EstablishConnection(string urlEndpoint)
@@ -63,7 +68,7 @@ namespace WebsiteApplication.CodeBehind
         {
             Connection = EstablishConnection(institution.InstitutionEndpointAddress);
 
-            if(Connection == null)
+            if (Connection == null)
                 return null;
 
             var patient = Connection.GetPatientInfo(pesel);
@@ -97,9 +102,16 @@ namespace WebsiteApplication.CodeBehind
             return examination;
         }
 
-        public void Dispose()
+        public TreatmentTransferObject GetTreatment(Guid treatmentId, string endpoint)
         {
-            CloseConnection(Connection);
+            Connection = EstablishConnection(endpoint);
+
+            if (Connection == null)
+                return null;
+
+            var treatment = Connection.GetTreatment(treatmentId);
+
+            return treatment;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿@using WebsiteApplication.Models.ViewModels.Admin
-
 @{
     ViewBag.Title = "ApplicationUsers";
 }
@@ -9,7 +8,7 @@
 <script type="text/kendo" id="rightsTemplate">
     <ul>
         #for(var i = 0; i< data.length; i++){#
-        <li>#:data[i].RightDescription#</li>
+        <li>#:data[i].RoleName#</li>
         #}#
     </ul>
 </script>
@@ -33,7 +32,7 @@
           }).Width("20%");
       })
       .Editable(e => e.Mode(GridEditMode.InLine))
-      .DataSource(ds => 
+      .DataSource(ds =>
           ds
               .Ajax()
               .Model(m => m.Id(vm => vm.UserId))
@@ -41,4 +40,3 @@
               .Update(u => u.Action("UpdateUser", "Admin"))
               .Destroy(d => d.Action("DeleteUser", "Admin"))
               .PageSize(10)))
-

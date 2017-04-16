@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using WebsiteApplication.Resources;
 
 namespace WebsiteApplication.Models
 {
@@ -18,7 +20,7 @@ namespace WebsiteApplication.Models
     public class SendCodeViewModel
     {
         public string SelectedProvider { get; set; }
-        public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
+        public ICollection<SelectListItem> Providers { get; set; }
         public string ReturnUrl { get; set; }
         public bool RememberMe { get; set; }
     }
@@ -29,11 +31,12 @@ namespace WebsiteApplication.Models
         public string Provider { get; set; }
 
         [Required]
-        [Display(Name = nameof(Code), ResourceType = typeof(Resources.GlobalTranslations))]
+        [Display(Name = nameof(Code), ResourceType = typeof(GlobalTranslations))]
         public string Code { get; set; }
+
         public string ReturnUrl { get; set; }
 
-        [Display(Name = nameof(RememberBrowser), ResourceType = typeof(Resources.GlobalTranslations))]
+        [Display(Name = nameof(RememberBrowser), ResourceType = typeof(GlobalTranslations))]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
@@ -55,10 +58,10 @@ namespace WebsiteApplication.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = nameof(Password), ResourceType = typeof(Resources.GlobalTranslations))]
+        [Display(Name = nameof(Password), ResourceType = typeof(GlobalTranslations))]
         public string Password { get; set; }
 
-        [Display(Name = nameof(RememberMe), ResourceType = typeof(Resources.GlobalTranslations))]
+        [Display(Name = nameof(RememberMe), ResourceType = typeof(GlobalTranslations))]
         public bool RememberMe { get; set; }
     }
 
@@ -70,14 +73,17 @@ namespace WebsiteApplication.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.The0MustBeAtLeast2CharactersLong), MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(GlobalTranslations),
+            ErrorMessageResourceName = nameof(GlobalTranslations.The0MustBeAtLeast2CharactersLong), MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = nameof(Password), ResourceType = typeof(Resources.GlobalTranslations))]
+        [Display(Name = nameof(Password), ResourceType = typeof(GlobalTranslations))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = nameof(ConfirmPassword), ResourceType = typeof(Resources.GlobalTranslations))]
-        [Compare("Password", ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.PasswordConfirmationError))]
+        [Display(Name = nameof(ConfirmPassword), ResourceType = typeof(GlobalTranslations))]
+        [System.ComponentModel.DataAnnotations.Compare("Password",
+            ErrorMessageResourceType = typeof(GlobalTranslations),
+            ErrorMessageResourceName = nameof(GlobalTranslations.PasswordConfirmationError))]
         public string ConfirmPassword { get; set; }
     }
 
@@ -89,14 +95,17 @@ namespace WebsiteApplication.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.The0MustBeAtLeast2CharactersLong), MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(GlobalTranslations),
+            ErrorMessageResourceName = nameof(GlobalTranslations.The0MustBeAtLeast2CharactersLong), MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = nameof(Password), ResourceType = typeof(Resources.GlobalTranslations))]
+        [Display(Name = nameof(Password), ResourceType = typeof(GlobalTranslations))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = nameof(ConfirmPassword), ResourceType = typeof(Resources.GlobalTranslations))]
-        [Compare("Password", ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.PasswordConfirmationError))]
+        [Display(Name = nameof(ConfirmPassword), ResourceType = typeof(GlobalTranslations))]
+        [System.ComponentModel.DataAnnotations.Compare("Password",
+            ErrorMessageResourceType = typeof(GlobalTranslations),
+            ErrorMessageResourceName = nameof(GlobalTranslations.PasswordConfirmationError))]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNet.Identity;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace WebsiteApplication.CodeBehind
 {
@@ -29,7 +29,7 @@ namespace WebsiteApplication.CodeBehind
                 {
                     Subject = message.Subject,
                     Body = message.Body,
-                    IsBodyHtml = true,
+                    IsBodyHtml = true
                 })
                 {
                     smtp.Send(emailMessage);

@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using Domain;
 using InstitutionService;
 
 namespace WebsiteApplication.CodeBehind
 {
-    class WcfPersonInfoFetcher
+    internal class WcfPersonInfoFetcher
     {
         private readonly string _personDatabaseEndpoint = ConfigurationManager.AppSettings["PERSON_DATABASE_ENDPOINT"];
 

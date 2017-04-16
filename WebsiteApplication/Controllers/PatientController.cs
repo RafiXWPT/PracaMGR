@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using AutoMapper;
 using Domain.Interfaces;
 using WebsiteApplication.CodeBehind;
-using WebsiteApplication.Models.ViewModels.Patient;
-using System.Web.Routing;
-using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;
-using Newtonsoft.Json;
 using WebsiteApplication.Filters;
+using WebsiteApplication.Models.ViewModels.Patient;
+using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;
 
 namespace WebsiteApplication.Controllers
 {
@@ -19,9 +15,10 @@ namespace WebsiteApplication.Controllers
     [RoleAuthorize(Roles = "ADMIN,ADMIN_TECH,DOCTOR")]
     public class PatientController : BaseController
     {
-        private readonly IInstitutionRepository _repository;
-        private readonly WcfPersonInfoFetcher _personInfoFetcher;
         private readonly WcfDataFetcher _patientInfoFetcher;
+        private readonly WcfPersonInfoFetcher _personInfoFetcher;
+        private readonly IInstitutionRepository _repository;
+
         public PatientController(IInstitutionRepository repository)
         {
             _repository = repository;
@@ -31,37 +28,17 @@ namespace WebsiteApplication.Controllers
 
         public ActionResult Index(string pesel)
         {
-            if(pesel == null)
-            {
+            if (pesel == null)
                 return View();
-            }
-            else if (pesel.Length == 0)
+            if (pesel.Length == 0)
             {
                 ModelState.AddModelError("", "Nie podano numeru PESEL");
                 return View();
             }
-            else
-            {
-                if(pesel.All(x => Char.IsDigit(x)))
-                {
-                    return RedirectToAction("Patient", new RouteValueDictionary(new { controller = "Patient", action = "Patient", pesel = pesel }));
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Wpisano niepoprawny numer PESEL");
-                    return View();
-                }
-            }
-        }
-
-        [Route("Patient/{pesel}")]
-        public ActionResult Patient(string pesel)
-        {
-            if (string.IsNullOrEmpty(pesel) && TempData.ContainsKey("LastSearchedPatient"))
-                pesel = (TempData["LastSearchedPatient"] as PersonViewModel).Pesel;
-            else
-                TempData["LastSearchedPesel"] = pesel;
-
+            if (pesel.All(x => char.IsDigit(x)))
+                return RedirectToAction("Patient",
+                    new RouteValueDictionary(new {controller = "Patient", action = "Patient", pesel}));
+            ModelState.AddModelError("", "Wpisano niepoprawny numer PESEL");
             return View();
         }
 
@@ -72,25 +49,31 @@ namespace WebsiteApplication.Controllers
             if (person == null)
                 return new HttpStatusCodeResult(69, "Osoba o podanym numerze PESEL nie istnieje.");
 
-            TempData["LastSearchedPatient"] = person;
+            TempData["CurrentPerson"] = person;
 
             return PartialView("_PersonInfo", person);
+        }
+
+        [Route("Patient/{pesel}")]
+        public ActionResult Patient(string pesel)
+        {
+            return View();
         }
 
         [Route("History/{pesel}")]
         public ActionResult GetPatientHistory(string pesel)
         {
-            var patientRecordList = _patientInfoFetcher.GetPatientHistory(pesel).Select(Mapper.Map<PatientViewModel>).ToList();
-            if (patientRecordList == null)
+            var patientRecordList = _patientInfoFetcher.GetPatientHistory(pesel)
+                .Select(Mapper.Map<PatientViewModel>)
+                .ToList();
+            if (!patientRecordList.Any())
                 return new HttpStatusCodeResult(69, "Dla tej osoby nie istnieją żadne wpisy na temat hospitalizacji.");
 
             if (patientRecordList.Count == 0)
                 return new HttpStatusCodeResult(404);
 
-            foreach(var patientRecord in patientRecordList)
-            {
+            foreach (var patientRecord in patientRecordList)
                 patientRecord.Hospitalizations.ForEach(x => x.InstitutionId = patientRecord.InstitutionId);
-            }
 
             return PartialView("_PersonHistory", patientRecordList);
         }
@@ -98,17 +81,20 @@ namespace WebsiteApplication.Controllers
         [Route("HospitalizationDetails/{hospitalizationId}")]
         public ActionResult HospitalizationDetails(Guid hospitalizationId, Guid institutionId)
         {
-            if(!TempData.ContainsKey("LastSearchedPatient"))
-                return RedirectToAction("Patient", new RouteValueDictionary(new { controller = "Patient", action = "Patient", pesel = TempData["LastSearchedPesel"] }));
+            var personViewModel = TempData["CurrentPerson"] as PersonViewModel;
+            if (personViewModel == null)
+                return RedirectToAction("Index");
 
-            var personViewModel = TempData["LastSearchedPatient"] as PersonViewModel;
+            TempData.Keep();
 
             var institution = _repository.Institutions.First(x => x.InstitutionId == institutionId);
-            var hospitalization = Mapper.Map<HospitalizationContainerViewModel>(_patientInfoFetcher.GetHospitalization(hospitalizationId, institution.InstitutionEndpointAddress));
+            var hospitalization = Mapper.Map<HospitalizationContainerViewModel>(
+                _patientInfoFetcher.GetHospitalization(hospitalizationId, institution.InstitutionEndpointAddress));
+
             hospitalization.Person = personViewModel;
             hospitalization.Examinations.ForEach(x => x.InstitutionId = institutionId);
             hospitalization.Treatments.ForEach(x => x.InstitutionId = institutionId);
-            
+
             return View(hospitalization);
         }
 
@@ -116,8 +102,20 @@ namespace WebsiteApplication.Controllers
         public ActionResult ExaminationDetails(Guid examinationId, Guid institutionId)
         {
             var institution = _repository.Institutions.First(x => x.InstitutionId == institutionId);
-            var examination = Mapper.Map<ExaminationContainerViewModel>(_patientInfoFetcher.GetExamination(examinationId, institution.InstitutionEndpointAddress));
+            var examination =
+                Mapper.Map<ExaminationContainerViewModel>(
+                    _patientInfoFetcher.GetExamination(examinationId, institution.InstitutionEndpointAddress));
             return View(examination);
+        }
+
+        [Route("TreatmentDetails/{treatmentId}")]
+        public ActionResult TreatmentDetails(Guid treatmentId, Guid institutionId)
+        {
+            var institution = _repository.Institutions.First(x => x.InstitutionId == institutionId);
+            var treatment =
+                Mapper.Map<TreatmentContainerViewModel>(
+                    _patientInfoFetcher.GetTreatment(treatmentId, institution.InstitutionEndpointAddress));
+            return View(treatment);
         }
     }
 }

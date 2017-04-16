@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Domain.Interfaces;
 using InstitutionService.Host.Code.DataAccessLayer;
 using InstitutionService.Host.Code.DatabaseProvider;
 using SimpleInjector;
 using SimpleInjector.Integration.Wcf;
-using SimpleInjector.Integration.Web;
 
 namespace InstitutionService.Host.Code.Core
 {

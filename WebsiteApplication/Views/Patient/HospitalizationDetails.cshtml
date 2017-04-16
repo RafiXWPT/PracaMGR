@@ -1,10 +1,9 @@
-﻿@using WebsiteApplication.Models.ViewModels.Patient.Hospitalization
-@model HospitalizationContainerViewModel
+﻿@model WebsiteApplication.Models.ViewModels.Patient.Hospitalization.HospitalizationContainerViewModel
 @{
     ViewBag.Title = "HospitalizationDetails";
 }
 
-<hr />
+<hr/>
 <div id="personInfoHolder" class="panel panel-primary">
     <div class="panel-heading">Dane osobowe Pacjenta</div>
     <div id="personInfo">
@@ -14,36 +13,38 @@
 
 <h2>Examinations</h2>
 
-@(Html.Kendo().Grid<ExaminationViewModel>(Model.Examinations)
-        .Name("ExaminationGrid")
-        .Columns(columns =>
-        {
-            columns.Bound(c => c.InstitutionId).Hidden();
-            columns.Bound(c => c.ExaminationId).Hidden();
-            columns.Bound(c => c.ExaminationStartTime).Width(100);
-            columns.Bound(c => c.ExaminationEndTime).Width(100);
-            columns.Command(command => command.Custom("Szczegóły").Click("showExaminationDetails")).Width(25);
-        })
-        .Scrollable()
-        .Sortable()
-        .Pageable()
-        .DataSource(ds =>
-            ds.Ajax().ServerOperation(false).PageSize(10)))
+@(Html.Kendo().Grid(Model.Examinations)
+      .Name("ExaminationGrid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.InstitutionId).Hidden();
+          columns.Bound(c => c.ExaminationId).Hidden();
+          columns.Bound(x => x.ExaminationStartTime).Template(@<text></text>).ClientTemplate("#=kendo.toString(ExaminationStartTime, 'yyyy-MM-dd hh:mm:ss')#  (" + GlobalTranslations.CentralEuropeanTime + ")").Width(100);
+          columns.Bound(x => x.ExaminationEndTime).Template(@<text></text>).ClientTemplate("#=kendo.toString(ExaminationEndTime, 'yyyy-MM-dd hh:mm:ss')#  (" + GlobalTranslations.CentralEuropeanTime + ")").Width(100);
+          columns.Command(command => command.Custom("Szczegóły").Click("showExaminationDetails")).Width(25);
+      })
+      .Scrollable()
+      .Sortable()
+      .Pageable()
+      .DataSource(ds =>
+          ds.Ajax().ServerOperation(false).PageSize(10)))
 
 <h2>Treatments</h2>
 
-@(Html.Kendo().Grid<TreatmentViewModel>(Model.Treatments)
-        .Name("TreatmentGrid")
-        .Columns(columns =>
-        {
-            columns.Bound(c => c.TreatmentDateTime).Width(100);
-            columns.Command(command => command.Custom("Szczegóły").Click("showTreatmentDetails")).Width(25);
-        })
-        .Scrollable()
-        .Sortable()
-        .Pageable()
-        .DataSource(ds =>
-            ds.Ajax().ServerOperation(false).PageSize(10)))
+@(Html.Kendo().Grid(Model.Treatments)
+      .Name("TreatmentGrid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.TreatmentId).Hidden();
+          columns.Bound(c => c.TreatmentId).Hidden();
+          columns.Bound(c => c.TreatmentDateTime).Width(100);
+          columns.Command(command => command.Custom("Szczegóły").Click("showTreatmentDetails")).Width(25);
+      })
+      .Scrollable()
+      .Sortable()
+      .Pageable()
+      .DataSource(ds =>
+          ds.Ajax().ServerOperation(false).PageSize(10)))
 
 
 <script>
@@ -52,11 +53,20 @@
         var viewModel = this.dataItem($(e.currentTarget).closest("tr"));
         var institutionId = viewModel.InstitutionId;
         var examinationId = viewModel.ExaminationId;
-        location.href = kendo.format('@Server.UrlDecode(Url.Action("ExaminationDetails", "Patient", new { examinationId = "{0}", institutionId = "{1}" }))', examinationId, institutionId);
+        location.href = kendo.format(
+            '@Server.UrlDecode(Url.Action("ExaminationDetails", "Patient", new {examinationId = "{0}", institutionId = "{1}"}))',
+            examinationId,
+            institutionId);
     }
 
     function showTreatmentDetails(e) {
         e.preventDefault();
+        var viewModel = this.dataItem($(e.currentTarget).closest("tr"));
+        var institutionId = viewModel.InstitutionId;
+        var treatmentId = viewModel.TreatmentId;
+        location.href = kendo.format(
+            '@Server.UrlDecode(Url.Action("TreatmentDetails", "Patient", new {treatmentId = "{0}", institutionId = "{1}"}))',
+            treatmentId,
+            institutionId);
     }
 </script>
-

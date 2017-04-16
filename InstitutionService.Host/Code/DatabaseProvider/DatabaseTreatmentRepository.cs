@@ -1,23 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Domain.Interfaces;
 using Domain.Residence;
 using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    class DatabaseTreatmentRepository : ITreatmentRepository
+    internal class DatabaseTreatmentRepository : ITreatmentRepository
     {
         private readonly InstitutionServiceDatabaseContext _context;
-        public IQueryable<Treatment> Treatments => _context.Treatments;
 
         public DatabaseTreatmentRepository(IRepository context)
         {
             _context = context as InstitutionServiceDatabaseContext;
         }
+
+        public IQueryable<Treatment> Treatments => _context.Treatments;
 
         public void Update(Treatment treatment)
         {

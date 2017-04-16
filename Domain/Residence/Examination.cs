@@ -18,8 +18,10 @@ namespace Domain.Residence
     {
         [DataMember]
         public Guid ExaminationId { get; set; }
+
         [DataMember]
         public DateTime ExaminationStartTime { get; set; }
+
         [DataMember]
         public DateTime ExaminationEndTime { get; set; }
     }
@@ -29,10 +31,13 @@ namespace Domain.Residence
     {
         [DataMember]
         public Guid ExaminationId { get; set; }
+
         [DataMember]
         public DateTime ExaminationStartTime { get; set; }
+
         [DataMember]
         public DateTime ExaminationEndTime { get; set; }
+
         [DataMember]
         public string ExaminationDetails { get; set; }
     }
