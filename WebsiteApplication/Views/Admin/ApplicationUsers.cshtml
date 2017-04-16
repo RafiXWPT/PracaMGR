@@ -1,5 +1,4 @@
-﻿@using WebsiteApplication.Models
-@using WebsiteApplication.Models.ViewModels.Admin
+﻿@using WebsiteApplication.Models.ViewModels.Admin
 
 @{
     ViewBag.Title = "ApplicationUsers";
@@ -40,7 +39,6 @@
               .Model(m => m.Id(vm => vm.UserId))
               .Read(r => r.Action("ReadUsers", "Admin"))
               .Update(u => u.Action("UpdateUser", "Admin"))
-              .Create(c => c.Action("CreateUser", "Admin"))
               .Destroy(d => d.Action("DeleteUser", "Admin"))
               .PageSize(10)))
 
