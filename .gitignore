@@ -242,4 +242,4 @@ ModelManifest.xml
 .fake/
 
 # KendoMVC
-!bin/Kendo.Mvc.dll
+!WebsiteApplication/bin/Kendo.Mvc.dll
