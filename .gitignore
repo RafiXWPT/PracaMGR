@@ -240,6 +240,3 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-
-# KendoMVC
-!WebsiteApplication/bin/Kendo.Mvc.dll
