@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using WebsiteApplication.CodeBehind
+<!DOCTYPE html>
 <html lang="pl-PL">
 <head>
     <meta charset="utf-8"/>
@@ -27,6 +28,10 @@
                 <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
                 <li>@Html.ActionLink("O systemie", "About", "Home")</li>
                 <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+                @if(Context.User.IsInAnyRole("ADMIN,ADMIN_TECH,DOCTOR"))
+                {
+                    <li>@Html.ActionLink("Wyszukaj pacjenta", "Index", "Patient")</li>
+                }
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
