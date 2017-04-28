@@ -8,18 +8,25 @@ namespace WebsiteApplication.DataAccessLayer
 {
     public class WebsiteDatabaseContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Institution> Institutions { get; set; }
-        public WebsiteDatabaseContext() : base("WebsiteDatabase", false) { }
-        public WebsiteDatabaseContext(string connectionName) : base(connectionName, false) { }
-
         static WebsiteDatabaseContext()
         {
             Database.SetInitializer<WebsiteDatabaseContext>(null);
         }
 
+        public WebsiteDatabaseContext() : base("WebsiteDatabase", false)
+        {
+        }
+
+        public WebsiteDatabaseContext(string connectionName) : base(connectionName, false)
+        {
+        }
+
+        public DbSet<Institution> Institutions { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
             base.OnModelCreating(modelBuilder);
         }
     }

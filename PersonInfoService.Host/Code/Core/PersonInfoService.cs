@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.ServiceModel;
 using AutoMapper;
 using Domain;
@@ -9,7 +8,7 @@ using PersonInfoService.Host.Code.DataAccessLayer;
 namespace PersonInfoService.Host.Code.Core
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
-    class PersonInfoService : IPersonInfoService
+    internal class PersonInfoService : IPersonInfoService
     {
         public PersonTransferObject GetPersonInfo(string pesel)
         {

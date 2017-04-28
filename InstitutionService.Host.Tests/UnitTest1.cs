@@ -1,5 +1,4 @@
-﻿using System;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
 using InstitutionService.Host.Code.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

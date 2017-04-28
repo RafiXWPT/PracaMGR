@@ -3,6 +3,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
+using WebsiteApplication.CodeBehind;
 
 namespace WebsiteApplication.Filters
 {
@@ -12,17 +13,12 @@ namespace WebsiteApplication.Filters
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             var basicAuthorize = base.AuthorizeCore(httpContext);
-            return basicAuthorize && IsInAnyRole(httpContext.User, Roles);
+            return basicAuthorize && httpContext.User.IsInAnyRole(Roles);
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             filterContext.Result = new RedirectResult("~/NotAuthorize/");
-        }
-
-        private static bool IsInAnyRole(IPrincipal user, string roles)
-        {
-            return roles.Split(',').Any(user.IsInRole);
         }
     }
 }

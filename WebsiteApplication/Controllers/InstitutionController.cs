@@ -4,9 +4,11 @@ using System.Net;
 using System.Web.Mvc;
 using Domain;
 using Domain.Interfaces;
+using WebsiteApplication.Filters;
 
 namespace WebsiteApplication.Controllers
 {
+    [RoleAuthorize(Roles = "ADMIN,ADMIN_TECH,TECHNICAN")]
     public class InstitutionController : BaseController
     {
         private readonly IInstitutionRepository _repository;
@@ -15,6 +17,7 @@ namespace WebsiteApplication.Controllers
         {
             _repository = repository;
         }
+
         // GET: Institution
         public ActionResult Index()
         {
@@ -25,14 +28,10 @@ namespace WebsiteApplication.Controllers
         public ActionResult Details(Guid? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Institution institution = _repository.Institutions.First(x => x.InstitutionId == id);
+            var institution = _repository.Institutions.First(x => x.InstitutionId == id);
             if (institution == null)
-            {
                 return HttpNotFound();
-            }
             return View(institution);
         }
 
@@ -47,7 +46,8 @@ namespace WebsiteApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "InstitutionEndpointAddress,InstitutionName,Address")] Institution institution)
+        public ActionResult Create(
+            [Bind(Include = "InstitutionEndpointAddress,InstitutionName,Address")] Institution institution)
         {
             if (ModelState.IsValid)
             {
@@ -64,14 +64,10 @@ namespace WebsiteApplication.Controllers
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Institution institution = _repository.Institutions.First(x => x.InstitutionId == id);
+            var institution = _repository.Institutions.First(x => x.InstitutionId == id);
             if (institution == null)
-            {
                 return HttpNotFound();
-            }
             return View(institution);
         }
 
@@ -94,24 +90,21 @@ namespace WebsiteApplication.Controllers
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Institution institution = _repository.Institutions.First(x => x.InstitutionId == id);
+            var institution = _repository.Institutions.First(x => x.InstitutionId == id);
 
             if (institution == null)
-            {
                 return HttpNotFound();
-            }
             return View(institution);
         }
 
         // POST: Institution/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Institution institution = _repository.Institutions.First(x => x.InstitutionId == id);
+            var institution = _repository.Institutions.First(x => x.InstitutionId == id);
             _repository.Delete(institution);
             return RedirectToAction("Index");
         }

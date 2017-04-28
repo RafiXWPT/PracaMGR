@@ -5,16 +5,18 @@ namespace InstitutionService
 {
     public sealed class ConfigurationProvider
     {
-        private static readonly Lazy<ConfigurationProvider> Lazy = new Lazy<ConfigurationProvider>(() => new ConfigurationProvider());
+        private static readonly Lazy<ConfigurationProvider> Lazy =
+            new Lazy<ConfigurationProvider>(() => new ConfigurationProvider());
+
+        private ConfigurationProvider()
+        {
+            InstitutionConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None)
+                .AppSettings.Settings;
+        }
 
         public static ConfigurationProvider Instance => Lazy.Value;
 
         private KeyValueConfigurationCollection InstitutionConfiguration { get; }
-
-        private ConfigurationProvider()
-        {
-            InstitutionConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).AppSettings.Settings;
-        }
 
         public string GetValue(string key)
         {

@@ -13,10 +13,12 @@ using Owin;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
+using WebsiteApplication;
 using WebsiteApplication.DataAccessLayer;
 using WebsiteApplication.Models;
 
-[assembly: OwinStartupAttribute(typeof(WebsiteApplication.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
+
 namespace WebsiteApplication
 {
     public partial class Startup
@@ -31,8 +33,13 @@ namespace WebsiteApplication
             container.Register<ApplicationSignInManager>(Lifestyle.Scoped);
             container.Register<IInstitutionRepository, DatabaseInstitutionRepository>(Lifestyle.Scoped);
 
-            container.Register<IUserStore<ApplicationUser>>(() => new UserStore<ApplicationUser>(container.GetInstance<WebsiteDatabaseContext>()), Lifestyle.Scoped);
-            container.Register(() => container.IsVerifying ? new OwinContext(new Dictionary<string, object>()).Authentication : HttpContext.Current.GetOwinContext().Authentication, Lifestyle.Scoped);
+            container.Register<IUserStore<ApplicationUser>>(
+                () => new UserStore<ApplicationUser>(container.GetInstance<WebsiteDatabaseContext>()),
+                Lifestyle.Scoped);
+            container.Register(
+                () => container.IsVerifying
+                    ? new OwinContext(new Dictionary<string, object>()).Authentication
+                    : HttpContext.Current.GetOwinContext().Authentication, Lifestyle.Scoped);
             container.RegisterInitializer<ApplicationUserManager>(manager => InitializeUserManager(manager, app));
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
@@ -58,7 +65,7 @@ namespace WebsiteApplication
                 RequireNonLetterOrDigit = true,
                 RequireDigit = true,
                 RequireLowercase = true,
-                RequireUppercase = true,
+                RequireUppercase = true
             };
 
             manager.UserLockoutEnabledByDefault = true;
@@ -67,9 +74,8 @@ namespace WebsiteApplication
 
             var dataProtectionProvider = app.GetDataProtectionProvider();
             if (dataProtectionProvider != null)
-            {
-                manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
-            }
+                manager.UserTokenProvider =
+                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
         }
     }
 }

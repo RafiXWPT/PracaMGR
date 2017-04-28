@@ -106,6 +106,15 @@ namespace WebsiteApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Czas środkowoeuropejski.
+        /// </summary>
+        public static string CentralEuropeanTime {
+            get {
+                return ResourceManager.GetString("CentralEuropeanTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kod.
         /// </summary>
         public static string Code {
@@ -223,6 +232,15 @@ namespace WebsiteApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Podaj numer PESEL....
+        /// </summary>
+        public static string PeselToSearch {
+            get {
+                return ResourceManager.GetString("PeselToSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Praca magisterska.
         /// </summary>
         public static string PracaMagisterska {
@@ -255,6 +273,15 @@ namespace WebsiteApplication.Resources {
         public static string RememberMe {
             get {
                 return ResourceManager.GetString("RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wyszukaj.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
             }
         }
         

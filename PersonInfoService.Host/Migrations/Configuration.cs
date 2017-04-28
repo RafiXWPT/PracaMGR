@@ -1,18 +1,16 @@
+using System.Data.Entity.Migrations;
+using PersonInfoService.Host.Code.DataAccessLayer;
+
 namespace PersonInfoService.Host.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    internal sealed class Configuration : DbMigrationsConfiguration<PersonInfoService.Host.Code.DataAccessLayer.PersonInfoServiceDatabaseContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<PersonInfoServiceDatabaseContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(PersonInfoService.Host.Code.DataAccessLayer.PersonInfoServiceDatabaseContext context)
+        protected override void Seed(PersonInfoServiceDatabaseContext context)
         {
             //  This method will be called after migrating to the latest version.
 

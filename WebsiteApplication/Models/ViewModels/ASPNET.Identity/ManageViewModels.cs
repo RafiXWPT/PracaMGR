@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using WebsiteApplication.Resources;
 
 namespace WebsiteApplication.Models
 {
@@ -28,14 +30,17 @@ namespace WebsiteApplication.Models
     public class SetPasswordViewModel
     {
         [Required]
-        [StringLength(100, ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.The0MustBeAtLeast2CharactersLong), MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(GlobalTranslations),
+            ErrorMessageResourceName = nameof(GlobalTranslations.The0MustBeAtLeast2CharactersLong), MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = nameof(Resources.GlobalTranslations.Password), ResourceType = typeof(Resources.GlobalTranslations))]
+        [Display(Name = nameof(GlobalTranslations.Password), ResourceType = typeof(GlobalTranslations))]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = nameof(ConfirmPassword), ResourceType = typeof(Resources.GlobalTranslations))]
-        [Compare("Password", ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.PasswordConfirmationError))]
+        [Display(Name = nameof(ConfirmPassword), ResourceType = typeof(GlobalTranslations))]
+        [System.ComponentModel.DataAnnotations.Compare("Password",
+            ErrorMessageResourceType = typeof(GlobalTranslations),
+            ErrorMessageResourceName = nameof(GlobalTranslations.PasswordConfirmationError))]
         public string ConfirmPassword { get; set; }
     }
 
@@ -43,18 +48,21 @@ namespace WebsiteApplication.Models
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = nameof(Resources.GlobalTranslations.CurrentPassword), ResourceType = typeof(Resources.GlobalTranslations))]
+        [Display(Name = nameof(GlobalTranslations.CurrentPassword), ResourceType = typeof(GlobalTranslations))]
         public string OldPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.The0MustBeAtLeast2CharactersLong), MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(GlobalTranslations),
+            ErrorMessageResourceName = nameof(GlobalTranslations.The0MustBeAtLeast2CharactersLong), MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = nameof(Resources.GlobalTranslations.NewPassword), ResourceType = typeof(Resources.GlobalTranslations))]
+        [Display(Name = nameof(GlobalTranslations.NewPassword), ResourceType = typeof(GlobalTranslations))]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = nameof(ConfirmPassword), ResourceType = typeof(Resources.GlobalTranslations))]
-        [Compare("Password", ErrorMessageResourceType = typeof(Resources.GlobalTranslations), ErrorMessageResourceName = nameof(Resources.GlobalTranslations.PasswordConfirmationError))]
+        [Display(Name = nameof(ConfirmPassword), ResourceType = typeof(GlobalTranslations))]
+        [System.ComponentModel.DataAnnotations.Compare("Password",
+            ErrorMessageResourceType = typeof(GlobalTranslations),
+            ErrorMessageResourceName = nameof(GlobalTranslations.PasswordConfirmationError))]
         public string ConfirmPassword { get; set; }
     }
 
@@ -81,6 +89,6 @@ namespace WebsiteApplication.Models
     public class ConfigureTwoFactorViewModel
     {
         public string SelectedProvider { get; set; }
-        public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
+        public ICollection<SelectListItem> Providers { get; set; }
     }
 }

@@ -1,8 +1,7 @@
+using System.Data.Entity.Migrations;
+
 namespace WebsiteApplication.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class AddressForUser : DbMigration
     {
         public override void Up()
@@ -11,11 +10,11 @@ namespace WebsiteApplication.Migrations
             CreateIndex("dbo.AspNetUsers", "Address_AddressId");
             AddForeignKey("dbo.AspNetUsers", "Address_AddressId", "dbo.Address", "AddressId");
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUsers", "Address_AddressId", "dbo.Address");
-            DropIndex("dbo.AspNetUsers", new[] { "Address_AddressId" });
+            DropIndex("dbo.AspNetUsers", new[] {"Address_AddressId"});
             DropColumn("dbo.AspNetUsers", "Address_AddressId");
         }
     }

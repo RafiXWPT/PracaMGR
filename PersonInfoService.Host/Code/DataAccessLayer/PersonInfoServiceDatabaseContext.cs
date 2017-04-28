@@ -6,15 +6,17 @@ namespace PersonInfoService.Host.Code.DataAccessLayer
 {
     public class PersonInfoServiceDatabaseContext : DbContext
     {
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<Person> Persons { get; set; }
-
         static PersonInfoServiceDatabaseContext()
         {
             Database.SetInitializer(new CreateDatabaseIfNotExists<PersonInfoServiceDatabaseContext>());
         }
 
-        public PersonInfoServiceDatabaseContext() : base("PersonInfoContext") { }
+        public PersonInfoServiceDatabaseContext() : base("PersonInfoContext")
+        {
+        }
+
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Person> Persons { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -12,12 +12,6 @@ namespace WebsiteApplication.Models.ViewModels.Admin
         public DateTime UserLastLogin { get; set; }
 
         [UIHint("RightsEditor")]
-        public IEnumerable<RightViewModel> UserRoles { get; set; }
-    }
-
-    public class RightViewModel
-    {
-        public string RightId { get; set; }
-        public string RightDescription { get; set; }
+        public IEnumerable<RoleViewModel> UserRoles { get; set; }
     }
 }

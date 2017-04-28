@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -9,7 +8,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using WebsiteApplication.DataAccessLayer;
 using WebsiteApplication.Filters;
-using WebsiteApplication.Models;
 using WebsiteApplication.Models.ViewModels.Admin;
 
 namespace WebsiteApplication.Controllers
@@ -31,7 +29,8 @@ namespace WebsiteApplication.Controllers
 
         public ActionResult ApplicationUsers()
         {
-            ViewData["rights"] = _applicationRoles.Select(x => new RightViewModel {RightId = x.Id, RightDescription = x.Name }).ToList();
+            ViewData["rights"] = _applicationRoles.Select(x => new RoleViewModel {RoleId = x.Id, RoleName = x.Name})
+                .ToList();
             return View();
         }
 
@@ -39,12 +38,17 @@ namespace WebsiteApplication.Controllers
         {
             var users = Context.Users.ToList();
             var userViewModels = users.Select(x => new UserViewModel
-                                            {
-                                                UserId = new Guid(x.Id),
-                                                Username = x.Email,
-                                                UserRoles = x.Roles.Select(r => new RightViewModel {RightId = r.RoleId, RightDescription = _applicationRoles.First(q => q.Id == r.RoleId).Name})
-                                                    .ToList()
-                                            });
+            {
+                UserId = new Guid(x.Id),
+                Username = x.Email,
+                UserRoles = x.Roles
+                    .Select(r => new RoleViewModel
+                    {
+                        RoleId = r.RoleId,
+                        RoleName = _applicationRoles.First(q => q.Id == r.RoleId).Name
+                    })
+                    .ToList()
+            });
             return Json(userViewModels.ToDataSourceResult(request));
         }
 
@@ -58,13 +62,13 @@ namespace WebsiteApplication.Controllers
 
                 foreach (var newRole in userViewModel.UserRoles)
                 {
-                    var currentRole = userToUpdate.Roles.FirstOrDefault(x => x.RoleId == newRole.RightId);
+                    var currentRole = userToUpdate.Roles.FirstOrDefault(x => x.RoleId == newRole.RoleId);
                     if (currentRole == null)
-                        rolesToAdd.Add(newRole.RightDescription);
+                        rolesToAdd.Add(newRole.RoleName);
                 }
                 foreach (var userRole in userToUpdate.Roles)
                 {
-                    var vmRole = userViewModel.UserRoles.FirstOrDefault(x => x.RightId == userRole.RoleId);
+                    var vmRole = userViewModel.UserRoles.FirstOrDefault(x => x.RoleId == userRole.RoleId);
                     if (vmRole == null)
                         rolesToRemove.Add(_applicationRoles.Find(x => x.Id == userRole.RoleId).Name);
                 }
@@ -75,16 +79,14 @@ namespace WebsiteApplication.Controllers
 
             Context.SaveChanges();
 
-            return Json(new[] { userViewModel }.ToDataSourceResult(request, ModelState), JsonRequestBehavior.AllowGet);
+            return Json(new[] {userViewModel}.ToDataSourceResult(request, ModelState), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult DeleteUser([DataSourceRequest] DataSourceRequest request, UserViewModel userViewModel)
         {
             var userToRemove = Context.Users.FirstOrDefault(x => x.Id == userViewModel.UserId.ToString());
             if (userToRemove != null)
-            {
                 Context.Users.Remove(userToRemove);
-            }
 
             Context.SaveChanges();
 

@@ -19,6 +19,7 @@ namespace Domain.Residence
     {
         [DataMember]
         public Guid TreatmentId { get; set; }
+
         [DataMember]
         public DateTime TreatmentDateTime { get; set; }
     }
@@ -28,8 +29,10 @@ namespace Domain.Residence
     {
         [DataMember]
         public Guid TreatmentId { get; set; }
+
         [DataMember]
         public DateTime TreatmentDateTime { get; set; }
+
         [DataMember]
         public List<UsedMedicineTransferObject> UsedMedicines { get; set; }
     }

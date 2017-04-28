@@ -189,4 +189,13 @@
   <data name="NewPassword" xml:space="preserve">
     <value>New password</value>
   </data>
+  <data name="CentralEuropeanTime" xml:space="preserve">
+    <value>Central european time</value>
+  </data>
+  <data name="PeselToSearch" xml:space="preserve">
+    <value>Give PESEL number...</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
 </root>

@@ -1,23 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Domain.Interfaces;
 using Domain.Inventory;
 using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    class DatabaseUsedMedicineRepository : IUsedMedicineRepository
+    internal class DatabaseUsedMedicineRepository : IUsedMedicineRepository
     {
         private readonly InstitutionServiceDatabaseContext _context;
-        public IQueryable<UsedMedicine> UsedMedicines => _context.UsedMedicines;
 
         public DatabaseUsedMedicineRepository(IRepository context)
         {
             _context = context as InstitutionServiceDatabaseContext;
         }
+
+        public IQueryable<UsedMedicine> UsedMedicines => _context.UsedMedicines;
 
         public void Update(UsedMedicine usedMedicine)
         {
@@ -27,7 +25,8 @@ namespace InstitutionService.Host.Code.DatabaseProvider
         public void Add(UsedMedicine usedMedicine)
         {
             _context.UsedMedicines.Add(usedMedicine);
-;        }
+            ;
+        }
 
         public void SaveChanges()
         {

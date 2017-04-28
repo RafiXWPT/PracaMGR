@@ -3,11 +3,10 @@ using System.ServiceModel;
 
 namespace PersonInfoService.Host.Code.Core
 {
-    class WcfServiceProvider
+    internal class WcfServiceProvider
     {
         public void RunService()
         {
-
             using (var host = new ServiceHost(typeof(PersonInfoService)))
             {
                 host.Open();

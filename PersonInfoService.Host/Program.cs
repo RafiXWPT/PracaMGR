@@ -4,9 +4,9 @@ using PersonInfoService.Host.Code.DummyDatabaseInitializer;
 
 namespace PersonInfoService.Host
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Initialize Automapper");
             AutoMapperBuilder.RegisterAutoMapper();
