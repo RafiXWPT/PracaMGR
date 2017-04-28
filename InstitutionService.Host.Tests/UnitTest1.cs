@@ -54,11 +54,5 @@ namespace InstitutionService.Host.Tests
             var repository = ObjectBuilder.Container.GetInstance<IUsedMedicineRepository>();
             Assert.IsNotNull(repository);
         }
-
-        [TestCleanup]
-        public void CleanUp()
-        {
-            ObjectBuilder.CleanUp();
-        }
     }
 }
