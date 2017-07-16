@@ -198,4 +198,61 @@
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="Examinations" xml:space="preserve">
+    <value>Examinations</value>
+  </data>
+  <data name="Treatments" xml:space="preserve">
+    <value>Treatments</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="ExaminationDetails" xml:space="preserve">
+    <value>Examination details</value>
+  </data>
+  <data name="TreatmentDetails" xml:space="preserve">
+    <value>Treatment details</value>
+  </data>
+  <data name="Institutions" xml:space="preserve">
+    <value>Institutions</value>
+  </data>
+  <data name="SearchPatient" xml:space="preserve">
+    <value>Search patient</value>
+  </data>
+  <data name="AboutSystem" xml:space="preserve">
+    <value>About system</value>
+  </data>
+  <data name="MainPage" xml:space="preserve">
+    <value>Main page</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Create new</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="InstitutionEndpointAddress" xml:space="preserve">
+    <value>Endpoint address</value>
+  </data>
+  <data name="InstitutionName" xml:space="preserve">
+    <value>Institution</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Institution" xml:space="preserve">
+    <value>Institution</value>
+  </data>
+  <data name="LastHospitalizationTime" xml:space="preserve">
+    <value>Last hospitalization time</value>
+  </data>
+  <data name="Patient" xml:space="preserve">
+    <value>Patient</value>
+  </data>
+  <data name="GlobalPatientData" xml:space="preserve">
+    <value>Global patient data</value>
+  </data>
 </root>

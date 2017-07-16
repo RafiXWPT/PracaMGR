@@ -1,17 +1,17 @@
-﻿@model Domain.Institution
+﻿@model WebsiteApplication.Models.ViewModels.Institution.InstitutionViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = GlobalTranslations.CreateNew;
 }
 
-<h2>Create</h2>
+<h2>@GlobalTranslations.CreateNew</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Institution</h4>
+        <h4>@GlobalTranslations.Institution</h4>
         <hr/>
         @Html.ValidationSummary(true, "", new {@class = "text-danger"})
         <div class="form-group">
@@ -73,7 +73,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default"/>
+                <input type="submit" value="@GlobalTranslations.CreateNew" class="btn btn-default"/>
             </div>
         </div>
     </div>

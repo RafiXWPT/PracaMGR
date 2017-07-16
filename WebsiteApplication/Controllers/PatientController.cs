@@ -12,7 +12,7 @@ using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;
 namespace WebsiteApplication.Controllers
 {
     [RoutePrefix("Patient")]
-    [RoleAuthorize(Roles = "ADMIN,ADMIN_TECH,DOCTOR")]
+    [RoleAuthorize(Roles = "ADMIN,DOCTOR")]
     public class PatientController : BaseController
     {
         private readonly WcfDataFetcher _patientInfoFetcher;
@@ -98,7 +98,7 @@ namespace WebsiteApplication.Controllers
             return View(hospitalization);
         }
 
-        [Route("ExaminationDetails/{examinationId}")]
+        [Route("ExaminationDetails/{treatmentId}")]
         public ActionResult ExaminationDetails(Guid examinationId, Guid institutionId)
         {
             var institution = _repository.Institutions.First(x => x.InstitutionId == institutionId);

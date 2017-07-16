@@ -1,13 +1,13 @@
-﻿@model IEnumerable<Domain.Institution>
+﻿@model IEnumerable<WebsiteApplication.Models.ViewModels.Institution.InstitutionViewModel>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>@GlobalTranslations.Institutions</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink(GlobalTranslations.CreateNew, "Create")
 </p>
 <table class="table">
     <tr>
@@ -29,9 +29,9 @@
                 @Html.DisplayFor(modelItem => item.InstitutionName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.InstitutionId}) |
-                @Html.ActionLink("Details", "Details", new {id = item.InstitutionId}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.InstitutionId})
+                @Html.ActionLink(GlobalTranslations.Edit, "Edit", new {id = item.InstitutionId}) |
+                @Html.ActionLink(GlobalTranslations.Details, "Details", new {id = item.InstitutionId}) |
+                @Html.ActionLink(GlobalTranslations.Delete, "Delete", new {id = item.InstitutionId})
             </td>
         </tr>
     }

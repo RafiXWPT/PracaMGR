@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using AutoMapper;
@@ -13,11 +14,21 @@ namespace InstitutionService.Host.Code.Core
     {
         public string GetInstitutionName()
         {
+            Console.WriteLine("Pobrana nazwa instytucji");
             return ConfigurationProvider.Instance.GetInstitutionName();
+        }
+
+        public List<PatientTransferObject> GetAllPatients()
+        {
+            Console.WriteLine("Pobrana lista wszystkich pacjentow");
+            var patients = ObjectBuilder.Container.GetInstance<IPatientRepository>().Patients.ToList();
+
+            return patients.Select(SignWithInstitution).ToList();
         }
 
         public PatientTransferObject GetPatientInfo(string pesel)
         {
+            Console.WriteLine("Pobranie informacji o konkretnym pacjencie");
             var patientRepository = ObjectBuilder.Container.GetInstance<IPatientRepository>();
             var patient = patientRepository.Patients.FirstOrDefault(p => p.Pesel == pesel);
             return SignWithInstitution(patient);
@@ -25,6 +36,7 @@ namespace InstitutionService.Host.Code.Core
 
         public HospitalizationTransferObject GetHospitalization(Guid hospitalizationId)
         {
+            Console.WriteLine("Pobranie informacji o konkretnej hospitalizacji");
             var hospitalizationRepository = ObjectBuilder.Container.GetInstance<IHospitalizationRepository>();
             var hospitalization =
                 hospitalizationRepository.Hospitalizations.FirstOrDefault(
@@ -36,6 +48,7 @@ namespace InstitutionService.Host.Code.Core
 
         public ExaminationTransferObject GetExamination(Guid examinationId)
         {
+            Console.WriteLine("Pobranie informacji o konkretnym badaniu");
             var examinationRepository = ObjectBuilder.Container.GetInstance<IExaminationRepository>();
             var examination = examinationRepository.Examinations.FirstOrDefault(e => e.ExaminationId == examinationId);
             return examination == null
@@ -45,6 +58,7 @@ namespace InstitutionService.Host.Code.Core
 
         public TreatmentTransferObject GetTreatment(Guid treatmentId)
         {
+            Console.WriteLine("Pobranie informacji o konkretnym leczeniu");
             var treatmentRepository = ObjectBuilder.Container.GetInstance<ITreatmentRepository>();
             var treatment = treatmentRepository.Treatments.FirstOrDefault(e => e.TreatmentId == treatmentId);
             return treatment == null ? new TreatmentTransferObject() : Mapper.Map<TreatmentTransferObject>(treatment);

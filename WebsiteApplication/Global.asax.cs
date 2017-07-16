@@ -5,6 +5,7 @@ using System.Web.Routing;
 using AutoMapper;
 using Domain;
 using Domain.Residence;
+using WebsiteApplication.Models.ViewModels.Institution;
 using WebsiteApplication.Models.ViewModels.Patient;
 using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;
 
@@ -24,6 +25,7 @@ namespace WebsiteApplication
                 // DTO OBJECTS
                 cfg.CreateMap<Institution, InstitutionTransferObject>();
                 // VIEW MODELS
+                cfg.CreateMap<Institution, InstitutionViewModel>();
                 cfg.CreateMap<PersonTransferObject, PersonViewModel>();
                 cfg.CreateMap<PatientTransferObject, PatientViewModel>();
                 cfg.CreateMap<HospitalizationBasicTransferObject, HospitalizationViewModel>();

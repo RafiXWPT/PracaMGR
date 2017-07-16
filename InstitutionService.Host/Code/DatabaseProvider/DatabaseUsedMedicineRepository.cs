@@ -25,7 +25,6 @@ namespace InstitutionService.Host.Code.DatabaseProvider
         public void Add(UsedMedicine usedMedicine)
         {
             _context.UsedMedicines.Add(usedMedicine);
-            ;
         }
 
         public void SaveChanges()

@@ -13,7 +13,7 @@ namespace WebsiteApplication.CodeBehind
     internal class WcfDataFetcher : IDisposable
     {
         private readonly IInstitutionRepository _repository;
-        private IInstitutionService Connection;
+        private IInstitutionService _connection;
 
         public WcfDataFetcher(IInstitutionRepository repository)
         {
@@ -22,10 +22,10 @@ namespace WebsiteApplication.CodeBehind
 
         public void Dispose()
         {
-            CloseConnection(Connection);
+            CloseConnection(_connection);
         }
 
-        private IInstitutionService EstablishConnection(string urlEndpoint)
+        private static IInstitutionService EstablishConnection(string urlEndpoint)
         {
             var binding = new NetTcpBinding();
             var channel = new ChannelFactory<IInstitutionService>(binding, urlEndpoint);
@@ -48,6 +48,15 @@ namespace WebsiteApplication.CodeBehind
             (client as ICommunicationObject)?.Close();
         }
 
+        public List<PatientTransferObject> GetAllPatientsFromInstitution(Guid institutionId)
+        {
+            var firstOrDefault = _repository.Institutions.FirstOrDefault(i => i.InstitutionId == institutionId);
+            if (firstOrDefault != null)
+                _connection = EstablishConnection(firstOrDefault.InstitutionEndpointAddress);
+
+            return _connection?.GetAllPatients();
+        }
+
         public List<PatientTransferObject> GetPatientHistory(string pesel)
         {
             if (!_repository.Institutions.Any())
@@ -66,12 +75,12 @@ namespace WebsiteApplication.CodeBehind
 
         private PatientTransferObject GetPatientHistory(string pesel, Institution institution)
         {
-            Connection = EstablishConnection(institution.InstitutionEndpointAddress);
+            _connection = EstablishConnection(institution.InstitutionEndpointAddress);
 
-            if (Connection == null)
+            if (_connection == null)
                 return null;
 
-            var patient = Connection.GetPatientInfo(pesel);
+            var patient = _connection.GetPatientInfo(pesel);
             if (patient != null)
                 patient.InstitutionId = institution.InstitutionId;
 
@@ -80,36 +89,27 @@ namespace WebsiteApplication.CodeBehind
 
         public HospitalizationTransferObject GetHospitalization(Guid hospitalizationId, string endpoint)
         {
-            Connection = EstablishConnection(endpoint);
+            _connection = EstablishConnection(endpoint);
 
-            if (Connection == null)
-                return null;
-
-            var hospitalization = Connection.GetHospitalization(hospitalizationId);
+            var hospitalization = _connection?.GetHospitalization(hospitalizationId);
 
             return hospitalization;
         }
 
         public ExaminationTransferObject GetExamination(Guid examinationId, string endpoint)
         {
-            Connection = EstablishConnection(endpoint);
+            _connection = EstablishConnection(endpoint);
 
-            if (Connection == null)
-                return null;
-
-            var examination = Connection.GetExamination(examinationId);
+            var examination = _connection?.GetExamination(examinationId);
 
             return examination;
         }
 
         public TreatmentTransferObject GetTreatment(Guid treatmentId, string endpoint)
         {
-            Connection = EstablishConnection(endpoint);
+            _connection = EstablishConnection(endpoint);
 
-            if (Connection == null)
-                return null;
-
-            var treatment = Connection.GetTreatment(treatmentId);
+            var treatment = _connection?.GetTreatment(treatmentId);
 
             return treatment;
         }

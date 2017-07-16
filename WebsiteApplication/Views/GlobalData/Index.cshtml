@@ -1,0 +1,18 @@
+﻿@using WebsiteApplication.Models.ViewModels.GlobalData
+@model WebsiteApplication.Models.ViewModels.GlobalData.TabStripViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@GlobalTranslations.GlobalPatientData</h2>
+@(Html.Kendo().TabStrip().Name("institutions-tab-strip")
+    .Animation(true)
+    .Items(i =>
+    {
+        foreach(var item in Model.TabStripItems)
+        {
+            i.Add().LoadContentFrom("ReadTabItem", "GlobalData", new TabStripItemViewModel {InstitutionName = item.InstitutionName, InstitutionId = item.InstitutionId}).Text(item.InstitutionName);
+        }
+    }))
+

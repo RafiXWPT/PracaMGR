@@ -8,6 +8,7 @@ namespace WebsiteApplication.DataAccessLayer
 {
     public class WebsiteDatabaseContext : IdentityDbContext<ApplicationUser>
     {
+        /* USER PASSWORDS => P@ssword123 */
         static WebsiteDatabaseContext()
         {
             Database.SetInitializer<WebsiteDatabaseContext>(null);

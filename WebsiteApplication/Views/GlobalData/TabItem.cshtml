@@ -1,0 +1,19 @@
+﻿@using WebsiteApplication.Models.ViewModels.GlobalData
+@model TabStripItemViewModel
+
+@(Html.Kendo().Grid<PatientViewModel>()
+    .Name(Model.InstitutionId.ToString())
+    .Columns(c =>
+    {
+        c.Bound(vm => vm.Pesel);
+        c.Bound(vm => vm.FullName);
+        c.Bound(vm => vm.BirthDate).Template(@<text></text>).ClientTemplate("#=kendo.toString(BirthDate, 'yyyy-MM-dd hh:mm:ss')#");
+        c.Bound(vm => vm.LastHospitalizationTime).Template(@<text></text>).ClientTemplate("#=LastHospitalizationTime ? kendo.toString(LastHospitalizationTime, 'yyyy-MM-dd hh:mm:ss') : 'brak'#");
+    })
+    .Selectable()
+    .Filterable()
+    .Pageable()
+    .DataSource(ds => ds
+        .Ajax()
+        .PageSize(10)
+        .Read(r => r.Action("ReadInstitutionData", "GlobalData", new { institutionId = Model.InstitutionId }))))

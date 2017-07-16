@@ -198,4 +198,61 @@
   <data name="Search" xml:space="preserve">
     <value>Wyszukaj</value>
   </data>
+  <data name="Examinations" xml:space="preserve">
+    <value>Przeprowadzone badania</value>
+  </data>
+  <data name="Treatments" xml:space="preserve">
+    <value>Przeprowadzone leczenia</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Szczegóły</value>
+  </data>
+  <data name="ExaminationDetails" xml:space="preserve">
+    <value>Szczegóły badania</value>
+  </data>
+  <data name="TreatmentDetails" xml:space="preserve">
+    <value>Szczegóły leczenia</value>
+  </data>
+  <data name="Institutions" xml:space="preserve">
+    <value>Instytucje</value>
+  </data>
+  <data name="SearchPatient" xml:space="preserve">
+    <value>Wyszukaj pacjenta</value>
+  </data>
+  <data name="AboutSystem" xml:space="preserve">
+    <value>O systemie</value>
+  </data>
+  <data name="MainPage" xml:space="preserve">
+    <value>Strona główna</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edycja</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="InstitutionEndpointAddress" xml:space="preserve">
+    <value>Adres placówki</value>
+  </data>
+  <data name="InstitutionName" xml:space="preserve">
+    <value>Instytucja</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Zapisz</value>
+  </data>
+  <data name="Institution" xml:space="preserve">
+    <value>Instytucja</value>
+  </data>
+  <data name="LastHospitalizationTime" xml:space="preserve">
+    <value>Ostatnia data hospitalizacji</value>
+  </data>
+  <data name="Patient" xml:space="preserve">
+    <value>Pacjent</value>
+  </data>
+  <data name="GlobalPatientData" xml:space="preserve">
+    <value>Dane globalne pacjentów</value>
+  </data>
 </root>

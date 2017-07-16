@@ -25,12 +25,16 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
-                <li>@Html.ActionLink("O systemie", "About", "Home")</li>
-                <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+                <li>@Html.ActionLink(GlobalTranslations.MainPage, "Index", "Home")</li>
+                <li>@Html.ActionLink(GlobalTranslations.AboutSystem, "About", "Home")</li>
+                <li>@Html.ActionLink(GlobalTranslations.Contact, "Contact", "Home")</li>
+                @if (Context.User.IsInAnyRole("ADMIN,ADMIN_TECH,TECHNICAN"))
+                {
+                    <li>@Html.ActionLink(GlobalTranslations.Institutions, "Index", "Institution")</li>
+                }
                 @if(Context.User.IsInAnyRole("ADMIN,ADMIN_TECH,DOCTOR"))
                 {
-                    <li>@Html.ActionLink("Wyszukaj pacjenta", "Index", "Patient")</li>
+                    <li>@Html.ActionLink(GlobalTranslations.SearchPatient, "Index", "Patient")</li>
                 }
             </ul>
             <ul class="nav navbar-nav navbar-right">

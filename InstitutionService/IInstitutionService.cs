@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using Domain;
 using Domain.Residence;
@@ -10,6 +11,9 @@ namespace InstitutionService
     {
         [OperationContract]
         string GetInstitutionName();
+
+        [OperationContract]
+        List<PatientTransferObject> GetAllPatients();
 
         [OperationContract]
         PatientTransferObject GetPatientInfo(string pesel);

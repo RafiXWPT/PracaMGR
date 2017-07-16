@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<h2>Examinations</h2>
+<h2>@GlobalTranslations.Examinations</h2>
 
 @(Html.Kendo().Grid(Model.Examinations)
       .Name("ExaminationGrid")
@@ -19,9 +19,9 @@
       {
           columns.Bound(c => c.InstitutionId).Hidden();
           columns.Bound(c => c.ExaminationId).Hidden();
-          columns.Bound(x => x.ExaminationStartTime).Template(@<text></text>).ClientTemplate("#=kendo.toString(ExaminationStartTime, 'yyyy-MM-dd hh:mm:ss')#  (" + GlobalTranslations.CentralEuropeanTime + ")").Width(100);
-          columns.Bound(x => x.ExaminationEndTime).Template(@<text></text>).ClientTemplate("#=kendo.toString(ExaminationEndTime, 'yyyy-MM-dd hh:mm:ss')#  (" + GlobalTranslations.CentralEuropeanTime + ")").Width(100);
-          columns.Command(command => command.Custom("Szczegóły").Click("showExaminationDetails")).Width(25);
+          columns.Bound(x => x.ExaminationStartTime).Template(@<text></text>).ClientTemplate("#=kendo.toString(ExaminationStartTime, 'yyyy-MM-dd hh:mm:ss')#").Width(100);
+          columns.Bound(x => x.ExaminationEndTime).Template(@<text></text>).ClientTemplate("#=kendo.toString(ExaminationEndTime, 'yyyy-MM-dd hh:mm:ss')#").Width(100);
+          columns.Command(command => command.Custom(GlobalTranslations.Details).Click("showExaminationDetails")).Width(25);
       })
       .Scrollable()
       .Sortable()
@@ -29,7 +29,7 @@
       .DataSource(ds =>
           ds.Ajax().ServerOperation(false).PageSize(10)))
 
-<h2>Treatments</h2>
+<h2>@GlobalTranslations.Treatments</h2>
 
 @(Html.Kendo().Grid(Model.Treatments)
       .Name("TreatmentGrid")
@@ -38,7 +38,7 @@
           columns.Bound(c => c.TreatmentId).Hidden();
           columns.Bound(c => c.TreatmentId).Hidden();
           columns.Bound(c => c.TreatmentDateTime).Width(100);
-          columns.Command(command => command.Custom("Szczegóły").Click("showTreatmentDetails")).Width(25);
+          columns.Command(command => command.Custom(GlobalTranslations.Details).Click("showTreatmentDetails")).Width(25);
       })
       .Scrollable()
       .Sortable()
