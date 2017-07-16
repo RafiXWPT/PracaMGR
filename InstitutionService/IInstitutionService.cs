@@ -26,5 +26,8 @@ namespace InstitutionService
 
         [OperationContract]
         TreatmentTransferObject GetTreatment(Guid treatmentId);
+
+        [OperationContract]
+        PatientHistoryTransferObject GetPatientFullHistory(string pesel);
     }
 }

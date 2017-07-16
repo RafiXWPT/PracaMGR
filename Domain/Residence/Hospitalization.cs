@@ -32,10 +32,28 @@ namespace Domain.Residence
     public class HospitalizationTransferObject
     {
         [DataMember]
-        public List<ExaminationBasicTransferObject> Examinations { get; set; } =
-            new List<ExaminationBasicTransferObject>();
+        public List<ExaminationBasicTransferObject> Examinations { get; set; } = new List<ExaminationBasicTransferObject>();
 
         [DataMember]
         public List<TreatmentBasicTransferObject> Treatments { get; set; } = new List<TreatmentBasicTransferObject>();
+    }
+
+    [DataContract]
+    public class HospitalizationHistoryTransferObject
+    {
+        [DataMember]
+        public Guid InstitutionId { get; set; }
+
+        [DataMember]
+        public DateTime HospitalizationStartTime { get; set; }
+
+        [DataMember]
+        public DateTime HospitalizationEndTime { get; set; }
+
+        [DataMember]
+        public List<ExaminationTransferObject> Examinations { get; set; } = new List<ExaminationTransferObject>();
+
+        [DataMember]
+        public List<TreatmentTransferObject> Treatments { get; set; } = new List<TreatmentTransferObject>();
     }
 }

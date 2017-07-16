@@ -63,7 +63,7 @@ namespace WebsiteApplication.Controllers
         [Route("History/{pesel}")]
         public ActionResult GetPatientHistory(string pesel)
         {
-            var patientRecordList = _patientInfoFetcher.GetPatientHistory(pesel)
+            var patientRecordList = _patientInfoFetcher.GetPatientInfo(pesel)
                 .Select(Mapper.Map<PatientViewModel>)
                 .ToList();
             if (!patientRecordList.Any())

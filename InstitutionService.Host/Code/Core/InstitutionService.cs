@@ -14,7 +14,6 @@ namespace InstitutionService.Host.Code.Core
     {
         public string GetInstitutionName()
         {
-            Console.WriteLine("Pobrana nazwa instytucji");
             return ConfigurationProvider.Instance.GetInstitutionName();
         }
 
@@ -62,6 +61,42 @@ namespace InstitutionService.Host.Code.Core
             var treatmentRepository = ObjectBuilder.Container.GetInstance<ITreatmentRepository>();
             var treatment = treatmentRepository.Treatments.FirstOrDefault(e => e.TreatmentId == treatmentId);
             return treatment == null ? new TreatmentTransferObject() : Mapper.Map<TreatmentTransferObject>(treatment);
+        }
+
+        public PatientHistoryTransferObject GetPatientFullHistory(string pesel)
+        {
+            var patientBasicInfo = GetPatientInfo(pesel);
+            var patientHistory = new PatientHistoryTransferObject
+            {
+                Pesel = patientBasicInfo.Pesel
+            };
+
+            foreach (var hospitalization in patientBasicInfo.Hospitalizations)
+            {
+                var hospitalizationInfo = GetHospitalization(hospitalization.HospitalizationId);
+
+                var hospitalizationHistoryInfo = new HospitalizationHistoryTransferObject
+                {
+                    HospitalizationStartTime = hospitalization.HospitalizationStartTime,
+                    HospitalizationEndTime = hospitalization.HospitalizationEndTime
+                };
+
+                foreach (var examination in hospitalizationInfo.Examinations)
+                {
+                    var examinationInfo = GetExamination(examination.ExaminationId);
+                    hospitalizationHistoryInfo.Examinations.Add(examinationInfo);
+                }
+
+                foreach (var treatment in hospitalizationInfo.Treatments)
+                {
+                    var treatmentInfo = GetTreatment(treatment.TreatmentId);
+                    hospitalizationHistoryInfo.Treatments.Add(treatmentInfo);
+                }
+
+                patientHistory.Hospitalizations.Add(hospitalizationHistoryInfo);
+            }
+
+            return patientHistory;
         }
 
         private PatientTransferObject SignWithInstitution(Patient patientObject)

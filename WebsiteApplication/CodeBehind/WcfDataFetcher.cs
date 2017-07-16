@@ -57,12 +57,12 @@ namespace WebsiteApplication.CodeBehind
             return _connection?.GetAllPatients();
         }
 
-        public List<PatientTransferObject> GetPatientHistory(string pesel)
+        public PatientHistoryTransferObject GetPatientHistory(string pesel)
         {
             if (!_repository.Institutions.Any())
                 return null;
 
-            var patientRecords = new List<PatientTransferObject>();
+            var patientRecords = new List<PatientHistoryTransferObject>();
             Parallel.ForEach(_repository.Institutions, institution =>
             {
                 var patientHistory = GetPatientHistory(pesel, institution);
@@ -70,10 +70,56 @@ namespace WebsiteApplication.CodeBehind
                     patientRecords.Add(patientHistory);
             });
 
+            var patientFullHistory = new PatientHistoryTransferObject
+            {
+                Pesel = pesel
+            };
+
+            foreach (var patientRecord in patientRecords)
+            {
+                foreach (var hospitalization in patientRecord.Hospitalizations)
+                {
+                    patientFullHistory.Hospitalizations.Add(hospitalization);
+                }
+            }
+
+            return patientFullHistory;
+        }
+
+        private PatientHistoryTransferObject GetPatientHistory(string pesel, Institution institution)
+        {
+            _connection = EstablishConnection(institution.InstitutionEndpointAddress);
+            var history = _connection?.GetPatientFullHistory(pesel);
+            if (history == null)
+            {
+                return null;
+            }
+
+            foreach (var h in history.Hospitalizations)
+            {
+                h.InstitutionId = institution.InstitutionId;
+            }
+
+            return history;
+        }
+
+        public List<PatientTransferObject> GetPatientInfo(string pesel)
+        {
+            if (!_repository.Institutions.Any())
+                return null;
+
+            var patientRecords = new List<PatientTransferObject>();
+            Parallel.ForEach(_repository.Institutions, institution =>
+            {
+                var patientInfo = GetPatientInfo(pesel, institution);
+                if (patientInfo != null)
+                    patientRecords.Add(patientInfo);
+            });
+
             return patientRecords;
         }
 
-        private PatientTransferObject GetPatientHistory(string pesel, Institution institution)
+        private PatientTransferObject GetPatientInfo(string pesel, Institution institution)
         {
             _connection = EstablishConnection(institution.InstitutionEndpointAddress);
 
