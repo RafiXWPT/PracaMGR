@@ -23,9 +23,9 @@ namespace WebsiteApplication.Controllers
 
         public ActionResult GenerateReaport()
         {
-            var tmp = "93070114133";
+            var tmp = "03300900942";
             var reaport = _reportService.GenerateRaport(tmp);
-            return Json("OK", JsonRequestBehavior.AllowGet);
+            return File(reaport, "pdf", "test.pdf");
         }
     }
 }
