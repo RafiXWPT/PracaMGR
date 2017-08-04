@@ -43,6 +43,7 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeneratedReaports.cs" />
     <Compile Include="Interfaces\IExaminationRepository.cs" />
     <Compile Include="Interfaces\IHospitalizationRepository.cs" />
     <Compile Include="Interfaces\IMedicineRepository.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Interfaces\ITreatmentRepository.cs" />
     <Compile Include="Interfaces\IUsedMedicineRepository.cs" />
     <Compile Include="Person.cs" />
+    <Compile Include="ReaportRequest.cs" />
     <Compile Include="Residence\Examination.cs" />
     <Compile Include="Residence\Hospitalization.cs" />
     <Compile Include="Institution.cs" />
@@ -61,6 +63,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Residence\Treatment.cs" />
     <Compile Include="Inventory\UsedMedicine.cs" />
+    <Compile Include="Right.cs" />
+    <Compile Include="RoleToRight.cs" />
+    <Compile Include="SearchHistory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

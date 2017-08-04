@@ -8,6 +8,7 @@ using Domain.Residence;
 using WebsiteApplication.Models.ViewModels.Institution;
 using WebsiteApplication.Models.ViewModels.Patient;
 using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;
+using WebsiteApplication.Models.ViewModels.Rights;
 
 namespace WebsiteApplication
 {
@@ -26,6 +27,7 @@ namespace WebsiteApplication
                 cfg.CreateMap<Institution, InstitutionTransferObject>();
                 // VIEW MODELS
                 cfg.CreateMap<Institution, InstitutionViewModel>();
+                cfg.CreateMap<Right, RightViewModel>();
                 cfg.CreateMap<PersonTransferObject, PersonViewModel>();
                 cfg.CreateMap<PatientTransferObject, PatientViewModel>();
                 cfg.CreateMap<HospitalizationBasicTransferObject, HospitalizationViewModel>();

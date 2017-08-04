@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNet.Identity;
@@ -10,6 +11,9 @@ namespace WebsiteApplication.Models
     public class ApplicationUser : IdentityUser
     {
         public virtual Address Address { get; set; }
+        public virtual List<GeneratedReaport> GeneratedReaports { get; set; }
+        public virtual List<ReaportRequest> ReaportRequests { get; set; }
+        public virtual List<SearchHistory> SearchHistories { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

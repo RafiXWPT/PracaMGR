@@ -25,7 +25,7 @@ namespace WebsiteApplication.Controllers
         {
             var tmp = "03300900942";
             var reaport = _reportService.GenerateRaport(tmp);
-            return File(reaport, "pdf", "test.pdf");
+            return File(reaport, "pdf", "patientReaport.pdf");
         }
     }
 }

@@ -33,6 +33,7 @@ namespace WebsiteApplication
             container.Register<ApplicationUserManager>(Lifestyle.Scoped);
             container.Register<ApplicationSignInManager>(Lifestyle.Scoped);
             container.Register<IInstitutionRepository, DatabaseInstitutionRepository>(Lifestyle.Scoped);
+            container.Register<IRightsManager, RightsManager>(Lifestyle.Scoped);
             container.Register<IRaportService, PdfRaportService>(Lifestyle.Scoped);
 
             container.Register<IUserStore<ApplicationUser>>(
