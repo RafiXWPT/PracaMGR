@@ -1,0 +1,9 @@
+﻿@using WebsiteApplication.Models.ViewModels.Rights
+@model IEnumerable<RoleViewModel>
+
+@(Html.Kendo().MultiSelectFor(vm => vm)
+      .DataTextField("Name")
+      .DataValueField("Id").AutoBind(true).Value(Model)
+      .DataSource(ds => ds
+      .Read(r => r.Action("ReadMultiSelectRoles", "Rights")))
+      )

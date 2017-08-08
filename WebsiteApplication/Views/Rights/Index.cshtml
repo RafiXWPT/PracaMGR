@@ -6,33 +6,20 @@
 
 <h2>Index</h2>
 
-@(Html.Kendo().Grid<RightViewModel>()
-    .Name("rights-grid")
-    .ToolBar(t =>
+@(Html.Kendo().TabStrip()
+    .Name("roles-manager-tabstrip")
+    .Animation(true)
+    .Events(e => e.Select("onSelect"))
+    .Items(i =>
     {
-        t.Create().Text("Dodaj uprawnienie");
-    })
-    .Pageable()
-    .Selectable()
-    .Filterable()
-    .Editable()
-    .Columns(c =>
-    {
-        c.Bound(vm => vm.RightName);
-        c.Bound(vm => vm.RightDescription);
-        c.Command(cmd =>
-        {
-            cmd.Edit();
-            cmd.Destroy();
-        });
-    })
-    .DataSource(ds => ds
-        .Ajax()
-        .PageSize(10)
-        .Model(m => m.Id(vm => vm.Id))
-        .Read(r => r.Action("ReadRights", "Rights"))
-        .Create(c => c.Action("CreateRight", "Rights"))
-        .Update(u => u.Action("UpdateRight", "Rights"))
-        .Destroy(d => d.Action("DestroyRight", "Rights"))
-        ))
+        i.Add().Text("Role").LoadContentFrom("RolesTab", "Rights").Selected(true);
+        i.Add().Text("Uprawnienia").LoadContentFrom("RightsTab", "Rights");
+        i.Add().Text("Uprawnienia ról").LoadContentFrom("RolesToRightsTab", "Rights");
+        i.Add().Text("Role użytkowników").LoadContentFrom("UserRolesTab", "Rights");
+    }))
 
+<script>
+    function onSelect(e) {
+        $(e.contentElement).html("");
+    }
+</script>

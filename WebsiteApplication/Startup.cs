@@ -17,6 +17,7 @@ using WebsiteApplication;
 using WebsiteApplication.CodeBehind;
 using WebsiteApplication.DataAccessLayer;
 using WebsiteApplication.Models;
+using WebsiteApplication.Models.ViewModels.Rights;
 
 [assembly: OwinStartup(typeof(Startup))]
 
@@ -33,7 +34,7 @@ namespace WebsiteApplication
             container.Register<ApplicationUserManager>(Lifestyle.Scoped);
             container.Register<ApplicationSignInManager>(Lifestyle.Scoped);
             container.Register<IInstitutionRepository, DatabaseInstitutionRepository>(Lifestyle.Scoped);
-            container.Register<IRightsManager, RightsManager>(Lifestyle.Scoped);
+            container.Register<IRightsManager<RightViewModel, RoleViewModel, UserViewModel>, RightsManager>(Lifestyle.Scoped);
             container.Register<IRaportService, PdfRaportService>(Lifestyle.Scoped);
 
             container.Register<IUserStore<ApplicationUser>>(

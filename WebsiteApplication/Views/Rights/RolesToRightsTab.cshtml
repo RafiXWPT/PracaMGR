@@ -1,0 +1,42 @@
+﻿@using WebsiteApplication.Models.ViewModels.Rights
+
+<script type="text/kendo" id="rolesTemplate">
+    <ul>
+        #for(var i = 0; i < data.length; i++){#
+        <li>#:data[i].Name#</li>
+        #}#
+    </ul>
+</script>
+
+<script type="text/javascript">
+    var rolesTemplate = kendo.template($("#rolesTemplate").html(), { useWithBlock: false });
+</script>
+
+@(Html.Kendo().Grid<RightViewModel>()
+      .Name("roles-to-rights-grid")
+      .Pageable()
+      .Sortable()
+      .Editable()
+      .Filterable(f => f.Mode(GridFilterMode.Row))
+      .Columns(c =>
+      {
+          c.Bound(vm => vm.RightName);
+          c.Bound(vm => vm.RightDescription);
+          c.Bound(vm => vm.Roles).Sortable(false).Filterable(false).ClientTemplate("#=rolesTemplate(Roles)#");
+          c.Command(cmd =>
+          {
+              cmd.Edit();
+          });
+      })
+      .DataSource(ds => ds
+          .Ajax()
+          .PageSize(10)
+          .Model(m =>
+          {
+              m.Id(vm => vm.Id);
+              m.Field(vm => vm.RightName).Editable(false);
+              m.Field(vm => vm.RightDescription).Editable(false);
+              m.Field(vm => vm.Roles).DefaultValue(new List<RoleViewModel>());
+          })
+          .Read(r => r.Action("ReadRolesToRight", "Rights"))
+          .Update(u => u.Action("UpdateRolesToRight", "Rights"))))

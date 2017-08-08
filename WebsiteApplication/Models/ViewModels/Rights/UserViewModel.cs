@@ -7,12 +7,10 @@ using AutoMapper;
 
 namespace WebsiteApplication.Models.ViewModels.Rights
 {
-    public class RightViewModel
+    public class UserViewModel
     {
-        public Guid Id { get; set; }
-        public string RightName { get; set; }
-        public string RightDescription { get; set; }
-        [IgnoreMap]
+        public string Id { get; set; }
+        public string Name { get; set; }
         [UIHint("RoleEditor")]
         public List<RoleViewModel> Roles { get; set; }
     }
