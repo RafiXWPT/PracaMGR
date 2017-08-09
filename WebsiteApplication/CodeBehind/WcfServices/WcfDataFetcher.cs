@@ -8,7 +8,7 @@ using Domain.Interfaces;
 using Domain.Residence;
 using InstitutionService;
 
-namespace WebsiteApplication.CodeBehind
+namespace WebsiteApplication.CodeBehind.WcfServices
 {
     internal class WcfDataFetcher : IDisposable
     {
@@ -76,12 +76,8 @@ namespace WebsiteApplication.CodeBehind
             };
 
             foreach (var patientRecord in patientRecords)
-            {
-                foreach (var hospitalization in patientRecord.Hospitalizations)
-                {
-                    patientFullHistory.Hospitalizations.Add(hospitalization);
-                }
-            }
+            foreach (var hospitalization in patientRecord.Hospitalizations)
+                patientFullHistory.Hospitalizations.Add(hospitalization);
 
             return patientFullHistory;
         }
@@ -91,14 +87,10 @@ namespace WebsiteApplication.CodeBehind
             _connection = EstablishConnection(institution.InstitutionEndpointAddress);
             var history = _connection?.GetPatientFullHistory(pesel);
             if (history == null)
-            {
                 return null;
-            }
 
             foreach (var h in history.Hospitalizations)
-            {
                 h.InstitutionId = institution.InstitutionId;
-            }
 
             return history;
         }

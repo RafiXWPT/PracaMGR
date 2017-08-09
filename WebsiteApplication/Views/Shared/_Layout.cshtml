@@ -1,4 +1,4 @@
-﻿@using WebsiteApplication.CodeBehind
+﻿@using WebsiteApplication.CodeBehind.Extensions
 <!DOCTYPE html>
 <html lang="pl-PL">
 <head>
@@ -32,7 +32,7 @@
                 {
                     <li>@Html.ActionLink(GlobalTranslations.Institutions, "Index", "Institution")</li>
                 }
-                @if(Context.User.IsInAnyRole("ADMIN,ADMIN_TECH,DOCTOR"))
+                @if (Context.User.IsInAnyRole("ADMIN,ADMIN_TECH,DOCTOR"))
                 {
                     <li>@Html.ActionLink(GlobalTranslations.SearchPatient, "Index", "Patient")</li>
                 }

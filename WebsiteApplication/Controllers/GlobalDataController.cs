@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Domain.Interfaces;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
-using WebsiteApplication.CodeBehind;
+using WebsiteApplication.CodeBehind.WcfServices;
 using WebsiteApplication.Models.ViewModels.GlobalData;
 
 namespace WebsiteApplication.Controllers
@@ -29,13 +28,11 @@ namespace WebsiteApplication.Controllers
             var tabStripViewModel = new TabStripViewModel();
             var institutions = _repository.Institutions.ToList();
             foreach (var institution in institutions)
-            {
                 tabStripViewModel.TabStripItems.Add(new TabStripItemViewModel
                 {
                     InstitutionId = institution.InstitutionId,
                     InstitutionName = institution.InstitutionName
-                });   
-            }
+                });
             return View(tabStripViewModel);
         }
 
@@ -54,7 +51,9 @@ namespace WebsiteApplication.Controllers
                 displayList.Add(new PatientViewModel
                 {
                     Pesel = pto.Pesel,
-                    LastHospitalizationTime = pto.Hospitalizations.Any() ? pto.Hospitalizations.Max(d => d.HospitalizationEndTime) : (DateTime?)null,
+                    LastHospitalizationTime = pto.Hospitalizations.Any()
+                        ? pto.Hospitalizations.Max(d => d.HospitalizationEndTime)
+                        : (DateTime?) null,
                     Info = new PersonInfoViewModel
                     {
                         FirstName = personInfo.FirstName,

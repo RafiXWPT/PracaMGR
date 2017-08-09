@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using WebsiteApplication.CodeBehind;
+using WebsiteApplication.CodeBehind.Email;
 using WebsiteApplication.Models;
 using WebsiteApplication.Resources;
 

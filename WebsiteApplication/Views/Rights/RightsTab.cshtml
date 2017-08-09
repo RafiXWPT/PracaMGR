@@ -1,10 +1,7 @@
 ﻿@using WebsiteApplication.Models.ViewModels.Rights
 @(Html.Kendo().Grid<RightViewModel>()
       .Name("rights-grid")
-      .ToolBar(t =>
-      {
-          t.Create().Text("Dodaj uprawnienie");
-      })
+      .ToolBar(t => { t.Create().Text("Dodaj uprawnienie"); })
       .Pageable()
       .Selectable()
       .Filterable(f => f.Mode(GridFilterMode.Row))

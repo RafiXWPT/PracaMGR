@@ -4,7 +4,7 @@ using System.ServiceModel;
 using Domain;
 using InstitutionService;
 
-namespace WebsiteApplication.CodeBehind
+namespace WebsiteApplication.CodeBehind.WcfServices
 {
     internal class WcfPersonInfoFetcher
     {
@@ -18,6 +18,8 @@ namespace WebsiteApplication.CodeBehind
             try
             {
                 client = channel.CreateChannel();
+                if (!client.Ping())
+                    throw new Exception("Host zdalny zwrócił błędną odpowiedź powitalną.");
             }
             catch (Exception)
             {
@@ -35,6 +37,9 @@ namespace WebsiteApplication.CodeBehind
         public PersonTransferObject GetPersonInfo(string pesel)
         {
             var connection = EstablishConnection();
+            if (connection == null)
+                return null;
+
             var person = connection.GetPersonInfo(pesel);
             CloseConnection(connection);
             return person;

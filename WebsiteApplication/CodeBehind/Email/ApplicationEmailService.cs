@@ -3,7 +3,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
-namespace WebsiteApplication.CodeBehind
+namespace WebsiteApplication.CodeBehind.Email
 {
     public class ApplicationEmailService : IIdentityMessageService
     {

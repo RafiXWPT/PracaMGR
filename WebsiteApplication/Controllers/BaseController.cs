@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Threading;
 using System.Web.Mvc;
-using WebsiteApplication.CodeBehind;
+using WebsiteApplication.CodeBehind.Helpers;
 using WebsiteApplication.DataAccessLayer;
 
 namespace WebsiteApplication.Controllers

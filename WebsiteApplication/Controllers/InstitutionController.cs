@@ -85,7 +85,8 @@ namespace WebsiteApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "InstitutionId,InstitutionEndpointAddress")] InstitutionViewModel institution)
+        public ActionResult Edit(
+            [Bind(Include = "InstitutionId,InstitutionEndpointAddress")] InstitutionViewModel institution)
         {
             if (ModelState.IsValid)
             {
@@ -93,9 +94,7 @@ namespace WebsiteApplication.Controllers
                     _repository.Institutions.FirstOrDefault(i => i.InstitutionId == institution.InstitutionId);
 
                 if (repositoryInstitution == null)
-                {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
 
                 repositoryInstitution.InstitutionName = institution.InstitutionName;
                 repositoryInstitution.InstitutionEndpointAddress = institution.InstitutionEndpointAddress;

@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Domain;
-using Microsoft.AspNet.Identity.EntityFramework;
-using WebsiteApplication.Models;
 
-namespace WebsiteApplication.CodeBehind
+namespace WebsiteApplication.CodeBehind.Rights
 {
     public interface IRightsManager<TRightViewModel, TRoleViewModel, TUserViewModel>
         where TRightViewModel : class
@@ -17,6 +12,8 @@ namespace WebsiteApplication.CodeBehind
         List<TRoleViewModel> Roles();
         List<TUserViewModel> Users();
         List<string> RolesForRight(TRightViewModel viewModel);
+        List<string> RolesForRight(string right);
+        List<string> RoleNamesForGuid(List<string> roleGuids);
         void AddRight(TRightViewModel viewModel);
         void AddRole(TRoleViewModel viewModel);
         void EditRight(TRightViewModel viewModel);

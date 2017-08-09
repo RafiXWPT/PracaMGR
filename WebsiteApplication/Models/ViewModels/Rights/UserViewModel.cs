@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using AutoMapper;
 
 namespace WebsiteApplication.Models.ViewModels.Rights
 {
@@ -11,6 +7,7 @@ namespace WebsiteApplication.Models.ViewModels.Rights
     {
         public string Id { get; set; }
         public string Name { get; set; }
+
         [UIHint("RoleEditor")]
         public List<RoleViewModel> Roles { get; set; }
     }

@@ -1,10 +1,7 @@
 ﻿@using WebsiteApplication.Models.ViewModels.Rights
 @(Html.Kendo().Grid<RoleViewModel>()
       .Name("roles-grid")
-      .ToolBar(t =>
-      {
-          t.Create().Text("Dodaj role");
-      })
+      .ToolBar(t => { t.Create().Text("Dodaj role"); })
       .Pageable()
       .Selectable()
       .Filterable(f => f.Mode(GridFilterMode.Row))

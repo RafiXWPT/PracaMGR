@@ -7,6 +7,8 @@ namespace InstitutionService
     public interface IPersonInfoService
     {
         [OperationContract]
+        bool Ping();
+        [OperationContract]
         PersonTransferObject GetPersonInfo(string pesel);
     }
 }

@@ -14,7 +14,8 @@ using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 using WebsiteApplication;
-using WebsiteApplication.CodeBehind;
+using WebsiteApplication.CodeBehind.Raport;
+using WebsiteApplication.CodeBehind.Rights;
 using WebsiteApplication.DataAccessLayer;
 using WebsiteApplication.Models;
 using WebsiteApplication.Models.ViewModels.Rights;
@@ -34,7 +35,8 @@ namespace WebsiteApplication
             container.Register<ApplicationUserManager>(Lifestyle.Scoped);
             container.Register<ApplicationSignInManager>(Lifestyle.Scoped);
             container.Register<IInstitutionRepository, DatabaseInstitutionRepository>(Lifestyle.Scoped);
-            container.Register<IRightsManager<RightViewModel, RoleViewModel, UserViewModel>, RightsManager>(Lifestyle.Scoped);
+            container.Register<IRightsManager<RightViewModel, RoleViewModel, UserViewModel>, RightsManager>(Lifestyle
+                .Scoped);
             container.Register<IRaportService, PdfRaportService>(Lifestyle.Scoped);
 
             container.Register<IUserStore<ApplicationUser>>(

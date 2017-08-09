@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Security.Principal;
 
-namespace WebsiteApplication.CodeBehind
+namespace WebsiteApplication.CodeBehind.Extensions
 {
     public static class UserRoleExtensions
     {

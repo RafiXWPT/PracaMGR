@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using AutoMapper;
 using Domain.Interfaces;
-using WebsiteApplication.CodeBehind;
+using WebsiteApplication.CodeBehind.WcfServices;
 using WebsiteApplication.Filters;
 using WebsiteApplication.Models.ViewModels.Patient;
 using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;

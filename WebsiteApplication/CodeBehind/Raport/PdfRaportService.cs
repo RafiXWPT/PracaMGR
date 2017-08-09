@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 using Domain;
 using Domain.Interfaces;
 using Domain.Residence;
-using iText.IO.Font;
 using iText.Kernel.Font;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
-using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;
+using WebsiteApplication.CodeBehind.WcfServices;
 
-namespace WebsiteApplication.CodeBehind
+namespace WebsiteApplication.CodeBehind.Raport
 {
     public class PdfRaportService : IRaportService
     {
-        private readonly IInstitutionRepository _repository;
-        private readonly WcfPersonInfoFetcher _personInfoFetcher;
         private readonly WcfDataFetcher _patientDataFetcher;
+        private readonly WcfPersonInfoFetcher _personInfoFetcher;
+        private readonly IInstitutionRepository _repository;
 
         public PdfRaportService(IInstitutionRepository repository)
         {
@@ -33,8 +30,11 @@ namespace WebsiteApplication.CodeBehind
         public byte[] GenerateRaport(string patientPesel)
         {
             var personInfo = _personInfoFetcher.GetPersonInfo(patientPesel);
-            var patientHistory =_patientDataFetcher.GetPatientHistory(patientPesel);
-           
+            if (personInfo == null)
+                return null;
+
+            var patientHistory = _patientDataFetcher.GetPatientHistory(patientPesel);
+
             return GeneratePdf(personInfo, patientHistory);
         }
 
@@ -45,8 +45,10 @@ namespace WebsiteApplication.CodeBehind
             var pdf = new PdfDocument(pdfWriter);
             var document = new Document(pdf, PageSize.A4);
             document.SetFont(PdfFontFactory.CreateFont("C:/Windows/fonts/arial.ttf", "CP1250", true));
-            
-            document.Add(new Paragraph("System informacji medycznej").SetFontSize(25).SetHorizontalAlignment(HorizontalAlignment.CENTER).SetTextAlignment(TextAlignment.CENTER));
+
+            document.Add(new Paragraph("System informacji medycznej").SetFontSize(25)
+                .SetHorizontalAlignment(HorizontalAlignment.CENTER)
+                .SetTextAlignment(TextAlignment.CENTER));
             GeneratePersonInfo(document, personInfo);
             GenerateBasicHospitalizationInfo(document, patientHistory);
             GenerateDetailedHospitalizationInfo(document, patientHistory);
@@ -66,7 +68,8 @@ namespace WebsiteApplication.CodeBehind
             personInfoParagraph.Add($"\nNumer ubezpieczenia: {personInfo.InsuranceId}");
 
             personInfoParagraph.Add("");
-            personInfoParagraph.Add($"\nAdres: {personInfo.Address.City} ul. {personInfo.Address.Street} {personInfo.Address.HomeNumber}");
+            personInfoParagraph.Add(
+                $"\nAdres: {personInfo.Address.City} ul. {personInfo.Address.Street} {personInfo.Address.HomeNumber}");
 
             document.Add(personInfoParagraph);
         }
@@ -77,21 +80,24 @@ namespace WebsiteApplication.CodeBehind
 
             var hasBeenTreatmentInInstitution = patientHistory.Hospitalizations.All(x => x.Treatments.Any());
             var hasBeenExaminedInInstitution = patientHistory.Hospitalizations.All(x => x.Examinations.Any());
-            
+
             var infoParagraph = new Paragraph();
-            infoParagraph.Add($"Ilość placówek w których osoba była leczona: {patientHistory.Hospitalizations.Select(x => x.InstitutionId).Distinct().Count()}");
-            infoParagraph.Add($"\nPierwsze wizyta w placówce medycznej: {patientHistory.Hospitalizations.OrderBy(x => x.HospitalizationStartTime).First().HospitalizationStartTime}");
-            infoParagraph.Add($"\nOstatnia wizyta w placówce medycznej: {patientHistory.Hospitalizations.OrderBy(x => x.HospitalizationEndTime).First().HospitalizationEndTime}");
-            infoParagraph.Add($"\n{(hasBeenExaminedInInstitution ? "Osoba była badana" : "Osoba nigdy nie była badana")}");
+            infoParagraph.Add(
+                $"Ilość placówek w których osoba była leczona: {patientHistory.Hospitalizations.Select(x => x.InstitutionId).Distinct().Count()}");
+            infoParagraph.Add(
+                $"\nPierwsze wizyta w placówce medycznej: {patientHistory.Hospitalizations.OrderBy(x => x.HospitalizationStartTime).First().HospitalizationStartTime}");
+            infoParagraph.Add(
+                $"\nOstatnia wizyta w placówce medycznej: {patientHistory.Hospitalizations.OrderBy(x => x.HospitalizationEndTime).First().HospitalizationEndTime}");
+            infoParagraph.Add(
+                $"\n{(hasBeenExaminedInInstitution ? "Osoba była badana" : "Osoba nigdy nie była badana")}");
             if (hasBeenExaminedInInstitution)
-            {
-                infoParagraph.Add($"\nCałkowita ilość przeprowadzonych badań: {patientHistory.Hospitalizations.Sum(hospitalization => hospitalization.Examinations.Count)}");
-            }
-            infoParagraph.Add($"\n{(hasBeenTreatmentInInstitution ? "Osoba była operowana" : "Osoba nigdy nie była operowana")}");
+                infoParagraph.Add(
+                    $"\nCałkowita ilość przeprowadzonych badań: {patientHistory.Hospitalizations.Sum(hospitalization => hospitalization.Examinations.Count)}");
+            infoParagraph.Add(
+                $"\n{(hasBeenTreatmentInInstitution ? "Osoba była operowana" : "Osoba nigdy nie była operowana")}");
             if (hasBeenTreatmentInInstitution)
-            {
-                infoParagraph.Add($"\nCałkowita ilość przeprowadzonych operacji: {patientHistory.Hospitalizations.Sum(hospitalization => hospitalization.Treatments.Count)}");
-            }
+                infoParagraph.Add(
+                    $"\nCałkowita ilość przeprowadzonych operacji: {patientHistory.Hospitalizations.Sum(hospitalization => hospitalization.Treatments.Count)}");
             document.Add(infoParagraph);
         }
 
@@ -101,17 +107,16 @@ namespace WebsiteApplication.CodeBehind
             var institutionGroups = hospitalizations.GroupBy(x => x.InstitutionId).ToList();
             document.Add(new Paragraph("Dane szczegółowe na temat hospitalizacji:").SetFontSize(20));
             foreach (var institutionKey in institutionGroups)
-            {
-                foreach (var hospitalization in institutionKey.ToList())
-                {
-                    GenerateNewHospitalizationInfo(document, hospitalization);
-                }
-            }
+            foreach (var hospitalization in institutionKey.ToList())
+                GenerateNewHospitalizationInfo(document, hospitalization);
         }
 
-        private void GenerateNewHospitalizationInfo(Document document, HospitalizationHistoryTransferObject hospitalization)
+        private void GenerateNewHospitalizationInfo(Document document,
+            HospitalizationHistoryTransferObject hospitalization)
         {
-            var currentInstitutionName = _repository.Institutions.First(x => x.InstitutionId == hospitalization.InstitutionId).InstitutionName;
+            var currentInstitutionName = _repository.Institutions
+                .First(x => x.InstitutionId == hospitalization.InstitutionId)
+                .InstitutionName;
             document.GetPdfDocument().AddNewPage();
             document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
             document.Add(new Paragraph($"{currentInstitutionName}:").SetFontSize(20));
@@ -151,9 +156,7 @@ namespace WebsiteApplication.CodeBehind
                 treatmentTable.AddCell($"{treatment.TreatmentDateTime}");
                 var medicineList = new List().SetListSymbol("");
                 foreach (var medicine in treatment.UsedMedicines)
-                {
                     medicineList.Add(new ListItem($"{medicine.Medicine.MedicineName} - {medicine.Dose:F2} mg"));
-                }
                 treatmentTable.AddCell(medicineList);
             }
             treatmentTable.AddCell($"Całkowita ilość operacji: {treatments.Count}");
@@ -163,7 +166,7 @@ namespace WebsiteApplication.CodeBehind
 
         private Table GetExaminationTable()
         {
-            var table = new Table(new float[] { 4, 4, 4 }).SetWidthPercent(100).SetKeepTogether(true);
+            var table = new Table(new float[] {4, 4, 4}).SetWidthPercent(100).SetKeepTogether(true);
             table.AddHeaderCell("Początek badania");
             table.AddHeaderCell("Zakończenie badania");
             table.AddHeaderCell("Szczegóły badania");
@@ -172,7 +175,7 @@ namespace WebsiteApplication.CodeBehind
 
         private Table GetTreatmentTable()
         {
-            var table = new Table(new float[] { 4, 4 }).SetWidthPercent(100).SetKeepTogether(true);
+            var table = new Table(new float[] {4, 4}).SetWidthPercent(100).SetKeepTogether(true);
             table.AddHeaderCell("Data operacji");
             table.AddHeaderCell("Użyte medykamenty");
             return table;

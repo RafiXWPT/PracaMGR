@@ -11,6 +11,11 @@ namespace PersonInfoService.Host.Code.Core
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
     internal class PersonInfoService : IPersonInfoService
     {
+        public bool Ping()
+        {
+            return true;
+        }
+
         public PersonTransferObject GetPersonInfo(string pesel)
         {
             Console.WriteLine("Pobranie informacji o konkretnej osobie");

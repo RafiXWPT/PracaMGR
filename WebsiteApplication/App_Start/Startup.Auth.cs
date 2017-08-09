@@ -34,8 +34,8 @@ namespace WebsiteApplication
                     // This is a security feature which is used when you change a password or add an external login to your account.  
                     OnValidateIdentity = SecurityStampValidator
                         .OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
-                            validateInterval: TimeSpan.FromMinutes(30),
-                            regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                            TimeSpan.FromMinutes(30),
+                            (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
             });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);

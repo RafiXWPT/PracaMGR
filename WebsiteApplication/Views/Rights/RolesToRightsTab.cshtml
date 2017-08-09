@@ -1,5 +1,4 @@
 ﻿@using WebsiteApplication.Models.ViewModels.Rights
-
 <script type="text/kendo" id="rolesTemplate">
     <ul>
         #for(var i = 0; i < data.length; i++){#
@@ -23,10 +22,7 @@
           c.Bound(vm => vm.RightName);
           c.Bound(vm => vm.RightDescription);
           c.Bound(vm => vm.Roles).Sortable(false).Filterable(false).ClientTemplate("#=rolesTemplate(Roles)#");
-          c.Command(cmd =>
-          {
-              cmd.Edit();
-          });
+          c.Command(cmd => { cmd.Edit(); });
       })
       .DataSource(ds => ds
           .Ajax()

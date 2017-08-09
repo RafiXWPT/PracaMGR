@@ -6,7 +6,6 @@ using AutoMapper;
 using Domain;
 using Domain.Residence;
 using Microsoft.AspNet.Identity.EntityFramework;
-using WebsiteApplication.Models;
 using WebsiteApplication.Models.ViewModels.Institution;
 using WebsiteApplication.Models.ViewModels.Patient;
 using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;

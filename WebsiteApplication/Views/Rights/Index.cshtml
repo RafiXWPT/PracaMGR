@@ -1,22 +1,20 @@
-﻿@using WebsiteApplication.Models.ViewModels.Rights
-
-@{
+﻿@{
     ViewBag.Title = "Role i uprawnienia";
 }
 
 <h2>Index</h2>
 
 @(Html.Kendo().TabStrip()
-    .Name("roles-manager-tabstrip")
-    .Animation(true)
-    .Events(e => e.Select("onSelect"))
-    .Items(i =>
-    {
-        i.Add().Text("Role").LoadContentFrom("RolesTab", "Rights").Selected(true);
-        i.Add().Text("Uprawnienia").LoadContentFrom("RightsTab", "Rights");
-        i.Add().Text("Uprawnienia ról").LoadContentFrom("RolesToRightsTab", "Rights");
-        i.Add().Text("Role użytkowników").LoadContentFrom("UserRolesTab", "Rights");
-    }))
+      .Name("roles-manager-tabstrip")
+      .Animation(true)
+      .Events(e => e.Select("onSelect"))
+      .Items(i =>
+      {
+          i.Add().Text("Role").LoadContentFrom("RolesTab", "Rights").Selected(true);
+          i.Add().Text("Uprawnienia").LoadContentFrom("RightsTab", "Rights");
+          i.Add().Text("Uprawnienia ról").LoadContentFrom("RolesToRightsTab", "Rights");
+          i.Add().Text("Role użytkowników").LoadContentFrom("UserRolesTab", "Rights");
+      }))
 
 <script>
     function onSelect(e) {

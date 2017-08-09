@@ -2,61 +2,78 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
-using AutoMapper.QueryableExtensions;
 using Domain;
-using Domain.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using WebsiteApplication.DataAccessLayer;
 using WebsiteApplication.Models;
 using WebsiteApplication.Models.ViewModels.Rights;
 
-namespace WebsiteApplication.CodeBehind
+namespace WebsiteApplication.CodeBehind.Rights
 {
     public class RightsManager : IRightsManager<RightViewModel, RoleViewModel, UserViewModel>
     {
-        public WebsiteDatabaseContext Context { get; }
-        public UserManager<ApplicationUser> UserManager { get; }
-
         public RightsManager(WebsiteDatabaseContext context, ApplicationUserManager userManager)
         {
             Context = context;
             UserManager = userManager;
         }
 
+        public WebsiteDatabaseContext Context { get; }
+        public UserManager<ApplicationUser> UserManager { get; }
+
         public List<RightViewModel> Rights()
         {
             return Context.Rights.Select(r => new RightViewModel
-            {
-                Id = r.Id,
-                RightDescription = r.RightDescription,
-                RightName = r.RightName
-            }).ToList();
+                {
+                    Id = r.Id,
+                    RightDescription = r.RightDescription,
+                    RightName = r.RightName
+                })
+                .ToList();
         }
 
         public List<RoleViewModel> Roles()
         {
             return Context.Roles.Select(r => new RoleViewModel
-            {
-                Id = r.Id,
-                Name = r.Name
-            }).ToList();
+                {
+                    Id = r.Id,
+                    Name = r.Name
+                })
+                .ToList();
         }
 
         public List<UserViewModel> Users()
         {
             var applicationUsers = Context.Users.ToList();
             return applicationUsers.Select(u => new UserViewModel
-            {
-                Id = u.Id,
-                Name = u.UserName,
-                Roles = u.Roles.Select(r => new RoleViewModel
                 {
-                    Id = r.RoleId,
-                    Name = Roles().FirstOrDefault(x => x.Id == r.RoleId)?.Name ?? "-"
-                }).ToList()
-            }).ToList();
+                    Id = u.Id,
+                    Name = u.UserName,
+                    Roles = u.Roles.Select(r => new RoleViewModel
+                        {
+                            Id = r.RoleId,
+                            Name = Roles().FirstOrDefault(x => x.Id == r.RoleId)?.Name ?? "-"
+                        })
+                        .ToList()
+                })
+                .ToList();
+        }
+
+        public List<string> RolesForRight(string right)
+        {
+            return Context.RolesToRights.Where(r => r.Right.RightName == right).Select(x => x.Role).ToList();
+        }
+
+        public List<string> RolesForRight(RightViewModel viewModel)
+        {
+            return Context.RolesToRights.Where(r => r.RightId == viewModel.Id).Select(x => x.Role).ToList();
+        }
+
+        public List<string> RoleNamesForGuid(List<string> roleGuids)
+        {
+            var roles = Roles();
+            return roleGuids.SelectMany(r => roles.Where(ro => ro.Id == r)).Select(r => r.Name).ToList();
         }
 
         public void AddRight(RightViewModel viewModel)
@@ -103,9 +120,7 @@ namespace WebsiteApplication.CodeBehind
         {
             var right = Context.Rights.Find(viewModel.Id);
             foreach (var rightToRole in Context.RolesToRights.Where(r => r.RightId == viewModel.Id))
-            {
                 Context.Entry(rightToRole).State = EntityState.Deleted;
-            }
 
             Context.SaveChanges();
             Context.Entry(right).State = EntityState.Deleted;
@@ -116,24 +131,15 @@ namespace WebsiteApplication.CodeBehind
         {
             var role = Context.Roles.Find(viewModel.Id);
             foreach (var user in role.Users)
-            {
-                Context.Entry(user).State = EntityState.Deleted; 
-            }
+                Context.Entry(user).State = EntityState.Deleted;
 
             Context.SaveChanges();
             foreach (var rightToRole in Context.RolesToRights.Where(r => r.Role == role.Name))
-            {
                 Context.Entry(rightToRole).State = EntityState.Deleted;
-            }
 
             Context.SaveChanges();
             Context.Entry(role).State = EntityState.Deleted;
             Context.SaveChanges();
-        }
-
-        public List<string> RolesForRight(RightViewModel viewModel)
-        {
-            return Context.RolesToRights.Where(r => r.RightId == viewModel.Id).Select(x => x.Role).ToList();
         }
 
         public void AddRoleToRight(Guid rightId, string role)

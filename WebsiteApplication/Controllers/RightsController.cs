@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Kendo.Mvc.UI;
-using WebsiteApplication.CodeBehind;
-using System.Web.Security;
 using AutoMapper;
 using Kendo.Mvc.Extensions;
-using Microsoft.AspNet.Identity.EntityFramework;
+using Kendo.Mvc.UI;
+using WebsiteApplication.CodeBehind.Rights;
 using WebsiteApplication.Models.ViewModels.Rights;
 
 namespace WebsiteApplication.Controllers
@@ -16,12 +12,12 @@ namespace WebsiteApplication.Controllers
     [Authorize(Roles = "ADMIN")]
     public class RightsController : BaseController
     {
-        public IRightsManager<RightViewModel, RoleViewModel, UserViewModel> Manager { get; }
-
         public RightsController(IRightsManager<RightViewModel, RoleViewModel, UserViewModel> manager)
         {
             Manager = manager;
         }
+
+        public IRightsManager<RightViewModel, RoleViewModel, UserViewModel> Manager { get; }
 
         public ActionResult Index()
         {
@@ -57,46 +53,51 @@ namespace WebsiteApplication.Controllers
         {
             var rights = Manager.Rights();
 
-            return Json(Mapper.Map<List<RightViewModel>>(rights).ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            return Json(Mapper.Map<List<RightViewModel>>(rights).ToDataSourceResult(request),
+                JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ReadRoles([DataSourceRequest] DataSourceRequest request)
         {
             var roles = Manager.Roles().Where(x => x.Name != "ADMIN");
 
-            return Json(Mapper.Map<List<RoleViewModel>>(roles).ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            return Json(Mapper.Map<List<RoleViewModel>>(roles).ToDataSourceResult(request),
+                JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult CreateRight([DataSourceRequest] DataSourceRequest request, RightViewModel viewModel)
         {
             Manager.AddRight(viewModel);
-            return Json(new[] { viewModel }.ToDataSourceResult(request, ModelState), JsonRequestBehavior.AllowGet);
+            return Json(new[] {viewModel}.ToDataSourceResult(request, ModelState), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult CreateRole([DataSourceRequest] DataSourceRequest request, RoleViewModel viewModel)
         {
             Manager.AddRole(viewModel);
-            return Json(new[] { viewModel }.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            return Json(new[] {viewModel}.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult UpdateRight([DataSourceRequest] DataSourceRequest request, RightViewModel viewModel)
         {
             Manager.EditRight(viewModel);
-            return Json(new[] { viewModel }.ToDataSourceResult(request, ModelState), JsonRequestBehavior.AllowGet);
+            return Json(new[] {viewModel}.ToDataSourceResult(request, ModelState), JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult UpdateRole([DataSourceRequest] DataSourceRequest request, RoleViewModel viewModel) => Json("");
-        
+        public ActionResult UpdateRole([DataSourceRequest] DataSourceRequest request, RoleViewModel viewModel)
+        {
+            return Json("");
+        }
+
         public ActionResult DestroyRight([DataSourceRequest] DataSourceRequest request, RightViewModel viewModel)
         {
             Manager.RemoveRight(viewModel);
-            return Json(new[] { viewModel }.ToDataSourceResult(request, ModelState), JsonRequestBehavior.AllowGet);
+            return Json(new[] {viewModel}.ToDataSourceResult(request, ModelState), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult DestroyRole([DataSourceRequest] DataSourceRequest request, RoleViewModel viewModel)
         {
             Manager.RemoveRole(viewModel);
-            return Json(new[] { viewModel }.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            return Json(new[] {viewModel}.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ReadRolesToRight([DataSourceRequest] DataSourceRequest request)
@@ -135,31 +136,19 @@ namespace WebsiteApplication.Controllers
             var toAddRoles = new List<string>();
             var toRemoveRoles = new List<string>();
             foreach (var role in viewModel.Roles)
-            {
                 if (!currentRolesForRight.Contains(role.Name))
-                {
                     toAddRoles.Add(role.Name);
-                }
-            }
 
             foreach (var role in currentRolesForRight)
-            {
                 if (viewModel.Roles.All(r => r.Name != role))
-                {
                     toRemoveRoles.Add(role);
-                }
-            }
 
             foreach (var role in toRemoveRoles)
-            {
                 Manager.RemoveRoleFromRight(viewModel.Id, role);
-            }
             foreach (var role in toAddRoles)
-            {
                 Manager.AddRoleToRight(viewModel.Id, role);
-            }
 
-            return Json(new []{viewModel}.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            return Json(new[] {viewModel}.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ReadRolesToUsers([DataSourceRequest] DataSourceRequest request)
@@ -169,33 +158,24 @@ namespace WebsiteApplication.Controllers
 
         public ActionResult UpdateRolesToUser([DataSourceRequest] DataSourceRequest request, UserViewModel viewModel)
         {
-            var currentRolesForUser = Manager.Users().First(u => u.Id == viewModel.Id).Roles.Select(r => r.Name).ToList();
+            var currentRolesForUser = Manager.Users()
+                .First(u => u.Id == viewModel.Id)
+                .Roles.Select(r => r.Name)
+                .ToList();
             var toAddRoles = new List<string>();
             var toRemoveRoles = new List<string>();
 
             foreach (var role in viewModel.Roles)
-            {
                 if (!currentRolesForUser.Contains(role.Name))
-                {
                     toAddRoles.Add(role.Name);
-                }
-            }
             foreach (var role in currentRolesForUser)
-            {
                 if (viewModel.Roles.All(r => r.Name != role))
-                {
                     toRemoveRoles.Add(role);
-                }
-            }
 
             foreach (var role in toRemoveRoles)
-            {
                 Manager.RemoveRoleFromUser(viewModel.Id, role);
-            }
             foreach (var role in toAddRoles)
-            {
                 Manager.AddRoleToUser(viewModel.Id, role);
-            }
 
             return Json(new[] {viewModel}.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
