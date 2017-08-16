@@ -12,10 +12,10 @@ namespace WebsiteApplication.CodeBehind.WcfServices
 {
     internal class WcfDataFetcher : IDisposable
     {
-        private readonly IInstitutionRepository _repository;
+        private readonly IRepository<Institution> _repository;
         private IInstitutionService _connection;
 
-        public WcfDataFetcher(IInstitutionRepository repository)
+        public WcfDataFetcher(IRepository<Institution> repository)
         {
             _repository = repository;
         }
@@ -50,7 +50,7 @@ namespace WebsiteApplication.CodeBehind.WcfServices
 
         public List<PatientTransferObject> GetAllPatientsFromInstitution(Guid institutionId)
         {
-            var firstOrDefault = _repository.Institutions.FirstOrDefault(i => i.InstitutionId == institutionId);
+            var firstOrDefault = _repository.Read(institutionId);
             if (firstOrDefault != null)
                 _connection = EstablishConnection(firstOrDefault.InstitutionEndpointAddress);
 
@@ -59,11 +59,11 @@ namespace WebsiteApplication.CodeBehind.WcfServices
 
         public PatientHistoryTransferObject GetPatientHistory(string pesel)
         {
-            if (!_repository.Institutions.Any())
+            if (!_repository.Entities.Any())
                 return null;
 
             var patientRecords = new List<PatientHistoryTransferObject>();
-            Parallel.ForEach(_repository.Institutions, institution =>
+            Parallel.ForEach(_repository.Entities, institution =>
             {
                 var patientHistory = GetPatientHistory(pesel, institution);
                 if (patientHistory != null)
@@ -90,18 +90,18 @@ namespace WebsiteApplication.CodeBehind.WcfServices
                 return null;
 
             foreach (var h in history.Hospitalizations)
-                h.InstitutionId = institution.InstitutionId;
+                h.Id = institution.Id;
 
             return history;
         }
 
         public List<PatientTransferObject> GetPatientInfo(string pesel)
         {
-            if (!_repository.Institutions.Any())
+            if (!_repository.Entities.Any())
                 return null;
 
             var patientRecords = new List<PatientTransferObject>();
-            Parallel.ForEach(_repository.Institutions, institution =>
+            Parallel.ForEach(_repository.Entities, institution =>
             {
                 var patientInfo = GetPatientInfo(pesel, institution);
                 if (patientInfo != null)
@@ -120,7 +120,7 @@ namespace WebsiteApplication.CodeBehind.WcfServices
 
             var patient = _connection.GetPatientInfo(pesel);
             if (patient != null)
-                patient.InstitutionId = institution.InstitutionId;
+                patient.InstitutionId = institution.Id;
 
             return patient;
         }

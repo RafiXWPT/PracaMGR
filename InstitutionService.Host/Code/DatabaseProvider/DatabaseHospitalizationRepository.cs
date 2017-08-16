@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using Domain.Interfaces;
 using Domain.Residence;
@@ -6,25 +7,37 @@ using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    internal class DatabaseHospitalizationRepository : IHospitalizationRepository
+    internal class DatabaseHospitalizationRepository : IRepository<Hospitalization>
     {
         private readonly InstitutionServiceDatabaseContext _context;
 
-        public DatabaseHospitalizationRepository(IRepository context)
+        public DatabaseHospitalizationRepository(IDbRepository context)
         {
             _context = context as InstitutionServiceDatabaseContext;
         }
 
-        public IQueryable<Hospitalization> Hospitalizations => _context.Hospitalizations;
-
-        public void Update(Hospitalization hospitalization)
+        public IQueryable<Hospitalization> Entities => _context.Hospitalizations;
+        public void Create(Hospitalization entity)
         {
-            throw new NotImplementedException();
+            _context.Hospitalizations.Add(entity);
+            SaveChanges();
         }
 
-        public void Add(Hospitalization hospitalization)
+        public Hospitalization Read(Guid entityId)
         {
-            _context.Hospitalizations.Add(hospitalization);
+            return Entities.FirstOrDefault(e => e.Id == entityId);
+        }
+
+        public void Update(Hospitalization entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+            SaveChanges();
+        }
+
+        public void Delete(Hospitalization entity)
+        {
+            _context.Hospitalizations.Remove(entity);
+            SaveChanges();
         }
 
         public void SaveChanges()

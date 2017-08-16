@@ -24,7 +24,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
             {
                 new Person
                 {
-                    PersonId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Pesel = "93070114133",
                     FirstName = "Rafał",
                     SecondName = "Palej",
@@ -32,7 +32,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     InsuranceId = "259024",
                     Address = new Address
                     {
-                        AddressId = Guid.NewGuid(),
+                        Id = Guid.NewGuid(),
                         Country = "Poland",
                         Province = "Małopolska",
                         ZipCode = "33-370",
@@ -43,7 +43,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                 },
                 new Person
                 {
-                    PersonId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Pesel = "24020809720",
                     FirstName = "Anna",
                     SecondName = "Nowak",
@@ -51,7 +51,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     InsuranceId = "259001",
                     Address = new Address
                     {
-                        AddressId = Guid.NewGuid(),
+                        Id = Guid.NewGuid(),
                         Country = "Poland",
                         Province = "Małopolska",
                         ZipCode = "30-006",
@@ -62,7 +62,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                 },
                 new Person
                 {
-                    PersonId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Pesel = "62012210646",
                     FirstName = "Bogusław",
                     SecondName = "Zbych",
@@ -70,7 +70,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     InsuranceId = "259234",
                     Address = new Address
                     {
-                        AddressId = Guid.NewGuid(),
+                        Id = Guid.NewGuid(),
                         Country = "Poland",
                         Province = "Małopolska",
                         ZipCode = "33-300",
@@ -81,7 +81,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                 },
                 new Person
                 {
-                    PersonId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Pesel = "64121311834",
                     FirstName = "Adam",
                     SecondName = "Nawałka",
@@ -89,7 +89,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     InsuranceId = "215469",
                     Address = new Address
                     {
-                        AddressId = Guid.NewGuid(),
+                        Id = Guid.NewGuid(),
                         Country = "Poland",
                         Province = "Małopolska",
                         ZipCode = "27-120",
@@ -100,7 +100,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                 },
                 new Person
                 {
-                    PersonId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Pesel = "26112804811",
                     FirstName = "Teodor",
                     SecondName = "Krawczyk",
@@ -108,7 +108,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     InsuranceId = "556125",
                     Address = new Address
                     {
-                        AddressId = Guid.NewGuid(),
+                        Id = Guid.NewGuid(),
                         Country = "Poland",
                         Province = "Małopolska",
                         ZipCode = "17-270",
@@ -119,7 +119,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                 },
                 new Person
                 {
-                    PersonId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Pesel = "61061910064",
                     FirstName = "Maria",
                     SecondName = "Dadał",
@@ -127,7 +127,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     InsuranceId = "221545",
                     Address = new Address
                     {
-                        AddressId = Guid.NewGuid(),
+                        Id = Guid.NewGuid(),
                         Country = "Poland",
                         Province = "Małopolska",
                         ZipCode = "33-370",
@@ -138,7 +138,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                 },
                 new Person
                 {
-                    PersonId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Pesel = "26031604565",
                     FirstName = "Ewa",
                     SecondName = "Palej",
@@ -146,7 +146,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     InsuranceId = "996565",
                     Address = new Address
                     {
-                        AddressId = Guid.NewGuid(),
+                        Id = Guid.NewGuid(),
                         Country = "Poland",
                         Province = "Małopolska",
                         ZipCode = "33-370",
@@ -157,7 +157,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                 },
                 new Person
                 {
-                    PersonId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Pesel = "03300900942",
                     FirstName = "Filip",
                     SecondName = "Gościński",
@@ -165,7 +165,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     InsuranceId = "259024",
                     Address = new Address
                     {
-                        AddressId = Guid.NewGuid(),
+                        Id = Guid.NewGuid(),
                         Country = "Poland",
                         Province = "Małopolska",
                         ZipCode = "40-170",
@@ -176,7 +176,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                 },
                 new Person
                 {
-                    PersonId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Pesel = "89021303161",
                     FirstName = "Kinga",
                     SecondName = "Szepielak",
@@ -184,7 +184,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     InsuranceId = "5124585",
                     Address = new Address
                     {
-                        AddressId = Guid.NewGuid(),
+                        Id = Guid.NewGuid(),
                         Country = "Poland",
                         Province = "Małopolska",
                         ZipCode = "22-180",
@@ -195,7 +195,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                 },
                 new Person
                 {
-                    PersonId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Pesel = "60092601196",
                     FirstName = "Sarys",
                     SecondName = "Sire",
@@ -203,7 +203,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     InsuranceId = "221546",
                     Address = new Address
                     {
-                        AddressId = Guid.NewGuid(),
+                        Id = Guid.NewGuid(),
                         Country = "Tibia",
                         Province = "Mainland",
                         ZipCode = "00-001",

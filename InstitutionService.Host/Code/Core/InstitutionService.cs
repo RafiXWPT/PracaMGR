@@ -20,7 +20,7 @@ namespace InstitutionService.Host.Code.Core
         public List<PatientTransferObject> GetAllPatients()
         {
             Console.WriteLine("Pobrana lista wszystkich pacjentow");
-            var patients = ObjectBuilder.Container.GetInstance<IPatientRepository>().Patients.ToList();
+            var patients = ObjectBuilder.Container.GetInstance<IRepository<Patient>>().Entities.ToList();
 
             return patients.Select(SignWithInstitution).ToList();
         }
@@ -28,18 +28,17 @@ namespace InstitutionService.Host.Code.Core
         public PatientTransferObject GetPatientInfo(string pesel)
         {
             Console.WriteLine("Pobranie informacji o konkretnym pacjencie");
-            var patientRepository = ObjectBuilder.Container.GetInstance<IPatientRepository>();
-            var patient = patientRepository.Patients.FirstOrDefault(p => p.Pesel == pesel);
+            var patientRepository = ObjectBuilder.Container.GetInstance<IRepository<Patient>>();
+            var patient = patientRepository.Entities.FirstOrDefault(p => p.Pesel == pesel);
             return SignWithInstitution(patient);
         }
 
         public HospitalizationTransferObject GetHospitalization(Guid hospitalizationId)
         {
             Console.WriteLine("Pobranie informacji o konkretnej hospitalizacji");
-            var hospitalizationRepository = ObjectBuilder.Container.GetInstance<IHospitalizationRepository>();
+            var hospitalizationRepository = ObjectBuilder.Container.GetInstance<IRepository<Hospitalization>>();
             var hospitalization =
-                hospitalizationRepository.Hospitalizations.FirstOrDefault(
-                    h => h.HospitalizationId == hospitalizationId);
+                hospitalizationRepository.Read(hospitalizationId);
             return hospitalization == null
                 ? new HospitalizationTransferObject()
                 : Mapper.Map<HospitalizationTransferObject>(hospitalization);
@@ -48,8 +47,8 @@ namespace InstitutionService.Host.Code.Core
         public ExaminationTransferObject GetExamination(Guid examinationId)
         {
             Console.WriteLine("Pobranie informacji o konkretnym badaniu");
-            var examinationRepository = ObjectBuilder.Container.GetInstance<IExaminationRepository>();
-            var examination = examinationRepository.Examinations.FirstOrDefault(e => e.ExaminationId == examinationId);
+            var examinationRepository = ObjectBuilder.Container.GetInstance<IRepository<Examination>>();
+            var examination = examinationRepository.Read(examinationId);
             return examination == null
                 ? new ExaminationTransferObject()
                 : Mapper.Map<ExaminationTransferObject>(examination);
@@ -58,8 +57,8 @@ namespace InstitutionService.Host.Code.Core
         public TreatmentTransferObject GetTreatment(Guid treatmentId)
         {
             Console.WriteLine("Pobranie informacji o konkretnym leczeniu");
-            var treatmentRepository = ObjectBuilder.Container.GetInstance<ITreatmentRepository>();
-            var treatment = treatmentRepository.Treatments.FirstOrDefault(e => e.TreatmentId == treatmentId);
+            var treatmentRepository = ObjectBuilder.Container.GetInstance<IRepository<Treatment>>();
+            var treatment = treatmentRepository.Read(treatmentId);
             return treatment == null ? new TreatmentTransferObject() : Mapper.Map<TreatmentTransferObject>(treatment);
         }
 
@@ -73,7 +72,7 @@ namespace InstitutionService.Host.Code.Core
 
             foreach (var hospitalization in patientBasicInfo.Hospitalizations)
             {
-                var hospitalizationInfo = GetHospitalization(hospitalization.HospitalizationId);
+                var hospitalizationInfo = GetHospitalization(hospitalization.Id);
 
                 var hospitalizationHistoryInfo = new HospitalizationHistoryTransferObject
                 {
@@ -83,13 +82,13 @@ namespace InstitutionService.Host.Code.Core
 
                 foreach (var examination in hospitalizationInfo.Examinations)
                 {
-                    var examinationInfo = GetExamination(examination.ExaminationId);
+                    var examinationInfo = GetExamination(examination.Id);
                     hospitalizationHistoryInfo.Examinations.Add(examinationInfo);
                 }
 
                 foreach (var treatment in hospitalizationInfo.Treatments)
                 {
-                    var treatmentInfo = GetTreatment(treatment.TreatmentId);
+                    var treatmentInfo = GetTreatment(treatment.Id);
                     hospitalizationHistoryInfo.Treatments.Add(treatmentInfo);
                 }
 

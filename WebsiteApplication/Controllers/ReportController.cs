@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using Domain;
+using Domain.Interfaces;
 using WebsiteApplication.CodeBehind.Attributes;
 using WebsiteApplication.CodeBehind.Raport;
 
@@ -6,11 +9,11 @@ namespace WebsiteApplication.Controllers
 {
     public class ReportController : BaseController
     {
-        private readonly IRaportService _reportService;
+        private readonly IRepository<ReaportRequest> _reaportRequestRepository;
 
-        public ReportController(IRaportService reportService)
+        public ReportController(IRepository<ReaportRequest> reaportRequestRepository)
         {
-            _reportService = reportService;
+            _reaportRequestRepository = reaportRequestRepository;
         }
 
         public ActionResult Index()
@@ -19,23 +22,28 @@ namespace WebsiteApplication.Controllers
         }
 
         [AuthorizeRight(Right = "REAPORT_GENERATION")]
-        public ActionResult GenerateReaport()
+        public ActionResult GenerateReaport(string pesel)
         {
-            var tmp = "03300900942";
-            var reaport = _reportService.GenerateRaport(tmp);
-            if (reaport == null)
-                return Json("Błąd połączenia", JsonRequestBehavior.AllowGet);
-            return File(reaport, "pdf", "patientReaport.pdf");
+            var newReaportRequest = new ReaportRequest
+            {
+                CreatedAt = DateTime.Now,
+                CreatedBy = User.Identity.Name,
+                PatientPesel = pesel,
+                Status = ReaportRequestStatus.PENDING
+            };
+
+            _reaportRequestRepository.Create(newReaportRequest);
+            return Json("OK");
         }
 
         [AuthorizeRight(Right = "REAPORT_ACCEPTANCE")]
-        public ActionResult AcceptReaport()
+        public ActionResult AcceptReaport(Guid reaportId)
         {
             return Json("");
         }
 
         [AuthorizeRight(Right = "REAPORT_ACCEPTANCE")]
-        public ActionResult RejectReaport()
+        public ActionResult RejectReaport(Guid reaportId)
         {
             return Json("");
         }

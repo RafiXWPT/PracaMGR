@@ -4,7 +4,7 @@ namespace Domain
 {
     public class Institution
     {
-        public Guid InstitutionId { get; set; }
+        public Guid Id { get; set; }
         public string InstitutionEndpointAddress { get; set; }
         public string InstitutionName { get; set; }
         public virtual Address Address { get; set; }

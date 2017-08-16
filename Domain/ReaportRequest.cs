@@ -18,7 +18,7 @@ namespace Domain
         public Guid Id { get; set; }
         public string PatientPesel { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string CreatedBy { get; set; }
         public ReaportRequestStatus Status { get; set; }
-        public string Comment { get; set; }
     }
 }

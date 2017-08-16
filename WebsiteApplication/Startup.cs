@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Domain;
 using Domain.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -34,9 +35,10 @@ namespace WebsiteApplication
             container.Register(() => new WebsiteDatabaseContext("WebsiteDatabase"), Lifestyle.Scoped);
             container.Register<ApplicationUserManager>(Lifestyle.Scoped);
             container.Register<ApplicationSignInManager>(Lifestyle.Scoped);
-            container.Register<IInstitutionRepository, DatabaseInstitutionRepository>(Lifestyle.Scoped);
-            container.Register<IRightsManager<RightViewModel, RoleViewModel, UserViewModel>, RightsManager>(Lifestyle
-                .Scoped);
+            container.Register<IRepository<Institution>, DatabaseInstitutionRepository>(Lifestyle.Scoped);
+            container.Register<IRepository<ReaportRequest>, ReaportRequestRepository>(Lifestyle.Scoped);
+            container.Register<IRepository<SearchHistory>, SearchHistoryRepository>(Lifestyle.Scoped);
+            container.Register<IRightsManager<RightViewModel, RoleViewModel, UserViewModel>, RightsManager>(Lifestyle.Scoped);
             container.Register<IRaportService, PdfRaportService>(Lifestyle.Scoped);
 
             container.Register<IUserStore<ApplicationUser>>(

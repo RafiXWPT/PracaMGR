@@ -5,7 +5,7 @@ namespace Domain
 {
     public class Person
     {
-        public Guid PersonId { get; set; }
+        public Guid Id { get; set; }
         public string Pesel { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AutoMapper;
+using Domain;
 using Domain.Interfaces;
 using WebsiteApplication.CodeBehind.WcfServices;
 using WebsiteApplication.Filters;
@@ -17,9 +18,9 @@ namespace WebsiteApplication.Controllers
     {
         private readonly WcfDataFetcher _patientInfoFetcher;
         private readonly WcfPersonInfoFetcher _personInfoFetcher;
-        private readonly IInstitutionRepository _repository;
+        private readonly IRepository<Institution> _repository;
 
-        public PatientController(IInstitutionRepository repository)
+        public PatientController(IRepository<Institution> repository)
         {
             _repository = repository;
             _personInfoFetcher = new WcfPersonInfoFetcher();
@@ -87,7 +88,7 @@ namespace WebsiteApplication.Controllers
 
             TempData.Keep();
 
-            var institution = _repository.Institutions.First(x => x.InstitutionId == institutionId);
+            var institution = _repository.Read(institutionId);
             var hospitalization = Mapper.Map<HospitalizationContainerViewModel>(
                 _patientInfoFetcher.GetHospitalization(hospitalizationId, institution.InstitutionEndpointAddress));
 
@@ -101,7 +102,7 @@ namespace WebsiteApplication.Controllers
         [Route("ExaminationDetails/{treatmentId}")]
         public ActionResult ExaminationDetails(Guid examinationId, Guid institutionId)
         {
-            var institution = _repository.Institutions.First(x => x.InstitutionId == institutionId);
+            var institution = _repository.Read(institutionId);
             var examination =
                 Mapper.Map<ExaminationContainerViewModel>(
                     _patientInfoFetcher.GetExamination(examinationId, institution.InstitutionEndpointAddress));
@@ -111,7 +112,7 @@ namespace WebsiteApplication.Controllers
         [Route("TreatmentDetails/{treatmentId}")]
         public ActionResult TreatmentDetails(Guid treatmentId, Guid institutionId)
         {
-            var institution = _repository.Institutions.First(x => x.InstitutionId == institutionId);
+            var institution = _repository.Read(institutionId);
             var treatment =
                 Mapper.Map<TreatmentContainerViewModel>(
                     _patientInfoFetcher.GetTreatment(treatmentId, institution.InstitutionEndpointAddress));

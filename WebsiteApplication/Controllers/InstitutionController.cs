@@ -14,9 +14,9 @@ namespace WebsiteApplication.Controllers
     [RoleAuthorize(Roles = "ADMIN,ADMIN_TECH,TECHNICAN")]
     public class InstitutionController : BaseController
     {
-        private readonly IInstitutionRepository _repository;
+        private readonly IRepository<Institution> _repository;
 
-        public InstitutionController(IInstitutionRepository repository)
+        public InstitutionController(IRepository<Institution> repository)
         {
             _repository = repository;
         }
@@ -24,7 +24,7 @@ namespace WebsiteApplication.Controllers
         // GET: Institution
         public ActionResult Index()
         {
-            var institutions = _repository.Institutions.ToList();
+            var institutions = _repository.Entities.ToList();
             return View(Mapper.Map<List<Institution>, List<InstitutionViewModel>>(institutions));
         }
 
@@ -33,7 +33,7 @@ namespace WebsiteApplication.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var institution = _repository.Institutions.First(x => x.InstitutionId == id);
+            var institution = _repository.Read(id.Value);
             if (institution == null)
                 return HttpNotFound();
 
@@ -60,9 +60,9 @@ namespace WebsiteApplication.Controllers
                 newInstitution.InstitutionName = institution.InstitutionName;
                 newInstitution.InstitutionEndpointAddress = institution.InstitutionEndpointAddress;
                 newInstitution.Address = institution.Address;
-                newInstitution.InstitutionId = Guid.NewGuid();
-                newInstitution.Address.AddressId = Guid.NewGuid();
-                _repository.Add(newInstitution);
+                newInstitution.Id = Guid.NewGuid();
+                newInstitution.Address.Id = Guid.NewGuid();
+                _repository.Create(newInstitution);
                 return RedirectToAction("Index");
             }
 
@@ -74,7 +74,7 @@ namespace WebsiteApplication.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var institution = _repository.Institutions.First(x => x.InstitutionId == id);
+            var institution = _repository.Read(id.Value);
             if (institution == null)
                 return HttpNotFound();
             return View(Mapper.Map<InstitutionViewModel>(institution));
@@ -91,7 +91,7 @@ namespace WebsiteApplication.Controllers
             if (ModelState.IsValid)
             {
                 var repositoryInstitution =
-                    _repository.Institutions.FirstOrDefault(i => i.InstitutionId == institution.InstitutionId);
+                    _repository.Read(institution.InstitutionId);
 
                 if (repositoryInstitution == null)
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -111,7 +111,7 @@ namespace WebsiteApplication.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var institution = _repository.Institutions.First(x => x.InstitutionId == id);
+            var institution = _repository.Read(id.Value);
 
             if (institution == null)
                 return HttpNotFound();
@@ -124,7 +124,7 @@ namespace WebsiteApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            var institution = _repository.Institutions.First(x => x.InstitutionId == id);
+            var institution = _repository.Read(id);
             _repository.Delete(institution);
             return RedirectToAction("Index");
         }

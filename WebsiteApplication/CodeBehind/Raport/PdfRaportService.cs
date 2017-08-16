@@ -18,9 +18,9 @@ namespace WebsiteApplication.CodeBehind.Raport
     {
         private readonly WcfDataFetcher _patientDataFetcher;
         private readonly WcfPersonInfoFetcher _personInfoFetcher;
-        private readonly IInstitutionRepository _repository;
+        private readonly IRepository<Institution> _repository;
 
-        public PdfRaportService(IInstitutionRepository repository)
+        public PdfRaportService(IRepository<Institution> repository)
         {
             _repository = repository;
             _personInfoFetcher = new WcfPersonInfoFetcher();
@@ -83,7 +83,7 @@ namespace WebsiteApplication.CodeBehind.Raport
 
             var infoParagraph = new Paragraph();
             infoParagraph.Add(
-                $"Ilość placówek w których osoba była leczona: {patientHistory.Hospitalizations.Select(x => x.InstitutionId).Distinct().Count()}");
+                $"Ilość placówek w których osoba była leczona: {patientHistory.Hospitalizations.Select(x => x.Id).Distinct().Count()}");
             infoParagraph.Add(
                 $"\nPierwsze wizyta w placówce medycznej: {patientHistory.Hospitalizations.OrderBy(x => x.HospitalizationStartTime).First().HospitalizationStartTime}");
             infoParagraph.Add(
@@ -104,7 +104,7 @@ namespace WebsiteApplication.CodeBehind.Raport
         private void GenerateDetailedHospitalizationInfo(Document document, PatientHistoryTransferObject patientHistory)
         {
             var hospitalizations = patientHistory.Hospitalizations.OrderBy(x => x.HospitalizationStartTime);
-            var institutionGroups = hospitalizations.GroupBy(x => x.InstitutionId).ToList();
+            var institutionGroups = hospitalizations.GroupBy(x => x.Id).ToList();
             document.Add(new Paragraph("Dane szczegółowe na temat hospitalizacji:").SetFontSize(20));
             foreach (var institutionKey in institutionGroups)
             foreach (var hospitalization in institutionKey.ToList())
@@ -114,9 +114,7 @@ namespace WebsiteApplication.CodeBehind.Raport
         private void GenerateNewHospitalizationInfo(Document document,
             HospitalizationHistoryTransferObject hospitalization)
         {
-            var currentInstitutionName = _repository.Institutions
-                .First(x => x.InstitutionId == hospitalization.InstitutionId)
-                .InstitutionName;
+            var currentInstitutionName = _repository.Read(hospitalization.Id).InstitutionName;
             document.GetPdfDocument().AddNewPage();
             document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
             document.Add(new Paragraph($"{currentInstitutionName}:").SetFontSize(20));

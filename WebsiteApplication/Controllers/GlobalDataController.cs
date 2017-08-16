@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Domain;
 using Domain.Interfaces;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -14,9 +15,9 @@ namespace WebsiteApplication.Controllers
     {
         private readonly WcfDataFetcher _patientFetcher;
         private readonly WcfPersonInfoFetcher _personInfoFetcher;
-        private readonly IInstitutionRepository _repository;
+        private readonly IRepository<Institution> _repository;
 
-        public GlobalDataController(IInstitutionRepository repository)
+        public GlobalDataController(IRepository<Institution> repository)
         {
             _repository = repository;
             _patientFetcher = new WcfDataFetcher(repository);
@@ -26,11 +27,11 @@ namespace WebsiteApplication.Controllers
         public ActionResult Index()
         {
             var tabStripViewModel = new TabStripViewModel();
-            var institutions = _repository.Institutions.ToList();
+            var institutions = _repository.Entities.ToList();
             foreach (var institution in institutions)
                 tabStripViewModel.TabStripItems.Add(new TabStripItemViewModel
                 {
-                    InstitutionId = institution.InstitutionId,
+                    InstitutionId = institution.Id,
                     InstitutionName = institution.InstitutionName
                 });
             return View(tabStripViewModel);

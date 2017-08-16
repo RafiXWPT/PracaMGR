@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using Domain.Interfaces;
 using Domain.Residence;
@@ -6,25 +7,38 @@ using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    internal class DatabaseExaminationRepository : IExaminationRepository
+    internal class DatabaseExaminationRepository : IRepository<Examination>
     {
         private readonly InstitutionServiceDatabaseContext _context;
 
-        public DatabaseExaminationRepository(IRepository context)
+        public DatabaseExaminationRepository(IDbRepository context)
         {
             _context = context as InstitutionServiceDatabaseContext;
         }
 
-        public IQueryable<Examination> Examinations => _context.Examinations;
+        public IQueryable<Examination> Entities => _context.Examinations;
 
-        public void Update(Examination examination)
+        public void Create(Examination entity)
         {
-            throw new NotImplementedException();
+            _context.Examinations.Add(entity);
+            SaveChanges();
         }
 
-        public void Add(Examination examination)
+        public Examination Read(Guid entityId)
         {
-            _context.Examinations.Add(examination);
+            return Entities.FirstOrDefault(e => e.Id == entityId);
+        }
+
+        public void Update(Examination entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+            SaveChanges();
+        }
+
+        public void Delete(Examination entity)
+        {
+            _context.Examinations.Remove(entity);
+            SaveChanges();
         }
 
         public void SaveChanges()

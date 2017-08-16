@@ -217,6 +217,8 @@
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\RightsController.cs" />
     <Compile Include="DataAccessLayer\DatabaseInstitutionRepository.cs" />
+    <Compile Include="DataAccessLayer\ReaportRequestRepository.cs" />
+    <Compile Include="DataAccessLayer\SearchHistoryRepository.cs" />
     <Compile Include="DataAccessLayer\WebsiteDatabaseContext.cs" />
     <Compile Include="Filters\RoleAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">

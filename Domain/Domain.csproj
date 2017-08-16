@@ -44,19 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeneratedReaports.cs" />
-    <Compile Include="Interfaces\IExaminationRepository.cs" />
-    <Compile Include="Interfaces\IHospitalizationRepository.cs" />
-    <Compile Include="Interfaces\IMedicineRepository.cs" />
+    <Compile Include="Interfaces\IDbRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\ITreatmentRepository.cs" />
-    <Compile Include="Interfaces\IUsedMedicineRepository.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="ReaportRequest.cs" />
     <Compile Include="Residence\Examination.cs" />
     <Compile Include="Residence\Hospitalization.cs" />
     <Compile Include="Institution.cs" />
-    <Compile Include="Interfaces\IInstitutionRepository.cs" />
-    <Compile Include="Interfaces\IPatientRepository.cs" />
     <Compile Include="Inventory\Medicine.cs" />
     <Compile Include="Patient.cs" />
     <Compile Include="Address.cs" />

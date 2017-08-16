@@ -1,5 +1,8 @@
 ﻿using System;
+using Domain;
 using Domain.Interfaces;
+using Domain.Inventory;
+using Domain.Residence;
 using InstitutionService.Host.Code.DataAccessLayer;
 using InstitutionService.Host.Code.DatabaseProvider;
 using SimpleInjector;
@@ -20,13 +23,13 @@ namespace InstitutionService.Host.Code.Core
 
             Container.Options.DefaultScopedLifestyle = new WcfOperationLifestyle();
 
-            Container.Register<IRepository>(() => new InstitutionServiceDatabaseContext("InstitutionContext"));
-            Container.Register<IPatientRepository, DatabasePatientRepository>(Lifestyle.Transient);
-            Container.Register<IHospitalizationRepository, DatabaseHospitalizationRepository>(Lifestyle.Transient);
-            Container.Register<ITreatmentRepository, DatabaseTreatmentRepository>(Lifestyle.Transient);
-            Container.Register<IExaminationRepository, DatabaseExaminationRepository>(Lifestyle.Transient);
-            Container.Register<IUsedMedicineRepository, DatabaseUsedMedicineRepository>(Lifestyle.Transient);
-            Container.Register<IMedicineRepository, DatabaseMedicineRepository>(Lifestyle.Transient);
+            Container.Register<IDbRepository>(() => new InstitutionServiceDatabaseContext("InstitutionContext"));
+            Container.Register<IRepository<Patient>, DatabasePatientRepository>(Lifestyle.Transient);
+            Container.Register<IRepository<Hospitalization>, DatabaseHospitalizationRepository>(Lifestyle.Transient);
+            Container.Register<IRepository<Treatment>, DatabaseTreatmentRepository>(Lifestyle.Transient);
+            Container.Register<IRepository<Examination>, DatabaseExaminationRepository>(Lifestyle.Transient);
+            Container.Register<IRepository<UsedMedicine>, DatabaseUsedMedicineRepository>(Lifestyle.Transient);
+            Container.Register<IRepository<Medicine>, DatabaseMedicineRepository>(Lifestyle.Transient);
 
             Container.Verify();
 

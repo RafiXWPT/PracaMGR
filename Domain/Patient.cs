@@ -7,7 +7,7 @@ namespace Domain
 {
     public class Patient
     {
-        public Guid PatientId { get; set; }
+        public Guid Id { get; set; }
         public string Pesel { get; set; }
         public virtual ICollection<Hospitalization> Hospitalizations { get; set; }
     }

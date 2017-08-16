@@ -6,7 +6,7 @@ namespace Domain.Residence
 {
     public class Hospitalization
     {
-        public Guid HospitalizationId { get; set; }
+        public Guid Id { get; set; }
         public Guid PatientId { get; set; }
         public DateTime HospitalizationStartTime { get; set; }
         public DateTime HospitalizationEndTime { get; set; }
@@ -19,7 +19,7 @@ namespace Domain.Residence
     public class HospitalizationBasicTransferObject
     {
         [DataMember]
-        public Guid HospitalizationId { get; set; }
+        public Guid Id { get; set; }
 
         [DataMember]
         public DateTime HospitalizationStartTime { get; set; }
@@ -42,7 +42,7 @@ namespace Domain.Residence
     public class HospitalizationHistoryTransferObject
     {
         [DataMember]
-        public Guid InstitutionId { get; set; }
+        public Guid Id { get; set; }
 
         [DataMember]
         public DateTime HospitalizationStartTime { get; set; }
