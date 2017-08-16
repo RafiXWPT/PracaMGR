@@ -26,7 +26,7 @@ namespace InstitutionService.Host.Code.DatabaseProvider
 
         public Examination Read(Guid entityId)
         {
-            return Entities.FirstOrDefault(e => e.Id == entityId);
+            return Entities.FirstOrDefault(e => e.ExaminationId == entityId);
         }
 
         public void Update(Examination entity)

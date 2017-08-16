@@ -25,7 +25,7 @@ namespace InstitutionService.Host.Code.DatabaseProvider
 
         public Hospitalization Read(Guid entityId)
         {
-            return Entities.FirstOrDefault(e => e.Id == entityId);
+            return Entities.FirstOrDefault(e => e.HospitalizationId == entityId);
         }
 
         public void Update(Hospitalization entity)

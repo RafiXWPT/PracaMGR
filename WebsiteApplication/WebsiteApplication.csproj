@@ -225,37 +225,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701132038082_Init.cs" />
-    <Compile Include="Migrations\201701132038082_Init.Designer.cs">
-      <DependentUpon>201701132038082_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704091917148_NazwaInstytucji.cs" />
-    <Compile Include="Migrations\201704091917148_NazwaInstytucji.Designer.cs">
-      <DependentUpon>201704091917148_NazwaInstytucji.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704151543519_AddressForUser.cs" />
-    <Compile Include="Migrations\201704151543519_AddressForUser.Designer.cs">
-      <DependentUpon>201704151543519_AddressForUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708041640221_TabeleRaportow.cs" />
-    <Compile Include="Migrations\201708041640221_TabeleRaportow.Designer.cs">
-      <DependentUpon>201708041640221_TabeleRaportow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708041644304_TabeleRaportow2.cs" />
-    <Compile Include="Migrations\201708041644304_TabeleRaportow2.Designer.cs">
-      <DependentUpon>201708041644304_TabeleRaportow2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708041654097_RoleIUprawnienia.cs" />
-    <Compile Include="Migrations\201708041654097_RoleIUprawnienia.Designer.cs">
-      <DependentUpon>201708041654097_RoleIUprawnienia.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708041709401_RoleIUprawnienia2.cs" />
-    <Compile Include="Migrations\201708041709401_RoleIUprawnienia2.Designer.cs">
-      <DependentUpon>201708041709401_RoleIUprawnienia2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708042100401_Rights3.cs" />
-    <Compile Include="Migrations\201708042100401_Rights3.Designer.cs">
-      <DependentUpon>201708042100401_Rights3.cs</DependentUpon>
+    <Compile Include="Migrations\201708161936063_Init.cs" />
+    <Compile Include="Migrations\201708161936063_Init.Designer.cs">
+      <DependentUpon>201708161936063_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ViewModels\Admin\RoleViewModel.cs" />
@@ -2062,29 +2034,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701132038082_Init.resx">
-      <DependentUpon>201701132038082_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704091917148_NazwaInstytucji.resx">
-      <DependentUpon>201704091917148_NazwaInstytucji.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704151543519_AddressForUser.resx">
-      <DependentUpon>201704151543519_AddressForUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708041640221_TabeleRaportow.resx">
-      <DependentUpon>201708041640221_TabeleRaportow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708041644304_TabeleRaportow2.resx">
-      <DependentUpon>201708041644304_TabeleRaportow2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708041654097_RoleIUprawnienia.resx">
-      <DependentUpon>201708041654097_RoleIUprawnienia.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708041709401_RoleIUprawnienia2.resx">
-      <DependentUpon>201708041709401_RoleIUprawnienia2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708042100401_Rights3.resx">
-      <DependentUpon>201708042100401_Rights3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708161936063_Init.resx">
+      <DependentUpon>201708161936063_Init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\GlobalTranslations.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

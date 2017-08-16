@@ -7,7 +7,7 @@ namespace Domain.Residence
 {
     public class Treatment
     {
-        public Guid Id { get; set; }
+        public Guid TreatmentId { get; set; }
         public Guid HospitalizationId { get; set; }
         public DateTime TreatmentDateTime { get; set; }
         public virtual Hospitalization Hospitalization { get; set; }

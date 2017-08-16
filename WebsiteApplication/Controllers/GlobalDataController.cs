@@ -31,7 +31,7 @@ namespace WebsiteApplication.Controllers
             foreach (var institution in institutions)
                 tabStripViewModel.TabStripItems.Add(new TabStripItemViewModel
                 {
-                    InstitutionId = institution.Id,
+                    InstitutionId = institution.InstitutionId,
                     InstitutionName = institution.InstitutionName
                 });
             return View(tabStripViewModel);

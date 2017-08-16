@@ -25,7 +25,7 @@ namespace WebsiteApplication.DataAccessLayer
 
         public Institution Read(Guid entityId)
         {
-           return Entities.FirstOrDefault(e => e.Id == entityId);
+           return Entities.FirstOrDefault(e => e.InstitutionId == entityId);
         }
 
         public void Update(Institution entity)

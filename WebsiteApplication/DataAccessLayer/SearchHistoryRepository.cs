@@ -26,7 +26,7 @@ namespace WebsiteApplication.DataAccessLayer
 
         public SearchHistory Read(Guid entityId)
         {
-            return Entities.FirstOrDefault(e => e.Id == entityId);
+            return Entities.FirstOrDefault(e => e.SearchHistoryId == entityId);
         }
 
         public void Update(SearchHistory entity)

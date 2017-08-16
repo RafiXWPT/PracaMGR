@@ -90,7 +90,7 @@ namespace WebsiteApplication.CodeBehind.WcfServices
                 return null;
 
             foreach (var h in history.Hospitalizations)
-                h.Id = institution.Id;
+                h.HospitalizationId = institution.InstitutionId;
 
             return history;
         }
@@ -120,7 +120,7 @@ namespace WebsiteApplication.CodeBehind.WcfServices
 
             var patient = _connection.GetPatientInfo(pesel);
             if (patient != null)
-                patient.InstitutionId = institution.Id;
+                patient.InstitutionId = institution.InstitutionId;
 
             return patient;
         }

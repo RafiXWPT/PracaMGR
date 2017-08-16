@@ -5,7 +5,7 @@ namespace Domain.Residence
 {
     public class Examination
     {
-        public Guid Id { get; set; }
+        public Guid ExaminationId { get; set; }
         public Guid HospitalizationId { get; set; }
         public DateTime ExaminationStartTime { get; set; }
         public DateTime ExaminationEndTime { get; set; }
@@ -17,7 +17,7 @@ namespace Domain.Residence
     public class ExaminationBasicTransferObject
     {
         [DataMember]
-        public Guid Id { get; set; }
+        public Guid ExaminationId { get; set; }
 
         [DataMember]
         public DateTime ExaminationStartTime { get; set; }
@@ -30,7 +30,7 @@ namespace Domain.Residence
     public class ExaminationTransferObject
     {
         [DataMember]
-        public Guid Id { get; set; }
+        public Guid ExaminationId { get; set; }
 
         [DataMember]
         public DateTime ExaminationStartTime { get; set; }

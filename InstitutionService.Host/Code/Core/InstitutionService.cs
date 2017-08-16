@@ -72,7 +72,7 @@ namespace InstitutionService.Host.Code.Core
 
             foreach (var hospitalization in patientBasicInfo.Hospitalizations)
             {
-                var hospitalizationInfo = GetHospitalization(hospitalization.Id);
+                var hospitalizationInfo = GetHospitalization(hospitalization.HospitalizationId);
 
                 var hospitalizationHistoryInfo = new HospitalizationHistoryTransferObject
                 {
@@ -82,7 +82,7 @@ namespace InstitutionService.Host.Code.Core
 
                 foreach (var examination in hospitalizationInfo.Examinations)
                 {
-                    var examinationInfo = GetExamination(examination.Id);
+                    var examinationInfo = GetExamination(examination.ExaminationId);
                     hospitalizationHistoryInfo.Examinations.Add(examinationInfo);
                 }
 

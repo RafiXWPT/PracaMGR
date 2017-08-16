@@ -18,7 +18,7 @@ namespace Domain
 
     public class SearchHistory
     {
-        public Guid Id { get; set; }
+        public Guid SearchHistoryId { get; set; }
         public string PatientPesel { get; set; }
         public DateTime SearchedAt { get; set; }
         public string SearchedBy { get; set; }

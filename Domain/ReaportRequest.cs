@@ -15,13 +15,12 @@ namespace Domain
 
     public class ReaportRequest
     {
-        public Guid Id { get; set; }
+        public Guid ReaportRequestId { get; set; }
         public string PatientPesel { get; set; }
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
         public ReaportRequestStatus Status { get; set; }
 
-        public Guid? GeneratedReaportId { get; set; }
         public virtual GeneratedReaport GeneratedReaport { get; set; }
     }
 }

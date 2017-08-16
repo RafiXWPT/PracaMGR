@@ -6,7 +6,7 @@ namespace Domain.Inventory
 {
     public class UsedMedicine
     {
-        public Guid Id { get; set; }
+        public Guid UsedMedicineId { get; set; }
         public Guid TreatmentId { get; set; }
         public Guid MedicineId { get; set; }
         public double Dose { get; set; }

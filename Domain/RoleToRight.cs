@@ -8,10 +8,9 @@ namespace Domain
 {
     public class RoleToRight
     {
-        public Guid Id { get; set; }
-        public Guid RightId { get; set; }
+        public Guid RoleToRightId { get; set; }
         public string Role { get; set; }
-
+        public Guid RightId { get; set; }
         public virtual Right Right { get; set; }
     }
 }

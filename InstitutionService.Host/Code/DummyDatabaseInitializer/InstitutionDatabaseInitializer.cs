@@ -37,16 +37,16 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
         {
             var medicineRepository = new InstitutionServiceDatabaseContext("InstitutionContext");
 
-            _medicines.Add(new Medicine {Id = Guid.NewGuid(), MedicineName = "Witamina C"});
-            _medicines.Add(new Medicine {Id = Guid.NewGuid(), MedicineName = "Rutinoskorbin"});
-            _medicines.Add(new Medicine {Id = Guid.NewGuid(), MedicineName = "Morfina"});
-            _medicines.Add(new Medicine {Id = Guid.NewGuid(), MedicineName = "Duomox"});
-            _medicines.Add(new Medicine {Id = Guid.NewGuid(), MedicineName = "Sudafed"});
-            _medicines.Add(new Medicine {Id = Guid.NewGuid(), MedicineName = "Aspiryna"});
-            _medicines.Add(new Medicine {Id = Guid.NewGuid(), MedicineName = "Gripex"});
-            _medicines.Add(new Medicine {Id = Guid.NewGuid(), MedicineName = "Cholinex"});
-            _medicines.Add(new Medicine {Id = Guid.NewGuid(), MedicineName = "Apap"});
-            _medicines.Add(new Medicine {Id = Guid.NewGuid(), MedicineName = "Soda"});
+            _medicines.Add(new Medicine {MedicineId = Guid.NewGuid(), MedicineName = "Witamina C"});
+            _medicines.Add(new Medicine {MedicineId = Guid.NewGuid(), MedicineName = "Rutinoskorbin"});
+            _medicines.Add(new Medicine {MedicineId = Guid.NewGuid(), MedicineName = "Morfina"});
+            _medicines.Add(new Medicine {MedicineId = Guid.NewGuid(), MedicineName = "Duomox"});
+            _medicines.Add(new Medicine {MedicineId = Guid.NewGuid(), MedicineName = "Sudafed"});
+            _medicines.Add(new Medicine {MedicineId = Guid.NewGuid(), MedicineName = "Aspiryna"});
+            _medicines.Add(new Medicine {MedicineId = Guid.NewGuid(), MedicineName = "Gripex"});
+            _medicines.Add(new Medicine {MedicineId = Guid.NewGuid(), MedicineName = "Cholinex"});
+            _medicines.Add(new Medicine {MedicineId = Guid.NewGuid(), MedicineName = "Apap"});
+            _medicines.Add(new Medicine {MedicineId = Guid.NewGuid(), MedicineName = "Soda"});
 
 
             _medicines.ForEach(s => medicineRepository.Medicines.Add(s));
@@ -63,52 +63,52 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
             {
                 new Patient
                 {
-                    Id = Guid.NewGuid(),
+                    PatientId = Guid.NewGuid(),
                     Pesel = "93070114133"
                 },
                 new Patient
                 {
-                    Id = Guid.NewGuid(),
+                    PatientId = Guid.NewGuid(),
                     Pesel = "24020809720"
                 },
                 new Patient
                 {
-                    Id = Guid.NewGuid(),
+                    PatientId = Guid.NewGuid(),
                     Pesel = "62012210646"
                 },
                 new Patient
                 {
-                    Id = Guid.NewGuid(),
+                    PatientId = Guid.NewGuid(),
                     Pesel = "64121311834"
                 },
                 new Patient
                 {
-                    Id = Guid.NewGuid(),
+                    PatientId = Guid.NewGuid(),
                     Pesel = "26112804811"
                 },
                 new Patient
                 {
-                    Id = Guid.NewGuid(),
+                    PatientId = Guid.NewGuid(),
                     Pesel = "61061910064"
                 },
                 new Patient
                 {
-                    Id = Guid.NewGuid(),
+                    PatientId = Guid.NewGuid(),
                     Pesel = "26031604565"
                 },
                 new Patient
                 {
-                    Id = Guid.NewGuid(),
+                    PatientId = Guid.NewGuid(),
                     Pesel = "03300900942"
                 },
                 new Patient
                 {
-                    Id = Guid.NewGuid(),
+                    PatientId = Guid.NewGuid(),
                     Pesel = "89021303161"
                 },
                 new Patient
                 {
-                    Id = Guid.NewGuid(),
+                    PatientId = Guid.NewGuid(),
                     Pesel = "60092601196"
                 }
             };
@@ -144,8 +144,8 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                     var dateOfHospitalizationEnd = dateOfHospitalizationBegin.AddDays(_rnd.Next(1, 14));
                     _hospitalizations.Add(new Hospitalization
                     {
-                        Id = Guid.NewGuid(),
-                        PatientId = patient.Id,
+                        HospitalizationId = Guid.NewGuid(),
+                        PatientId = patient.PatientId,
                         HospitalizationStartTime = dateOfHospitalizationBegin,
                         HospitalizationEndTime = dateOfHospitalizationEnd
                     });
@@ -171,8 +171,8 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                     var dateOfExaminationEnd = dateOfExaminationBegin.AddHours(_rnd.Next(1, 6));
                     _examinations.Add(new Examination
                     {
-                        Id = Guid.NewGuid(),
-                        HospitalizationId = hospitalization.Id,
+                        ExaminationId = Guid.NewGuid(),
+                        HospitalizationId = hospitalization.HospitalizationId,
                         ExaminationStartTime = dateOfExaminationBegin,
                         ExaminationEndTime = dateOfExaminationEnd,
                         ExaminationDetails = Guid.NewGuid().ToString()
@@ -196,8 +196,8 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                 for (var i = 0; i < takeCount; i++)
                     _treatments.Add(new Treatment
                     {
-                        Id = Guid.NewGuid(),
-                        HospitalizationId = hospitalization.Id,
+                        TreatmentId = Guid.NewGuid(),
+                        HospitalizationId = hospitalization.HospitalizationId,
                         TreatmentDateTime = GenRandomDate(hospitalization.HospitalizationStartTime,
                             hospitalization.HospitalizationEndTime)
                     });
@@ -218,9 +218,9 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                 for (var i = 0; i < takeCount; i++)
                     _usedMedicines.Add(new UsedMedicine
                     {
-                        Id = Guid.NewGuid(),
-                        TreatmentId = treatment.Id,
-                        MedicineId = _medicines[_rnd.Next(0, _medicines.Count - 1)].Id,
+                        UsedMedicineId = Guid.NewGuid(),
+                        TreatmentId = treatment.TreatmentId,
+                        MedicineId = _medicines[_rnd.Next(0, _medicines.Count - 1)].MedicineId,
                         Dose = GetRandomNumber(1.0, 1000.0)
                     });
             }

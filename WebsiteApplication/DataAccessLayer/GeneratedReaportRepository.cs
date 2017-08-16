@@ -26,7 +26,7 @@ namespace WebsiteApplication.DataAccessLayer
 
         public GeneratedReaport Read(Guid entityId)
         {
-            return Entities.FirstOrDefault(e => e.Id == entityId);
+            return Entities.FirstOrDefault(e => e.GeneratedReaportId == entityId);
         }
 
         public void Update(GeneratedReaport entity)

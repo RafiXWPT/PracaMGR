@@ -26,7 +26,7 @@ namespace WebsiteApplication.CodeBehind.Rights
         {
             return Context.Rights.Select(r => new RightViewModel
                 {
-                    Id = r.Id,
+                    Id = r.RightId,
                     RightDescription = r.RightDescription,
                     RightName = r.RightName
                 })
@@ -83,12 +83,12 @@ namespace WebsiteApplication.CodeBehind.Rights
 
             var newRight = new Right
             {
-                Id = Guid.NewGuid(),
+                RightId = Guid.NewGuid(),
                 RightName = viewModel.RightName,
                 RightDescription = viewModel.RightDescription
             };
 
-            viewModel.Id = newRight.Id;
+            viewModel.Id = newRight.RightId;
             Context.Rights.Add(newRight);
             Context.SaveChanges();
         }
@@ -146,7 +146,7 @@ namespace WebsiteApplication.CodeBehind.Rights
         {
             Context.RolesToRights.Add(new RoleToRight
             {
-                Id = Guid.NewGuid(),
+                RoleToRightId = Guid.NewGuid(),
                 RightId = rightId,
                 Role = role
             });

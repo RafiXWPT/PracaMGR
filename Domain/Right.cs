@@ -8,7 +8,7 @@ namespace Domain
 {
     public class Right
     {
-        public Guid Id { get; set; }
+        public Guid RightId { get; set; }
         public string RightName { get; set; }
         public string RightDescription { get; set; }
     }
