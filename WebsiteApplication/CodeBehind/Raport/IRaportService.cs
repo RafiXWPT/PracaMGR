@@ -1,7 +1,10 @@
-﻿namespace WebsiteApplication.CodeBehind.Raport
+﻿using Domain;
+
+namespace WebsiteApplication.CodeBehind.Raport
 {
     public interface IRaportService
     {
-        byte[] GenerateRaport(string patientPesel);
+        byte[] GenerateRaportBytes(string patientPesel);
+        GeneratedReaport GenerateRaport(string patientPesel);
     }
 }

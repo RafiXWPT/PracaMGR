@@ -20,5 +20,8 @@ namespace Domain
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
         public ReaportRequestStatus Status { get; set; }
+
+        public Guid? GeneratedReaportId { get; set; }
+        public virtual GeneratedReaport GeneratedReaport { get; set; }
     }
 }

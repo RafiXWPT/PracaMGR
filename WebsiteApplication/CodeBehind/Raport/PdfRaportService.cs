@@ -27,7 +27,7 @@ namespace WebsiteApplication.CodeBehind.Raport
             _patientDataFetcher = new WcfDataFetcher(repository);
         }
 
-        public byte[] GenerateRaport(string patientPesel)
+        public byte[] GenerateRaportBytes(string patientPesel)
         {
             var personInfo = _personInfoFetcher.GetPersonInfo(patientPesel);
             if (personInfo == null)
@@ -36,6 +36,16 @@ namespace WebsiteApplication.CodeBehind.Raport
             var patientHistory = _patientDataFetcher.GetPatientHistory(patientPesel);
 
             return GeneratePdf(personInfo, patientHistory);
+        }
+
+        public GeneratedReaport GenerateRaport(string patientPesel)
+        {
+            var generatedPdfBytes = GenerateRaportBytes(patientPesel);
+            return new GeneratedReaport
+            {
+                PatientPesel = patientPesel,
+                Reaport = generatedPdfBytes
+            };
         }
 
         private byte[] GeneratePdf(PersonTransferObject personInfo, PatientHistoryTransferObject patientHistory)
