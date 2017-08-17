@@ -7,25 +7,8 @@ using WebsiteApplication.DataAccessLayer;
 
 namespace WebsiteApplication.Controllers
 {
-    public class BaseController : Controller
+    public class BaseController : IdentityController
     {
-        public BaseController() : this(null, null)
-        {
-        }
-
-        protected BaseController(WebsiteDatabaseContext context) : this(context, null)
-        {
-        }
-
-        protected BaseController(WebsiteDatabaseContext context, ApplicationUserManager manager)
-        {
-            Context = context;
-            UserManager = manager;
-        }
-
-        public WebsiteDatabaseContext Context { get; }
-        public ApplicationUserManager UserManager { get; }
-
         protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
         {
             string cultureName = null;

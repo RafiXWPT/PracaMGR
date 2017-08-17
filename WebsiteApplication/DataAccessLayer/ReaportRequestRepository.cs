@@ -20,6 +20,7 @@ namespace WebsiteApplication.DataAccessLayer
         public IQueryable<ReaportRequest> Entities => _context.ReaportRequests;
         public void Create(ReaportRequest entity)
         {
+            entity.ReaportRequestId = Guid.NewGuid();
             _context.ReaportRequests.Add(entity);
             SaveChanges();
         }

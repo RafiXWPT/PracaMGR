@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Domain;
 using Domain.Interfaces;
 using WebsiteApplication.CodeBehind.Attributes;
+using WebsiteApplication.CodeBehind.Classess;
 using WebsiteApplication.CodeBehind.Raport;
 
 namespace WebsiteApplication.Controllers
@@ -18,14 +20,19 @@ namespace WebsiteApplication.Controllers
             _raportService = raportService;
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        [HttpPost]
         [AuthorizeRight(Right = "REAPORT_GENERATION")]
         public ActionResult AddReaport(string pesel)
         {
+            var lastMonth = DateTime.Now.AddMonths(-1);
+            var requestsInLastMonth =
+                _reaportRequestRepository.Entities.Count(r => r.CreatedAt > lastMonth);
+
+            if (requestsInLastMonth > 10)
+            {
+                return Json(OperationResult.FailureResult("Przekroczono limit raportów na miesiąc"));
+            }
+
             var newReaportRequest = new ReaportRequest
             {
                 CreatedAt = DateTime.Now,
@@ -35,12 +42,22 @@ namespace WebsiteApplication.Controllers
             };
 
             _reaportRequestRepository.Create(newReaportRequest);
-            return Json("OK");
+            return Json(OperationResult.SuccessResult(), JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         [AuthorizeRight(Right = "FORCE_REAPORT_GENERATION")]
         public ActionResult GenerateReaport(string pesel)
         {
+            var lastMonth = DateTime.Now.AddMonths(-1);
+            var requestsInLastMonth =
+                _reaportRequestRepository.Entities.Count(r => r.CreatedAt > lastMonth);
+
+            if (requestsInLastMonth > 10)
+            {
+                return Json(OperationResult.FailureResult("Przekroczono limit raportów na miesiąc"));
+            }
+
             var newReaportRequest = new ReaportRequest
             {
                 CreatedAt = DateTime.Now,
@@ -51,26 +68,7 @@ namespace WebsiteApplication.Controllers
             };
 
             _reaportRequestRepository.Create(newReaportRequest);
-            return Json("OK");
-        }
-
-        [AuthorizeRight(Right = "REAPORT_ACCEPTANCE")]
-        public ActionResult AcceptReaport(Guid reaportId)
-        {
-            var reaportRequest = _reaportRequestRepository.Read(reaportId);
-            reaportRequest.Status = ReaportRequestStatus.ACCEPTED;
-            reaportRequest.GeneratedReaport = _raportService.GenerateRaport(reaportRequest.PatientPesel);
-            _reaportRequestRepository.Update(reaportRequest);
-            return Json("OK");
-        }
-
-        [AuthorizeRight(Right = "REAPORT_ACCEPTANCE")]
-        public ActionResult RejectReaport(Guid reaportId)
-        {
-            var reaportRequest = _reaportRequestRepository.Read(reaportId);
-            reaportRequest.Status = ReaportRequestStatus.REJECTED;
-            _reaportRequestRepository.Update(reaportRequest);
-            return Json("OK");
+            return Json(OperationResult.SuccessResult());
         }
     }
 }

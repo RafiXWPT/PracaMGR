@@ -13,6 +13,7 @@ namespace Domain
         [ForeignKey("ReaportRequest")]
         public Guid GeneratedReaportId { get; set; }
         public string PatientPesel { get; set; }
+        public DateTime GeneratedAt { get; set; }
         public byte[] Reaport { get; set; }
 
         public virtual ReaportRequest ReaportRequest { get; set; }

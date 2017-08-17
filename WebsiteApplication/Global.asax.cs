@@ -1,4 +1,7 @@
-﻿using System.Web;
+﻿using System;
+using System.Linq;
+using System.Reflection;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -9,6 +12,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using WebsiteApplication.Models.ViewModels.Institution;
 using WebsiteApplication.Models.ViewModels.Patient;
 using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;
+using WebsiteApplication.Models.ViewModels.Reports;
 using WebsiteApplication.Models.ViewModels.Rights;
 
 namespace WebsiteApplication
@@ -24,12 +28,14 @@ namespace WebsiteApplication
 
             Mapper.Initialize(cfg =>
             {
-                // DTO OBJECTS
-                cfg.CreateMap<Institution, InstitutionTransferObject>();
-                // VIEW MODELS
+                // CORE
                 cfg.CreateMap<Institution, InstitutionViewModel>();
                 cfg.CreateMap<Right, RightViewModel>();
                 cfg.CreateMap<IdentityRole, RoleViewModel>();
+                // DTO OBJECTS
+                cfg.CreateMap<Institution, InstitutionTransferObject>();
+                // VIEW MODELS
+                cfg.CreateMap<ReaportRequest, ReportRequestViewModel>();
                 cfg.CreateMap<PersonTransferObject, PersonViewModel>();
                 cfg.CreateMap<PatientTransferObject, PatientViewModel>();
                 cfg.CreateMap<HospitalizationBasicTransferObject, HospitalizationViewModel>();

@@ -12,6 +12,11 @@ namespace InstitutionService.Host.Code.Core
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
     internal class InstitutionService : IInstitutionService
     {
+        private IRepository<Patient> GetPatientRepository()
+        {
+            return ObjectBuilder.Container.GetInstance<IRepository<Patient>>();
+        }
+
         public string GetInstitutionName()
         {
             return ConfigurationProvider.Instance.GetInstitutionName();
@@ -20,16 +25,14 @@ namespace InstitutionService.Host.Code.Core
         public List<PatientTransferObject> GetAllPatients()
         {
             Console.WriteLine("Pobrana lista wszystkich pacjentow");
-            var patients = ObjectBuilder.Container.GetInstance<IRepository<Patient>>().Entities.ToList();
-
+            var patients = GetPatientRepository().Entities.ToList();
             return patients.Select(SignWithInstitution).ToList();
         }
 
         public PatientTransferObject GetPatientInfo(string pesel)
         {
             Console.WriteLine("Pobranie informacji o konkretnym pacjencie");
-            var patientRepository = ObjectBuilder.Container.GetInstance<IRepository<Patient>>();
-            var patient = patientRepository.Entities.FirstOrDefault(p => p.Pesel == pesel);
+            var patient = GetPatientRepository().Entities.FirstOrDefault(p => p.Pesel == pesel);
             return SignWithInstitution(patient);
         }
 
@@ -64,33 +67,25 @@ namespace InstitutionService.Host.Code.Core
 
         public PatientHistoryTransferObject GetPatientFullHistory(string pesel)
         {
-            var patientBasicInfo = GetPatientInfo(pesel);
+            var patient = GetPatientRepository().Entities.FirstOrDefault(p => p.Pesel == pesel);
+            if(patient == null)
+                return new PatientHistoryTransferObject();
+
             var patientHistory = new PatientHistoryTransferObject
             {
-                Pesel = patientBasicInfo.Pesel
+                Pesel = patient.Pesel
             };
 
-            foreach (var hospitalization in patientBasicInfo.Hospitalizations)
+            foreach (var hospitalization in patient.Hospitalizations)
             {
-                var hospitalizationInfo = GetHospitalization(hospitalization.HospitalizationId);
-
                 var hospitalizationHistoryInfo = new HospitalizationHistoryTransferObject
                 {
+                    HospitalizationId = hospitalization.HospitalizationId,
                     HospitalizationStartTime = hospitalization.HospitalizationStartTime,
-                    HospitalizationEndTime = hospitalization.HospitalizationEndTime
+                    HospitalizationEndTime = hospitalization.HospitalizationEndTime,
+                    Examinations = Mapper.Map<List<ExaminationTransferObject>>(hospitalization.Examinations),
+                    Treatments = Mapper.Map<List<TreatmentTransferObject>>(hospitalization.Treatments)
                 };
-
-                foreach (var examination in hospitalizationInfo.Examinations)
-                {
-                    var examinationInfo = GetExamination(examination.ExaminationId);
-                    hospitalizationHistoryInfo.Examinations.Add(examinationInfo);
-                }
-
-                foreach (var treatment in hospitalizationInfo.Treatments)
-                {
-                    var treatmentInfo = GetTreatment(treatment.Id);
-                    hospitalizationHistoryInfo.Treatments.Add(treatmentInfo);
-                }
 
                 patientHistory.Hospitalizations.Add(hospitalizationHistoryInfo);
             }

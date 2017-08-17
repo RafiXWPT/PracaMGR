@@ -195,6 +195,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="CodeBehind\Attributes\AuthorizeRightAttribute.cs" />
+    <Compile Include="CodeBehind\Classess\ApplicationPrincipal.cs" />
+    <Compile Include="CodeBehind\Classess\OperationResult.cs" />
     <Compile Include="CodeBehind\Helpers\CultureHelper.cs" />
     <Compile Include="CodeBehind\Raport\IRaportService.cs" />
     <Compile Include="CodeBehind\Rights\IRightsManager.cs" />
@@ -203,18 +205,21 @@
     <Compile Include="CodeBehind\Extensions\UserRoleExtensions.cs" />
     <Compile Include="CodeBehind\WcfServices\WcfDataFetcher.cs" />
     <Compile Include="CodeBehind\WcfServices\WcfPersonInfoFetcher.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdditionalControllers\KendoController.cs" />
     <Compile Include="Controllers\ASP.NET Identity\AccountController.cs" />
     <Compile Include="CodeBehind\Email\ApplicationEmailService.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CultureController.cs" />
+    <Compile Include="Controllers\AdditionalControllers\BaseController.cs" />
+    <Compile Include="Controllers\AdditionalControllers\CultureController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\GlobalDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ASP.NET Identity\ManageController.cs" />
+    <Compile Include="Controllers\AdditionalControllers\IdentityController.cs" />
     <Compile Include="Controllers\InstitutionController.cs" />
     <Compile Include="Controllers\NotAuthorizeController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ReportListController.cs" />
     <Compile Include="Controllers\RightsController.cs" />
     <Compile Include="DataAccessLayer\DatabaseInstitutionRepository.cs" />
     <Compile Include="DataAccessLayer\GeneratedReaportRepository.cs" />
@@ -229,9 +234,15 @@
     <Compile Include="Migrations\201708161936063_Init.Designer.cs">
       <DependentUpon>201708161936063_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708171842029_deleteFields.cs" />
+    <Compile Include="Migrations\201708171842029_deleteFields.Designer.cs">
+      <DependentUpon>201708171842029_deleteFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708172033306_dataWygenerowaniaRaportu.cs" />
+    <Compile Include="Migrations\201708172033306_dataWygenerowaniaRaportu.Designer.cs">
+      <DependentUpon>201708172033306_dataWygenerowaniaRaportu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\ViewModels\Admin\RoleViewModel.cs" />
-    <Compile Include="Models\ViewModels\Admin\UserViewModel.cs" />
     <Compile Include="Models\ViewModels\ASPNET.Identity\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ViewModels\ASPNET.Identity\ManageViewModels.cs" />
@@ -247,6 +258,7 @@
     <Compile Include="Models\ViewModels\Patient\PatientViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\PersonizedPatientViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\PersonViewModel.cs" />
+    <Compile Include="Models\ViewModels\Reports\ReportRequestViewModel.cs" />
     <Compile Include="Models\ViewModels\Rights\RightViewModel.cs" />
     <Compile Include="Models\ViewModels\Rights\RoleViewModel.cs" />
     <Compile Include="Models\ViewModels\Rights\UserViewModel.cs" />
@@ -1348,6 +1360,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\ReportList\ReportList.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2000,22 +2013,24 @@
     <Content Include="Views\Shared\_CultureSelector.cshtml" />
     <Content Include="Views\NotAuthorize\Index.cshtml" />
     <Content Include="Views\Account\RegistrationAwaits.cshtml" />
-    <Content Include="Views\Admin\ApplicationUsers.cshtml" />
-    <Content Include="Views\Admin\EditorTemplates\RightsEditor.cshtml" />
     <Content Include="Views\Patient\TreatmentDetails.cshtml" />
     <Content Include="Views\GlobalData\Index.cshtml" />
     <Content Include="Views\GlobalData\TabItem.cshtml" />
-    <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Rights\Index.cshtml" />
     <Content Include="Views\Rights\RolesTab.cshtml" />
     <Content Include="Views\Rights\RightsTab.cshtml" />
     <Content Include="Views\Rights\RolesToRightsTab.cshtml" />
     <Content Include="Views\Rights\EditorTemplates\RoleEditor.cshtml" />
     <Content Include="Views\Rights\UserRolesTab.cshtml" />
+    <Content Include="Views\ReportList\Index.cshtml" />
+    <Content Include="Views\ReportList\PendingReports.cshtml" />
+    <Content Include="Views\ReportList\AcceptedReports.cshtml" />
+    <Content Include="Views\ReportList\RejectedReports.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Culture\" />
+    <Folder Include="Views\Dashboard\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -2036,6 +2051,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708161936063_Init.resx">
       <DependentUpon>201708161936063_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708171842029_deleteFields.resx">
+      <DependentUpon>201708171842029_deleteFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708172033306_dataWygenerowaniaRaportu.resx">
+      <DependentUpon>201708172033306_dataWygenerowaniaRaportu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\GlobalTranslations.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

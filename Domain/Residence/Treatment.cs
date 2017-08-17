@@ -18,7 +18,7 @@ namespace Domain.Residence
     public class TreatmentBasicTransferObject
     {
         [DataMember]
-        public Guid Id { get; set; }
+        public Guid TreatmentId { get; set; }
 
         [DataMember]
         public DateTime TreatmentDateTime { get; set; }
@@ -28,7 +28,7 @@ namespace Domain.Residence
     public class TreatmentTransferObject
     {
         [DataMember]
-        public Guid Id { get; set; }
+        public Guid TreatmentId { get; set; }
 
         [DataMember]
         public DateTime TreatmentDateTime { get; set; }

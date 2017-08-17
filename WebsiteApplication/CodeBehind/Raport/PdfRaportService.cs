@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Domain;
@@ -44,6 +45,7 @@ namespace WebsiteApplication.CodeBehind.Raport
             return new GeneratedReaport
             {
                 PatientPesel = patientPesel,
+                GeneratedAt = DateTime.Now,
                 Reaport = generatedPdfBytes
             };
         }

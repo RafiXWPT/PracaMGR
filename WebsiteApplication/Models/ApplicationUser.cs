@@ -11,10 +11,6 @@ namespace WebsiteApplication.Models
     public class ApplicationUser : IdentityUser
     {
         public virtual Address Address { get; set; }
-        public virtual List<GeneratedReaport> GeneratedReaports { get; set; }
-        public virtual List<ReaportRequest> ReaportRequests { get; set; }
-        public virtual List<SearchHistory> SearchHistories { get; set; }
-
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
