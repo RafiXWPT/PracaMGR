@@ -8,6 +8,7 @@ namespace WebsiteApplication.CodeBehind.Helpers
 {
     public static class TimeHelper
     {
+        public static DateTime LastMinute => DateTime.Now.AddMinutes(-1);
         public static DateTime LastHour => DateTime.Now.AddHours(-1);
         public static DateTime LastDay => DateTime.Now.AddDays(-1);
         public static DateTime LastWeek => DateTime.Now.AddDays(-7);
@@ -16,19 +17,22 @@ namespace WebsiteApplication.CodeBehind.Helpers
 
         public static bool IsCreatedCounterViolated(ICreatedCountable repository, string username)
         {
+            if (repository.CreatedInLast(LastMinute, username) > 1)
+                return true;
+
             if (repository.CreatedInLast(LastHour, username) > 10)
                 return true;
 
-            if (repository.CreatedInLast(LastDay) > 25)
+            if (repository.CreatedInLast(LastDay, username) > 25)
                 return true;
 
-            if (repository.CreatedInLast(LastWeek) > 100)
+            if (repository.CreatedInLast(LastWeek, username) > 100)
                 return true;
 
-            if (repository.CreatedInLast(LastMonth) > 500)
+            if (repository.CreatedInLast(LastMonth, username) > 500)
                 return true;
 
-            if (repository.CreatedInLast(LastYear) > 6000)
+            if (repository.CreatedInLast(LastYear, username) > 6000)
                 return true;
 
             return false;
