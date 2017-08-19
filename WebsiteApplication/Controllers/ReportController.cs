@@ -5,6 +5,7 @@ using Domain;
 using Domain.Interfaces;
 using WebsiteApplication.CodeBehind.Attributes;
 using WebsiteApplication.CodeBehind.Classess;
+using WebsiteApplication.CodeBehind.Helpers;
 using WebsiteApplication.CodeBehind.Raport;
 using WebsiteApplication.Controllers.AdditionalControllers;
 
@@ -25,12 +26,8 @@ namespace WebsiteApplication.Controllers
         [AuthorizeRight(Right = "REAPORT_GENERATION")]
         public ActionResult AddReaport(string pesel)
         {
-            var lastMonth = DateTime.Now.AddMonths(-1);
-            var requestsInLastMonth =
-                _reaportRequestRepository.Entities.Count(r => r.CreatedAt > lastMonth);
-
-            if (requestsInLastMonth > 10)
-                return Json(OperationResult.FailureResult("Przekroczono limit raportów na miesiąc"));
+            if (TimeHelper.IsCreatedCounterViolated(_reaportRequestRepository, User.Name))
+                return Json(OperationResult.FailureResult("Przekroczono limit raportów"));
 
             var newReaportRequest = new ReaportRequest
             {
@@ -48,12 +45,8 @@ namespace WebsiteApplication.Controllers
         [AuthorizeRight(Right = "FORCE_REAPORT_GENERATION")]
         public ActionResult GenerateReaport(string pesel)
         {
-            var lastMonth = DateTime.Now.AddMonths(-1);
-            var requestsInLastMonth =
-                _reaportRequestRepository.Entities.Count(r => r.CreatedAt > lastMonth);
-
-            if (requestsInLastMonth > 10)
-                return Json(OperationResult.FailureResult("Przekroczono limit raportów na miesiąc"));
+            if (TimeHelper.IsCreatedCounterViolated(_reaportRequestRepository, User.Name))
+                return Json(OperationResult.FailureResult("Przekroczono limit raportów"));
 
             var newReaportRequest = new ReaportRequest
             {
@@ -61,7 +54,7 @@ namespace WebsiteApplication.Controllers
                 CreatedBy = User.Identity.Name,
                 PatientPesel = pesel,
                 Status = ReaportRequestStatus.ACCEPTED,
-                GeneratedReaport = _raportService.GenerateRaport(pesel)
+                GeneratedReaport = _raportService.GenerateRaport(pesel, User.Name)
             };
 
             _reaportRequestRepository.Create(newReaportRequest);

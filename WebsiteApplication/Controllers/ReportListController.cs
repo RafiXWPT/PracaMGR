@@ -71,7 +71,7 @@ namespace WebsiteApplication.Controllers
                 return Json(OperationResult.FailureResult("Obiekt nie istnieje"));
 
             request.Status = ReaportRequestStatus.ACCEPTED;
-            request.GeneratedReaport = _service.GenerateRaport(request.PatientPesel);
+            request.GeneratedReaport = _service.GenerateRaport(request.PatientPesel, User.Name);
             _repository.Update(request);
             return Json(OperationResult.SuccessResult());
         }

@@ -10,6 +10,11 @@ namespace WebsiteApplication.CodeBehind.Classess
         private const string Guest = "Gość";
         private readonly Dictionary<string, string> _claimCache = new Dictionary<string, string>();
 
+        public ApplicationPrincipal()
+        {
+            
+        }
+
         public ApplicationPrincipal(ClaimsPrincipal claimsPrincipal) : base(claimsPrincipal)
         {
         }

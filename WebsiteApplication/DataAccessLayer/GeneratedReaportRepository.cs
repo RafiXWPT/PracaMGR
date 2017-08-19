@@ -17,8 +17,14 @@ namespace WebsiteApplication.DataAccessLayer
 
         public IQueryable<GeneratedReaport> Entities => _context.GeneratedReaports;
 
+        public int CreatedInLast(DateTime time, string username = null)
+        {
+            return username == null ? Entities.Count(e => e.CreatedAt > time) : Entities.Count(e => e.CreatedAt > time && e.ReaportRequest.CreatedBy == username);
+        }
+
         public void Create(GeneratedReaport entity)
         {
+            entity.GeneratedReaportId = Guid.NewGuid();
             _context.GeneratedReaports.Add(entity);
             SaveChanges();
         }

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Domain.Interfaces
 {
-    public interface IRepository<TEntity> : IDbRepository
+    public interface IRepository<TEntity> : IDbRepository, ICreatedCountable
     {
         IQueryable<TEntity> Entities { get; }
         void Create(TEntity entity);

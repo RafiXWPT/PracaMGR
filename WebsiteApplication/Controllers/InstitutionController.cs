@@ -61,8 +61,6 @@ namespace WebsiteApplication.Controllers
                 newInstitution.InstitutionName = institution.InstitutionName;
                 newInstitution.InstitutionEndpointAddress = institution.InstitutionEndpointAddress;
                 newInstitution.Address = institution.Address;
-                newInstitution.InstitutionId = Guid.NewGuid();
-                newInstitution.Address.AddressId = Guid.NewGuid();
                 _repository.Create(newInstitution);
                 return RedirectToAction("Index");
             }

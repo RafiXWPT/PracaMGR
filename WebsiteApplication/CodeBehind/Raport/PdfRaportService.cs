@@ -17,35 +17,35 @@ namespace WebsiteApplication.CodeBehind.Raport
 {
     public class PdfRaportService : IRaportService
     {
-        private readonly WcfDataFetcher _patientDataFetcher;
         private readonly WcfPersonInfoFetcher _personInfoFetcher;
-        private readonly IRepository<Institution> _repository;
+        private readonly IRepository<Institution> _institutionRepository;
+        private readonly IRepository<SearchHistory> _searchHistoryRepository;
 
-        public PdfRaportService(IRepository<Institution> repository)
+        public PdfRaportService(IRepository<Institution> institutionRepository, IRepository<SearchHistory> searchHistoryRepository)
         {
-            _repository = repository;
+            _institutionRepository = institutionRepository;
+            _searchHistoryRepository = searchHistoryRepository;
             _personInfoFetcher = new WcfPersonInfoFetcher();
-            _patientDataFetcher = new WcfDataFetcher(repository);
         }
 
-        public byte[] GenerateRaportBytes(string patientPesel)
+        public byte[] GenerateRaportBytes(string patientPesel, string username)
         {
             var personInfo = _personInfoFetcher.GetPersonInfo(patientPesel);
             if (personInfo == null)
                 return null;
 
-            var patientHistory = _patientDataFetcher.GetPatientHistory(patientPesel);
+            var patientHistory = new WcfDataFetcher(_institutionRepository, _searchHistoryRepository, username).GetPatientHistory<PatientHistoryTransferObject>(patientPesel);
 
             return GeneratePdf(personInfo, patientHistory);
         }
 
-        public GeneratedReaport GenerateRaport(string patientPesel)
+        public GeneratedReaport GenerateRaport(string patientPesel, string username)
         {
-            var generatedPdfBytes = GenerateRaportBytes(patientPesel);
+            var generatedPdfBytes = GenerateRaportBytes(patientPesel, username);
             return new GeneratedReaport
             {
                 PatientPesel = patientPesel,
-                GeneratedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 Reaport = generatedPdfBytes
             };
         }
@@ -126,7 +126,7 @@ namespace WebsiteApplication.CodeBehind.Raport
         private void GenerateNewHospitalizationInfo(Document document,
             HospitalizationHistoryTransferObject hospitalization)
         {
-            var currentInstitutionName = _repository.Read(hospitalization.HospitalizationId).InstitutionName;
+            var currentInstitutionName = _institutionRepository.Read(hospitalization.HospitalizationId).InstitutionName;
             document.GetPdfDocument().AddNewPage();
             document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
             document.Add(new Paragraph($"{currentInstitutionName}:").SetFontSize(20));

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeneratedReaports.cs" />
+    <Compile Include="Interfaces\ICreatedCountable.cs" />
     <Compile Include="Interfaces\IDbRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Person.cs" />

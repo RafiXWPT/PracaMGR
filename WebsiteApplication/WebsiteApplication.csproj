@@ -199,6 +199,7 @@
     <Compile Include="CodeBehind\Classess\ApplicationPrincipal.cs" />
     <Compile Include="CodeBehind\Classess\OperationResult.cs" />
     <Compile Include="CodeBehind\Helpers\CultureHelper.cs" />
+    <Compile Include="CodeBehind\Helpers\TimeHelper.cs" />
     <Compile Include="CodeBehind\Raport\IRaportService.cs" />
     <Compile Include="CodeBehind\Rights\IRightsManager.cs" />
     <Compile Include="CodeBehind\Raport\PdfRaportService.cs" />
@@ -242,6 +243,14 @@
     <Compile Include="Migrations\201708172033306_dataWygenerowaniaRaportu.cs" />
     <Compile Include="Migrations\201708172033306_dataWygenerowaniaRaportu.Designer.cs">
       <DependentUpon>201708172033306_dataWygenerowaniaRaportu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708191532490_HistoriaWyszukiwania.cs" />
+    <Compile Include="Migrations\201708191532490_HistoriaWyszukiwania.Designer.cs">
+      <DependentUpon>201708191532490_HistoriaWyszukiwania.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708191646195_CreatedCountable.cs" />
+    <Compile Include="Migrations\201708191646195_CreatedCountable.Designer.cs">
+      <DependentUpon>201708191646195_CreatedCountable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ViewModels\ASPNET.Identity\AccountViewModels.cs" />
@@ -2069,6 +2078,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708172033306_dataWygenerowaniaRaportu.resx">
       <DependentUpon>201708172033306_dataWygenerowaniaRaportu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708191532490_HistoriaWyszukiwania.resx">
+      <DependentUpon>201708191532490_HistoriaWyszukiwania.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708191646195_CreatedCountable.resx">
+      <DependentUpon>201708191646195_CreatedCountable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\GlobalTranslations.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

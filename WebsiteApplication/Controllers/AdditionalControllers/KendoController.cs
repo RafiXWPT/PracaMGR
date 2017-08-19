@@ -20,7 +20,12 @@ namespace WebsiteApplication.Controllers.AdditionalControllers
             return Json(DataSourceResult<TEntity, TViewModel>(request, entities), JsonRequestBehavior.AllowGet);
         }
 
-        protected IEnumerable<TViewModel> Map<TEntity, TViewModel>(IEnumerable<TEntity> entities)
+        protected TViewModel MapSingle<TEntity, TViewModel>(TEntity entity)
+        {
+            return Mapper.Map<TViewModel>(entity);
+        }
+
+        protected IEnumerable<TViewModel> MapMany<TEntity, TViewModel>(IEnumerable<TEntity> entities)
         {
             return Mapper.Map<IEnumerable<TViewModel>>(entities);
         }

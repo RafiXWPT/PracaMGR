@@ -17,8 +17,14 @@ namespace WebsiteApplication.DataAccessLayer
 
         public IQueryable<SearchHistory> Entities => _context.SearchHistories;
 
+        public int CreatedInLast(DateTime time, string username = null)
+        {
+            return username == null ? Entities.Count(e => e.CreatedAt > time) : Entities.Count(e => e.CreatedAt > time && e.CreatedBy == username);
+        }
+
         public void Create(SearchHistory entity)
         {
+            entity.SearchHistoryId = Guid.NewGuid();
             _context.SearchHistories.Add(entity);
             SaveChanges();
         }

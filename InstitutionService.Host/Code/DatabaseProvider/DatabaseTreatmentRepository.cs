@@ -46,5 +46,10 @@ namespace InstitutionService.Host.Code.DatabaseProvider
         {
             _context.SaveChanges();
         }
+
+        public int CreatedInLast(DateTime time, string username = null)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

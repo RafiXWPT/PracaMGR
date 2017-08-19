@@ -12,23 +12,23 @@ using WebsiteApplication.Models.ViewModels.GlobalData;
 
 namespace WebsiteApplication.Controllers
 {
-    public class GlobalDataController : BaseController
+    public class GlobalDataController : KendoController
     {
         private readonly WcfDataFetcher _patientFetcher;
         private readonly WcfPersonInfoFetcher _personInfoFetcher;
-        private readonly IRepository<Institution> _repository;
+        private readonly IRepository<Institution> _institutionRepository;
 
-        public GlobalDataController(IRepository<Institution> repository)
+        public GlobalDataController(IRepository<Institution> institutionRepository, IRepository<SearchHistory> searchHistoryRepository)
         {
-            _repository = repository;
-            _patientFetcher = new WcfDataFetcher(repository);
+            _institutionRepository = institutionRepository;
+            _patientFetcher = new WcfDataFetcher(institutionRepository, searchHistoryRepository, User.Name);
             _personInfoFetcher = new WcfPersonInfoFetcher();
         }
 
         public ActionResult Index()
         {
             var tabStripViewModel = new TabStripViewModel();
-            var institutions = _repository.Entities.ToList();
+            var institutions = _institutionRepository.Entities.ToList();
             foreach (var institution in institutions)
                 tabStripViewModel.TabStripItems.Add(new TabStripItemViewModel
                 {
@@ -46,7 +46,7 @@ namespace WebsiteApplication.Controllers
         public ActionResult ReadInstitutionData(DataSourceRequest request, Guid institutionId)
         {
             var displayList = new List<PatientViewModel>();
-            var ptos = _patientFetcher.GetAllPatientsFromInstitution(institutionId);
+            var ptos = _patientFetcher.GetAllPatientsFromInstitution<PatientTransferObject>(institutionId);
             foreach (var pto in ptos)
             {
                 var personInfo = _personInfoFetcher.GetPersonInfo(pto.Pesel);

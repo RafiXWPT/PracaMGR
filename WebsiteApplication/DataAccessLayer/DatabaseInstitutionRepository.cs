@@ -19,6 +19,8 @@ namespace WebsiteApplication.DataAccessLayer
 
         public void Create(Institution entity)
         {
+            entity.InstitutionId = Guid.NewGuid();
+            entity.Address.AddressId = Guid.NewGuid();
             _context.Institutions.Add(entity);
             SaveChanges();
         }
@@ -43,6 +45,11 @@ namespace WebsiteApplication.DataAccessLayer
         public void SaveChanges()
         {
             _context.SaveChanges();
+        }
+
+        public int CreatedInLast(DateTime time, string username = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }
