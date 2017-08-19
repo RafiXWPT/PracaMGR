@@ -10,7 +10,7 @@ else
 {
     <div class="col-lg-2 col-sm-6">
         <div class="circle-tile">
-            <a href="@Model.TileUrl" target="_blank">
+            <a href=@(string.IsNullOrEmpty(Model.TileUrl) ? "#" : $"{Model.TileUrl} target=_blank")>
                 <div class="circle-tile-heading @Model.TileColor">
                     <i class="fa fa-@Model.TileIcon fa-fw fa-3x"></i>
                 </div>

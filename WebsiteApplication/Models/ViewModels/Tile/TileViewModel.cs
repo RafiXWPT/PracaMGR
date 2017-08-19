@@ -2,7 +2,7 @@
 {
     public class TileViewModel
     {
-        public string TileUrl { get; set; } = "#";
+        public string TileUrl { get; set; }
         public string TileIcon { get; set; }
         public string TileContentText { get; set; }
         public string TileValue { get; set; }

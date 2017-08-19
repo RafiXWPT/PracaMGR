@@ -71,6 +71,8 @@ namespace WebsiteApplication.Controllers
                 return Json(OperationResult.FailureResult("Obiekt nie istnieje"));
 
             request.Status = ReaportRequestStatus.ACCEPTED;
+            request.AcceptedAt = DateTime.Now;
+            request.AcceptedBy = User.Name;
             request.GeneratedReaport = _service.GenerateRaport(request.PatientPesel, User.Name);
             _repository.Update(request);
             return Json(OperationResult.SuccessResult());
@@ -84,6 +86,8 @@ namespace WebsiteApplication.Controllers
                 return Json(OperationResult.FailureResult("Obiekt nie istnieje"));
 
             request.Status = ReaportRequestStatus.REJECTED;
+            request.RejectedAt = DateTime.Now;
+            request.RejectedBy = User.Name;
             _repository.Update(request);
             return Json(OperationResult.SuccessResult());
         }
