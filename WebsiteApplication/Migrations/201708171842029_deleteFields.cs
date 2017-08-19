@@ -1,8 +1,7 @@
+using System.Data.Entity.Migrations;
+
 namespace WebsiteApplication.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class deleteFields : DbMigration
     {
         public override void Up()
@@ -10,14 +9,14 @@ namespace WebsiteApplication.Migrations
             DropForeignKey("dbo.GeneratedReaport", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.ReaportRequest", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.SearchHistory", "ApplicationUser_Id", "dbo.AspNetUsers");
-            DropIndex("dbo.GeneratedReaport", new[] { "ApplicationUser_Id" });
-            DropIndex("dbo.ReaportRequest", new[] { "ApplicationUser_Id" });
-            DropIndex("dbo.SearchHistory", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.GeneratedReaport", new[] {"ApplicationUser_Id"});
+            DropIndex("dbo.ReaportRequest", new[] {"ApplicationUser_Id"});
+            DropIndex("dbo.SearchHistory", new[] {"ApplicationUser_Id"});
             DropColumn("dbo.GeneratedReaport", "ApplicationUser_Id");
             DropColumn("dbo.ReaportRequest", "ApplicationUser_Id");
             DropColumn("dbo.SearchHistory", "ApplicationUser_Id");
         }
-        
+
         public override void Down()
         {
             AddColumn("dbo.SearchHistory", "ApplicationUser_Id", c => c.String(maxLength: 128));

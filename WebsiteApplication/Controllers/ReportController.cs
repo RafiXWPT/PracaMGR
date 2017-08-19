@@ -6,15 +6,14 @@ using Domain.Interfaces;
 using WebsiteApplication.CodeBehind.Attributes;
 using WebsiteApplication.CodeBehind.Classess;
 using WebsiteApplication.CodeBehind.Raport;
-using WebsiteApplication.CodeBehind.Rights;
 using WebsiteApplication.Controllers.AdditionalControllers;
 
 namespace WebsiteApplication.Controllers
 {
     public class ReportController : BaseController
     {
-        private readonly IRepository<ReaportRequest> _reaportRequestRepository;
         private readonly IRaportService _raportService;
+        private readonly IRepository<ReaportRequest> _reaportRequestRepository;
 
         public ReportController(IRepository<ReaportRequest> reaportRequestRepository, IRaportService raportService)
         {
@@ -31,9 +30,7 @@ namespace WebsiteApplication.Controllers
                 _reaportRequestRepository.Entities.Count(r => r.CreatedAt > lastMonth);
 
             if (requestsInLastMonth > 10)
-            {
                 return Json(OperationResult.FailureResult("Przekroczono limit raportów na miesiąc"));
-            }
 
             var newReaportRequest = new ReaportRequest
             {
@@ -56,9 +53,7 @@ namespace WebsiteApplication.Controllers
                 _reaportRequestRepository.Entities.Count(r => r.CreatedAt > lastMonth);
 
             if (requestsInLastMonth > 10)
-            {
                 return Json(OperationResult.FailureResult("Przekroczono limit raportów na miesiąc"));
-            }
 
             var newReaportRequest = new ReaportRequest
             {

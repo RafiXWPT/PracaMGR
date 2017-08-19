@@ -15,15 +15,16 @@
 <body>
 <script>
     var app = app || {};
-    app.register = function (ns, o, init) {
+    app.register = function(ns, o, init) {
         var tmp = window;
-        ns.split('.').map(function (x) {
+        ns.split('.').map(function(x) {
             !tmp[x] && (tmp[x] = {});
             tmp = tmp[x];
         });
         $.extend(tmp, o);
-    }
-    app.notify = app.notify || (function () {
+    };
+    app.notify = app.notify ||
+    (function() {
         return $('<div/>').kendoNotification({
             width: '80%',
             stacking: "down",
@@ -31,7 +32,8 @@
                 pinned: true,
                 top: 30,
                 right: 20
-            }, show: function (e) {
+            },
+            show: function(e) {
                 e.element.parent().css('zIndex', 99999);
                 if (e.sender.getNotifications().length === 1) {
                     var element = e.element.parent(), eWidth = element.width(), wWidth = $(window).width(), newLeft;
@@ -40,8 +42,8 @@
                 }
             }
         }).data('kendoNotification');
-    })(); 
-</script> 
+    })();
+</script>
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">

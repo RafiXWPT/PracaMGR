@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using Domain;
 using Domain.Interfaces;
 
@@ -18,6 +16,7 @@ namespace WebsiteApplication.DataAccessLayer
         }
 
         public IQueryable<GeneratedReaport> Entities => _context.GeneratedReaports;
+
         public void Create(GeneratedReaport entity)
         {
             _context.GeneratedReaports.Add(entity);

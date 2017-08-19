@@ -28,7 +28,7 @@
                 { requestId: dataItem.ReaportRequestId },
                 function(result) {
                     if (result.Success) {
-                        app.notify.success("Prośba odrzucona."); 
+                        app.notify.success("Prośba odrzucona.");
                         grid.dataSource.read();
                         grid.refresh();
                     } else {

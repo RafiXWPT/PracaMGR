@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using AutoMapper;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using WebsiteApplication.CodeBehind.Rights;
@@ -57,7 +56,8 @@ namespace WebsiteApplication.Controllers
 
         public ActionResult ReadRoles([DataSourceRequest] DataSourceRequest request)
         {
-            return Json(Manager.Roles().Where(x => x.Name != "ADMIN").ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            return Json(Manager.Roles().Where(x => x.Name != "ADMIN").ToDataSourceResult(request),
+                JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult CreateRight([DataSourceRequest] DataSourceRequest request, RightViewModel viewModel)

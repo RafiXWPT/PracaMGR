@@ -5,7 +5,6 @@ using System.Web.Routing;
 using AutoMapper;
 using Domain;
 using Domain.Interfaces;
-using WebsiteApplication.CodeBehind.Rights;
 using WebsiteApplication.CodeBehind.WcfServices;
 using WebsiteApplication.Controllers.AdditionalControllers;
 using WebsiteApplication.Filters;

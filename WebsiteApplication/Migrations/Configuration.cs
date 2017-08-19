@@ -1,18 +1,16 @@
+using System.Data.Entity.Migrations;
+using WebsiteApplication.DataAccessLayer;
+
 namespace WebsiteApplication.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    internal sealed class Configuration : DbMigrationsConfiguration<WebsiteApplication.DataAccessLayer.WebsiteDatabaseContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<WebsiteDatabaseContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(WebsiteApplication.DataAccessLayer.WebsiteDatabaseContext context)
+        protected override void Seed(WebsiteDatabaseContext context)
         {
             //  This method will be called after migrating to the latest version.
 

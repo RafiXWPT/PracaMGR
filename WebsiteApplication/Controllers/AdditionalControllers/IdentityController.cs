@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Web.Mvc;
 using WebsiteApplication.CodeBehind.Classess;
-using WebsiteApplication.CodeBehind.Rights;
 
 namespace WebsiteApplication.Controllers.AdditionalControllers
 {
@@ -10,6 +8,8 @@ namespace WebsiteApplication.Controllers.AdditionalControllers
     {
         private ApplicationPrincipal _identityPrincipal;
 
-        public new ApplicationPrincipal User => _identityPrincipal ?? (_identityPrincipal = new ApplicationPrincipal(base.User as ClaimsPrincipal));
+        public new ApplicationPrincipal User => _identityPrincipal ??
+                                                (_identityPrincipal =
+                                                    new ApplicationPrincipal(base.User as ClaimsPrincipal));
     }
 }

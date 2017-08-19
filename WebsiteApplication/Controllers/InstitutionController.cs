@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using AutoMapper;
 using Domain;
 using Domain.Interfaces;
-using WebsiteApplication.CodeBehind.Rights;
 using WebsiteApplication.Controllers.AdditionalControllers;
 using WebsiteApplication.Filters;
 using WebsiteApplication.Models.ViewModels.Institution;

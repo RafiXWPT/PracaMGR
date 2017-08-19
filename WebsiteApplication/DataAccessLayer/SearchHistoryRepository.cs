@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using Domain;
 using Domain.Interfaces;
 
@@ -18,6 +16,7 @@ namespace WebsiteApplication.DataAccessLayer
         }
 
         public IQueryable<SearchHistory> Entities => _context.SearchHistories;
+
         public void Create(SearchHistory entity)
         {
             _context.SearchHistories.Add(entity);

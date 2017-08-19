@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 using Domain;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -16,17 +15,20 @@ namespace WebsiteApplication.Models
     {
         public static string Rights => "RIGHTS";
     }
+
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
         private readonly IRightsManager<RightViewModel, RoleViewModel, UserViewModel> _manager;
-        public virtual Address Address { get; set; }
 
         public ApplicationUser()
         {
             var dbContext = new WebsiteDatabaseContext();
-            _manager = new RightsManager(dbContext, new ApplicationUserManager(new UserStore<ApplicationUser>(dbContext)));
+            _manager = new RightsManager(dbContext,
+                new ApplicationUserManager(new UserStore<ApplicationUser>(dbContext)));
         }
+
+        public virtual Address Address { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -41,10 +43,8 @@ namespace WebsiteApplication.Models
                 {
                     var rightsForRole = _manager.RightsForRole(userRole);
                     foreach (var right in rightsForRole)
-                    {
                         if (!rights.Contains(right))
                             rights.Add(right);
-                    }
                 }
                 userIdentity.AddClaims(rights.Select(r => new Claim(ApplicationClaims.Rights, r)));
             }

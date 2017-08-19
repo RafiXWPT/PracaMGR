@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Threading;
 using WebsiteApplication.CodeBehind.Helpers;
-using WebsiteApplication.CodeBehind.Rights;
 
 namespace WebsiteApplication.Controllers.AdditionalControllers
 {

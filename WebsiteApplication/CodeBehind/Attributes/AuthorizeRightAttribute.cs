@@ -3,9 +3,6 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using WebsiteApplication.CodeBehind.Classess;
-using WebsiteApplication.CodeBehind.Rights;
-using WebsiteApplication.Models;
-using WebsiteApplication.Models.ViewModels.Rights;
 
 namespace WebsiteApplication.CodeBehind.Attributes
 {

@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Domain;
 using Domain.Interfaces;
-using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using WebsiteApplication.CodeBehind.Attributes;
 using WebsiteApplication.CodeBehind.Classess;
 using WebsiteApplication.CodeBehind.Raport;
-using WebsiteApplication.CodeBehind.Rights;
 using WebsiteApplication.Controllers.AdditionalControllers;
 using WebsiteApplication.Models.ViewModels.Reports;
 
@@ -51,17 +47,20 @@ namespace WebsiteApplication.Controllers
 
         public ActionResult ReadPendingReports(DataSourceRequest request)
         {
-            return JsonDataSourceResult<ReaportRequest, ReportRequestViewModel>(request, _repository.Entities.Where(r => r.Status == ReaportRequestStatus.PENDING));
+            return JsonDataSourceResult<ReaportRequest, ReportRequestViewModel>(request,
+                _repository.Entities.Where(r => r.Status == ReaportRequestStatus.PENDING));
         }
 
         public ActionResult ReadAcceptedReports(DataSourceRequest request)
         {
-            return JsonDataSourceResult<ReaportRequest, ReportRequestViewModel>(request, _repository.Entities.Where(r => r.Status == ReaportRequestStatus.ACCEPTED));
+            return JsonDataSourceResult<ReaportRequest, ReportRequestViewModel>(request,
+                _repository.Entities.Where(r => r.Status == ReaportRequestStatus.ACCEPTED));
         }
 
         public ActionResult ReadRejectedReports(DataSourceRequest request)
         {
-            return JsonDataSourceResult<ReaportRequest, ReportRequestViewModel>(request, _repository.Entities.Where(r => r.Status == ReaportRequestStatus.REJECTED));
+            return JsonDataSourceResult<ReaportRequest, ReportRequestViewModel>(request,
+                _repository.Entities.Where(r => r.Status == ReaportRequestStatus.REJECTED));
         }
 
         [HttpPost]

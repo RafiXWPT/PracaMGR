@@ -1,5 +1,4 @@
 ﻿@using Newtonsoft.Json
-
 @{
     ViewBag.Title = "Prośby o raport";
 }
@@ -7,15 +6,15 @@
 <h2>Raporty oczekujące na decyzje</h2>
 
 @(Html.Kendo().TabStrip()
-    .Name("reports-tabstrip")
-    .Animation(false)
-    .Events(e => e.Select("app.reportList.onSelect"))
-    .Items(i =>
-    {
-        i.Add().Text("OCZEKUJĄCE").LoadContentFrom("PendingReports", "ReportList").Selected(true);
-        i.Add().Text("ZAAKCEPTOWANE").LoadContentFrom("AcceptedReports", "ReportList");
-        i.Add().Text("ODRZUCONE").LoadContentFrom("RejectedReports", "ReportList");
-    }))
+      .Name("reports-tabstrip")
+      .Animation(false)
+      .Events(e => e.Select("app.reportList.onSelect"))
+      .Items(i =>
+      {
+          i.Add().Text("OCZEKUJĄCE").LoadContentFrom("PendingReports", "ReportList").Selected(true);
+          i.Add().Text("ZAAKCEPTOWANE").LoadContentFrom("AcceptedReports", "ReportList");
+          i.Add().Text("ODRZUCONE").LoadContentFrom("RejectedReports", "ReportList");
+      }))
 
 @section scripts
 {
@@ -25,9 +24,9 @@
 <script>
     $(function() {
         app.reportList.init(@Html.Raw(JsonConvert.SerializeObject(new
-                        {
-                            AcceptRequestUrl = Url.Action("AcceptRequest", "ReportList"),
-                            RejectRequestUrl = Url.Action("RejectRequest", "ReportList")                     
-                        })));
+                            {
+                                AcceptRequestUrl = Url.Action("AcceptRequest", "ReportList"),
+                                RejectRequestUrl = Url.Action("RejectRequest", "ReportList")
+                            })));
     });
 </script>

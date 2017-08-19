@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using WebsiteApplication.Models;
@@ -33,9 +31,7 @@ namespace WebsiteApplication.CodeBehind.Classess
         {
             string claimValue;
             if (_claimCache.TryGetValue(claimType, out claimValue))
-            {
                 return claimValue;
-            }
 
             var claim = FindFirst(claimType);
             claimValue = claim != null ? claim.Value : defaultValue ?? string.Empty;

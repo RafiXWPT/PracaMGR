@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using WebsiteApplication.CodeBehind.Rights;
 using WebsiteApplication.Controllers.AdditionalControllers;
 
 namespace WebsiteApplication.Controllers
@@ -24,7 +23,5 @@ namespace WebsiteApplication.Controllers
 
             return View();
         }
-
-
     }
 }
