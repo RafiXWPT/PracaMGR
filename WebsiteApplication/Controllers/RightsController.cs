@@ -5,12 +5,13 @@ using AutoMapper;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using WebsiteApplication.CodeBehind.Rights;
+using WebsiteApplication.Controllers.AdditionalControllers;
 using WebsiteApplication.Models.ViewModels.Rights;
 
 namespace WebsiteApplication.Controllers
 {
     [Authorize(Roles = "ADMIN")]
-    public class RightsController : BaseController
+    public class RightsController : KendoController
     {
         public RightsController(IRightsManager<RightViewModel, RoleViewModel, UserViewModel> manager)
         {
@@ -26,7 +27,7 @@ namespace WebsiteApplication.Controllers
 
         public ActionResult ReadMultiSelectRoles()
         {
-            return Json(Mapper.Map<List<RoleViewModel>>(Manager.Roles()), JsonRequestBehavior.AllowGet);
+            return Json(Manager.Roles(), JsonRequestBehavior.AllowGet);
         }
 
         public PartialViewResult RolesTab()
@@ -51,18 +52,12 @@ namespace WebsiteApplication.Controllers
 
         public ActionResult ReadRights([DataSourceRequest] DataSourceRequest request)
         {
-            var rights = Manager.Rights();
-
-            return Json(Mapper.Map<List<RightViewModel>>(rights).ToDataSourceResult(request),
-                JsonRequestBehavior.AllowGet);
+            return Json(Manager.Rights().ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ReadRoles([DataSourceRequest] DataSourceRequest request)
         {
-            var roles = Manager.Roles().Where(x => x.Name != "ADMIN");
-
-            return Json(Mapper.Map<List<RoleViewModel>>(roles).ToDataSourceResult(request),
-                JsonRequestBehavior.AllowGet);
+            return Json(Manager.Roles().Where(x => x.Name != "ADMIN").ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult CreateRight([DataSourceRequest] DataSourceRequest request, RightViewModel viewModel)

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using WebsiteApplication.CodeBehind.Rights;
 
 namespace WebsiteApplication.Controllers.AdditionalControllers
 {
@@ -19,6 +20,11 @@ namespace WebsiteApplication.Controllers.AdditionalControllers
         protected ActionResult JsonDataSourceResult<TEntity, TViewModel>(DataSourceRequest request, IEnumerable<TEntity> entities)
         {
             return Json(DataSourceResult<TEntity, TViewModel>(request, entities), JsonRequestBehavior.AllowGet);
+        }
+
+        protected IEnumerable<TViewModel> Map<TEntity, TViewModel>(IEnumerable<TEntity> entities)
+        {
+            return Mapper.Map<IEnumerable<TViewModel>>(entities);
         }
     }
 }

@@ -7,13 +7,16 @@ using Domain;
 using Domain.Interfaces;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using WebsiteApplication.CodeBehind.Attributes;
 using WebsiteApplication.CodeBehind.Classess;
 using WebsiteApplication.CodeBehind.Raport;
+using WebsiteApplication.CodeBehind.Rights;
 using WebsiteApplication.Controllers.AdditionalControllers;
 using WebsiteApplication.Models.ViewModels.Reports;
 
 namespace WebsiteApplication.Controllers
 {
+    [AuthorizeRight(Right = "REAPORT_ACCEPTANCE")]
     public class ReportListController : KendoController
     {
         private readonly IRepository<ReaportRequest> _repository;

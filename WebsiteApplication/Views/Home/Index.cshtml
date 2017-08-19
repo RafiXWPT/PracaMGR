@@ -2,20 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 
-@(Html.Kendo().Button().Name("test").Events(e => e.Click("onClick")))
-@Html.ActionLink("generuj", "AddReaport", "Report", true)
-
 <div class="jumbotron">
     <h1>Praca magisterska - Rafał Palej</h1>
     <p class="lead">Aplikacja umożliwia osobom upoważnionym na przeglądanie informacji medycznych pacjenta oraz wygenerowanie raportu z przebiegu jego hospitalizacji.</p>
 </div>
-
-<script>
-    function onClick(e) {
-        $.post('@Url.Action("AddReaport", "Report")',
-            { pesel: '93070114133' },
-            function(result) {
-
-            });
-    }
-</script>

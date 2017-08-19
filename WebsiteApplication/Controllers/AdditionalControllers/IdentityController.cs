@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
-using System.Security.Principal;
-using System.Web;
 using System.Web.Mvc;
 using WebsiteApplication.CodeBehind.Classess;
+using WebsiteApplication.CodeBehind.Rights;
 
-namespace WebsiteApplication.Controllers
+namespace WebsiteApplication.Controllers.AdditionalControllers
 {
     public class IdentityController : Controller
     {

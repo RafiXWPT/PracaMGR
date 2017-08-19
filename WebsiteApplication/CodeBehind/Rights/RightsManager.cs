@@ -65,6 +65,11 @@ namespace WebsiteApplication.CodeBehind.Rights
             return Context.RolesToRights.Where(r => r.Right.RightName == right).Select(x => x.Role).ToList();
         }
 
+        public List<string> RightsForRole(string role)
+        {
+            return Context.RolesToRights.Where(r => r.Role == role).Select(r => r.Right.RightName).ToList();
+        }
+
         public List<string> RolesForRight(RightViewModel viewModel)
         {
             return Context.RolesToRights.Where(r => r.RightId == viewModel.Id).Select(x => x.Role).ToList();

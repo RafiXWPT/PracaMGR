@@ -13,6 +13,7 @@ namespace WebsiteApplication.CodeBehind.Rights
         List<TUserViewModel> Users();
         List<string> RolesForRight(TRightViewModel viewModel);
         List<string> RolesForRight(string right);
+        List<string> RightsForRole(string role);
         List<string> RoleNamesForGuid(List<string> roleGuids);
         void AddRight(TRightViewModel viewModel);
         void AddRole(TRoleViewModel viewModel);

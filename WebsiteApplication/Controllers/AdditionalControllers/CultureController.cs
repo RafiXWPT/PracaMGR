@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebsiteApplication.CodeBehind.Helpers;
 
-namespace WebsiteApplication.Controllers
+namespace WebsiteApplication.Controllers.AdditionalControllers
 {
     public class CultureController : Controller
     {

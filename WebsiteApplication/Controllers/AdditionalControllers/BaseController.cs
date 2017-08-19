@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
-using System.Web.Mvc;
 using WebsiteApplication.CodeBehind.Helpers;
-using WebsiteApplication.DataAccessLayer;
+using WebsiteApplication.CodeBehind.Rights;
 
-namespace WebsiteApplication.Controllers
+namespace WebsiteApplication.Controllers.AdditionalControllers
 {
     public class BaseController : IdentityController
     {

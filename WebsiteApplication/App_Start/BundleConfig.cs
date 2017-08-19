@@ -26,6 +26,8 @@ namespace WebsiteApplication
                 "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/Additional/additional.css",
+                "~/Content/font-awesome.min.css",
                 "~/Content/bootstrap.css",
                 "~/Content/site.css"));
 

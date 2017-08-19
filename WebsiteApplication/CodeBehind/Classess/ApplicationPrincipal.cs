@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Principal;
-using System.Web;
-using WebsiteApplication.DataAccessLayer;
+using WebsiteApplication.Models;
 
 namespace WebsiteApplication.CodeBehind.Classess
 {
@@ -14,7 +12,9 @@ namespace WebsiteApplication.CodeBehind.Classess
         private const string Guest = "Gość";
         private readonly Dictionary<string, string> _claimCache = new Dictionary<string, string>();
 
-        public ApplicationPrincipal(ClaimsPrincipal claimsPrincipal) : base(claimsPrincipal) { }
+        public ApplicationPrincipal(ClaimsPrincipal claimsPrincipal) : base(claimsPrincipal)
+        {
+        }
 
         public string Name => GetValueOrDefault(ClaimTypes.Name, Guest);
 
@@ -22,6 +22,12 @@ namespace WebsiteApplication.CodeBehind.Classess
         {
             get { return FindAll(ClaimTypes.Role).Select(c => c.Value).ToArray(); }
         }
+
+        public string[] Rights
+        {
+            get { return FindAll(ApplicationClaims.Rights).Select(c => c.Value).ToArray(); }
+        }
+
 
         private string GetValueOrDefault(string claimType, string defaultValue = null)
         {
