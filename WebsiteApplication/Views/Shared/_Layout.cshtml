@@ -1,4 +1,4 @@
-﻿@using WebsiteApplication.CodeBehind
+﻿@using WebsiteApplication.CodeBehind.Extensions
 <!DOCTYPE html>
 <html lang="pl-PL">
 <head>
@@ -13,6 +13,37 @@
     <meta name="description" content="Praca magisterska - Rafał Kamil Palej"/>
 </head>
 <body>
+<script>
+    var app = app || {};
+    app.register = function(ns, o, init) {
+        var tmp = window;
+        ns.split('.').map(function(x) {
+            !tmp[x] && (tmp[x] = {});
+            tmp = tmp[x];
+        });
+        $.extend(tmp, o);
+    };
+    app.notify = app.notify ||
+    (function() {
+        return $('<div/>').kendoNotification({
+            width: '80%',
+            stacking: "down",
+            position: {
+                pinned: true,
+                top: 30,
+                right: 20
+            },
+            show: function(e) {
+                e.element.parent().css('zIndex', 99999);
+                if (e.sender.getNotifications().length === 1) {
+                    var element = e.element.parent(), eWidth = element.width(), wWidth = $(window).width(), newLeft;
+                    newLeft = Math.floor(wWidth / 2 - eWidth / 2);
+                    e.element.parent().css({ left: newLeft });
+                }
+            }
+        }).data('kendoNotification');
+    })();
+</script>
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -25,12 +56,16 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
-                <li>@Html.ActionLink("O systemie", "About", "Home")</li>
-                <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                @if(Context.User.IsInAnyRole("ADMIN,ADMIN_TECH,DOCTOR"))
+                <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
+                <li>@Html.ActionLink(GlobalTranslations.AboutSystem, "About", "Home")</li>
+                <li>@Html.ActionLink(GlobalTranslations.Contact, "Contact", "Home")</li>
+                @if (Context.User.IsInAnyRole("ADMIN,ADMIN_TECH,TECHNICAN"))
                 {
-                    <li>@Html.ActionLink("Wyszukaj pacjenta", "Index", "Patient")</li>
+                    <li>@Html.ActionLink(GlobalTranslations.Institutions, "Index", "Institution")</li>
+                }
+                @if (Context.User.IsInAnyRole("ADMIN,ADMIN_TECH,DOCTOR"))
+                {
+                    <li>@Html.ActionLink(GlobalTranslations.SearchPatient, "Index", "Patient")</li>
                 }
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -48,7 +83,11 @@
         <p>&copy; @DateTime.Now.Year - Rafał Kamil Palej - AGH</p>
     </footer>
 </div>
+
+@(Html.Kendo().Notification().Name("popupNotification"))
+
 @Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", false)
+
 </body>
 </html>

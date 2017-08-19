@@ -1,0 +1,14 @@
+﻿@model List<WebsiteApplication.Models.ViewModels.Tile.TileViewModel>
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var tile in Model)
+        {
+            @Html.Partial("Tiles/_Tile", tile)
+        }
+    </div>
+</div>

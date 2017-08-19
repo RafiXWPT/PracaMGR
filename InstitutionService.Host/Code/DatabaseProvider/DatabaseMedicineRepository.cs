@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using Domain.Interfaces;
 using Domain.Inventory;
@@ -6,30 +7,47 @@ using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    internal class DatabaseMedicineRepository : IMedicineRepository
+    internal class DatabaseMedicineRepository : IRepository<Medicine>
     {
         private readonly InstitutionServiceDatabaseContext _context;
 
-        public DatabaseMedicineRepository(IRepository context)
+        public DatabaseMedicineRepository(IDbRepository context)
         {
             _context = context as InstitutionServiceDatabaseContext;
         }
 
-        public IQueryable<Medicine> Medicines => _context.Medicines;
-
-        public void Update(Medicine medicine)
+        public IQueryable<Medicine> Entities => _context.Medicines;
+        public void Create(Medicine entity)
         {
-            throw new NotImplementedException();
+            _context.Medicines.Add(entity);
+            SaveChanges();
         }
 
-        public void Add(Medicine medicine)
+        public Medicine Read(Guid entityId)
         {
-            _context.Medicines.Add(medicine);
+            return Entities.FirstOrDefault(e => e.MedicineId == entityId);
+        }
+
+        public void Update(Medicine entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+            SaveChanges();
+        }
+
+        public void Delete(Medicine entity)
+        {
+            _context.Medicines.Remove(entity);
+            SaveChanges();
         }
 
         public void SaveChanges()
         {
             _context.SaveChanges();
+        }
+
+        public int CreatedInLast(DateTime time, string username = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }

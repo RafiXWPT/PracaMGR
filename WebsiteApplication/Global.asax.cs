@@ -5,8 +5,12 @@ using System.Web.Routing;
 using AutoMapper;
 using Domain;
 using Domain.Residence;
+using Microsoft.AspNet.Identity.EntityFramework;
+using WebsiteApplication.Models.ViewModels.Institution;
 using WebsiteApplication.Models.ViewModels.Patient;
 using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;
+using WebsiteApplication.Models.ViewModels.Reports;
+using WebsiteApplication.Models.ViewModels.Rights;
 
 namespace WebsiteApplication
 {
@@ -21,9 +25,14 @@ namespace WebsiteApplication
 
             Mapper.Initialize(cfg =>
             {
+                // CORE
+                cfg.CreateMap<Institution, InstitutionViewModel>();
+                cfg.CreateMap<Right, RightViewModel>();
+                cfg.CreateMap<IdentityRole, RoleViewModel>();
                 // DTO OBJECTS
                 cfg.CreateMap<Institution, InstitutionTransferObject>();
                 // VIEW MODELS
+                cfg.CreateMap<ReaportRequest, ReportRequestViewModel>();
                 cfg.CreateMap<PersonTransferObject, PersonViewModel>();
                 cfg.CreateMap<PatientTransferObject, PatientViewModel>();
                 cfg.CreateMap<HospitalizationBasicTransferObject, HospitalizationViewModel>();

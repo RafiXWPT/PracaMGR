@@ -8,6 +8,7 @@ namespace WebsiteApplication.DataAccessLayer
 {
     public class WebsiteDatabaseContext : IdentityDbContext<ApplicationUser>
     {
+        /* USER PASSWORDS => P@ssword123 */
         static WebsiteDatabaseContext()
         {
             Database.SetInitializer<WebsiteDatabaseContext>(null);
@@ -22,6 +23,11 @@ namespace WebsiteApplication.DataAccessLayer
         }
 
         public DbSet<Institution> Institutions { get; set; }
+        public DbSet<GeneratedReaport> GeneratedReaports { get; set; }
+        public DbSet<ReaportRequest> ReaportRequests { get; set; }
+        public DbSet<SearchHistory> SearchHistories { get; set; }
+        public DbSet<Right> Rights { get; set; }
+        public DbSet<RoleToRight> RolesToRights { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using Domain.Interfaces;
 using Domain.Inventory;
@@ -6,31 +7,48 @@ using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    internal class DatabaseUsedMedicineRepository : IUsedMedicineRepository
+    internal class DatabaseUsedMedicineRepository : IRepository<UsedMedicine>
     {
         private readonly InstitutionServiceDatabaseContext _context;
 
-        public DatabaseUsedMedicineRepository(IRepository context)
+        public DatabaseUsedMedicineRepository(IDbRepository context)
         {
             _context = context as InstitutionServiceDatabaseContext;
         }
 
-        public IQueryable<UsedMedicine> UsedMedicines => _context.UsedMedicines;
 
-        public void Update(UsedMedicine usedMedicine)
+        public IQueryable<UsedMedicine> Entities => _context.UsedMedicines;
+        public void Create(UsedMedicine entity)
         {
-            throw new NotImplementedException();
+            _context.UsedMedicines.Add(entity);
+            SaveChanges();
         }
 
-        public void Add(UsedMedicine usedMedicine)
+        public UsedMedicine Read(Guid entityId)
         {
-            _context.UsedMedicines.Add(usedMedicine);
-            ;
+            return Entities.FirstOrDefault(e => e.UsedMedicineId == entityId);
+        }
+
+        public void Update(UsedMedicine entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+            SaveChanges();
+        }
+
+        public void Delete(UsedMedicine entity)
+        {
+            _context.UsedMedicines.Remove(entity);
+            SaveChanges();
         }
 
         public void SaveChanges()
         {
             _context.SaveChanges();
+        }
+
+        public int CreatedInLast(DateTime time, string username = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }

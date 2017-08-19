@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props')" />
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.6\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.6\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,8 +49,29 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.barcodes, Version=7.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.0.4\lib\net40\itext.barcodes.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.forms, Version=7.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.0.4\lib\net40\itext.forms.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.io, Version=7.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.0.4\lib\net40\itext.io.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.kernel, Version=7.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.0.4\lib\net40\itext.kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.layout, Version=7.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.0.4\lib\net40\itext.layout.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.pdfa, Version=7.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.0.4\lib\net40\itext.pdfa.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.sign, Version=7.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.0.4\lib\net40\itext.sign.dll</HintPath>
     </Reference>
     <Reference Include="Kendo.Mvc, Version=2017.1.118.440, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -58,9 +80,8 @@
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.6\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -88,22 +109,22 @@
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SendGrid.SmtpApi, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SendGrid.SmtpApi.1.3.2\lib\SendGrid.SmtpApi.dll</HintPath>
+    <Reference Include="SendGrid.SmtpApi, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.SmtpApi.1.3.3\lib\SendGrid.SmtpApi.dll</HintPath>
     </Reference>
     <Reference Include="SendGridMail, Version=5.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SendGrid.Net40.5.1.0.0\lib\net40\SendGridMail.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector, Version=4.0.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.4.0.0\lib\net45\SimpleInjector.dll</HintPath>
+    <Reference Include="SimpleInjector, Version=4.0.8.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.4.0.8\lib\net45\SimpleInjector.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector.Integration.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.Integration.Web.4.0.0\lib\net40\SimpleInjector.Integration.Web.dll</HintPath>
+    <Reference Include="SimpleInjector.Integration.Web, Version=4.0.8.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.Integration.Web.4.0.8\lib\net40\SimpleInjector.Integration.Web.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector.Integration.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.Integration.Web.Mvc.4.0.0\lib\net40\SimpleInjector.Integration.Web.Mvc.dll</HintPath>
+    <Reference Include="SimpleInjector.Integration.Web.Mvc, Version=4.0.8.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.Integration.Web.Mvc.4.0.8\lib\net40\SimpleInjector.Integration.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -174,51 +195,84 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="CodeBehind\CultureHelper.cs" />
-    <Compile Include="CodeBehind\UserRoleExtensions.cs" />
-    <Compile Include="CodeBehind\WcfDataFetcher.cs" />
-    <Compile Include="CodeBehind\WcfPersonInfoFetcher.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="CodeBehind\Attributes\AuthorizeRightAttribute.cs" />
+    <Compile Include="CodeBehind\Classess\ApplicationPrincipal.cs" />
+    <Compile Include="CodeBehind\Classess\OperationResult.cs" />
+    <Compile Include="CodeBehind\Helpers\CultureHelper.cs" />
+    <Compile Include="CodeBehind\Helpers\TimeHelper.cs" />
+    <Compile Include="CodeBehind\Raport\IRaportService.cs" />
+    <Compile Include="CodeBehind\Rights\IRightsManager.cs" />
+    <Compile Include="CodeBehind\Raport\PdfRaportService.cs" />
+    <Compile Include="CodeBehind\Rights\RightsManager.cs" />
+    <Compile Include="CodeBehind\Extensions\UserRoleExtensions.cs" />
+    <Compile Include="CodeBehind\WcfServices\WcfDataFetcher.cs" />
+    <Compile Include="CodeBehind\WcfServices\WcfPersonInfoFetcher.cs" />
+    <Compile Include="Controllers\AdditionalControllers\KendoController.cs" />
     <Compile Include="Controllers\ASP.NET Identity\AccountController.cs" />
-    <Compile Include="CodeBehind\ApplicationEmailService.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CultureController.cs" />
+    <Compile Include="CodeBehind\Email\ApplicationEmailService.cs" />
+    <Compile Include="Controllers\AdditionalControllers\BaseController.cs" />
+    <Compile Include="Controllers\AdditionalControllers\CultureController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\GlobalDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ASP.NET Identity\ManageController.cs" />
+    <Compile Include="Controllers\AdditionalControllers\IdentityController.cs" />
     <Compile Include="Controllers\InstitutionController.cs" />
     <Compile Include="Controllers\NotAuthorizeController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ReportListController.cs" />
+    <Compile Include="Controllers\RightsController.cs" />
     <Compile Include="DataAccessLayer\DatabaseInstitutionRepository.cs" />
+    <Compile Include="DataAccessLayer\GeneratedReaportRepository.cs" />
+    <Compile Include="DataAccessLayer\ReaportRequestRepository.cs" />
+    <Compile Include="DataAccessLayer\SearchHistoryRepository.cs" />
     <Compile Include="DataAccessLayer\WebsiteDatabaseContext.cs" />
     <Compile Include="Filters\RoleAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701132038082_Init.cs" />
-    <Compile Include="Migrations\201701132038082_Init.Designer.cs">
-      <DependentUpon>201701132038082_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201708161936063_Init.cs" />
+    <Compile Include="Migrations\201708161936063_Init.Designer.cs">
+      <DependentUpon>201708161936063_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704091917148_NazwaInstytucji.cs" />
-    <Compile Include="Migrations\201704091917148_NazwaInstytucji.Designer.cs">
-      <DependentUpon>201704091917148_NazwaInstytucji.cs</DependentUpon>
+    <Compile Include="Migrations\201708171842029_deleteFields.cs" />
+    <Compile Include="Migrations\201708171842029_deleteFields.Designer.cs">
+      <DependentUpon>201708171842029_deleteFields.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704151543519_AddressForUser.cs" />
-    <Compile Include="Migrations\201704151543519_AddressForUser.Designer.cs">
-      <DependentUpon>201704151543519_AddressForUser.cs</DependentUpon>
+    <Compile Include="Migrations\201708172033306_dataWygenerowaniaRaportu.cs" />
+    <Compile Include="Migrations\201708172033306_dataWygenerowaniaRaportu.Designer.cs">
+      <DependentUpon>201708172033306_dataWygenerowaniaRaportu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708191532490_HistoriaWyszukiwania.cs" />
+    <Compile Include="Migrations\201708191532490_HistoriaWyszukiwania.Designer.cs">
+      <DependentUpon>201708191532490_HistoriaWyszukiwania.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708191646195_CreatedCountable.cs" />
+    <Compile Include="Migrations\201708191646195_CreatedCountable.Designer.cs">
+      <DependentUpon>201708191646195_CreatedCountable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\ViewModels\Admin\RoleViewModel.cs" />
-    <Compile Include="Models\ViewModels\Admin\UserViewModel.cs" />
     <Compile Include="Models\ViewModels\ASPNET.Identity\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ViewModels\ASPNET.Identity\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\GlobalData\PatientViewModel.cs" />
+    <Compile Include="Models\ViewModels\GlobalData\PersonInfoViewModel.cs" />
+    <Compile Include="Models\ViewModels\GlobalData\TabStripItemViewModel.cs" />
+    <Compile Include="Models\ViewModels\GlobalData\TabStripViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\CultureListItem.cs" />
+    <Compile Include="Models\ViewModels\Institution\InstitutionViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\ExaminationViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\HospitalizationViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\TreatmentViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\PatientViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\PersonizedPatientViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\PersonViewModel.cs" />
+    <Compile Include="Models\ViewModels\Reports\ReportRequestViewModel.cs" />
+    <Compile Include="Models\ViewModels\Rights\RightViewModel.cs" />
+    <Compile Include="Models\ViewModels\Rights\RoleViewModel.cs" />
+    <Compile Include="Models\ViewModels\Rights\UserViewModel.cs" />
+    <Compile Include="Models\ViewModels\Tile\TileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\GlobalTranslations.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -238,10 +292,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Additional\additional.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\error.png" />
     <Content Include="Content\Images\flag-pl.png" />
     <Content Include="Content\Images\flag-uk.png" />
@@ -584,6 +641,7 @@
     <Content Include="Content\kendo\Uniform\sprite_kpi.png" />
     <Content Include="Content\kendo\Uniform\sprite_kpi_2x.png" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -692,6 +750,11 @@
     <Content Include="Content\kendo\kendo.silver.mobile.min.css.map" />
     <Content Include="Content\kendo\kendo.uniform.min.css.map" />
     <Content Include="Content\kendo\kendo.uniform.mobile.min.css.map" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1317,6 +1380,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\ReportList\ReportList.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1969,9 +2033,21 @@
     <Content Include="Views\Shared\_CultureSelector.cshtml" />
     <Content Include="Views\NotAuthorize\Index.cshtml" />
     <Content Include="Views\Account\RegistrationAwaits.cshtml" />
-    <Content Include="Views\Admin\ApplicationUsers.cshtml" />
-    <Content Include="Views\Admin\EditorTemplates\RightsEditor.cshtml" />
     <Content Include="Views\Patient\TreatmentDetails.cshtml" />
+    <Content Include="Views\GlobalData\Index.cshtml" />
+    <Content Include="Views\GlobalData\TabItem.cshtml" />
+    <Content Include="Views\Rights\Index.cshtml" />
+    <Content Include="Views\Rights\RolesTab.cshtml" />
+    <Content Include="Views\Rights\RightsTab.cshtml" />
+    <Content Include="Views\Rights\RolesToRightsTab.cshtml" />
+    <Content Include="Views\Rights\EditorTemplates\RoleEditor.cshtml" />
+    <Content Include="Views\Rights\UserRolesTab.cshtml" />
+    <Content Include="Views\ReportList\Index.cshtml" />
+    <Content Include="Views\ReportList\PendingReports.cshtml" />
+    <Content Include="Views\ReportList\AcceptedReports.cshtml" />
+    <Content Include="Views\ReportList\RejectedReports.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Dashboard\Tiles\_Tile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1994,14 +2070,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701132038082_Init.resx">
-      <DependentUpon>201701132038082_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708161936063_Init.resx">
+      <DependentUpon>201708161936063_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704091917148_NazwaInstytucji.resx">
-      <DependentUpon>201704091917148_NazwaInstytucji.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708171842029_deleteFields.resx">
+      <DependentUpon>201708171842029_deleteFields.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704151543519_AddressForUser.resx">
-      <DependentUpon>201704151543519_AddressForUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708172033306_dataWygenerowaniaRaportu.resx">
+      <DependentUpon>201708172033306_dataWygenerowaniaRaportu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708191532490_HistoriaWyszukiwania.resx">
+      <DependentUpon>201708191532490_HistoriaWyszukiwania.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708191646195_CreatedCountable.resx">
+      <DependentUpon>201708191646195_CreatedCountable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\GlobalTranslations.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -2048,9 +2130,9 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.6\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.6\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

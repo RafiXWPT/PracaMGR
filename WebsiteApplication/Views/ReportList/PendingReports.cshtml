@@ -1,0 +1,20 @@
+﻿@using WebsiteApplication.Models.ViewModels.Reports
+@(Html.Kendo().Grid<ReportRequestViewModel>()
+      .Name("pending-reaport-requests")
+      .Columns(c =>
+      {
+          c.Bound(vm => vm.PatientPesel);
+          c.Bound(vm => vm.CreatedAt);
+          c.Bound(vm => vm.CreatedBy);
+          c.Command(cmd =>
+          {
+              cmd.Custom("accept").Text("AKCEPTUJ").Click("app.reportList.onAccept");
+              cmd.Custom("reject").Text("ODRZUĆ").Click("app.reportList.onReject");
+          });
+      })
+      .Pageable()
+      .Sortable()
+      .DataSource(ds => ds
+          .Ajax()
+          .PageSize(10)
+          .Read(r => r.Action("ReadPendingReports", "ReportList"))))

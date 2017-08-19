@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Role i uprawnienia";
+}
+
+@(Html.Kendo().TabStrip()
+      .Name("roles-manager-tabstrip")
+      .Animation(true)
+      .Events(e => e.Select("onSelect"))
+      .Items(i =>
+      {
+          i.Add().Text("Role").LoadContentFrom("RolesTab", "Rights").Selected(true);
+          i.Add().Text("Uprawnienia").LoadContentFrom("RightsTab", "Rights");
+          i.Add().Text("Uprawnienia ról").LoadContentFrom("RolesToRightsTab", "Rights");
+          i.Add().Text("Role użytkowników").LoadContentFrom("UserRolesTab", "Rights");
+      }))
+
+<script>
+    function onSelect(e) {
+        $(e.contentElement).html("");
+    }
+</script>

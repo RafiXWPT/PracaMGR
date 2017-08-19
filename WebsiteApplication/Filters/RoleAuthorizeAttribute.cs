@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Linq;
-using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
-using WebsiteApplication.CodeBehind;
+using WebsiteApplication.CodeBehind.Extensions;
 
 namespace WebsiteApplication.Filters
 {

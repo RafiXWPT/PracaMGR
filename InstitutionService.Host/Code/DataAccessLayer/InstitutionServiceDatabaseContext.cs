@@ -7,7 +7,7 @@ using Domain.Residence;
 
 namespace InstitutionService.Host.Code.DataAccessLayer
 {
-    public class InstitutionServiceDatabaseContext : DbContext, IRepository
+    public class InstitutionServiceDatabaseContext : DbContext, IDbRepository
     {
         static InstitutionServiceDatabaseContext()
         {

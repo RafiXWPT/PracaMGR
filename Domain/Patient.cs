@@ -24,7 +24,16 @@ namespace Domain
         public string InstitutionName { get; set; }
 
         [DataMember]
-        public List<HospitalizationBasicTransferObject> Hospitalizations { get; set; } =
-            new List<HospitalizationBasicTransferObject>();
+        public List<HospitalizationBasicTransferObject> Hospitalizations { get; set; } = new List<HospitalizationBasicTransferObject>();
+    }
+
+    [DataContract]
+    public class PatientHistoryTransferObject
+    {
+        [DataMember]
+        public string Pesel { get; set; }
+
+        [DataMember]
+        public List<HospitalizationHistoryTransferObject> Hospitalizations { get; set; } = new List<HospitalizationHistoryTransferObject>();
     }
 }

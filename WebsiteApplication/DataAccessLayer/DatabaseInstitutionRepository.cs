@@ -1,11 +1,12 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using Domain;
 using Domain.Interfaces;
 
 namespace WebsiteApplication.DataAccessLayer
 {
-    internal class DatabaseInstitutionRepository : IInstitutionRepository
+    internal class DatabaseInstitutionRepository : IRepository<Institution>
     {
         private readonly WebsiteDatabaseContext _context;
 
@@ -14,29 +15,41 @@ namespace WebsiteApplication.DataAccessLayer
             _context = context;
         }
 
-        public IQueryable<Institution> Institutions => _context.Institutions;
+        public IQueryable<Institution> Entities => _context.Institutions;
 
-        public void Add(Institution institution)
+        public void Create(Institution entity)
         {
-            _context.Institutions.Add(institution);
-            _context.SaveChanges();
+            entity.InstitutionId = Guid.NewGuid();
+            entity.Address.AddressId = Guid.NewGuid();
+            _context.Institutions.Add(entity);
+            SaveChanges();
         }
 
-        public void Update(Institution institution)
+        public Institution Read(Guid entityId)
         {
-            _context.Entry(institution).State = EntityState.Modified;
-            _context.SaveChanges();
+            return Entities.FirstOrDefault(e => e.InstitutionId == entityId);
         }
 
-        public void Delete(Institution institution)
+        public void Update(Institution entity)
         {
-            _context.Institutions.Remove(institution);
-            _context.SaveChanges();
+            _context.Entry(entity).State = EntityState.Modified;
+            SaveChanges();
+        }
+
+        public void Delete(Institution entity)
+        {
+            _context.Institutions.Remove(entity);
+            SaveChanges();
         }
 
         public void SaveChanges()
         {
             _context.SaveChanges();
+        }
+
+        public int CreatedInLast(DateTime time, string username = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }

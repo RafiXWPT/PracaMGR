@@ -1,19 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using AutoMapper;
 using Domain;
 using Domain.Interfaces;
+using WebsiteApplication.Controllers.AdditionalControllers;
 using WebsiteApplication.Filters;
+using WebsiteApplication.Models.ViewModels.Institution;
 
 namespace WebsiteApplication.Controllers
 {
     [RoleAuthorize(Roles = "ADMIN,ADMIN_TECH,TECHNICAN")]
     public class InstitutionController : BaseController
     {
-        private readonly IInstitutionRepository _repository;
+        private readonly IRepository<Institution> _repository;
 
-        public InstitutionController(IInstitutionRepository repository)
+        public InstitutionController(IRepository<Institution> repository)
         {
             _repository = repository;
         }
@@ -21,7 +25,8 @@ namespace WebsiteApplication.Controllers
         // GET: Institution
         public ActionResult Index()
         {
-            return View(_repository.Institutions.ToList());
+            var institutions = _repository.Entities.ToList();
+            return View(Mapper.Map<List<Institution>, List<InstitutionViewModel>>(institutions));
         }
 
         // GET: Institution/Details/5
@@ -29,10 +34,11 @@ namespace WebsiteApplication.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var institution = _repository.Institutions.First(x => x.InstitutionId == id);
+            var institution = _repository.Read(id.Value);
             if (institution == null)
                 return HttpNotFound();
-            return View(institution);
+
+            return View(Mapper.Map<InstitutionViewModel>(institution));
         }
 
         // GET: Institution/Create
@@ -47,13 +53,15 @@ namespace WebsiteApplication.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(
-            [Bind(Include = "InstitutionEndpointAddress,InstitutionName,Address")] Institution institution)
+            [Bind(Include = "InstitutionEndpointAddress,InstitutionName,Address")] InstitutionViewModel institution)
         {
             if (ModelState.IsValid)
             {
-                institution.InstitutionId = Guid.NewGuid();
-                institution.Address.AddressId = Guid.NewGuid();
-                _repository.Add(institution);
+                var newInstitution = new Institution();
+                newInstitution.InstitutionName = institution.InstitutionName;
+                newInstitution.InstitutionEndpointAddress = institution.InstitutionEndpointAddress;
+                newInstitution.Address = institution.Address;
+                _repository.Create(newInstitution);
                 return RedirectToAction("Index");
             }
 
@@ -65,10 +73,10 @@ namespace WebsiteApplication.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var institution = _repository.Institutions.First(x => x.InstitutionId == id);
+            var institution = _repository.Read(id.Value);
             if (institution == null)
                 return HttpNotFound();
-            return View(institution);
+            return View(Mapper.Map<InstitutionViewModel>(institution));
         }
 
         // POST: Institution/Edit/5
@@ -76,11 +84,22 @@ namespace WebsiteApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "InstitutionId,InstitutionEndpointAddress")] Institution institution)
+        public ActionResult Edit(
+            [Bind(Include = "InstitutionId,InstitutionEndpointAddress")] InstitutionViewModel institution)
         {
             if (ModelState.IsValid)
             {
-                _repository.Update(institution);
+                var repositoryInstitution =
+                    _repository.Read(institution.InstitutionId);
+
+                if (repositoryInstitution == null)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                repositoryInstitution.InstitutionName = institution.InstitutionName;
+                repositoryInstitution.InstitutionEndpointAddress = institution.InstitutionEndpointAddress;
+                repositoryInstitution.Address = institution.Address;
+
+                _repository.Update(repositoryInstitution);
                 return RedirectToAction("Index");
             }
             return View(institution);
@@ -91,11 +110,11 @@ namespace WebsiteApplication.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var institution = _repository.Institutions.First(x => x.InstitutionId == id);
+            var institution = _repository.Read(id.Value);
 
             if (institution == null)
                 return HttpNotFound();
-            return View(institution);
+            return View(Mapper.Map<InstitutionViewModel>(institution));
         }
 
         // POST: Institution/Delete/5
@@ -104,7 +123,7 @@ namespace WebsiteApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            var institution = _repository.Institutions.First(x => x.InstitutionId == id);
+            var institution = _repository.Read(id);
             _repository.Delete(institution);
             return RedirectToAction("Index");
         }

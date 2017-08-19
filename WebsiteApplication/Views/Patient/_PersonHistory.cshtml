@@ -25,9 +25,9 @@
                       {
                           column.Bound(x => x.InstitutionId).Hidden();
                           column.Bound(x => x.HospitalizationId).Hidden();
-                          column.Bound(x => x.HospitalizationStartTime).Template(@<text></text>).ClientTemplate("#=kendo.toString(HospitalizationStartTime, 'yyyy-MM-dd hh:mm:ss')#  (Czas środkowoeuropejski)").Width(100);
-                          column.Bound(x => x.HospitalizationEndTime).Template(@<text></text>).ClientTemplate("#=kendo.toString(HospitalizationEndTime, 'yyyy-MM-dd hh:mm:ss')#  (Czas środkowoeuropejski)").Width(100);
-                          column.Command(command => command.Custom("Szczegóły").Click("showDetails")).Width(100);
+                          column.Bound(x => x.HospitalizationStartTime).Template(@<text></text>).ClientTemplate("#=kendo.toString(HospitalizationStartTime, 'yyyy-MM-dd hh:mm:ss')#").Width(100);
+                          column.Bound(x => x.HospitalizationEndTime).Template(@<text></text>).ClientTemplate("#=kendo.toString(HospitalizationEndTime, 'yyyy-MM-dd hh:mm:ss')#").Width(100);
+                          column.Command(command => command.Custom(GlobalTranslations.Details).Click("showDetails")).Width(100);
                       })
                           .Pageable()
                           .Sortable()

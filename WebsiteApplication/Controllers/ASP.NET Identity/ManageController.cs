@@ -4,9 +4,10 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using WebsiteApplication.Controllers.AdditionalControllers;
 using WebsiteApplication.Models;
 
-namespace WebsiteApplication.Controllers
+namespace WebsiteApplication.Controllers.ASP.NET_Identity
 {
     [Authorize]
     public class ManageController : BaseController
@@ -64,7 +65,7 @@ namespace WebsiteApplication.Controllers
             {
                 var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
-                    await _signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await _signInManager.SignInAsync(user, false, false);
                 message = ManageMessageId.RemoveLoginSuccess;
             }
             else
@@ -112,7 +113,7 @@ namespace WebsiteApplication.Controllers
             await _userManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), true);
             var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
-                await _signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                await _signInManager.SignInAsync(user, false, false);
             return RedirectToAction("Index", "Manage");
         }
 
@@ -125,7 +126,7 @@ namespace WebsiteApplication.Controllers
             await _userManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), false);
             var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
-                await _signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                await _signInManager.SignInAsync(user, false, false);
             return RedirectToAction("Index", "Manage");
         }
 
@@ -154,7 +155,7 @@ namespace WebsiteApplication.Controllers
             {
                 var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
-                    await _signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await _signInManager.SignInAsync(user, false, false);
                 return RedirectToAction("Index", new {Message = ManageMessageId.AddPhoneSuccess});
             }
             // If we got this far, something failed, redisplay form
@@ -173,7 +174,7 @@ namespace WebsiteApplication.Controllers
                 return RedirectToAction("Index", new {Message = ManageMessageId.Error});
             var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
-                await _signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                await _signInManager.SignInAsync(user, false, false);
             return RedirectToAction("Index", new {Message = ManageMessageId.RemovePhoneSuccess});
         }
 
@@ -198,7 +199,7 @@ namespace WebsiteApplication.Controllers
             {
                 var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
-                    await _signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await _signInManager.SignInAsync(user, false, false);
                 return RedirectToAction("Index", new {Message = ManageMessageId.ChangePasswordSuccess});
             }
             AddErrors(result);
@@ -225,7 +226,7 @@ namespace WebsiteApplication.Controllers
                 {
                     var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
                     if (user != null)
-                        await _signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        await _signInManager.SignInAsync(user, false, false);
                     return RedirectToAction("Index", new {Message = ManageMessageId.SetPasswordSuccess});
                 }
                 AddErrors(result);

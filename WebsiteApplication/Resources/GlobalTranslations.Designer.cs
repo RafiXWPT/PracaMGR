@@ -61,6 +61,15 @@ namespace WebsiteApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O systemie.
+        /// </summary>
+        public static string AboutSystem {
+            get {
+                return ResourceManager.GetString("AboutSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Miasto.
         /// </summary>
         public static string AddressCity {
@@ -142,11 +151,110 @@ namespace WebsiteApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dodaj.
+        /// </summary>
+        public static string CreateNew {
+            get {
+                return ResourceManager.GetString("CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aktualne hasło.
         /// </summary>
         public static string CurrentPassword {
             get {
                 return ResourceManager.GetString("CurrentPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuń.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Szczegóły.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edycja.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Szczegóły badania.
+        /// </summary>
+        public static string ExaminationDetails {
+            get {
+                return ResourceManager.GetString("ExaminationDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przeprowadzone badania.
+        /// </summary>
+        public static string Examinations {
+            get {
+                return ResourceManager.GetString("Examinations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dane globalne pacjentów.
+        /// </summary>
+        public static string GlobalPatientData {
+            get {
+                return ResourceManager.GetString("GlobalPatientData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instytucja.
+        /// </summary>
+        public static string Institution {
+            get {
+                return ResourceManager.GetString("Institution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adres placówki.
+        /// </summary>
+        public static string InstitutionEndpointAddress {
+            get {
+                return ResourceManager.GetString("InstitutionEndpointAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instytucja.
+        /// </summary>
+        public static string InstitutionName {
+            get {
+                return ResourceManager.GetString("InstitutionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instytucje.
+        /// </summary>
+        public static string Institutions {
+            get {
+                return ResourceManager.GetString("Institutions", resourceCulture);
             }
         }
         
@@ -165,6 +273,24 @@ namespace WebsiteApplication.Resources {
         public static string InvalidLoginAttempt {
             get {
                 return ResourceManager.GetString("InvalidLoginAttempt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ostatnia data hospitalizacji.
+        /// </summary>
+        public static string LastHospitalizationTime {
+            get {
+                return ResourceManager.GetString("LastHospitalizationTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Strona główna.
+        /// </summary>
+        public static string MainPage {
+            get {
+                return ResourceManager.GetString("MainPage", resourceCulture);
             }
         }
         
@@ -192,6 +318,15 @@ namespace WebsiteApplication.Resources {
         public static string PasswordConfirmationError {
             get {
                 return ResourceManager.GetString("PasswordConfirmationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pacjent.
+        /// </summary>
+        public static string Patient {
+            get {
+                return ResourceManager.GetString("Patient", resourceCulture);
             }
         }
         
@@ -277,6 +412,15 @@ namespace WebsiteApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zapisz.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wyszukaj.
         /// </summary>
         public static string Search {
@@ -286,11 +430,38 @@ namespace WebsiteApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wyszukaj pacjenta.
+        /// </summary>
+        public static string SearchPatient {
+            get {
+                return ResourceManager.GetString("SearchPatient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} musi być przynajmniej o długości {2}.
         /// </summary>
         public static string The0MustBeAtLeast2CharactersLong {
             get {
                 return ResourceManager.GetString("The0MustBeAtLeast2CharactersLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Szczegóły leczenia.
+        /// </summary>
+        public static string TreatmentDetails {
+            get {
+                return ResourceManager.GetString("TreatmentDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przeprowadzone leczenia.
+        /// </summary>
+        public static string Treatments {
+            get {
+                return ResourceManager.GetString("Treatments", resourceCulture);
             }
         }
         

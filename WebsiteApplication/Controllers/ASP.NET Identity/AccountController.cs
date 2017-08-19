@@ -4,11 +4,12 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using WebsiteApplication.CodeBehind;
+using WebsiteApplication.CodeBehind.Email;
+using WebsiteApplication.Controllers.AdditionalControllers;
 using WebsiteApplication.Models;
 using WebsiteApplication.Resources;
 
-namespace WebsiteApplication.Controllers
+namespace WebsiteApplication.Controllers.ASP.NET_Identity
 {
     [Authorize]
     public class AccountController : BaseController

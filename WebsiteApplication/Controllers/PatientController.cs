@@ -3,8 +3,13 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AutoMapper;
+using Domain;
 using Domain.Interfaces;
-using WebsiteApplication.CodeBehind;
+using Domain.Residence;
+using WebsiteApplication.CodeBehind.Attributes;
+using WebsiteApplication.CodeBehind.Helpers;
+using WebsiteApplication.CodeBehind.WcfServices;
+using WebsiteApplication.Controllers.AdditionalControllers;
 using WebsiteApplication.Filters;
 using WebsiteApplication.Models.ViewModels.Patient;
 using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;
@@ -12,18 +17,20 @@ using WebsiteApplication.Models.ViewModels.Patient.Hospitalization;
 namespace WebsiteApplication.Controllers
 {
     [RoutePrefix("Patient")]
-    [RoleAuthorize(Roles = "ADMIN,ADMIN_TECH,DOCTOR")]
-    public class PatientController : BaseController
+    [AuthorizeRight(Right = "GET_PATIENT_INFO")]
+    public class PatientController : KendoController
     {
         private readonly WcfDataFetcher _patientInfoFetcher;
         private readonly WcfPersonInfoFetcher _personInfoFetcher;
-        private readonly IInstitutionRepository _repository;
+        private readonly IRepository<Institution> _institutionRepository;
+        private readonly IRepository<SearchHistory> _searchHistoryRepository;
 
-        public PatientController(IInstitutionRepository repository)
+        public PatientController(IRepository<Institution> institutionRepository, IRepository<SearchHistory> searchHistoryRepository)
         {
-            _repository = repository;
+            _institutionRepository = institutionRepository;
+            _searchHistoryRepository = searchHistoryRepository;
             _personInfoFetcher = new WcfPersonInfoFetcher();
-            _patientInfoFetcher = new WcfDataFetcher(repository);
+            _patientInfoFetcher = new WcfDataFetcher(institutionRepository, searchHistoryRepository, User.Name);
         }
 
         public ActionResult Index(string pesel)
@@ -45,7 +52,7 @@ namespace WebsiteApplication.Controllers
         [Route("Info/{pesel}")]
         public ActionResult GetPatientInfo(string pesel)
         {
-            var person = Mapper.Map<PersonViewModel>(_personInfoFetcher.GetPersonInfo(pesel));
+            var person = MapSingle<PersonTransferObject, PersonViewModel>(_personInfoFetcher.GetPersonInfo(pesel));
             if (person == null)
                 return new HttpStatusCodeResult(69, "Osoba o podanym numerze PESEL nie istnieje.");
 
@@ -57,15 +64,19 @@ namespace WebsiteApplication.Controllers
         [Route("Patient/{pesel}")]
         public ActionResult Patient(string pesel)
         {
+            if(TimeHelper.IsCreatedCounterViolated(_searchHistoryRepository, User.Name))
+                return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
+
             return View();
         }
 
         [Route("History/{pesel}")]
         public ActionResult GetPatientHistory(string pesel)
         {
-            var patientRecordList = _patientInfoFetcher.GetPatientHistory(pesel)
-                .Select(Mapper.Map<PatientViewModel>)
-                .ToList();
+            if (TimeHelper.IsCreatedCounterViolated(_searchHistoryRepository, User.Name))
+                return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
+
+            var patientRecordList = _patientInfoFetcher.GetPatientInfo<PatientViewModel>(pesel);
             if (!patientRecordList.Any())
                 return new HttpStatusCodeResult(69, "Dla tej osoby nie istnieją żadne wpisy na temat hospitalizacji.");
 
@@ -81,15 +92,17 @@ namespace WebsiteApplication.Controllers
         [Route("HospitalizationDetails/{hospitalizationId}")]
         public ActionResult HospitalizationDetails(Guid hospitalizationId, Guid institutionId)
         {
+            if (TimeHelper.IsCreatedCounterViolated(_searchHistoryRepository, User.Name))
+                return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
+
             var personViewModel = TempData["CurrentPerson"] as PersonViewModel;
             if (personViewModel == null)
                 return RedirectToAction("Index");
 
             TempData.Keep();
 
-            var institution = _repository.Institutions.First(x => x.InstitutionId == institutionId);
-            var hospitalization = Mapper.Map<HospitalizationContainerViewModel>(
-                _patientInfoFetcher.GetHospitalization(hospitalizationId, institution.InstitutionEndpointAddress));
+            var institution = _institutionRepository.Read(institutionId);
+            var hospitalization = _patientInfoFetcher.GetHospitalization<HospitalizationContainerViewModel>(hospitalizationId, institution.InstitutionEndpointAddress);
 
             hospitalization.Person = personViewModel;
             hospitalization.Examinations.ForEach(x => x.InstitutionId = institutionId);
@@ -98,23 +111,25 @@ namespace WebsiteApplication.Controllers
             return View(hospitalization);
         }
 
-        [Route("ExaminationDetails/{examinationId}")]
+        [Route("ExaminationDetails/{treatmentId}")]
         public ActionResult ExaminationDetails(Guid examinationId, Guid institutionId)
         {
-            var institution = _repository.Institutions.First(x => x.InstitutionId == institutionId);
-            var examination =
-                Mapper.Map<ExaminationContainerViewModel>(
-                    _patientInfoFetcher.GetExamination(examinationId, institution.InstitutionEndpointAddress));
+            if (TimeHelper.IsCreatedCounterViolated(_searchHistoryRepository, User.Name))
+                return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
+
+            var institution = _institutionRepository.Read(institutionId);
+            var examination = _patientInfoFetcher.GetExamination<ExaminationContainerViewModel>(examinationId, institution.InstitutionEndpointAddress);
             return View(examination);
         }
 
         [Route("TreatmentDetails/{treatmentId}")]
         public ActionResult TreatmentDetails(Guid treatmentId, Guid institutionId)
         {
-            var institution = _repository.Institutions.First(x => x.InstitutionId == institutionId);
-            var treatment =
-                Mapper.Map<TreatmentContainerViewModel>(
-                    _patientInfoFetcher.GetTreatment(treatmentId, institution.InstitutionEndpointAddress));
+            if (TimeHelper.IsCreatedCounterViolated(_searchHistoryRepository, User.Name))
+                return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
+
+            var institution = _institutionRepository.Read(institutionId);
+            var treatment = _patientInfoFetcher.GetTreatment<TreatmentContainerViewModel>(treatmentId, institution.InstitutionEndpointAddress);
             return View(treatment);
         }
     }
