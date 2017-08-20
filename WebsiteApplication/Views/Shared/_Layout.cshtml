@@ -10,6 +10,13 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/kendo")
+    
+    <style>
+        .d-logout > i {
+            float: right;
+        }
+    </style>
+
     <meta name="description" content="Praca magisterska - Rafał Kamil Palej"/>
 </head>
 <body>
@@ -44,35 +51,10 @@
         }).data('kendoNotification');
     })();
 </script>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink(GlobalTranslations.PracaMagisterska, "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
-                <li>@Html.ActionLink(GlobalTranslations.AboutSystem, "About", "Home")</li>
-                <li>@Html.ActionLink(GlobalTranslations.Contact, "Contact", "Home")</li>
-                @if (Context.User.IsInAnyRole("ADMIN,ADMIN_TECH,TECHNICAN"))
-                {
-                    <li>@Html.ActionLink(GlobalTranslations.Institutions, "Index", "Institution")</li>
-                }
-                @if (Context.User.IsInAnyRole("ADMIN,ADMIN_TECH,DOCTOR"))
-                {
-                    <li>@Html.ActionLink(GlobalTranslations.SearchPatient, "Index", "Patient")</li>
-                }
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    @Html.Partial("_LoginPartial")
-                </li>
-            </ul>
+<div class="container">
+    <div class="row">
+        <div id="nav-wrapper">
+            @Html.Action("Menu", "Menu")
         </div>
     </div>
 </div>

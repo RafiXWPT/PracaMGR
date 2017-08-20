@@ -76,7 +76,7 @@ namespace WebsiteApplication.Controllers
                     TileIcon = reportsToAcceptance > 0 ? "folder-open" : "folder",
                     TileValue = reportsToAcceptance.ToString(),
                     TileContentText = "raporty oczekujące",
-                    TileUrl = Url.Action("Index", "ReportList")
+                    TileUrl = Url.Action("ReportsList", "ReportsList")
                 });
             }
 

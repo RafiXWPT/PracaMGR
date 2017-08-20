@@ -218,10 +218,12 @@
     <Compile Include="Controllers\ASP.NET Identity\ManageController.cs" />
     <Compile Include="Controllers\AdditionalControllers\IdentityController.cs" />
     <Compile Include="Controllers\InstitutionController.cs" />
+    <Compile Include="Controllers\AdditionalControllers\MenuController.cs" />
     <Compile Include="Controllers\NotAuthorizeController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
-    <Compile Include="Controllers\ReportListController.cs" />
+    <Compile Include="Controllers\Reports\MineReportsListController.cs" />
+    <Compile Include="Controllers\Reports\ReportsListController.cs" />
     <Compile Include="Controllers\RightsController.cs" />
     <Compile Include="DataAccessLayer\DatabaseInstitutionRepository.cs" />
     <Compile Include="DataAccessLayer\GeneratedReaportRepository.cs" />
@@ -266,6 +268,7 @@
     <Compile Include="Models\ViewModels\GlobalData\TabStripViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\CultureListItem.cs" />
     <Compile Include="Models\ViewModels\Institution\InstitutionViewModel.cs" />
+    <Compile Include="Models\ViewModels\Menu\UserInfoContainerViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\ExaminationViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\HospitalizationViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\TreatmentViewModel.cs" />
@@ -1384,7 +1387,8 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\ReportList\ReportList.js" />
+    <Content Include="Views\MineReportsList\MineReportsList.js" />
+    <Content Include="Views\ReportsList\ReportsList.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2046,16 +2050,23 @@
     <Content Include="Views\Rights\RolesToRightsTab.cshtml" />
     <Content Include="Views\Rights\EditorTemplates\RoleEditor.cshtml" />
     <Content Include="Views\Rights\UserRolesTab.cshtml" />
-    <Content Include="Views\ReportList\Index.cshtml" />
-    <Content Include="Views\ReportList\PendingReports.cshtml" />
-    <Content Include="Views\ReportList\AcceptedReports.cshtml" />
-    <Content Include="Views\ReportList\RejectedReports.cshtml" />
+    <Content Include="Views\ReportsList\ReportsList.cshtml" />
+    <Content Include="Views\ReportsList\PendingReports.cshtml" />
+    <Content Include="Views\ReportsList\AcceptedReports.cshtml" />
+    <Content Include="Views\ReportsList\RejectedReports.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Dashboard\Tiles\_Tile.cshtml" />
+    <Content Include="Views\Shared\_KendoHorizontal.cshtml" />
+    <Content Include="Views\MineReportsList\MineReportsList.cshtml" />
+    <Content Include="Views\MineReportsList\MinePendingReports.cshtml" />
+    <Content Include="Views\MineReportsList\MineAcceptedReports.cshtml" />
+    <Content Include="Views\MineReportsList\MineRejectedReports.cshtml" />
+    <Content Include="Views\MineReportsList\EditorTemplates\_NewReportRequestTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Culture\" />
+    <Folder Include="Views\Menu\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -1,4 +1,4 @@
-﻿app.register("app.reportList",
+﻿app.register("app.reportsList",
     {
         init: function(initData) {
             this.initData = initData;
@@ -9,7 +9,7 @@
         onAccept: function(e) {
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
             var grid = this;
-            $.post(app.reportList.initData.AcceptRequestUrl,
+            $.post(app.reportsList.initData.AcceptRequestUrl,
                 { requestId: dataItem.ReaportRequestId },
                 function(result) {
                     if (result.Success) {
@@ -24,7 +24,7 @@
         onReject: function(e) {
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
             var grid = this;
-            $.post(app.reportList.initData.RejectRequestUrl,
+            $.post(app.reportsList.initData.RejectRequestUrl,
                 { requestId: dataItem.ReaportRequestId },
                 function(result) {
                     if (result.Success) {

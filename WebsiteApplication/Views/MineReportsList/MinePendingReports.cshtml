@@ -1,0 +1,16 @@
+﻿@using WebsiteApplication.Models.ViewModels.Reports
+@(Html.Kendo().Grid<ReportRequestViewModel>()
+      .Name("pending-reaport-requests")
+      .ToolBar(t => t.Template(@"<a class='k-button k-button-icontext' onclick='app.mineReportsList.onCreate()' href='#'>Dodaj nowy</a>"))
+      .Columns(c =>
+      {
+          c.Bound(vm => vm.PatientPesel);
+          c.Bound(vm => vm.CreatedAt);
+      })
+      .Pageable()
+      .Sortable()
+      .DataSource(ds => ds
+          .Ajax()
+          .PageSize(10)
+          .Read(r => r.Action("ReadMinePendingReports", "MineReportsList"))
+      ))

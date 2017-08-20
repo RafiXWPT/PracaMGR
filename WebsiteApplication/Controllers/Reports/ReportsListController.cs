@@ -10,22 +10,22 @@ using WebsiteApplication.CodeBehind.Raport;
 using WebsiteApplication.Controllers.AdditionalControllers;
 using WebsiteApplication.Models.ViewModels.Reports;
 
-namespace WebsiteApplication.Controllers
+namespace WebsiteApplication.Controllers.Reports
 {
     [AuthorizeRight(Right = "REAPORT_ACCEPTANCE")]
-    public class ReportListController : KendoController
+    public class ReportsListController : KendoController
     {
         private readonly IRepository<ReaportRequest> _repository;
         private readonly IRaportService _service;
 
-        public ReportListController(IRepository<ReaportRequest> repository, IRaportService service)
+        public ReportsListController(IRepository<ReaportRequest> repository, IRaportService service)
         {
             _repository = repository;
             _service = service;
         }
 
         // GET: ReportList
-        public ActionResult Index()
+        public ActionResult ReportsList()
         {
             return View();
         }
