@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201701282238166_Init.Designer.cs">
       <DependentUpon>201701282238166_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708211741357_SecondToLastName.cs" />
+    <Compile Include="Migrations\201708211741357_SecondToLastName.Designer.cs">
+      <DependentUpon>201708211741357_SecondToLastName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +84,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701282238166_Init.resx">
       <DependentUpon>201701282238166_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708211741357_SecondToLastName.resx">
+      <DependentUpon>201708211741357_SecondToLastName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

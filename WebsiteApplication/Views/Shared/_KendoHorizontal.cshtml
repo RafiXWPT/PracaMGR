@@ -9,8 +9,8 @@
             i.Add().Text("Role i uprawnienia").Action("Index", "Rights").Visible(User.IsInRole("ADMIN"));
             i.Add().Text("Raporty").Items(inner =>
             {
-                inner.Add().Text("Moje").Action("MineReportsList", "MineReportsList").Visible(Model.Rights.Contains("REAPORT_GENERATION"));
-                inner.Add().Text("Do akceptacji").Action("ReportsList", "ReportsList").Visible(Model.Rights.Contains("REAPORT_ACCEPTANCE"));
+                inner.Add().Text("Moje").Action("MineReportsList", "MineReportsList").Visible(Model.Rights.Contains("REPORT_GENERATION"));
+                inner.Add().Text("Do akceptacji").Action("ReportsList", "ReportsList").Visible(Model.Rights.Contains("REPORT_ACCEPTANCE"));
             }).Visible(Model.Roles.Any());
 
             i.Add().Text("Pacjenci").Items(inner =>
@@ -22,10 +22,24 @@
             i.Add().Text(Html.Partial("_LoginPartial").ToHtmlString()).Encoded(false).HtmlAttributes(new {@style = "float: right;" });
         }))
 
-<script>
-    $(function () {
-        var item = $('.k-item.k-state-default.k-last');
-        item[2].firstChild.style.display = "none";
-        item[2].append(item[2].firstChild.firstChild);
-    });
-</script>
+
+    @if (Request.IsAuthenticated)
+    {
+        <script>
+            $(function() {
+                var item = $('.k-item.k-state-default.k-last').last()[0];
+                item.firstChild.style.display = "none";
+                item.append($('#logoutForm')[0]);
+            });
+        </script>
+    }
+    else
+    {
+        <script>
+            $(function() {
+                var item = $('.k-item.k-state-default.k-last').last()[0];
+                item.firstChild.style.display = "none";
+                item.append($('#loginContainer')[0]);
+            });
+        </script>
+    }

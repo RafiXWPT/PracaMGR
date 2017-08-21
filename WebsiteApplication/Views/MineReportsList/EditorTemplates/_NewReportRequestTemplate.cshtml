@@ -5,8 +5,8 @@
               .Columns(c =>
               {
                   c.Bound(vm => vm.Pesel);
-                  c.Bound(vm => vm.Info.FirstName);
-                  c.Bound(vm => vm.Info.LastName);
+                  c.Bound(vm => vm.FirstName);
+                  c.Bound(vm => vm.LastName);
                   c.Bound(vm => vm.LastHospitalizationTime).Template(@<text></text>).ClientTemplate("#=kendo.toString(BirthDate, 'yyyy-MM-dd hh:mm:ss')#");
               })
               .Pageable()

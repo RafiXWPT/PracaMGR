@@ -27,7 +27,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     PersonId = Guid.NewGuid(),
                     Pesel = "93070114133",
                     FirstName = "Rafał",
-                    SecondName = "Palej",
+                    LastName = "Palej",
                     BirthDate = new DateTime(1993, 7, 1),
                     InsuranceId = "259024",
                     Address = new Address
@@ -46,7 +46,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     PersonId = Guid.NewGuid(),
                     Pesel = "24020809720",
                     FirstName = "Anna",
-                    SecondName = "Nowak",
+                    LastName = "Nowak",
                     BirthDate = new DateTime(1924, 2, 8),
                     InsuranceId = "259001",
                     Address = new Address
@@ -65,7 +65,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     PersonId = Guid.NewGuid(),
                     Pesel = "62012210646",
                     FirstName = "Bogusław",
-                    SecondName = "Zbych",
+                    LastName = "Zbych",
                     BirthDate = new DateTime(1962, 1, 22),
                     InsuranceId = "259234",
                     Address = new Address
@@ -84,7 +84,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     PersonId = Guid.NewGuid(),
                     Pesel = "64121311834",
                     FirstName = "Adam",
-                    SecondName = "Nawałka",
+                    LastName = "Nawałka",
                     BirthDate = new DateTime(1964, 12, 13),
                     InsuranceId = "215469",
                     Address = new Address
@@ -103,7 +103,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     PersonId = Guid.NewGuid(),
                     Pesel = "26112804811",
                     FirstName = "Teodor",
-                    SecondName = "Krawczyk",
+                    LastName = "Krawczyk",
                     BirthDate = new DateTime(1926, 11, 28),
                     InsuranceId = "556125",
                     Address = new Address
@@ -122,7 +122,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     PersonId = Guid.NewGuid(),
                     Pesel = "61061910064",
                     FirstName = "Maria",
-                    SecondName = "Dadał",
+                    LastName = "Dadał",
                     BirthDate = new DateTime(1961, 6, 19),
                     InsuranceId = "221545",
                     Address = new Address
@@ -141,7 +141,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     PersonId = Guid.NewGuid(),
                     Pesel = "26031604565",
                     FirstName = "Ewa",
-                    SecondName = "Palej",
+                    LastName = "Palej",
                     BirthDate = new DateTime(1926, 3, 16),
                     InsuranceId = "996565",
                     Address = new Address
@@ -160,7 +160,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     PersonId = Guid.NewGuid(),
                     Pesel = "03300900942",
                     FirstName = "Filip",
-                    SecondName = "Gościński",
+                    LastName = "Gościński",
                     BirthDate = new DateTime(2003, 3, 1),
                     InsuranceId = "259024",
                     Address = new Address
@@ -179,7 +179,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     PersonId = Guid.NewGuid(),
                     Pesel = "89021303161",
                     FirstName = "Kinga",
-                    SecondName = "Szepielak",
+                    LastName = "Szepielak",
                     BirthDate = new DateTime(1989, 2, 13),
                     InsuranceId = "5124585",
                     Address = new Address
@@ -198,7 +198,7 @@ namespace PersonInfoService.Host.Code.DummyDatabaseInitializer
                     PersonId = Guid.NewGuid(),
                     Pesel = "60092601196",
                     FirstName = "Sarys",
-                    SecondName = "Sire",
+                    LastName = "Sire",
                     BirthDate = new DateTime(1960, 9, 26),
                     InsuranceId = "221546",
                     Address = new Address

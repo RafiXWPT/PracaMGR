@@ -1,11 +1,11 @@
 ﻿@using WebsiteApplication.Models.ViewModels.Reports
 @(Html.Kendo().Grid<ReportRequestViewModel>()
-      .Name("accepted-reaport-requests")
+      .Name("accepted-report-requests")
       .Columns(c =>
       {
           c.Bound(vm => vm.PatientPesel);
-          c.Bound(vm => vm.CreatedAt);
-          c.Bound(vm => vm.AcceptedAt);
+          c.Bound(vm => vm.CreatedAt).Template(@<text></text>).ClientTemplate("#=kendo.toString(CreatedAt, 'yyyy-MM-dd hh:mm:ss')#");
+          c.Bound(vm => vm.AcceptedAt).Template(@<text></text>).ClientTemplate("#=kendo.toString(AcceptedAt, 'yyyy-MM-dd hh:mm:ss')#");
           c.Bound(vm => vm.AcceptedBy);
           c.Command(cmd =>
           {

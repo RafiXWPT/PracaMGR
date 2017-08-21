@@ -10,7 +10,7 @@
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
             var grid = this;
             $.post(app.reportsList.initData.AcceptRequestUrl,
-                { requestId: dataItem.ReaportRequestId },
+                { requestId: dataItem.ReportRequestId },
                 function(result) {
                     if (result.Success) {
                         app.notify.success("Prośba zaakceptowana.");
@@ -25,7 +25,7 @@
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
             var grid = this;
             $.post(app.reportsList.initData.RejectRequestUrl,
-                { requestId: dataItem.ReaportRequestId },
+                { requestId: dataItem.ReportRequestId },
                 function(result) {
                     if (result.Success) {
                         app.notify.success("Prośba odrzucona.");

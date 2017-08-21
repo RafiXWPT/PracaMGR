@@ -49,7 +49,7 @@
     <Compile Include="Interfaces\IDbRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Person.cs" />
-    <Compile Include="ReaportRequest.cs" />
+    <Compile Include="ReportRequest.cs" />
     <Compile Include="Residence\Examination.cs" />
     <Compile Include="Residence\Hospitalization.cs" />
     <Compile Include="Institution.cs" />

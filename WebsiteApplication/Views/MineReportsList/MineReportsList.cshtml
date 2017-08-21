@@ -36,6 +36,7 @@
         app.mineReportsList.init(@Html.Raw(JsonConvert.SerializeObject(new
                              {
                                 CreateNewRequestUrl = Url.Action("AddNewReportRequest", "MineReportsList"),
+                                CanDownloadReportUrl = Url.Action("CanDownloadReport", "MineReportsList"),
                                 DownloadReportUrl = Url.Action("DownloadReport", "MineReportsList")
                              })));
     });

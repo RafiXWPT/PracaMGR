@@ -14,27 +14,29 @@ namespace WebsiteApplication.Controllers
     public class ReportController : BaseController
     {
         private readonly IRaportService _raportService;
-        private readonly IRepository<ReaportRequest> _reaportRequestRepository;
+        private readonly IRepository<ReportRequest> _reaportRequestRepository;
 
-        public ReportController(IRepository<ReaportRequest> reaportRequestRepository, IRaportService raportService)
+        public ReportController(IRepository<ReportRequest> reaportRequestRepository, IRaportService raportService)
         {
             _reaportRequestRepository = reaportRequestRepository;
             _raportService = raportService;
         }
 
         [HttpPost]
-        [AuthorizeRight(Right = "REAPORT_GENERATION")]
-        public ActionResult AddReaport(string pesel)
+        [AuthorizeRight(Right = "REPORT_GENERATION")]
+        public ActionResult AddReaport(string patientPesel, string patientFirstName, string patientLastName)
         {
             if (TimeHelper.IsCreatedCounterViolated(_reaportRequestRepository, User.Name))
                 return Json(OperationResult.FailureResult("Przekroczono limit raportów"));
 
-            var newReaportRequest = new ReaportRequest
+            var newReaportRequest = new ReportRequest
             {
                 CreatedAt = DateTime.Now,
                 CreatedBy = User.Identity.Name,
-                PatientPesel = pesel,
-                Status = ReaportRequestStatus.PENDING
+                PatientPesel = patientPesel,
+                PatientFirstName = patientFirstName,
+                PatientLastName = patientLastName,
+                Status = ReportRequestStatus.PENDING
             };
 
             _reaportRequestRepository.Create(newReaportRequest);
@@ -42,19 +44,21 @@ namespace WebsiteApplication.Controllers
         }
 
         [HttpPost]
-        [AuthorizeRight(Right = "FORCE_REAPORT_GENERATION")]
-        public ActionResult GenerateReaport(string pesel)
+        [AuthorizeRight(Right = "FORCE_REPORT_GENERATION")]
+        public ActionResult GenerateReaport(string patientPesel, string patientFirstName, string patientLastName)
         {
             if (TimeHelper.IsCreatedCounterViolated(_reaportRequestRepository, User.Name))
                 return Json(OperationResult.FailureResult("Przekroczono limit raportów"));
 
-            var newReaportRequest = new ReaportRequest
+            var newReaportRequest = new ReportRequest
             {
                 CreatedAt = DateTime.Now,
                 CreatedBy = User.Identity.Name,
-                PatientPesel = pesel,
-                Status = ReaportRequestStatus.ACCEPTED,
-                GeneratedReaport = _raportService.GenerateRaport(pesel, User.Name)
+                PatientPesel = patientPesel,
+                PatientFirstName = patientFirstName,
+                PatientLastName = patientLastName,
+                Status = ReportRequestStatus.ACCEPTED,
+                GeneratedReport = _raportService.GenerateRaport(patientPesel, User.Name)
             };
 
             _reaportRequestRepository.Create(newReaportRequest);

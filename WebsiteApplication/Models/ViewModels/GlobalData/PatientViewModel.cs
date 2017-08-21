@@ -9,16 +9,17 @@ namespace WebsiteApplication.Models.ViewModels.GlobalData
         [Display(Name = "PESEL")]
         public string Pesel { get; set; }
 
-        public PersonInfoViewModel Info { get; set; }
+        [Display(Name = "Imię")]
+        public string FirstName { get; set; }
 
-        [Display(Name = "LastHospitalizationTime", ResourceType = typeof(GlobalTranslations))]
-        public DateTime? LastHospitalizationTime { get; set; }
+        [Display(Name = "Nazwisko")]
+        public string LastName { get; set; }
 
         [Display(Name = "PersonBirthDate", ResourceType = typeof(GlobalTranslations))]
         [DataType(DataType.DateTime)]
-        public DateTime BirthDate => Info.BirthDate;
+        public DateTime BirthDate { get; set; }
 
-        [Display(Name = "Patient", ResourceType = typeof(GlobalTranslations))]
-        public string FullName => Info.FullName;
+        [Display(Name = "LastHospitalizationTime", ResourceType = typeof(GlobalTranslations))]
+        public DateTime? LastHospitalizationTime { get; set; }
     }
 }

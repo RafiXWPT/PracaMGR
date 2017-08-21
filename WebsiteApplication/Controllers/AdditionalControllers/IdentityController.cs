@@ -11,7 +11,7 @@ namespace WebsiteApplication.Controllers.AdditionalControllers
         public new ApplicationPrincipal User {
             get
             {
-                if (_identityPrincipal != null)
+                if (_identityPrincipal != null && base.User.Identity.Name == _identityPrincipal.Name)
                     return _identityPrincipal;
 
                 if (!(base.User is ClaimsPrincipal))

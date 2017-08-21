@@ -15,19 +15,28 @@
         },
         onDownload: function (e) {
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            $.get(app.mineReportsList.initData.DownloadReportUrl,
-                { requestId: dataItem.ReaportRequestId });
+            $.post(app.mineReportsList.initData.CanDownloadReportUrl,
+                { requestId: dataItem.ReportRequestId },
+                function(result) {
+                    if (result.Success) {
+                        window.location.href = app.mineReportsList.initData.DownloadReportUrl +
+                            '?requestId=' +
+                            dataItem.ReportRequestId;
+                    } else {
+                        app.notify.error(result.Message);
+                    }
+                });
         },
         buttons: {
             accept: function() {
                 var grid = $('#all-patients-grid').data('kendoGrid');
                 var dataItem = grid.dataItem(grid.select());
                 $.post(app.mineReportsList.initData.CreateNewRequestUrl,
-                    { patientPesel: dataItem.Pesel },
+                    { patientPesel: dataItem.Pesel, patientFirstName: dataItem.FirstName, patientLastName: dataItem.LastName },
                     function(result) {
                         if (result.Success) {
                             $('#new-request-window').data('kendoWindow').close();
-                            var pendingGrid = $('#pending-reaport-requests').data('kendoGrid');
+                            var pendingGrid = $('#pending-report-requests').data('kendoGrid');
                             app.notify.success("Zlecenie zostało dodane");
                             pendingGrid.dataSource.read();
                             pendingGrid.refresh();

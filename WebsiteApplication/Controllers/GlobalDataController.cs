@@ -56,12 +56,9 @@ namespace WebsiteApplication.Controllers
                     LastHospitalizationTime = pto.Hospitalizations.Any()
                         ? pto.Hospitalizations.Max(d => d.HospitalizationEndTime)
                         : (DateTime?) null,
-                    Info = new PersonInfoViewModel
-                    {
-                        FirstName = personInfo.FirstName,
-                        LastName = personInfo.SecondName,
-                        BirthDate = personInfo.BirthDate
-                    }
+                    FirstName = personInfo.FirstName,
+                    LastName = personInfo.LastName,
+                    BirthDate = personInfo.BirthDate
                 });
             }
 

@@ -20,11 +20,11 @@ namespace WebsiteApplication.Controllers.Reports
     {
         private readonly WcfDataFetcher _patientFetcher;
         private readonly WcfPersonInfoFetcher _personInfoFetcher;
-        private readonly IRepository<ReaportRequest> _reportRequestRepository;
+        private readonly IRepository<ReportRequest> _reportRequestRepository;
         private readonly IRepository<Institution> _institutionRepository;
         private readonly IRepository<SearchHistory> _searchHistoryRepository;
 
-        public MineReportsListController(IRepository<ReaportRequest> reportRequestRepository, IRepository<Institution> institutionRepository, IRepository<SearchHistory> searchHistoryRepository)
+        public MineReportsListController(IRepository<ReportRequest> reportRequestRepository, IRepository<Institution> institutionRepository, IRepository<SearchHistory> searchHistoryRepository)
         {
             _reportRequestRepository = reportRequestRepository;
             _institutionRepository = institutionRepository;
@@ -55,20 +55,20 @@ namespace WebsiteApplication.Controllers.Reports
 
         public ActionResult ReadMinePendingReports(DataSourceRequest request)
         {
-            return JsonDataSourceResult<ReaportRequest, ReportRequestViewModel>(request,
-                _reportRequestRepository.Entities.Where(r => r.Status == ReaportRequestStatus.PENDING && r.CreatedBy == User.Name));
+            return JsonDataSourceResult<ReportRequest, ReportRequestViewModel>(request,
+                _reportRequestRepository.Entities.Where(r => r.Status == ReportRequestStatus.PENDING && r.CreatedBy == User.Name));
         }
 
         public ActionResult ReadMineAcceptedReports(DataSourceRequest request)
         {
-            return JsonDataSourceResult<ReaportRequest, ReportRequestViewModel>(request,
-                _reportRequestRepository.Entities.Where(r => r.Status == ReaportRequestStatus.ACCEPTED && r.CreatedBy == User.Name));
+            return JsonDataSourceResult<ReportRequest, ReportRequestViewModel>(request,
+                _reportRequestRepository.Entities.Where(r => r.Status == ReportRequestStatus.ACCEPTED && r.CreatedBy == User.Name));
         }
 
         public ActionResult ReadMineRejectedReports(DataSourceRequest request)
         {
-            return JsonDataSourceResult<ReaportRequest, ReportRequestViewModel>(request,
-                _reportRequestRepository.Entities.Where(r => r.Status == ReaportRequestStatus.REJECTED && r.CreatedBy == User.Name));
+            return JsonDataSourceResult<ReportRequest, ReportRequestViewModel>(request,
+                _reportRequestRepository.Entities.Where(r => r.Status == ReportRequestStatus.REJECTED && r.CreatedBy == User.Name));
         }
 
         public ActionResult ReadAllPatientsFromInstitutions([DataSourceRequest] DataSourceRequest request)
@@ -90,12 +90,9 @@ namespace WebsiteApplication.Controllers.Reports
                         LastHospitalizationTime = innerAction.Hospitalizations.Any()
                             ? innerAction.Hospitalizations.Max(d => d.HospitalizationEndTime)
                             : (DateTime?) null,
-                        Info = new PersonInfoViewModel
-                        {
-                            FirstName = personInfo.FirstName,
-                            LastName = personInfo.SecondName,
-                            BirthDate = personInfo.BirthDate
-                        }
+                        BirthDate = personInfo.BirthDate,
+                        FirstName = personInfo.FirstName,
+                        LastName = personInfo.LastName
                     };
                     patientsData.Add(displayObject);
                 });
@@ -110,24 +107,27 @@ namespace WebsiteApplication.Controllers.Reports
         }
 
         [HttpPost]
-        public ActionResult AddNewReportRequest(string patientPesel)
+        public ActionResult AddNewReportRequest(string patientPesel, string patientFirstName, string patientLastName)
         {
             if (TimeHelper.IsCreatedCounterViolated(_reportRequestRepository, User.Name))
                 return Json(OperationResult.FailureResult("Przekroczono ilość raportów"));
 
-            var reportRequest = new ReaportRequest
+            var reportRequest = new ReportRequest
             {
                 PatientPesel = patientPesel,
+                PatientFirstName = patientFirstName,
+                PatientLastName = patientLastName,
                 CreatedAt = DateTime.Now,
                 CreatedBy = User.Name,
-                Status = ReaportRequestStatus.PENDING
+                Status = ReportRequestStatus.PENDING
             };
             _reportRequestRepository.Create(reportRequest);
 
             return Json(OperationResult.SuccessResult());
         }
 
-        public ActionResult DownloadReport(Guid requestId)
+        [HttpPost]
+        public ActionResult CanDownloadReport(Guid requestId)
         {
             var reportRequest = _reportRequestRepository.Read(requestId);
             if (reportRequest == null)
@@ -136,13 +136,31 @@ namespace WebsiteApplication.Controllers.Reports
             if (reportRequest.CreatedBy != User.Name)
                 return Json(OperationResult.FailureResult("Raport należy do innego użytkownika"));
 
-            if (reportRequest.Status != ReaportRequestStatus.ACCEPTED)
+            if (reportRequest.Status != ReportRequestStatus.ACCEPTED)
                 return Json(OperationResult.FailureResult("Raport nie został jeszcze zaakceptowany"));
 
-            if (reportRequest.GeneratedReaport == null)
+            if (reportRequest.GeneratedReport == null)
                 return Json(OperationResult.FailureResult("Nie można odczytac raportu"));
 
-            return File(reportRequest.GeneratedReaport.Reaport, "pdf", $"{reportRequest.PatientPesel}_{DateTime.Now.ToShortDateString()}.pdf");
+            return Json(OperationResult.SuccessResult());
+        }
+
+        public ActionResult DownloadReport(Guid requestId)
+        {
+            var reportRequest = _reportRequestRepository.Read(requestId);
+            if (reportRequest == null)
+                return Json(OperationResult.FailureResult("Brak obiektu"), JsonRequestBehavior.AllowGet);
+
+            if (reportRequest.CreatedBy != User.Name)
+                return Json(OperationResult.FailureResult("Raport należy do innego użytkownika"), JsonRequestBehavior.AllowGet);
+
+            if (reportRequest.Status != ReportRequestStatus.ACCEPTED)
+                return Json(OperationResult.FailureResult("Raport nie został jeszcze zaakceptowany"), JsonRequestBehavior.AllowGet);
+
+            if (reportRequest.GeneratedReport == null)
+                return Json(OperationResult.FailureResult("Nie można odczytac raportu"), JsonRequestBehavior.AllowGet);
+
+            return File(reportRequest.GeneratedReport.Report, "pdf", $"{reportRequest.PatientPesel}_{DateTime.Now.ToShortDateString()}.pdf");
         }
     }
 }

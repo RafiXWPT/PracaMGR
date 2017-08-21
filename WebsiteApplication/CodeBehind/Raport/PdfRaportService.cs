@@ -39,14 +39,14 @@ namespace WebsiteApplication.CodeBehind.Raport
             return GeneratePdf(personInfo, patientHistory);
         }
 
-        public GeneratedReaport GenerateRaport(string patientPesel, string username)
+        public GeneratedReport GenerateRaport(string patientPesel, string username)
         {
             var generatedPdfBytes = GenerateRaportBytes(patientPesel, username);
-            return new GeneratedReaport
+            return new GeneratedReport
             {
                 PatientPesel = patientPesel,
                 CreatedAt = DateTime.Now,
-                Reaport = generatedPdfBytes
+                Report = generatedPdfBytes
             };
         }
 
@@ -75,7 +75,7 @@ namespace WebsiteApplication.CodeBehind.Raport
             var personInfoParagraph = new Paragraph();
             personInfoParagraph.Add($"PESEL: {personInfo.Pesel}");
             personInfoParagraph.Add($"\nImię: {personInfo.FirstName}");
-            personInfoParagraph.Add($"\nNazwisko: {personInfo.SecondName}");
+            personInfoParagraph.Add($"\nNazwisko: {personInfo.LastName}");
             personInfoParagraph.Add($"\nData urodzenia: {personInfo.BirthDate}");
             personInfoParagraph.Add($"\nNumer ubezpieczenia: {personInfo.InsuranceId}");
 

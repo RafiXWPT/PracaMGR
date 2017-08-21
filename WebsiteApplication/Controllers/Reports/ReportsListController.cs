@@ -12,13 +12,13 @@ using WebsiteApplication.Models.ViewModels.Reports;
 
 namespace WebsiteApplication.Controllers.Reports
 {
-    [AuthorizeRight(Right = "REAPORT_ACCEPTANCE")]
+    [AuthorizeRight(Right = "REPORT_ACCEPTANCE")]
     public class ReportsListController : KendoController
     {
-        private readonly IRepository<ReaportRequest> _repository;
+        private readonly IRepository<ReportRequest> _repository;
         private readonly IRaportService _service;
 
-        public ReportsListController(IRepository<ReaportRequest> repository, IRaportService service)
+        public ReportsListController(IRepository<ReportRequest> repository, IRaportService service)
         {
             _repository = repository;
             _service = service;
@@ -47,20 +47,20 @@ namespace WebsiteApplication.Controllers.Reports
 
         public ActionResult ReadPendingReports(DataSourceRequest request)
         {
-            return JsonDataSourceResult<ReaportRequest, ReportRequestViewModel>(request,
-                _repository.Entities.Where(r => r.Status == ReaportRequestStatus.PENDING));
+            return JsonDataSourceResult<ReportRequest, ReportRequestViewModel>(request,
+                _repository.Entities.Where(r => r.Status == ReportRequestStatus.PENDING));
         }
 
         public ActionResult ReadAcceptedReports(DataSourceRequest request)
         {
-            return JsonDataSourceResult<ReaportRequest, ReportRequestViewModel>(request,
-                _repository.Entities.Where(r => r.Status == ReaportRequestStatus.ACCEPTED));
+            return JsonDataSourceResult<ReportRequest, ReportRequestViewModel>(request,
+                _repository.Entities.Where(r => r.Status == ReportRequestStatus.ACCEPTED));
         }
 
         public ActionResult ReadRejectedReports(DataSourceRequest request)
         {
-            return JsonDataSourceResult<ReaportRequest, ReportRequestViewModel>(request,
-                _repository.Entities.Where(r => r.Status == ReaportRequestStatus.REJECTED));
+            return JsonDataSourceResult<ReportRequest, ReportRequestViewModel>(request,
+                _repository.Entities.Where(r => r.Status == ReportRequestStatus.REJECTED));
         }
 
         [HttpPost]
@@ -70,10 +70,10 @@ namespace WebsiteApplication.Controllers.Reports
             if (request == null)
                 return Json(OperationResult.FailureResult("Obiekt nie istnieje"));
 
-            request.Status = ReaportRequestStatus.ACCEPTED;
+            request.Status = ReportRequestStatus.ACCEPTED;
             request.AcceptedAt = DateTime.Now;
             request.AcceptedBy = User.Name;
-            request.GeneratedReaport = _service.GenerateRaport(request.PatientPesel, User.Name);
+            request.GeneratedReport = _service.GenerateRaport(request.PatientPesel, User.Name);
             _repository.Update(request);
             return Json(OperationResult.SuccessResult());
         }
@@ -85,7 +85,7 @@ namespace WebsiteApplication.Controllers.Reports
             if (request == null)
                 return Json(OperationResult.FailureResult("Obiekt nie istnieje"));
 
-            request.Status = ReaportRequestStatus.REJECTED;
+            request.Status = ReportRequestStatus.REJECTED;
             request.RejectedAt = DateTime.Now;
             request.RejectedBy = User.Name;
             _repository.Update(request);

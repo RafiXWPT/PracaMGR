@@ -21,7 +21,7 @@ namespace WebsiteApplication.Controllers
         {
             var availableActions = new List<TileViewModel>();
 
-            if (User.Roles.Contains("REAPORT_ADMIN") || User.Roles.Contains("ADMIN"))
+            if (User.Roles.Contains("REPORT_ADMIN") || User.Roles.Contains("ADMIN"))
             {
                 availableActions.Add(new TileViewModel {Break = true, BreakHeader = "ADMINISTRACJA"});
                 availableActions.Add(new TileViewModel
@@ -47,7 +47,7 @@ namespace WebsiteApplication.Controllers
                     TileColor = "orange",
                     TileIcon = "check",
                     TileValue =
-                        Context.ReaportRequests.Count(r => r.Status == ReaportRequestStatus.ACCEPTED).ToString(),
+                        Context.ReaportRequests.Count(r => r.Status == ReportRequestStatus.ACCEPTED).ToString(),
                     TileContentText = "raporty"
                 });
                 availableActions.Add(new TileViewModel
@@ -55,7 +55,7 @@ namespace WebsiteApplication.Controllers
                     TileColor = "orange",
                     TileIcon = "ban",
                     TileValue =
-                        Context.ReaportRequests.Count(r => r.Status == ReaportRequestStatus.REJECTED).ToString(),
+                        Context.ReaportRequests.Count(r => r.Status == ReportRequestStatus.REJECTED).ToString(),
                     TileContentText = "raporty"
                 });
                 availableActions.Add(new TileViewModel
@@ -66,10 +66,10 @@ namespace WebsiteApplication.Controllers
                     TileContentText = "żądania wyszukania"
                 });
             }
-            if (User.Rights.Contains("REAPORT_ACCEPTANCE"))
+            if (User.Rights.Contains("REPORT_ACCEPTANCE"))
             {
                 availableActions.Add(new TileViewModel {Break = true, BreakHeader = "RAPORTY"});
-                var reportsToAcceptance = Context.ReaportRequests.Count(r => r.Status == ReaportRequestStatus.PENDING);
+                var reportsToAcceptance = Context.ReaportRequests.Count(r => r.Status == ReportRequestStatus.PENDING);
                 availableActions.Add(new TileViewModel
                 {
                     TileColor = "dark-blue",

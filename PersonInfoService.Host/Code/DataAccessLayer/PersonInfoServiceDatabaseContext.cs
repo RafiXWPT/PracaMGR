@@ -11,7 +11,7 @@ namespace PersonInfoService.Host.Code.DataAccessLayer
             Database.SetInitializer(new CreateDatabaseIfNotExists<PersonInfoServiceDatabaseContext>());
         }
 
-        public PersonInfoServiceDatabaseContext() : base("PersonInfoContext")
+        public PersonInfoServiceDatabaseContext() : base("BazaOsob")
         {
         }
 

@@ -8,7 +8,7 @@ namespace Domain
         public Guid PersonId { get; set; }
         public string Pesel { get; set; }
         public string FirstName { get; set; }
-        public string SecondName { get; set; }
+        public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public string InsuranceId { get; set; }
         public virtual Address Address { get; set; }
@@ -24,7 +24,7 @@ namespace Domain
         public string FirstName { get; set; }
 
         [DataMember]
-        public string SecondName { get; set; }
+        public string LastName { get; set; }
 
         [DataMember]
         public DateTime BirthDate { get; set; }

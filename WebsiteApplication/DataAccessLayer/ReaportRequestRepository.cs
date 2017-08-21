@@ -6,7 +6,7 @@ using Domain.Interfaces;
 
 namespace WebsiteApplication.DataAccessLayer
 {
-    public class ReaportRequestRepository : IRepository<ReaportRequest>
+    public class ReaportRequestRepository : IRepository<ReportRequest>
     {
         private readonly WebsiteDatabaseContext _context;
 
@@ -15,32 +15,32 @@ namespace WebsiteApplication.DataAccessLayer
             _context = context;
         }
 
-        public IQueryable<ReaportRequest> Entities => _context.ReaportRequests;
+        public IQueryable<ReportRequest> Entities => _context.ReaportRequests;
 
         public int CreatedInLast(DateTime time, string username = null)
         {
             return username == null ? Entities.Count(e => e.CreatedAt > time) : Entities.Count(e => e.CreatedAt > time && e.CreatedBy == username);
         }
 
-        public void Create(ReaportRequest entity)
+        public void Create(ReportRequest entity)
         {
-            entity.ReaportRequestId = Guid.NewGuid();
+            entity.ReportRequestId = Guid.NewGuid();
             _context.ReaportRequests.Add(entity);
             SaveChanges();
         }
 
-        public ReaportRequest Read(Guid entityId)
+        public ReportRequest Read(Guid entityId)
         {
-            return Entities.FirstOrDefault(e => e.ReaportRequestId == entityId);
+            return Entities.FirstOrDefault(e => e.ReportRequestId == entityId);
         }
 
-        public void Update(ReaportRequest entity)
+        public void Update(ReportRequest entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             SaveChanges();
         }
 
-        public void Delete(ReaportRequest entity)
+        public void Delete(ReportRequest entity)
         {
             _context.ReaportRequests.Remove(entity);
             SaveChanges();

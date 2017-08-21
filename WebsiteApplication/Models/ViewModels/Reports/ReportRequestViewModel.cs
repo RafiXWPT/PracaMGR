@@ -5,9 +5,13 @@ namespace WebsiteApplication.Models.ViewModels.Reports
 {
     public class ReportRequestViewModel
     {
-        public Guid ReaportRequestId { get; set; }
-        [Display(Name = "PESEL Pacjenta")]
+        public Guid ReportRequestId { get; set; }
+        [Display(Name = "PESEL pacjenta")]
         public string PatientPesel { get; set; }
+        [Display(Name = "Imię pacjenta")]
+        public string PatientFirstName { get; set; }
+        [Display(Name = "Nazwisko pacjenta")]
+        public string PatientLastName { get; set; }
         [Display(Name = "Utworzony do akceptacji")]
         [DataType(DataType.DateTime)]
         public DateTime CreatedAt { get; set; }
