@@ -16,9 +16,9 @@ namespace WebsiteApplication.CodeBehind.Rights
         List<string> RightsForRole(string role);
         List<string> RoleNamesForGuid(List<string> roleGuids);
         void AddRight(TRightViewModel viewModel);
-        void AddRole(TRoleViewModel viewModel);
         void EditRight(TRightViewModel viewModel);
         void RemoveRight(TRightViewModel viewModel);
+        void AddRole(TRoleViewModel viewModel);
         void RemoveRole(TRoleViewModel viewModel);
         void AddRoleToRight(Guid rightId, string role);
         void RemoveRoleFromRight(Guid rightId, string role);

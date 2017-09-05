@@ -98,18 +98,6 @@ namespace WebsiteApplication.CodeBehind.Rights
             Context.SaveChanges();
         }
 
-        public void AddRole(RoleViewModel viewModel)
-        {
-            var newRole = new IdentityRole
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = viewModel.Name
-            };
-            viewModel.Id = newRole.Id;
-            Context.Roles.Add(newRole);
-            Context.SaveChanges();
-        }
-
         public void EditRight(RightViewModel viewModel)
         {
             var right = Context.Rights.Find(viewModel.Id);
@@ -129,6 +117,18 @@ namespace WebsiteApplication.CodeBehind.Rights
 
             Context.SaveChanges();
             Context.Entry(right).State = EntityState.Deleted;
+            Context.SaveChanges();
+        }
+
+        public void AddRole(RoleViewModel viewModel)
+        {
+            var newRole = new IdentityRole
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = viewModel.Name
+            };
+            viewModel.Id = newRole.Id;
+            Context.Roles.Add(newRole);
             Context.SaveChanges();
         }
 

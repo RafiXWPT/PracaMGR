@@ -16,9 +16,9 @@ namespace WebsiteApplication.Controllers.Reports
     public class ReportsListController : KendoController
     {
         private readonly IRepository<ReportRequest> _repository;
-        private readonly IRaportService _service;
+        private readonly IReportService _service;
 
-        public ReportsListController(IRepository<ReportRequest> repository, IRaportService service)
+        public ReportsListController(IRepository<ReportRequest> repository, IReportService service)
         {
             _repository = repository;
             _service = service;
@@ -73,7 +73,7 @@ namespace WebsiteApplication.Controllers.Reports
             request.Status = ReportRequestStatus.ACCEPTED;
             request.AcceptedAt = DateTime.Now;
             request.AcceptedBy = User.Name;
-            request.GeneratedReport = _service.GenerateRaport(request.PatientPesel, User.Name);
+            request.GeneratedReport = _service.GenerateReport(request.PatientPesel, User.Name);
             _repository.Update(request);
             return Json(OperationResult.SuccessResult());
         }

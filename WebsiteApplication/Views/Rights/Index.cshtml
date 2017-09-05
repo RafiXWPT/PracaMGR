@@ -20,4 +20,9 @@
     function onSelect(e) {
         $(e.contentElement).html("");
     }
+    function onRoleGridDataBound() {
+        $(".k-grid-edit").each(function () {
+            $(this).remove();
+        });
+    }
 </script>

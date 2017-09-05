@@ -40,7 +40,7 @@ namespace WebsiteApplication
             container.Register<IRepository<SearchHistory>, SearchHistoryRepository>(Lifestyle.Scoped);
             container.Register<IRightsManager<RightViewModel, RoleViewModel, UserViewModel>, RightsManager>(Lifestyle
                 .Scoped);
-            container.Register<IRaportService, PdfRaportService>(Lifestyle.Scoped);
+            container.Register<IReportService, PdfReportService>(Lifestyle.Scoped);
 
             container.Register<IUserStore<ApplicationUser>>(
                 () => new UserStore<ApplicationUser>(container.GetInstance<WebsiteDatabaseContext>()),

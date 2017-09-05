@@ -2,69 +2,69 @@
 <!DOCTYPE html>
 <html lang="pl-PL">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - MGR</title>
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/kendo/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/kendo")
-    
-    <style>
-        .d-logout > i {
-            float: right;
-        }
-    </style>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title - MGR</title>
+	@Styles.Render("~/Content/css")
+	@Styles.Render("~/Content/kendo/css")
+	@Scripts.Render("~/bundles/modernizr")
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/kendo")
+	
+	<style>
+		.d-logout > i {
+			float: right;
+		}
+	</style>
 
-    <meta name="description" content="Praca magisterska - Rafał Kamil Palej"/>
-	<script src="@Url.Content("~/Scripts/kendo/2017.2.621/jszip.min.js")"></script>
+	<meta name="description" content="Praca magisterska - Rafał Kamil Palej"/>
+	<script src="@Url.Content("~/Scripts/kendo/jszip.min.js")"></script>
 </head>
 <body>
 <script>
-    var app = app || {};
-    app.register = function(ns, o, init) {
-        var tmp = window;
-        ns.split('.').map(function(x) {
-            !tmp[x] && (tmp[x] = {});
-            tmp = tmp[x];
-        });
-        $.extend(tmp, o);
-    };
-    app.notify = app.notify ||
-    (function() {
-        return $('<div/>').kendoNotification({
-            width: '80%',
-            stacking: "down",
-            position: {
-                pinned: true,
-                top: 30,
-                right: 20
-            },
-            show: function(e) {
-                e.element.parent().css('zIndex', 99999);
-                if (e.sender.getNotifications().length === 1) {
-                    var element = e.element.parent(), eWidth = element.width(), wWidth = $(window).width(), newLeft;
-                    newLeft = Math.floor(wWidth / 2 - eWidth / 2);
-                    e.element.parent().css({ left: newLeft });
-                }
-            }
-        }).data('kendoNotification');
-    })();
+	var app = app || {};
+	app.register = function(ns, o, init) {
+		var tmp = window;
+		ns.split('.').map(function(x) {
+			!tmp[x] && (tmp[x] = {});
+			tmp = tmp[x];
+		});
+		$.extend(tmp, o);
+	};
+	app.notify = app.notify ||
+	(function() {
+		return $('<div/>').kendoNotification({
+			width: '80%',
+			stacking: "down",
+			position: {
+				pinned: true,
+				top: 30,
+				right: 20
+			},
+			show: function(e) {
+				e.element.parent().css('zIndex', 99999);
+				if (e.sender.getNotifications().length === 1) {
+					var element = e.element.parent(), eWidth = element.width(), wWidth = $(window).width(), newLeft;
+					newLeft = Math.floor(wWidth / 2 - eWidth / 2);
+					e.element.parent().css({ left: newLeft });
+				}
+			}
+		}).data('kendoNotification');
+	})();
 </script>
 <div class="container">
-    <div class="row">
-        <div id="nav-wrapper">
-            @Html.Action("Menu", "Menu")
-        </div>
-    </div>
+	<div class="row">
+		<div id="nav-wrapper">
+			@Html.Action("Menu", "Menu")
+		</div>
+	</div>
 </div>
 <div class="container body-content">
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Rafał Kamil Palej - AGH</p>
-    </footer>
+	@RenderBody()
+	<hr/>
+	<footer>
+		<p>&copy; @DateTime.Now.Year - Rafał Kamil Palej - AGH</p>
+	</footer>
 </div>
 
 @(Html.Kendo().Notification().Name("popupNotification"))
