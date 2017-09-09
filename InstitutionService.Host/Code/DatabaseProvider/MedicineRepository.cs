@@ -7,11 +7,11 @@ using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    internal class DatabaseMedicineRepository : IRepository<Medicine>
+    internal class MedicineRepository : IRepository<Medicine>
     {
         private readonly InstitutionServiceDatabaseContext _context;
 
-        public DatabaseMedicineRepository(IDbRepository context)
+        public MedicineRepository(IDbRepository context)
         {
             _context = context as InstitutionServiceDatabaseContext;
         }

@@ -6,11 +6,11 @@ using Domain.Interfaces;
 
 namespace WebsiteApplication.DataAccessLayer
 {
-    internal class DatabaseInstitutionRepository : IRepository<Institution>
+    internal class InstitutionRepository : IRepository<Institution>
     {
         private readonly WebsiteDatabaseContext _context;
 
-        public DatabaseInstitutionRepository(WebsiteDatabaseContext context)
+        public InstitutionRepository(WebsiteDatabaseContext context)
         {
             _context = context;
         }

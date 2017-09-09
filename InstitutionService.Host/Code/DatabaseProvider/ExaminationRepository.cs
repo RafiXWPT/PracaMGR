@@ -2,42 +2,42 @@
 using System.Data.Entity;
 using System.Linq;
 using Domain.Interfaces;
-using Domain.Inventory;
+using Domain.Residence;
 using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    internal class DatabaseUsedMedicineRepository : IRepository<UsedMedicine>
+    internal class ExaminationRepository : IRepository<Examination>
     {
         private readonly InstitutionServiceDatabaseContext _context;
 
-        public DatabaseUsedMedicineRepository(IDbRepository context)
+        public ExaminationRepository(IDbRepository context)
         {
             _context = context as InstitutionServiceDatabaseContext;
         }
 
+        public IQueryable<Examination> Entities => _context.Examinations;
 
-        public IQueryable<UsedMedicine> Entities => _context.UsedMedicines;
-        public void Create(UsedMedicine entity)
+        public void Create(Examination entity)
         {
-            _context.UsedMedicines.Add(entity);
+            _context.Examinations.Add(entity);
             SaveChanges();
         }
 
-        public UsedMedicine Read(Guid entityId)
+        public Examination Read(Guid entityId)
         {
-            return Entities.FirstOrDefault(e => e.UsedMedicineId == entityId);
+            return Entities.FirstOrDefault(e => e.ExaminationId == entityId);
         }
 
-        public void Update(UsedMedicine entity)
+        public void Update(Examination entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             SaveChanges();
         }
 
-        public void Delete(UsedMedicine entity)
+        public void Delete(Examination entity)
         {
-            _context.UsedMedicines.Remove(entity);
+            _context.Examinations.Remove(entity);
             SaveChanges();
         }
 

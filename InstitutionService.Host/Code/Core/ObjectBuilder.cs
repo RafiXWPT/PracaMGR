@@ -24,12 +24,12 @@ namespace InstitutionService.Host.Code.Core
             Container.Options.DefaultScopedLifestyle = new WcfOperationLifestyle();
 
             Container.Register<IDbRepository>(() => new InstitutionServiceDatabaseContext("InstitutionContext"));
-            Container.Register<IRepository<Patient>, DatabasePatientRepository>(Lifestyle.Transient);
-            Container.Register<IRepository<Hospitalization>, DatabaseHospitalizationRepository>(Lifestyle.Transient);
-            Container.Register<IRepository<Treatment>, DatabaseTreatmentRepository>(Lifestyle.Transient);
-            Container.Register<IRepository<Examination>, DatabaseExaminationRepository>(Lifestyle.Transient);
-            Container.Register<IRepository<UsedMedicine>, DatabaseUsedMedicineRepository>(Lifestyle.Transient);
-            Container.Register<IRepository<Medicine>, DatabaseMedicineRepository>(Lifestyle.Transient);
+            Container.Register<IRepository<Patient>, PatientRepository>(Lifestyle.Transient);
+            Container.Register<IRepository<Hospitalization>, HospitalizationRepository>(Lifestyle.Transient);
+            Container.Register<IRepository<Treatment>, TreatmentRepository>(Lifestyle.Transient);
+            Container.Register<IRepository<Examination>, ExaminationRepository>(Lifestyle.Transient);
+            Container.Register<IRepository<UsedMedicine>, UsedMedicineRepository>(Lifestyle.Transient);
+            Container.Register<IRepository<Medicine>, MedicineRepository>(Lifestyle.Transient);
 
             Container.Verify();
 

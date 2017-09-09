@@ -226,7 +226,7 @@
     <Compile Include="Controllers\Reports\MineReportsListController.cs" />
     <Compile Include="Controllers\Reports\ReportsListController.cs" />
     <Compile Include="Controllers\RightsController.cs" />
-    <Compile Include="DataAccessLayer\DatabaseInstitutionRepository.cs" />
+    <Compile Include="DataAccessLayer\InstitutionRepository.cs" />
     <Compile Include="DataAccessLayer\GeneratedReaportRepository.cs" />
     <Compile Include="DataAccessLayer\ReaportRequestRepository.cs" />
     <Compile Include="DataAccessLayer\SearchHistoryRepository.cs" />

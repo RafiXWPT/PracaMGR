@@ -7,37 +7,38 @@ using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    internal class DatabaseExaminationRepository : IRepository<Examination>
+    internal class TreatmentRepository : IRepository<Treatment>
     {
         private readonly InstitutionServiceDatabaseContext _context;
 
-        public DatabaseExaminationRepository(IDbRepository context)
+        public TreatmentRepository(IDbRepository context)
         {
             _context = context as InstitutionServiceDatabaseContext;
         }
 
-        public IQueryable<Examination> Entities => _context.Examinations;
 
-        public void Create(Examination entity)
+        public IQueryable<Treatment> Entities => _context.Treatments;
+
+        public void Create(Treatment entity)
         {
-            _context.Examinations.Add(entity);
+            _context.Treatments.Add(entity);
             SaveChanges();
         }
 
-        public Examination Read(Guid entityId)
+        public Treatment Read(Guid entityId)
         {
-            return Entities.FirstOrDefault(e => e.ExaminationId == entityId);
+            return Entities.FirstOrDefault(e => e.TreatmentId == entityId);
         }
 
-        public void Update(Examination entity)
+        public void Update(Treatment entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             SaveChanges();
         }
 
-        public void Delete(Examination entity)
+        public void Delete(Treatment entity)
         {
-            _context.Examinations.Remove(entity);
+            _context.Treatments.Remove(entity);
             SaveChanges();
         }
 

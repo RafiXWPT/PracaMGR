@@ -1,42 +1,43 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using Domain;
 using Domain.Interfaces;
-using Domain.Residence;
 using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    internal class DatabaseHospitalizationRepository : IRepository<Hospitalization>
+    public class PatientRepository : IRepository<Patient>
     {
         private readonly InstitutionServiceDatabaseContext _context;
 
-        public DatabaseHospitalizationRepository(IDbRepository context)
+        public PatientRepository(IDbRepository context)
         {
             _context = context as InstitutionServiceDatabaseContext;
         }
 
-        public IQueryable<Hospitalization> Entities => _context.Hospitalizations;
-        public void Create(Hospitalization entity)
+
+        public IQueryable<Patient> Entities => _context.Patients;
+        public void Create(Patient entity)
         {
-            _context.Hospitalizations.Add(entity);
+            _context.Patients.Add(entity);
             SaveChanges();
         }
 
-        public Hospitalization Read(Guid entityId)
+        public Patient Read(Guid entityId)
         {
-            return Entities.FirstOrDefault(e => e.HospitalizationId == entityId);
+            return Entities.FirstOrDefault(e => e.PatientId == entityId);
         }
 
-        public void Update(Hospitalization entity)
+        public void Update(Patient entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             SaveChanges();
         }
 
-        public void Delete(Hospitalization entity)
+        public void Delete(Patient entity)
         {
-            _context.Hospitalizations.Remove(entity);
+            _context.Patients.Remove(entity);
             SaveChanges();
         }
 
