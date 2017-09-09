@@ -109,7 +109,7 @@ namespace WebsiteApplication.Controllers.Reports
         [HttpPost]
         public ActionResult AddNewReportRequest(string patientPesel, string patientFirstName, string patientLastName)
         {
-            if (TimeHelper.IsCreatedCounterViolated(_reportRequestRepository, User.Name))
+            if (TimeHelper.IsSearchCounterViolated(_reportRequestRepository, User.Name))
                 return Json(OperationResult.FailureResult("Przekroczono ilość raportów"));
 
             var reportRequest = new ReportRequest

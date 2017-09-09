@@ -19,7 +19,16 @@ namespace WebsiteApplication.DataAccessLayer
 
         public int CreatedInLast(DateTime time, string username = null)
         {
-            return username == null ? Entities.Count(e => e.CreatedAt > time) : Entities.Count(e => e.CreatedAt > time && e.ReportRequest.CreatedBy == username);
+            return username == null
+                ? Entities.Count(e => e.CreatedAt > time)
+                : Entities.Count(e => e.CreatedAt > time && e.ReportRequest.CreatedBy == username);
+        }
+
+        public int CreatedBetween(DateTime from, DateTime to, string username = null)
+        {
+            return username == null
+                ? Entities.Count(e => e.CreatedAt > from && e.CreatedAt < to)
+                : Entities.Count(e => e.CreatedAt > from && e.CreatedAt < to && e.ReportRequest.CreatedBy == username);
         }
 
         public void Create(GeneratedReport entity)

@@ -26,7 +26,7 @@ namespace WebsiteApplication.Controllers
         [AuthorizeRight(Right = "REPORT_GENERATION")]
         public ActionResult AddReport(string patientPesel, string patientFirstName, string patientLastName)
         {
-            if (TimeHelper.IsCreatedCounterViolated(_reportRequestRepository, User.Name))
+            if (TimeHelper.IsSearchCounterViolated(_reportRequestRepository, User.Name))
                 return Json(OperationResult.FailureResult("Przekroczono limit raportów"));
 
             var newReaportRequest = new ReportRequest
@@ -47,7 +47,7 @@ namespace WebsiteApplication.Controllers
         [AuthorizeRight(Right = "FORCE_REPORT_GENERATION")]
         public ActionResult GenerateReport(string patientPesel, string patientFirstName, string patientLastName)
         {
-            if (TimeHelper.IsCreatedCounterViolated(_reportRequestRepository, User.Name))
+            if (TimeHelper.IsSearchCounterViolated(_reportRequestRepository, User.Name))
                 return Json(OperationResult.FailureResult("Przekroczono limit raportów"));
 
             var newReaportRequest = new ReportRequest

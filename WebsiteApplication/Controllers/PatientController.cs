@@ -64,7 +64,7 @@ namespace WebsiteApplication.Controllers
         [Route("Patient/{pesel}")]
         public ActionResult Patient(string pesel)
         {
-            if(TimeHelper.IsCreatedCounterViolated(_searchHistoryRepository, User.Name))
+            if(TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
                 return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
 
             return View();
@@ -73,7 +73,7 @@ namespace WebsiteApplication.Controllers
         [Route("History/{pesel}")]
         public ActionResult GetPatientHistory(string pesel)
         {
-            if (TimeHelper.IsCreatedCounterViolated(_searchHistoryRepository, User.Name))
+            if (TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
                 return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
 
             var patientRecordList = _patientInfoFetcher.GetPatientInfo<PatientViewModel>(pesel);
@@ -92,7 +92,7 @@ namespace WebsiteApplication.Controllers
         [Route("HospitalizationDetails/{hospitalizationId}")]
         public ActionResult HospitalizationDetails(Guid hospitalizationId, Guid institutionId)
         {
-            if (TimeHelper.IsCreatedCounterViolated(_searchHistoryRepository, User.Name))
+            if (TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
                 return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
 
             var personViewModel = TempData["CurrentPerson"] as PersonViewModel;
@@ -114,7 +114,7 @@ namespace WebsiteApplication.Controllers
         [Route("ExaminationDetails/{treatmentId}")]
         public ActionResult ExaminationDetails(Guid examinationId, Guid institutionId)
         {
-            if (TimeHelper.IsCreatedCounterViolated(_searchHistoryRepository, User.Name))
+            if (TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
                 return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
 
             var institution = _institutionRepository.Read(institutionId);
@@ -125,7 +125,7 @@ namespace WebsiteApplication.Controllers
         [Route("TreatmentDetails/{treatmentId}")]
         public ActionResult TreatmentDetails(Guid treatmentId, Guid institutionId)
         {
-            if (TimeHelper.IsCreatedCounterViolated(_searchHistoryRepository, User.Name))
+            if (TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
                 return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
 
             var institution = _institutionRepository.Read(institutionId);

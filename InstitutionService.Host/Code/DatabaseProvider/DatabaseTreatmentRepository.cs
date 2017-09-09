@@ -51,5 +51,10 @@ namespace InstitutionService.Host.Code.DatabaseProvider
         {
             throw new NotImplementedException();
         }
+
+        public int CreatedBetween(DateTime from, DateTime to, string username = null)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

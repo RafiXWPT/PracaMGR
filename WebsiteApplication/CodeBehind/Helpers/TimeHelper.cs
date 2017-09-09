@@ -15,7 +15,7 @@ namespace WebsiteApplication.CodeBehind.Helpers
         public static DateTime LastMonth => DateTime.Now.AddMonths(-1);
         public static DateTime LastYear => DateTime.Now.AddYears(-1);
 
-        public static bool IsCreatedCounterViolated(ICreatedCountable repository, string username)
+        public static bool IsSearchCounterViolated(IDateTimeCountable repository, string username)
         {
             if (repository.CreatedInLast(LastMinute, username) > 1)
                 return true;
