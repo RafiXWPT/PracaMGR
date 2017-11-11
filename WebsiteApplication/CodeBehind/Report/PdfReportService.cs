@@ -13,7 +13,7 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 using WebsiteApplication.CodeBehind.WcfServices;
 
-namespace WebsiteApplication.CodeBehind.Raport
+namespace WebsiteApplication.CodeBehind.Report
 {
     public class PdfReportService : IReportService
     {

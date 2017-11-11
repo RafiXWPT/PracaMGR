@@ -19,7 +19,7 @@ namespace WebsiteApplication.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class GlobalTranslations {
@@ -286,11 +286,29 @@ namespace WebsiteApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wyloguj.
+        /// </summary>
+        public static string LogOut {
+            get {
+                return ResourceManager.GetString("LogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Strona główna.
         /// </summary>
         public static string MainPage {
             get {
                 return ResourceManager.GetString("MainPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moje.
+        /// </summary>
+        public static string Mine {
+            get {
+                return ResourceManager.GetString("Mine", resourceCulture);
             }
         }
         
@@ -327,6 +345,15 @@ namespace WebsiteApplication.Resources {
         public static string Patient {
             get {
                 return ResourceManager.GetString("Patient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pacjenci.
+        /// </summary>
+        public static string Patients {
+            get {
+                return ResourceManager.GetString("Patients", resourceCulture);
             }
         }
         
@@ -412,6 +439,24 @@ namespace WebsiteApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Raporty.
+        /// </summary>
+        public static string Reports {
+            get {
+                return ResourceManager.GetString("Reports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role i uprawnienia.
+        /// </summary>
+        public static string RolesAndRights {
+            get {
+                return ResourceManager.GetString("RolesAndRights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zapisz.
         /// </summary>
         public static string Save {
@@ -448,6 +493,15 @@ namespace WebsiteApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do akceptacji.
+        /// </summary>
+        public static string ToAcceptance {
+            get {
+                return ResourceManager.GetString("ToAcceptance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Szczegóły leczenia.
         /// </summary>
         public static string TreatmentDetails {
@@ -471,6 +525,15 @@ namespace WebsiteApplication.Resources {
         public static string UseALocalAccountToLogIn {
             get {
                 return ResourceManager.GetString("UseALocalAccountToLogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Witaj.
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
             }
         }
     }

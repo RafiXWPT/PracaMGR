@@ -1,6 +1,6 @@
 ﻿using Domain;
 
-namespace WebsiteApplication.CodeBehind.Raport
+namespace WebsiteApplication.CodeBehind.Report
 {
     public interface IReportService
     {

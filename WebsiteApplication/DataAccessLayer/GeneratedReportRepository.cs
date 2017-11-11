@@ -6,11 +6,11 @@ using Domain.Interfaces;
 
 namespace WebsiteApplication.DataAccessLayer
 {
-    public class GeneratedReaportRepository : IRepository<GeneratedReport>
+    public class GeneratedReportRepository : IRepository<GeneratedReport>
     {
         private readonly WebsiteDatabaseContext _context;
 
-        public GeneratedReaportRepository(WebsiteDatabaseContext context)
+        public GeneratedReportRepository(WebsiteDatabaseContext context)
         {
             _context = context;
         }

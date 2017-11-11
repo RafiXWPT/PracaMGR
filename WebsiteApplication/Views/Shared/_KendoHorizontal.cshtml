@@ -6,14 +6,14 @@
         {
             i.Add().Text("Dashboard").Action("Index", "Dashboard");
             i.Add().Text(GlobalTranslations.Institutions).Action("Index", "Institution").Visible(User.IsInAnyRole("ADMIN,ADMIN_TECH,TECHNICAN"));
-            i.Add().Text("Role i uprawnienia").Action("Index", "Rights").Visible(User.IsInRole("ADMIN"));
-            i.Add().Text("Raporty").Items(inner =>
+            i.Add().Text(GlobalTranslations.RolesAndRights).Action("Index", "Rights").Visible(User.IsInRole("ADMIN"));
+            i.Add().Text(GlobalTranslations.Reports).Items(inner =>
             {
-                inner.Add().Text("Moje").Action("MineReportsList", "MineReportsList").Visible(Model.Rights.Contains("REPORT_GENERATION"));
-                inner.Add().Text("Do akceptacji").Action("ReportsList", "ReportsList").Visible(Model.Rights.Contains("REPORT_ACCEPTANCE"));
+                inner.Add().Text(GlobalTranslations.Mine).Action("MineReportsList", "MineReportsList").Visible(Model.Rights.Contains("REPORT_GENERATION"));
+                inner.Add().Text(GlobalTranslations.ToAcceptance).Action("ReportsList", "ReportsList").Visible(Model.Rights.Contains("REPORT_ACCEPTANCE"));
             }).Visible(Model.Roles.Any());
 
-            i.Add().Text("Pacjenci").Items(inner =>
+            i.Add().Text(GlobalTranslations.Patients).Items(inner =>
             {
                 inner.Add().Text(GlobalTranslations.SearchPatient).Action("Index", "Patient");
             }).Visible(Model.Rights.Contains("GET_PATIENT_INFO"));

@@ -1,28 +1,42 @@
-﻿@model WebsiteApplication.Models.ViewModels.Tile.TileViewModel
+﻿@using WebsiteApplication.Models.ViewModels.Tile
+@model WebsiteApplication.Models.ViewModels.Tile.TileBase
 
-@if (Model.Break)
+@if (Model is TileBreakViewModel)
 {
     <div class="col-md-12">
-        <h2>@Model.BreakHeader</h2>
+        <h2>@(((TileBreakViewModel) Model).BreakHeader)</h2>
     </div>
 }
 else
 {
+    var tileViewModel = (TileViewModel) Model;
     <div class="col-lg-2 col-sm-6">
         <div class="circle-tile">
-            <a href=@(string.IsNullOrEmpty(Model.TileUrl) ? "#" : $"{Model.TileUrl} target=_blank")>
-                <div class="circle-tile-heading @Model.TileColor">
-                    <i class="fa fa-@Model.TileIcon fa-fw fa-3x"></i>
+            @if (string.IsNullOrEmpty(tileViewModel.TileUrl))
+            {
+                <div class="circle-tile-heading @tileViewModel.TileCircleColor">
+                    <i class="fa fa-@tileViewModel.TileIcon fa-fw fa-3x"></i>
                 </div>
-            </a>
-            <div class="circle-tile-content @Model.TileColor">
+            }
+            else
+            {
+                <a href=@($"{tileViewModel.TileUrl} target=_blank")>
+                    <div class="circle-tile-heading @tileViewModel.TileCircleColor">
+                        <i class="fa fa-@tileViewModel.TileIcon fa-fw fa-3x"></i>
+                    </div>
+                </a>
+            }
+            <div class="circle-tile-content @tileViewModel.TileContentColor">
                 <div class="circle-tile-description text-faded">
-                    @Model.TileContentText
+                    @tileViewModel.TileContentText
                 </div>
                 <div class="circle-tile-number text-faded">
-                    @Model.TileValue
+                    @tileViewModel.TileValue
                 </div>
-                @*<a href="#" class="circle-tile-footer">More Info <i class="fa fa-chevron-circle-right"></i></a>*@
+                @if (!string.IsNullOrEmpty(tileViewModel.Tooltip))
+                {
+                    <a href="#" class="circle-tile-footer">More Info <i class="fa fa-chevron-circle-right"></i></a>
+                }
             </div>
         </div>
     </div>

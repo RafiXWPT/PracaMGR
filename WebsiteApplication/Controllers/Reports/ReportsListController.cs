@@ -6,7 +6,7 @@ using Domain.Interfaces;
 using Kendo.Mvc.UI;
 using WebsiteApplication.CodeBehind.Attributes;
 using WebsiteApplication.CodeBehind.Classess;
-using WebsiteApplication.CodeBehind.Raport;
+using WebsiteApplication.CodeBehind.Report;
 using WebsiteApplication.Controllers.AdditionalControllers;
 using WebsiteApplication.Models.ViewModels.Reports;
 

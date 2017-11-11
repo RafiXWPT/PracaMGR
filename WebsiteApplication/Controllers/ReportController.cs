@@ -6,7 +6,7 @@ using Domain.Interfaces;
 using WebsiteApplication.CodeBehind.Attributes;
 using WebsiteApplication.CodeBehind.Classess;
 using WebsiteApplication.CodeBehind.Helpers;
-using WebsiteApplication.CodeBehind.Raport;
+using WebsiteApplication.CodeBehind.Report;
 using WebsiteApplication.Controllers.AdditionalControllers;
 
 namespace WebsiteApplication.Controllers

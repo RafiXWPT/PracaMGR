@@ -6,11 +6,11 @@ using Domain.Interfaces;
 
 namespace WebsiteApplication.DataAccessLayer
 {
-    public class ReaportRequestRepository : IRepository<ReportRequest>
+    public class ReportRequestRepository : IRepository<ReportRequest>
     {
         private readonly WebsiteDatabaseContext _context;
 
-        public ReaportRequestRepository(WebsiteDatabaseContext context)
+        public ReportRequestRepository(WebsiteDatabaseContext context)
         {
             _context = context;
         }
