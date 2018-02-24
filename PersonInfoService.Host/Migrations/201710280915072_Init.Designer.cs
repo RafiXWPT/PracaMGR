@@ -13,7 +13,7 @@ namespace PersonInfoService.Host.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201701282238166_Init"; }
+            get { return "201710280915072_Init"; }
         }
         
         string IMigrationMetadata.Source

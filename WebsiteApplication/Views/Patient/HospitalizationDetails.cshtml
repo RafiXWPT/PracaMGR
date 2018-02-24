@@ -17,13 +17,22 @@
       .Name("ExaminationGrid")
       .Columns(columns =>
       {
-          columns.Bound(c => c.InstitutionId).Hidden();
-          columns.Bound(c => c.ExaminationId).Hidden();
-          columns.Bound(x => x.ExaminationStartTime).Template(@<text></text>).ClientTemplate("#=kendo.toString(ExaminationStartTime, 'yyyy-MM-dd hh:mm:ss')#").Width(100);
-          columns.Bound(x => x.ExaminationEndTime).Template(@<text></text>).ClientTemplate("#=kendo.toString(ExaminationEndTime, 'yyyy-MM-dd hh:mm:ss')#").Width(100);
-          columns.Command(command => command.Custom(GlobalTranslations.Details).Click("showExaminationDetails")).Width(25);
+          columns.Bound(c => c.InstitutionId)
+            .Hidden();
+          columns.Bound(c => c.ExaminationId)
+            .Hidden();
+          columns.Bound(x => x.ExaminationStartTime)
+            .Template(@<text></text>)
+            .ClientTemplate("#=kendo.toString(ExaminationStartTime, 'yyyy-MM-dd hh:mm:ss')#")
+            .Width(100);
+          columns.Bound(x => x.ExaminationEndTime)
+            .Template(@<text></text>)
+            .ClientTemplate("#=kendo.toString(ExaminationEndTime, 'yyyy-MM-dd hh:mm:ss')#")
+            .Width(100);
+          columns.Command(command => command.Custom(GlobalTranslations.Details)
+            .Click("showExaminationDetails"))
+            .Width(25);
       })
-      .Scrollable()
       .Sortable()
       .Pageable()
       .DataSource(ds =>
@@ -40,7 +49,6 @@
           columns.Bound(c => c.TreatmentDateTime).Width(100);
           columns.Command(command => command.Custom(GlobalTranslations.Details).Click("showTreatmentDetails")).Width(25);
       })
-      .Scrollable()
       .Sortable()
       .Pageable()
       .DataSource(ds =>

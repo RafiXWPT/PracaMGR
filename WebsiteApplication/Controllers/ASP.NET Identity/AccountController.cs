@@ -94,10 +94,6 @@ namespace WebsiteApplication.Controllers.ASP.NET_Identity
                 if (result.Succeeded)
                 {
                     _userManager.EmailService = new ApplicationEmailService();
-                    //await _signInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new {userId = user.Id, code},
                         Request.Url.Scheme);
@@ -109,7 +105,6 @@ namespace WebsiteApplication.Controllers.ASP.NET_Identity
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
