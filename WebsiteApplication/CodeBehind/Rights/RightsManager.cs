@@ -22,7 +22,7 @@ namespace WebsiteApplication.CodeBehind.Rights
         public WebsiteDatabaseContext Context { get; }
         public UserManager<ApplicationUser> UserManager { get; }
 
-        public List<RightViewModel> Rights()
+        public IEnumerable<RightViewModel> Rights()
         {
             return Context.Rights.Select(r => new RightViewModel
                 {
@@ -33,7 +33,7 @@ namespace WebsiteApplication.CodeBehind.Rights
                 .ToList();
         }
 
-        public List<RoleViewModel> Roles()
+        public IEnumerable<RoleViewModel> Roles()
         {
             return Context.Roles.Select(r => new RoleViewModel
                 {
@@ -43,7 +43,7 @@ namespace WebsiteApplication.CodeBehind.Rights
                 .ToList();
         }
 
-        public List<UserViewModel> Users()
+        public IEnumerable<UserViewModel> Users()
         {
             var applicationUsers = Context.Users.ToList();
             return applicationUsers.Select(u => new UserViewModel
@@ -60,22 +60,22 @@ namespace WebsiteApplication.CodeBehind.Rights
                 .ToList();
         }
 
-        public List<string> RolesForRight(string right)
+        public IEnumerable<string> RolesForRight(string right)
         {
             return Context.RolesToRights.Where(r => r.Right.RightName == right).Select(x => x.Role).ToList();
         }
 
-        public List<string> RightsForRole(string role)
+        public IEnumerable<string> RightsForRole(string role)
         {
             return Context.RolesToRights.Where(r => r.Role == role).Select(r => r.Right.RightName).ToList();
         }
 
-        public List<string> RolesForRight(RightViewModel viewModel)
+        public IEnumerable<string> RolesForRight(RightViewModel viewModel)
         {
             return Context.RolesToRights.Where(r => r.RightId == viewModel.Id).Select(x => x.Role).ToList();
         }
 
-        public List<string> RoleNamesForGuid(List<string> roleGuids)
+        public IEnumerable<string> RoleNamesForGuid(List<string> roleGuids)
         {
             var roles = Roles();
             return roleGuids.SelectMany(r => roles.Where(ro => ro.Id == r)).Select(r => r.Name).ToList();
