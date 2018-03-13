@@ -40,8 +40,9 @@ namespace WebsiteApplication.CodeBehind.WcfServices
             try
             {
                 client = channel.CreateChannel();
+                client.Ping();
             }
-            catch (Exception)
+            catch (EndpointNotFoundException)
             {
                 return null;
             }
@@ -56,9 +57,12 @@ namespace WebsiteApplication.CodeBehind.WcfServices
 
         public List<TViewModel> GetAllPatientsFromInstitution<TViewModel>(Guid institutionId) where TViewModel: class
         {
-            var firstOrDefault = _repository.Read(institutionId);
-            if (firstOrDefault != null)
-                _connection = EstablishConnection(firstOrDefault.InstitutionEndpointAddress);
+            var institution = _repository.Read(institutionId);
+            if (institution != null)
+                _connection = EstablishConnection(institution.InstitutionEndpointAddress);
+
+            if(_connection == null)
+                return new List<TViewModel>();
 
             var allPatientsFromInstitution = _connection?.GetAllPatients();
             _searchHistoryRepository.Create(new SearchHistory

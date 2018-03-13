@@ -17,6 +17,11 @@ namespace InstitutionService.Host.Code.Core
             return ObjectBuilder.Container.GetInstance<IRepository<Patient>>();
         }
 
+        public bool Ping()
+        {
+            return true;
+        }
+
         public string GetInstitutionName()
         {
             return ConfigurationProvider.Instance.GetInstitutionName();

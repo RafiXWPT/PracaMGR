@@ -10,6 +10,9 @@ namespace InstitutionService
     public interface IInstitutionService
     {
         [OperationContract]
+        bool Ping();
+
+        [OperationContract]
         string GetInstitutionName();
 
         [OperationContract]

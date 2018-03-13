@@ -113,7 +113,7 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                 }
             };
 
-            var takeCount = _rnd.Next(3, patients.Count);
+            var takeCount = _rnd.Next(5, patients.Count);
             for (var i = 0; i < takeCount; i++)
             {
                 var tmpPerson = patients[_rnd.Next(0, patients.Count)];
@@ -159,15 +159,14 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
         private void AddExaminations()
         {
             var examinationRepository =
-                new InstitutionServiceDatabaseContext(
-                    "InstitutionContext"); //= ObjectBuilder.Container.GetInstance<IExaminationRepository>();
+                new InstitutionServiceDatabaseContext("InstitutionContext"); //= ObjectBuilder.Container.GetInstance<IExaminationRepository>();
 
             foreach (var hospitalization in _hospitalizations)
             {
                 var takeCount = _rnd.Next(0, 10);
                 for (var i = 0; i < takeCount; i++)
                 {
-                    var dateOfExaminationBegin = GenRandomDate(hospitalization.HospitalizationStartTime);
+                    var dateOfExaminationBegin = GenRandomDate(hospitalization.HospitalizationStartTime, hospitalization.HospitalizationEndTime);
                     var dateOfExaminationEnd = dateOfExaminationBegin.AddHours(_rnd.Next(1, 6));
                     _examinations.Add(new Examination
                     {
@@ -187,8 +186,7 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
         private void AddTreatments()
         {
             var treatmentRepository =
-                new InstitutionServiceDatabaseContext(
-                    "InstitutionContext"); //= ObjectBuilder.Container.GetInstance<ITreatmentRepository>();
+                new InstitutionServiceDatabaseContext("InstitutionContext"); //= ObjectBuilder.Container.GetInstance<ITreatmentRepository>();
 
             foreach (var hospitalization in _hospitalizations)
             {
@@ -198,8 +196,7 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                     {
                         TreatmentId = Guid.NewGuid(),
                         HospitalizationId = hospitalization.HospitalizationId,
-                        TreatmentDateTime = GenRandomDate(hospitalization.HospitalizationStartTime,
-                            hospitalization.HospitalizationEndTime)
+                        TreatmentDateTime = GenRandomDate(hospitalization.HospitalizationStartTime, hospitalization.HospitalizationEndTime)
                     });
             }
 
@@ -210,8 +207,7 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
         private void AddUsedMedicines()
         {
             var usedMedicineRepository =
-                new InstitutionServiceDatabaseContext(
-                    "InstitutionContext"); //= ObjectBuilder.Container.GetInstance<IUsedMedicineRepository>();
+                new InstitutionServiceDatabaseContext("InstitutionContext"); //= ObjectBuilder.Container.GetInstance<IUsedMedicineRepository>();
             foreach (var treatment in _treatments)
             {
                 var takeCount = _rnd.Next(0, 20);
@@ -231,7 +227,7 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
 
         private DateTime GenRandomDate(DateTime min)
         {
-            return GenRandomDate(min, DateTime.Now);
+            return GenRandomDate(min, DateTime.Now.AddMinutes(1));
         }
 
         private DateTime GenRandomDate(DateTime min, DateTime max)

@@ -78,6 +78,9 @@ namespace WebsiteApplication.Controllers.Reports
             institutions.ForEach(action =>
             {
                 var institutionData = _patientFetcher.GetAllPatientsFromInstitution<PatientTransferObject>(action.InstitutionId);
+                if (!institutionData.Any())
+                    return;
+
                 institutionData.ForEach(innerAction =>
                 {
                     if (patientsData.Any(p => p.Pesel == innerAction.Pesel))

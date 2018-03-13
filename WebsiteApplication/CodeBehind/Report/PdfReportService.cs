@@ -90,16 +90,16 @@ namespace WebsiteApplication.CodeBehind.Report
         {
             document.Add(new Paragraph("Dane ogólne na temat hospitalizacji:").SetFontSize(20));
 
-            var hasBeenTreatmentInInstitution = patientHistory.Hospitalizations.All(x => x.Treatments.Any());
-            var hasBeenExaminedInInstitution = patientHistory.Hospitalizations.All(x => x.Examinations.Any());
+            var hasBeenTreatmentInInstitution = patientHistory.Hospitalizations.Any(x => x.Treatments.Any());
+            var hasBeenExaminedInInstitution = patientHistory.Hospitalizations.Any(x => x.Examinations.Any());
 
             var infoParagraph = new Paragraph();
             infoParagraph.Add(
                 $"Ilość placówek w których osoba była leczona: {patientHistory.Hospitalizations.Select(x => x.HospitalizationId).Distinct().Count()}");
             infoParagraph.Add(
-                $"\nPierwsze wizyta w placówce medycznej: {patientHistory.Hospitalizations.OrderBy(x => x.HospitalizationStartTime).First().HospitalizationStartTime}");
+                $"\nPierwsze wizyta w placówce medycznej: {patientHistory.Hospitalizations.Min(x => x.HospitalizationStartTime)}");
             infoParagraph.Add(
-                $"\nOstatnia wizyta w placówce medycznej: {patientHistory.Hospitalizations.OrderBy(x => x.HospitalizationEndTime).First().HospitalizationEndTime}");
+                $"\nOstatnia wizyta w placówce medycznej: {patientHistory.Hospitalizations.Max(x => x.HospitalizationEndTime)}");
             infoParagraph.Add(
                 $"\n{(hasBeenExaminedInInstitution ? "Osoba była badana" : "Osoba nigdy nie była badana")}");
             if (hasBeenExaminedInInstitution)
