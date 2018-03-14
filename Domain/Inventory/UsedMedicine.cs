@@ -18,9 +18,12 @@ namespace Domain.Inventory
     public class UsedMedicineTransferObject
     {
         [DataMember]
-        public double Dose { get; set; }
-        [DataMember]
+        public Guid UsedMedicineId { get; set; }
 
+        [DataMember]
+        public double Dose { get; set; }
+
+        [DataMember]
         public MedicineTransferObject Medicine { get; set; }
     }
 }

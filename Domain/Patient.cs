@@ -12,28 +12,17 @@ namespace Domain
         public virtual ICollection<Hospitalization> Hospitalizations { get; set; }
     }
 
+
     [DataContract]
     public class PatientTransferObject
     {
-        public Guid InstitutionId { get; set; }
+        [DataMember]
+        public Guid PatientId { get; set; }
 
         [DataMember]
         public string Pesel { get; set; }
 
         [DataMember]
-        public string InstitutionName { get; set; }
-
-        [DataMember]
-        public List<HospitalizationBasicTransferObject> Hospitalizations { get; set; } = new List<HospitalizationBasicTransferObject>();
-    }
-
-    [DataContract]
-    public class PatientHistoryTransferObject
-    {
-        [DataMember]
-        public string Pesel { get; set; }
-
-        [DataMember]
-        public List<HospitalizationHistoryTransferObject> Hospitalizations { get; set; } = new List<HospitalizationHistoryTransferObject>();
+        public List<HospitalizationTransferObject> Hospitalizations { get; set; } = new List<HospitalizationTransferObject>();
     }
 }

@@ -34,9 +34,9 @@ namespace WebsiteApplication.CodeBehind.Report
             if (personInfo == null)
                 return null;
 
-            var patientHistory = new WcfDataFetcher(_institutionRepository, _searchHistoryRepository, username).GetPatientHistory<PatientHistoryTransferObject>(patientPesel);
+            var patient = new WcfDataFetcher(_institutionRepository, _searchHistoryRepository, username).GetPatient<PatientTransferObject>(patientPesel, true);
 
-            return GeneratePdf(personInfo, patientHistory);
+            return GeneratePdf(personInfo, patient);
         }
 
         public GeneratedReport GenerateReport(string patientPesel, string username)
@@ -50,7 +50,7 @@ namespace WebsiteApplication.CodeBehind.Report
             };
         }
 
-        private byte[] GeneratePdf(PersonTransferObject personInfo, PatientHistoryTransferObject patientHistory)
+        private byte[] GeneratePdf(PersonTransferObject personInfo, PatientTransferObject patient)
         {
             var ms = new MemoryStream();
             var pdfWriter = new PdfWriter(ms);
@@ -62,8 +62,8 @@ namespace WebsiteApplication.CodeBehind.Report
                 .SetHorizontalAlignment(HorizontalAlignment.CENTER)
                 .SetTextAlignment(TextAlignment.CENTER));
             GeneratePersonInfo(document, personInfo);
-            GenerateBasicHospitalizationInfo(document, patientHistory);
-            GenerateDetailedHospitalizationInfo(document, patientHistory);
+            GenerateBasicHospitalizationInfo(document, patient);
+            GenerateDetailedHospitalizationInfo(document, patient);
             document.Close();
 
             return ms.ToArray();
@@ -86,36 +86,36 @@ namespace WebsiteApplication.CodeBehind.Report
             document.Add(personInfoParagraph);
         }
 
-        private void GenerateBasicHospitalizationInfo(Document document, PatientHistoryTransferObject patientHistory)
+        private void GenerateBasicHospitalizationInfo(Document document, PatientTransferObject patient)
         {
             document.Add(new Paragraph("Dane ogólne na temat hospitalizacji:").SetFontSize(20));
 
-            var hasBeenTreatmentInInstitution = patientHistory.Hospitalizations.Any(x => x.Treatments.Any());
-            var hasBeenExaminedInInstitution = patientHistory.Hospitalizations.Any(x => x.Examinations.Any());
+            var hasBeenTreatmentInInstitution = patient.Hospitalizations.Any(x => x.Treatments.Any());
+            var hasBeenExaminedInInstitution = patient.Hospitalizations.Any(x => x.Examinations.Any());
 
             var infoParagraph = new Paragraph();
             infoParagraph.Add(
-                $"Ilość placówek w których osoba była leczona: {patientHistory.Hospitalizations.Select(x => x.HospitalizationId).Distinct().Count()}");
+                $"Ilość placówek w których osoba była leczona: {patient.Hospitalizations.Select(x => x.HospitalizationId).Distinct().Count()}");
             infoParagraph.Add(
-                $"\nPierwsze wizyta w placówce medycznej: {patientHistory.Hospitalizations.Min(x => x.HospitalizationStartTime)}");
+                $"\nPierwsze wizyta w placówce medycznej: {patient.Hospitalizations.Min(x => x.HospitalizationStartTime)}");
             infoParagraph.Add(
-                $"\nOstatnia wizyta w placówce medycznej: {patientHistory.Hospitalizations.Max(x => x.HospitalizationEndTime)}");
+                $"\nOstatnia wizyta w placówce medycznej: {patient.Hospitalizations.Max(x => x.HospitalizationEndTime)}");
             infoParagraph.Add(
                 $"\n{(hasBeenExaminedInInstitution ? "Osoba była badana" : "Osoba nigdy nie była badana")}");
             if (hasBeenExaminedInInstitution)
                 infoParagraph.Add(
-                    $"\nCałkowita ilość przeprowadzonych badań: {patientHistory.Hospitalizations.Sum(hospitalization => hospitalization.Examinations.Count)}");
+                    $"\nCałkowita ilość przeprowadzonych badań: {patient.Hospitalizations.Sum(hospitalization => hospitalization.Examinations.Count)}");
             infoParagraph.Add(
                 $"\n{(hasBeenTreatmentInInstitution ? "Osoba była operowana" : "Osoba nigdy nie była operowana")}");
             if (hasBeenTreatmentInInstitution)
                 infoParagraph.Add(
-                    $"\nCałkowita ilość przeprowadzonych operacji: {patientHistory.Hospitalizations.Sum(hospitalization => hospitalization.Treatments.Count)}");
+                    $"\nCałkowita ilość przeprowadzonych operacji: {patient.Hospitalizations.Sum(hospitalization => hospitalization.Treatments.Count)}");
             document.Add(infoParagraph);
         }
 
-        private void GenerateDetailedHospitalizationInfo(Document document, PatientHistoryTransferObject patientHistory)
+        private void GenerateDetailedHospitalizationInfo(Document document, PatientTransferObject patient)
         {
-            var hospitalizations = patientHistory.Hospitalizations.OrderBy(x => x.HospitalizationStartTime);
+            var hospitalizations = patient.Hospitalizations.OrderBy(x => x.HospitalizationStartTime);
             var institutionGroups = hospitalizations.GroupBy(x => x.HospitalizationId).ToList();
             document.Add(new Paragraph("Dane szczegółowe na temat hospitalizacji:").SetFontSize(20));
             foreach (var institutionKey in institutionGroups)
@@ -124,7 +124,7 @@ namespace WebsiteApplication.CodeBehind.Report
         }
 
         private void GenerateNewHospitalizationInfo(Document document,
-            HospitalizationHistoryTransferObject hospitalization)
+            HospitalizationTransferObject hospitalization)
         {
             var currentInstitutionName = _institutionRepository.Read(hospitalization.HospitalizationId).InstitutionName;
             document.GetPdfDocument().AddNewPage();

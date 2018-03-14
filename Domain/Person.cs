@@ -18,6 +18,9 @@ namespace Domain
     public class PersonTransferObject
     {
         [DataMember]
+        public Guid PersonId { get; set; }
+
+        [DataMember]
         public string Pesel { get; set; }
 
         [DataMember]

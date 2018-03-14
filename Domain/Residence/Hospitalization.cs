@@ -16,30 +16,7 @@ namespace Domain.Residence
     }
 
     [DataContract]
-    public class HospitalizationBasicTransferObject
-    {
-        [DataMember]
-        public Guid HospitalizationId { get; set; }
-
-        [DataMember]
-        public DateTime HospitalizationStartTime { get; set; }
-
-        [DataMember]
-        public DateTime HospitalizationEndTime { get; set; }
-    }
-
-    [DataContract]
     public class HospitalizationTransferObject
-    {
-        [DataMember]
-        public List<ExaminationBasicTransferObject> Examinations { get; set; } = new List<ExaminationBasicTransferObject>();
-
-        [DataMember]
-        public List<TreatmentBasicTransferObject> Treatments { get; set; } = new List<TreatmentBasicTransferObject>();
-    }
-
-    [DataContract]
-    public class HospitalizationHistoryTransferObject
     {
         [DataMember]
         public Guid HospitalizationId { get; set; }
@@ -55,5 +32,7 @@ namespace Domain.Residence
 
         [DataMember]
         public List<TreatmentTransferObject> Treatments { get; set; } = new List<TreatmentTransferObject>();
+
+        public Guid InstitutionId { get; set; }
     }
 }

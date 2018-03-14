@@ -31,14 +31,14 @@ namespace InstitutionService.Host.Code.Core
         {
             Console.WriteLine("Pobrana lista wszystkich pacjentow");
             var patients = GetPatientRepository().Entities.ToList();
-            return patients.Select(SignWithInstitution).ToList();
+            return patients.Select(p => ToTransferObject(p, false)).ToList();
         }
 
-        public PatientTransferObject GetPatientInfo(string pesel)
+        public PatientTransferObject GetPatient(string pesel, bool fullHistory)
         {
             Console.WriteLine("Pobranie informacji o konkretnym pacjencie");
             var patient = GetPatientRepository().Entities.FirstOrDefault(p => p.Pesel == pesel);
-            return SignWithInstitution(patient);
+            return ToTransferObject(patient, fullHistory);
         }
 
         public HospitalizationTransferObject GetHospitalization(Guid hospitalizationId)
@@ -70,43 +70,22 @@ namespace InstitutionService.Host.Code.Core
             return treatment == null ? new TreatmentTransferObject() : Mapper.Map<TreatmentTransferObject>(treatment);
         }
 
-        public PatientHistoryTransferObject GetPatientFullHistory(string pesel)
+        private PatientTransferObject ToTransferObject(Patient patientObject, bool fullHistory)
         {
-            var patient = GetPatientRepository().Entities.FirstOrDefault(p => p.Pesel == pesel);
-            if(patient == null)
-                return new PatientHistoryTransferObject();
+            if(patientObject == null)
+                return new PatientTransferObject();
 
-            var patientHistory = new PatientHistoryTransferObject
+            var transferObject = Mapper.Map<PatientTransferObject>(patientObject);
+            if (!fullHistory)
             {
-                Pesel = patient.Pesel
-            };
-
-            foreach (var hospitalization in patient.Hospitalizations)
-            {
-                var hospitalizationHistoryInfo = new HospitalizationHistoryTransferObject
+                transferObject.Hospitalizations.ForEach(h =>
                 {
-                    HospitalizationId = hospitalization.HospitalizationId,
-                    HospitalizationStartTime = hospitalization.HospitalizationStartTime,
-                    HospitalizationEndTime = hospitalization.HospitalizationEndTime,
-                    Examinations = Mapper.Map<List<ExaminationTransferObject>>(hospitalization.Examinations),
-                    Treatments = Mapper.Map<List<TreatmentTransferObject>>(hospitalization.Treatments)
-                };
-
-                patientHistory.Hospitalizations.Add(hospitalizationHistoryInfo);
+                    h.Examinations.Clear();
+                    h.Treatments.Clear();
+                });
             }
 
-            return patientHistory;
-        }
-
-        private PatientTransferObject SignWithInstitution(Patient patientObject)
-        {
-            if (patientObject == null)
-                return new PatientTransferObject {InstitutionName = GetInstitutionName()};
-
-            var patientTransferObject = Mapper.Map<PatientTransferObject>(patientObject);
-            patientTransferObject.InstitutionName = GetInstitutionName();
-
-            return patientTransferObject;
+            return transferObject;
         }
     }
 }

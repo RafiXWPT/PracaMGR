@@ -19,7 +19,7 @@ namespace InstitutionService
         List<PatientTransferObject> GetAllPatients();
 
         [OperationContract]
-        PatientTransferObject GetPatientInfo(string pesel);
+        PatientTransferObject GetPatient(string pesel, bool fullHistory);
 
         [OperationContract]
         HospitalizationTransferObject GetHospitalization(Guid hospitalizationId);
@@ -29,8 +29,5 @@ namespace InstitutionService
 
         [OperationContract]
         TreatmentTransferObject GetTreatment(Guid treatmentId);
-
-        [OperationContract]
-        PatientHistoryTransferObject GetPatientFullHistory(string pesel);
     }
 }
