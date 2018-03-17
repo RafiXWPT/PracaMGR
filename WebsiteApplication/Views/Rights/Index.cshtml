@@ -2,6 +2,8 @@
     ViewBag.Title = "Role i uprawnienia";
 }
 
+<h2>Role i uprawnienia</h2>
+
 @(Html.Kendo().TabStrip()
       .Name("roles-manager-tabstrip")
       .Animation(true)
@@ -17,5 +19,10 @@
 <script>
     function onSelect(e) {
         $(e.contentElement).html("");
+    }
+    function onRoleGridDataBound() {
+        $(".k-grid-edit").each(function () {
+            $(this).remove();
+        });
     }
 </script>

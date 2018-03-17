@@ -1,8 +1,8 @@
-﻿@model ICollection<WebsiteApplication.Models.ViewModels.Patient.PatientViewModel>
+﻿@model WebsiteApplication.Models.ViewModels.Patient.PatientHistoryContainerViewModel
 
 <hr/>
 <div class="panel-group" id="accordion">
-    @foreach (var record in Model)
+    @foreach (var record in Model.PatientHistory)
     {
         if (!record.Hospitalizations.Any())
         {
@@ -31,7 +31,6 @@
                       })
                           .Pageable()
                           .Sortable()
-                          .Scrollable()
                           .Filterable()
                           .DataSource(dataSource => dataSource
                               .Ajax()

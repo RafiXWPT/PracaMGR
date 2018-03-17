@@ -2,86 +2,69 @@
 <!DOCTYPE html>
 <html lang="pl-PL">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - MGR</title>
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/kendo/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/kendo")
-    <meta name="description" content="Praca magisterska - Rafał Kamil Palej"/>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title - MGR</title>
+	@Styles.Render("~/Content/css")
+	@Styles.Render("~/Content/kendo/css")
+	@Scripts.Render("~/bundles/modernizr")
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/kendo")
+	
+	<style>
+		.d-logout > i {
+			float: right;
+		}
+	</style>
+
+	<meta name="description" content="Praca magisterska - Rafał Kamil Palej"/>
+	<script src="@Url.Content("~/Scripts/kendo/jszip.min.js")"></script>
 </head>
 <body>
 <script>
-    var app = app || {};
-    app.register = function(ns, o, init) {
-        var tmp = window;
-        ns.split('.').map(function(x) {
-            !tmp[x] && (tmp[x] = {});
-            tmp = tmp[x];
-        });
-        $.extend(tmp, o);
-    };
-    app.notify = app.notify ||
-    (function() {
-        return $('<div/>').kendoNotification({
-            width: '80%',
-            stacking: "down",
-            position: {
-                pinned: true,
-                top: 30,
-                right: 20
-            },
-            show: function(e) {
-                e.element.parent().css('zIndex', 99999);
-                if (e.sender.getNotifications().length === 1) {
-                    var element = e.element.parent(), eWidth = element.width(), wWidth = $(window).width(), newLeft;
-                    newLeft = Math.floor(wWidth / 2 - eWidth / 2);
-                    e.element.parent().css({ left: newLeft });
-                }
-            }
-        }).data('kendoNotification');
-    })();
+	var app = app || {};
+	app.register = function(ns, o, init) {
+		var tmp = window;
+		ns.split('.').map(function(x) {
+			!tmp[x] && (tmp[x] = {});
+			tmp = tmp[x];
+		});
+		$.extend(tmp, o);
+	};
+	app.notify = app.notify ||
+	(function() {
+		return $('<div/>').kendoNotification({
+			width: '80%',
+			stacking: "down",
+			position: {
+				pinned: true,
+				top: 30,
+				right: 20
+			},
+			show: function(e) {
+				e.element.parent().css('zIndex', 99999);
+				if (e.sender.getNotifications().length === 1) {
+					var element = e.element.parent(), eWidth = element.width(), wWidth = $(window).width(), newLeft;
+					newLeft = Math.floor(wWidth / 2 - eWidth / 2);
+					e.element.parent().css({ left: newLeft });
+				}
+			}
+		}).data('kendoNotification');
+	})();
 </script>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink(GlobalTranslations.PracaMagisterska, "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
-                <li>@Html.ActionLink(GlobalTranslations.AboutSystem, "About", "Home")</li>
-                <li>@Html.ActionLink(GlobalTranslations.Contact, "Contact", "Home")</li>
-                @if (Context.User.IsInAnyRole("ADMIN,ADMIN_TECH,TECHNICAN"))
-                {
-                    <li>@Html.ActionLink(GlobalTranslations.Institutions, "Index", "Institution")</li>
-                }
-                @if (Context.User.IsInAnyRole("ADMIN,ADMIN_TECH,DOCTOR"))
-                {
-                    <li>@Html.ActionLink(GlobalTranslations.SearchPatient, "Index", "Patient")</li>
-                }
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    @Html.Partial("_LoginPartial")
-                </li>
-            </ul>
-        </div>
-    </div>
+<div class="container">
+	<div class="row">
+		<div id="nav-wrapper">
+			@Html.Action("Menu", "Menu")
+		</div>
+	</div>
 </div>
 <div class="container body-content">
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Rafał Kamil Palej - AGH</p>
-    </footer>
+	@RenderBody()
+	<hr/>
+	<footer>
+		<p>&copy; @DateTime.Now.Year - Rafał Kamil Palej - AGH</p>
+	</footer>
 </div>
 
 @(Html.Kendo().Notification().Name("popupNotification"))

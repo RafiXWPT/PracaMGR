@@ -1,0 +1,30 @@
+﻿@using WebsiteApplication.Models.ViewModels.GlobalData
+<div id="window-container">
+    <div id="window-content">
+        @(Html.Kendo().Grid<PatientViewModel>().Name("all-patients-grid")
+              .Columns(c =>
+              {
+                  c.Bound(vm => vm.Pesel);
+                  c.Bound(vm => vm.FirstName);
+                  c.Bound(vm => vm.LastName);
+                  c.Bound(vm => vm.LastHospitalizationTime).Template(@<text></text>).ClientTemplate("#=kendo.toString(BirthDate, 'yyyy-MM-dd hh:mm:ss')#");
+              })
+              .Pageable()
+              .Selectable()
+              .Filterable(f => f.Mode(GridFilterMode.Row))
+              .Editable()
+              .AutoBind(false)
+              .DataSource(ds => ds
+                  .Ajax()
+                  .Model(m =>
+                  {
+                      m.Id(vm => vm.Pesel);
+                  })
+                  .PageSize(10)
+                  .Read(r => r.Action("ReadAllPatientsFromInstitutions", "MineReportsList"))))
+    </div>
+    <div id="window-buttons" style="position: absolute; bottom: 3px; right: 3px;">
+        @Html.Kendo().Button().Name("accept-button").Content("Akceptuj").Events(e => e.Click("app.mineReportsList.buttons.accept"))
+        @Html.Kendo().Button().Name("cancel-button").Content("Anuluj").Events(e => e.Click("app.mineReportsList.buttons.cancel"))
+    </div>
+</div>

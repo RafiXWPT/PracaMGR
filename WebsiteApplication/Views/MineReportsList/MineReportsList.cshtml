@@ -1,0 +1,43 @@
+﻿@using Newtonsoft.Json
+
+@{
+    ViewBag.Title = "Moje raporty";
+}
+
+<h2>Moje raporty</h2>
+
+@(Html.Kendo().TabStrip()
+      .Name("reports-tabstrip")
+      .Animation(false)
+      .Events(e => e.Select("app.mineReportsList.onSelect"))
+      .Items(i =>
+      {
+          i.Add().Text("OCZEKUJĄCE").LoadContentFrom("MinePendingReports", "MineReportsList").Selected(true);
+          i.Add().Text("ZAAKCEPTOWANE").LoadContentFrom("MineAcceptedReports", "MineReportsList");
+          i.Add().Text("ODRZUCONE").LoadContentFrom("MineRejectedReports", "MineReportsList");
+      }))
+
+@(Html.Kendo().Window().Name("new-request-window")
+        .Title("Nowe zlecenie")
+        .Actions(a => {})
+        .Width(1280)
+        .Height(520)
+        .Modal(true)
+        .LoadContentFrom("NewRequestWindowContent", "MineReportsList")
+      .Visible(false))
+
+@section scripts
+{
+    <script src="@Url.Content("~/Views/MineReportsList/MineReportsList.js")"></script>
+}
+
+<script>
+    $(function() {
+        app.mineReportsList.init(@Html.Raw(JsonConvert.SerializeObject(new
+                             {
+                                CreateNewRequestUrl = Url.Action("AddNewReportRequest", "MineReportsList"),
+                                CanDownloadReportUrl = Url.Action("CanDownloadReport", "MineReportsList"),
+                                DownloadReportUrl = Url.Action("DownloadReport", "MineReportsList")
+                             })));
+    });
+</script>

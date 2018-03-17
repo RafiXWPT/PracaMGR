@@ -6,58 +6,62 @@ using Domain.Interfaces;
 using WebsiteApplication.CodeBehind.Attributes;
 using WebsiteApplication.CodeBehind.Classess;
 using WebsiteApplication.CodeBehind.Helpers;
-using WebsiteApplication.CodeBehind.Raport;
+using WebsiteApplication.CodeBehind.Report;
 using WebsiteApplication.Controllers.AdditionalControllers;
 
 namespace WebsiteApplication.Controllers
 {
     public class ReportController : BaseController
     {
-        private readonly IRaportService _raportService;
-        private readonly IRepository<ReaportRequest> _reaportRequestRepository;
+        private readonly IReportService _reportService;
+        private readonly IRepository<ReportRequest> _reportRequestRepository;
 
-        public ReportController(IRepository<ReaportRequest> reaportRequestRepository, IRaportService raportService)
+        public ReportController(IRepository<ReportRequest> reportRequestRepository, IReportService reportService)
         {
-            _reaportRequestRepository = reaportRequestRepository;
-            _raportService = raportService;
+            _reportRequestRepository = reportRequestRepository;
+            _reportService = reportService;
         }
 
         [HttpPost]
-        [AuthorizeRight(Right = "REAPORT_GENERATION")]
-        public ActionResult AddReaport(string pesel)
+        [AuthorizeRight(Right = "REPORT_GENERATION")]
+        public ActionResult AddReport(string patientPesel, string patientFirstName, string patientLastName)
         {
-            if (TimeHelper.IsCreatedCounterViolated(_reaportRequestRepository, User.Name))
+            if (TimeHelper.IsSearchCounterViolated(_reportRequestRepository, User.Name))
                 return Json(OperationResult.FailureResult("Przekroczono limit raportów"));
 
-            var newReaportRequest = new ReaportRequest
+            var newReaportRequest = new ReportRequest
             {
                 CreatedAt = DateTime.Now,
                 CreatedBy = User.Identity.Name,
-                PatientPesel = pesel,
-                Status = ReaportRequestStatus.PENDING
+                PatientPesel = patientPesel,
+                PatientFirstName = patientFirstName,
+                PatientLastName = patientLastName,
+                Status = ReportRequestStatus.PENDING
             };
 
-            _reaportRequestRepository.Create(newReaportRequest);
+            _reportRequestRepository.Create(newReaportRequest);
             return Json(OperationResult.SuccessResult(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        [AuthorizeRight(Right = "FORCE_REAPORT_GENERATION")]
-        public ActionResult GenerateReaport(string pesel)
+        [AuthorizeRight(Right = "FORCE_REPORT_GENERATION")]
+        public ActionResult GenerateReport(string patientPesel, string patientFirstName, string patientLastName)
         {
-            if (TimeHelper.IsCreatedCounterViolated(_reaportRequestRepository, User.Name))
+            if (TimeHelper.IsSearchCounterViolated(_reportRequestRepository, User.Name))
                 return Json(OperationResult.FailureResult("Przekroczono limit raportów"));
 
-            var newReaportRequest = new ReaportRequest
+            var newReaportRequest = new ReportRequest
             {
                 CreatedAt = DateTime.Now,
                 CreatedBy = User.Identity.Name,
-                PatientPesel = pesel,
-                Status = ReaportRequestStatus.ACCEPTED,
-                GeneratedReaport = _raportService.GenerateRaport(pesel, User.Name)
+                PatientPesel = patientPesel,
+                PatientFirstName = patientFirstName,
+                PatientLastName = patientLastName,
+                Status = ReportRequestStatus.ACCEPTED,
+                GeneratedReport = _reportService.GenerateReport(patientPesel, User.Name)
             };
 
-            _reaportRequestRepository.Create(newReaportRequest);
+            _reportRequestRepository.Create(newReaportRequest);
             return Json(OperationResult.SuccessResult());
         }
     }

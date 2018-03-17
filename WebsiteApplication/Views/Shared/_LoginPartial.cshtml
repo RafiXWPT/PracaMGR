@@ -1,16 +1,16 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logoutForm", @class = "navbar-right"}))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logoutForm", @style ="margin-right: 15px;"}))
     {
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav">
             <li>
-                @Html.ActionLink("Witaj " + User.Identity.GetUserName() + "!", "Index", "Manage", null, new {title = "Manage"})
+                @Html.ActionLink($"{User.Identity.GetUserName()}", "Index", "Manage", null, new {title = "Manage"})
             </li>
             <li>
-                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                <a href="javascript:document.getElementById('logoutForm').submit()">@GlobalTranslations.LogOut</a>
             </li>
             <li>
                 @Html.Partial("_CultureSelector")
@@ -20,11 +20,13 @@
 }
 else
 {
-    <ul class="nav navbar-nav">
-        <li>@Html.ActionLink("Rejestracja", "Register", "Account", null, new {id = "registerLink"})</li>
-        <li>@Html.ActionLink("Logowanie", "Login", "Account", null, new {id = "loginLink"})</li>
-        <li>
-            @Html.Partial("_CultureSelector")
-        </li>
-    </ul>
+    <div id="loginContainer" style="margin-right: 15px;">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Rejestracja", "Register", "Account", null, new {id = "registerLink"})</li>
+            <li>@Html.ActionLink("Logowanie", "Login", "Account", null, new {id = "loginLink"})</li>
+            <li>
+                @Html.Partial("_CultureSelector")
+            </li>
+        </ul>
+    </div>
 }

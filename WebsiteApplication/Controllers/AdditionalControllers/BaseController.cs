@@ -9,19 +9,17 @@ namespace WebsiteApplication.Controllers.AdditionalControllers
     {
         protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
         {
-            string cultureName = null;
+            string cultureName;
 
-            // Attempt to read the culture cookie from Request
             var cultureCookie = Request.Cookies["_culture"];
             if (cultureCookie != null)
                 cultureName = cultureCookie.Value;
             else
                 cultureName = Request.UserLanguages != null && Request.UserLanguages.Length > 0
                     ? Request.UserLanguages[0]
-                    : // obtain it from HTTP header AcceptLanguages
-                    null;
-            // Validate culture name
-            cultureName = CultureHelper.GetImplementedCulture(cultureName); // This is safe
+                    : null;
+
+            cultureName = CultureHelper.GetImplementedCulture(cultureName);
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(cultureName);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;

@@ -13,7 +13,7 @@ namespace WebsiteApplication.Controllers.AdditionalControllers
             culture = CultureHelper.GetImplementedCulture(culture);
             var cookie = Request.Cookies["_culture"];
             if (cookie != null)
-                cookie.Value = culture; // update cookie value
+                cookie.Value = culture;
             else
                 cookie = new HttpCookie("_culture")
                 {

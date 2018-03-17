@@ -1,0 +1,20 @@
+﻿@using WebsiteApplication.Models.ViewModels.Reports
+@(Html.Kendo().Grid<ReportRequestViewModel>()
+      .Name("accepted-report-requests")
+      .Columns(c =>
+      {
+          c.Bound(vm => vm.PatientPesel);
+          c.Bound(vm => vm.CreatedAt).Template(@<text></text>).ClientTemplate("#=kendo.toString(CreatedAt, 'yyyy-MM-dd hh:mm:ss')#");
+          c.Bound(vm => vm.AcceptedAt).Template(@<text></text>).ClientTemplate("#=kendo.toString(AcceptedAt, 'yyyy-MM-dd hh:mm:ss')#");
+          c.Bound(vm => vm.AcceptedBy);
+          c.Command(cmd =>
+          {
+              cmd.Custom("download").Text("Pobierz raport").Click("app.mineReportsList.onDownload");
+          });
+      })
+      .Pageable()
+      .Sortable()
+      .DataSource(ds => ds
+          .Ajax()
+          .PageSize(10)
+          .Read(r => r.Action("ReadMineAcceptedReports", "MineReportsList"))))

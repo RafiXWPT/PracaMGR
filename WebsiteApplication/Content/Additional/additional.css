@@ -80,34 +80,3 @@
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
 }
-
-
-.morning {
-    background: url(https://lh3.googleusercontent.com/-1YbV7nsVnX8/WMugaq-6BEI/AAAAAAAADSg/0wPfQ84vMUcCle_SkgiUDOumUKscMaA8QCL0B/w530-d-h353-p-rw/widget-bg-morning.jpg) center bottom no-repeat;
-    background-size: cover;
-}
-
-.time-widget {
-    font-size: 1.75em;
-    margin-top: 5px;
-    overflow: hidden;
-    text-align: center;
-}
-
-.time-widget-heading {
-    color: #fff;
-    font-size: .5em;
-    font-weight: 400;
-    text-transform: uppercase;
-}
-
-#datetime { color: #fff; }
-
-.tile-img { text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.9); }
-
-.tile {
-    color: #fff;
-    margin-bottom: 15px;
-    overflow: hidden;
-    padding: 15px;
-}

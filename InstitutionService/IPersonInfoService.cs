@@ -8,6 +8,7 @@ namespace InstitutionService
     {
         [OperationContract]
         bool Ping();
+
         [OperationContract]
         PersonTransferObject GetPersonInfo(string pesel);
     }

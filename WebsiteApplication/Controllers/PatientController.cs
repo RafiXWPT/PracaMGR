@@ -64,7 +64,7 @@ namespace WebsiteApplication.Controllers
         [Route("Patient/{pesel}")]
         public ActionResult Patient(string pesel)
         {
-            if(TimeHelper.IsCreatedCounterViolated(_searchHistoryRepository, User.Name))
+            if(TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
                 return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
 
             return View();
@@ -73,26 +73,31 @@ namespace WebsiteApplication.Controllers
         [Route("History/{pesel}")]
         public ActionResult GetPatientHistory(string pesel)
         {
-            if (TimeHelper.IsCreatedCounterViolated(_searchHistoryRepository, User.Name))
+            if (TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
                 return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
 
-            var patientRecordList = _patientInfoFetcher.GetPatientInfo<PatientViewModel>(pesel);
-            if (!patientRecordList.Any())
+            var patient = _patientInfoFetcher.GetPatient<PatientViewModel>(pesel, false);
+            if (!patient.Hospitalizations.Any())
                 return new HttpStatusCodeResult(69, "Dla tej osoby nie istnieją żadne wpisy na temat hospitalizacji.");
 
-            if (patientRecordList.Count == 0)
-                return new HttpStatusCodeResult(404);
+            var institutionGroup = patient.Hospitalizations.GroupBy(g => g.InstitutionId).ToList();
+            var patientHistoryContainer = new PatientHistoryContainerViewModel();
+            foreach (var group in institutionGroup)
+            {
+                patientHistoryContainer.PatientHistory.Add(new PatientHistoryViewModel
+                {
+                    InstitutionName = _institutionRepository.Read(group.Key).InstitutionName,
+                    Hospitalizations = group.Where(g => g.InstitutionId == group.Key).ToList()
+                });
+            }
 
-            foreach (var patientRecord in patientRecordList)
-                patientRecord.Hospitalizations.ForEach(x => x.InstitutionId = patientRecord.InstitutionId);
-
-            return PartialView("_PersonHistory", patientRecordList);
+            return PartialView("_PersonHistory", patientHistoryContainer);
         }
 
         [Route("HospitalizationDetails/{hospitalizationId}")]
         public ActionResult HospitalizationDetails(Guid hospitalizationId, Guid institutionId)
         {
-            if (TimeHelper.IsCreatedCounterViolated(_searchHistoryRepository, User.Name))
+            if (TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
                 return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
 
             var personViewModel = TempData["CurrentPerson"] as PersonViewModel;
@@ -114,7 +119,7 @@ namespace WebsiteApplication.Controllers
         [Route("ExaminationDetails/{treatmentId}")]
         public ActionResult ExaminationDetails(Guid examinationId, Guid institutionId)
         {
-            if (TimeHelper.IsCreatedCounterViolated(_searchHistoryRepository, User.Name))
+            if (TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
                 return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
 
             var institution = _institutionRepository.Read(institutionId);
@@ -125,7 +130,7 @@ namespace WebsiteApplication.Controllers
         [Route("TreatmentDetails/{treatmentId}")]
         public ActionResult TreatmentDetails(Guid treatmentId, Guid institutionId)
         {
-            if (TimeHelper.IsCreatedCounterViolated(_searchHistoryRepository, User.Name))
+            if (TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
                 return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
 
             var institution = _institutionRepository.Read(institutionId);

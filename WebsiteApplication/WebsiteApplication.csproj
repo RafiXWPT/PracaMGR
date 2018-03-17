@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.6\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.6\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -73,15 +73,16 @@
     <Reference Include="itext.sign, Version=7.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\itext7.7.0.4\lib\net40\itext.sign.dll</HintPath>
     </Reference>
-    <Reference Include="Kendo.Mvc, Version=2017.1.118.440, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+    <Reference Include="Kendo.Mvc, Version=2017.2.621.545, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Telerik\UI for ASP.NET MVC R1 2017\wrappers\aspnetmvc\Binaries\Mvc5\Kendo.Mvc.dll</HintPath>
+      <HintPath>..\lib\KENDOUIMVC\2017.2.621.545\Kendo.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.6\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -200,9 +201,9 @@
     <Compile Include="CodeBehind\Classess\OperationResult.cs" />
     <Compile Include="CodeBehind\Helpers\CultureHelper.cs" />
     <Compile Include="CodeBehind\Helpers\TimeHelper.cs" />
-    <Compile Include="CodeBehind\Raport\IRaportService.cs" />
+    <Compile Include="CodeBehind\Report\IReportService.cs" />
     <Compile Include="CodeBehind\Rights\IRightsManager.cs" />
-    <Compile Include="CodeBehind\Raport\PdfRaportService.cs" />
+    <Compile Include="CodeBehind\Report\PdfReportService.cs" />
     <Compile Include="CodeBehind\Rights\RightsManager.cs" />
     <Compile Include="CodeBehind\Extensions\UserRoleExtensions.cs" />
     <Compile Include="CodeBehind\WcfServices\WcfDataFetcher.cs" />
@@ -218,14 +219,16 @@
     <Compile Include="Controllers\ASP.NET Identity\ManageController.cs" />
     <Compile Include="Controllers\AdditionalControllers\IdentityController.cs" />
     <Compile Include="Controllers\InstitutionController.cs" />
+    <Compile Include="Controllers\AdditionalControllers\MenuController.cs" />
     <Compile Include="Controllers\NotAuthorizeController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
-    <Compile Include="Controllers\ReportListController.cs" />
+    <Compile Include="Controllers\Reports\MineReportsListController.cs" />
+    <Compile Include="Controllers\Reports\ReportsListController.cs" />
     <Compile Include="Controllers\RightsController.cs" />
-    <Compile Include="DataAccessLayer\DatabaseInstitutionRepository.cs" />
-    <Compile Include="DataAccessLayer\GeneratedReaportRepository.cs" />
-    <Compile Include="DataAccessLayer\ReaportRequestRepository.cs" />
+    <Compile Include="DataAccessLayer\InstitutionRepository.cs" />
+    <Compile Include="DataAccessLayer\GeneratedReportRepository.cs" />
+    <Compile Include="DataAccessLayer\ReportRequestRepository.cs" />
     <Compile Include="DataAccessLayer\SearchHistoryRepository.cs" />
     <Compile Include="DataAccessLayer\WebsiteDatabaseContext.cs" />
     <Compile Include="Filters\RoleAuthorizeAttribute.cs" />
@@ -252,6 +255,14 @@
     <Compile Include="Migrations\201708191646195_CreatedCountable.Designer.cs">
       <DependentUpon>201708191646195_CreatedCountable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708191805526_RejectedAcceptedAtBy.cs" />
+    <Compile Include="Migrations\201708191805526_RejectedAcceptedAtBy.Designer.cs">
+      <DependentUpon>201708191805526_RejectedAcceptedAtBy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708211736556_ReportInsteadReaport.cs" />
+    <Compile Include="Migrations\201708211736556_ReportInsteadReaport.Designer.cs">
+      <DependentUpon>201708211736556_ReportInsteadReaport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ViewModels\ASPNET.Identity\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -262,9 +273,11 @@
     <Compile Include="Models\ViewModels\GlobalData\TabStripViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\CultureListItem.cs" />
     <Compile Include="Models\ViewModels\Institution\InstitutionViewModel.cs" />
+    <Compile Include="Models\ViewModels\Menu\UserInfoContainerViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\ExaminationViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\HospitalizationViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\TreatmentViewModel.cs" />
+    <Compile Include="Models\ViewModels\Patient\PatientHistoryViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\PatientViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\PersonizedPatientViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\PersonViewModel.cs" />
@@ -272,6 +285,8 @@
     <Compile Include="Models\ViewModels\Rights\RightViewModel.cs" />
     <Compile Include="Models\ViewModels\Rights\RoleViewModel.cs" />
     <Compile Include="Models\ViewModels\Rights\UserViewModel.cs" />
+    <Compile Include="Models\ViewModels\Tile\TileBase.cs" />
+    <Compile Include="Models\ViewModels\Tile\TileBreakViewModel.cs" />
     <Compile Include="Models\ViewModels\Tile\TileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\GlobalTranslations.Designer.cs">
@@ -653,6 +668,11 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Content\kendo\fonts\DejaVu\DejaVuSans-Bold.ttf" />
     <Content Include="Content\kendo\fonts\DejaVu\DejaVuSans-BoldOblique.ttf" />
     <Content Include="Content\kendo\fonts\DejaVu\DejaVuSans-ExtraLight.ttf" />
@@ -750,11 +770,6 @@
     <Content Include="Content\kendo\kendo.silver.mobile.min.css.map" />
     <Content Include="Content\kendo\kendo.uniform.min.css.map" />
     <Content Include="Content\kendo\kendo.uniform.mobile.min.css.map" />
-    <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1220,6 +1235,7 @@
     <Content Include="Scripts\kendo\kendo.dataviz.stock.min.js" />
     <Content Include="Scripts\kendo\kendo.dataviz.themes.min.js" />
     <Content Include="Scripts\kendo\kendo.dataviz.treemap.min.js" />
+    <Content Include="Scripts\kendo\kendo.dateinput.min.js" />
     <Content Include="Scripts\kendo\kendo.datepicker.min.js" />
     <Content Include="Scripts\kendo\kendo.datetimepicker.min.js" />
     <Content Include="Scripts\kendo\kendo.dialog.min.js" />
@@ -1241,6 +1257,7 @@
     <Content Include="Scripts\kendo\kendo.groupable.min.js" />
     <Content Include="Scripts\kendo\kendo.imagebrowser.min.js" />
     <Content Include="Scripts\kendo\kendo.list.min.js" />
+    <Content Include="Scripts\kendo\kendo.listbox.min.js" />
     <Content Include="Scripts\kendo\kendo.listview.min.js" />
     <Content Include="Scripts\kendo\kendo.maskedtextbox.min.js" />
     <Content Include="Scripts\kendo\kendo.mediaplayer.min.js" />
@@ -1308,6 +1325,7 @@
     <Content Include="Scripts\kendo\kendo.view.min.js" />
     <Content Include="Scripts\kendo\kendo.virtuallist.min.js" />
     <Content Include="Scripts\kendo\kendo.web.min.js" />
+    <Content Include="Scripts\kendo\kendo.webcomponents.js" />
     <Content Include="Scripts\kendo\kendo.window.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.bg-BG.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.cs-CZ.min.js" />
@@ -1316,6 +1334,7 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.de-CH.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.de-DE.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.de-LI.min.js" />
+    <Content Include="Scripts\kendo\messages\kendo.messages.el-GR.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.en-AU.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.en-CA.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.en-GB.min.js" />
@@ -1339,6 +1358,7 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.es-US.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.es-UY.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.es-VE.min.js" />
+    <Content Include="Scripts\kendo\messages\kendo.messages.fa-IR.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.fi-FI.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.fr-BE.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.fr-CA.min.js" />
@@ -1354,6 +1374,7 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.fr-ML.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.fr-SN.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.he-IL.min.js" />
+    <Content Include="Scripts\kendo\messages\kendo.messages.hu-HU.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.hy-AM.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.it-CH.min.js" />
     <Content Include="Scripts\kendo\messages\kendo.messages.it-IT.min.js" />
@@ -1380,7 +1401,8 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\ReportList\ReportList.js" />
+    <Content Include="Views\MineReportsList\MineReportsList.js" />
+    <Content Include="Views\ReportsList\ReportsList.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1424,6 +1446,156 @@
     <Content Include="Views\Institution\Edit.cshtml" />
     <Content Include="Views\Institution\Index.cshtml" />
     <Content Include="Views\Patient\_PersonInfo.cshtml" />
+    <Content Include="Views\Patient\_PersonHistory.cshtml" />
+    <Content Include="Views\Patient\Index.cshtml" />
+    <Content Include="Views\Patient\HospitalizationDetails.cshtml" />
+    <Content Include="Views\Patient\ExaminationDetails.cshtml" />
+    <Content Include="Views\Shared\_CultureSelector.cshtml" />
+    <Content Include="Views\NotAuthorize\Index.cshtml" />
+    <Content Include="Views\Account\RegistrationAwaits.cshtml" />
+    <Content Include="Views\Patient\TreatmentDetails.cshtml" />
+    <Content Include="Views\GlobalData\Index.cshtml" />
+    <Content Include="Views\GlobalData\TabItem.cshtml" />
+    <Content Include="Views\Rights\Index.cshtml" />
+    <Content Include="Views\Rights\RolesTab.cshtml" />
+    <Content Include="Views\Rights\RightsTab.cshtml" />
+    <Content Include="Views\Rights\RolesToRightsTab.cshtml" />
+    <Content Include="Views\Rights\EditorTemplates\RoleEditor.cshtml" />
+    <Content Include="Views\Rights\UserRolesTab.cshtml" />
+    <Content Include="Views\ReportsList\ReportsList.cshtml" />
+    <Content Include="Views\ReportsList\PendingReports.cshtml" />
+    <Content Include="Views\ReportsList\AcceptedReports.cshtml" />
+    <Content Include="Views\ReportsList\RejectedReports.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Dashboard\Tiles\_Tile.cshtml" />
+    <Content Include="Views\Shared\_KendoHorizontal.cshtml" />
+    <Content Include="Views\MineReportsList\MineReportsList.cshtml" />
+    <Content Include="Views\MineReportsList\MinePendingReports.cshtml" />
+    <Content Include="Views\MineReportsList\MineAcceptedReports.cshtml" />
+    <Content Include="Views\MineReportsList\MineRejectedReports.cshtml" />
+    <Content Include="Views\MineReportsList\EditorTemplates\_NewReportRequestTemplate.cshtml" />
+    <Content Include="Scripts\kendo\jquery.min.map" />
+    <Content Include="Scripts\kendo\kendo.all.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.angular.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.aspnetmvc.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.autocomplete.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.binder.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.button.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.calendar.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.color.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.colorpicker.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.columnmenu.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.columnsorter.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.combobox.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.core.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.data.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.data.odata.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.data.signalr.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.data.xml.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dataviz.barcode.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dataviz.chart.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dataviz.core.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dataviz.diagram.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dataviz.gauge.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dataviz.map.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dataviz.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dataviz.mobile.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dataviz.qrcode.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dataviz.sparkline.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dataviz.stock.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dataviz.themes.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dataviz.treemap.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dateinput.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.datepicker.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.datetimepicker.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dialog.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dom.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.draganddrop.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.drawing.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.dropdownlist.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.editable.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.editor.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.excel.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.filebrowser.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.filtercell.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.filtermenu.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.fx.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.gantt.list.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.gantt.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.gantt.timeline.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.grid.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.groupable.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.imagebrowser.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.list.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.listbox.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.listview.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.maskedtextbox.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mediaplayer.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.menu.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.actionsheet.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.application.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.button.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.buttongroup.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.collapsible.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.drawer.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.listview.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.loader.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.modalview.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.navbar.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.pane.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.popover.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.scroller.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.scrollview.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.shim.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.splitview.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.switch.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.tabstrip.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.mobile.view.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.multiselect.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.notification.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.numerictextbox.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.ooxml.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.pager.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.panelbar.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.pdf.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.pivot.configurator.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.pivot.fieldmenu.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.pivotgrid.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.popup.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.progressbar.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.reorderable.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.resizable.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.responsivepanel.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.router.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.scheduler.agendaview.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.scheduler.dayview.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.scheduler.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.scheduler.monthview.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.scheduler.recurrence.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.scheduler.timelineview.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.scheduler.view.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.selectable.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.slider.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.sortable.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.splitter.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.spreadsheet.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.tabstrip.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.timepicker.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.timezones.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.toolbar.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.tooltip.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.touch.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.treelist.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.treeview.draganddrop.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.treeview.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.upload.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.userevents.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.validator.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.view.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.virtuallist.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.web.min.js.map" />
+    <Content Include="Scripts\kendo\kendo.window.min.js.map" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.af-ZA.min.js.map" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.af.min.js.map" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.am-ET.min.js.map" />
@@ -1842,126 +2014,6 @@
     <Content Include="Scripts\kendo\cultures\kendo.culture.zh.min.js.map" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.zu-ZA.min.js.map" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.zu.min.js.map" />
-    <Content Include="Scripts\kendo\jquery.min.map" />
-    <Content Include="Scripts\kendo\kendo.all.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.angular.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.aspnetmvc.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.autocomplete.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.binder.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.button.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.calendar.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.color.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.colorpicker.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.columnmenu.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.columnsorter.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.combobox.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.core.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.data.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.data.odata.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.data.signalr.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.data.xml.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dataviz.barcode.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dataviz.chart.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dataviz.core.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dataviz.diagram.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dataviz.gauge.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dataviz.map.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dataviz.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dataviz.mobile.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dataviz.qrcode.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dataviz.sparkline.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dataviz.stock.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dataviz.themes.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dataviz.treemap.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.datepicker.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.datetimepicker.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dialog.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dom.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.draganddrop.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.drawing.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.dropdownlist.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.editable.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.editor.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.excel.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.filebrowser.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.filtercell.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.filtermenu.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.fx.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.gantt.list.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.gantt.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.gantt.timeline.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.grid.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.groupable.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.imagebrowser.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.list.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.listview.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.maskedtextbox.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mediaplayer.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.menu.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.actionsheet.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.application.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.button.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.buttongroup.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.collapsible.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.drawer.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.listview.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.loader.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.modalview.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.navbar.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.pane.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.popover.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.scroller.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.scrollview.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.shim.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.splitview.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.switch.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.tabstrip.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.mobile.view.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.multiselect.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.notification.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.numerictextbox.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.ooxml.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.pager.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.panelbar.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.pdf.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.pivot.configurator.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.pivot.fieldmenu.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.pivotgrid.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.popup.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.progressbar.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.reorderable.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.resizable.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.responsivepanel.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.router.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.scheduler.agendaview.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.scheduler.dayview.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.scheduler.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.scheduler.monthview.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.scheduler.recurrence.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.scheduler.timelineview.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.scheduler.view.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.selectable.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.slider.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.sortable.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.splitter.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.spreadsheet.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.tabstrip.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.timepicker.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.timezones.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.toolbar.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.tooltip.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.touch.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.treelist.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.treeview.draganddrop.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.treeview.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.upload.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.userevents.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.validator.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.view.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.virtuallist.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.web.min.js.map" />
-    <Content Include="Scripts\kendo\kendo.window.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.bg-BG.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.cs-CZ.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.da-DK.min.js.map" />
@@ -1969,6 +2021,7 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.de-CH.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.de-DE.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.de-LI.min.js.map" />
+    <Content Include="Scripts\kendo\messages\kendo.messages.el-GR.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.en-AU.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.en-CA.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.en-GB.min.js.map" />
@@ -1992,6 +2045,7 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.es-US.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.es-UY.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.es-VE.min.js.map" />
+    <Content Include="Scripts\kendo\messages\kendo.messages.fa-IR.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.fi-FI.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.fr-BE.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.fr-CA.min.js.map" />
@@ -2007,6 +2061,7 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.fr-ML.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.fr-SN.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.he-IL.min.js.map" />
+    <Content Include="Scripts\kendo\messages\kendo.messages.hu-HU.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.hy-AM.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.it-CH.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.it-IT.min.js.map" />
@@ -2026,32 +2081,11 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.zh-CN.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.zh-HK.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.zh-TW.min.js.map" />
-    <Content Include="Views\Patient\_PersonHistory.cshtml" />
-    <Content Include="Views\Patient\Index.cshtml" />
-    <Content Include="Views\Patient\HospitalizationDetails.cshtml" />
-    <Content Include="Views\Patient\ExaminationDetails.cshtml" />
-    <Content Include="Views\Shared\_CultureSelector.cshtml" />
-    <Content Include="Views\NotAuthorize\Index.cshtml" />
-    <Content Include="Views\Account\RegistrationAwaits.cshtml" />
-    <Content Include="Views\Patient\TreatmentDetails.cshtml" />
-    <Content Include="Views\GlobalData\Index.cshtml" />
-    <Content Include="Views\GlobalData\TabItem.cshtml" />
-    <Content Include="Views\Rights\Index.cshtml" />
-    <Content Include="Views\Rights\RolesTab.cshtml" />
-    <Content Include="Views\Rights\RightsTab.cshtml" />
-    <Content Include="Views\Rights\RolesToRightsTab.cshtml" />
-    <Content Include="Views\Rights\EditorTemplates\RoleEditor.cshtml" />
-    <Content Include="Views\Rights\UserRolesTab.cshtml" />
-    <Content Include="Views\ReportList\Index.cshtml" />
-    <Content Include="Views\ReportList\PendingReports.cshtml" />
-    <Content Include="Views\ReportList\AcceptedReports.cshtml" />
-    <Content Include="Views\ReportList\RejectedReports.cshtml" />
-    <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\Dashboard\Tiles\_Tile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Culture\" />
+    <Folder Include="Views\Menu\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -2084,6 +2118,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708191646195_CreatedCountable.resx">
       <DependentUpon>201708191646195_CreatedCountable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708191805526_RejectedAcceptedAtBy.resx">
+      <DependentUpon>201708191805526_RejectedAcceptedAtBy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708211736556_ReportInsteadReaport.resx">
+      <DependentUpon>201708211736556_ReportInsteadReaport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\GlobalTranslations.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -2131,8 +2171,8 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.6\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.6\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.3.2\build\Microsoft.Net.Compilers.props'))" />
   </Target>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

@@ -1,0 +1,17 @@
+﻿@using WebsiteApplication.Models.ViewModels.Reports
+@(Html.Kendo().Grid<ReportRequestViewModel>()
+      .Name("rejected-report-requests")
+      .Columns(c =>
+      {
+          c.Bound(vm => vm.PatientPesel);
+          c.Bound(vm => vm.CreatedAt).Template(@<text></text>).ClientTemplate("#=kendo.toString(CreatedAt, 'yyyy-MM-dd hh:mm:ss')#");
+          c.Bound(vm => vm.CreatedBy);
+          c.Bound(vm => vm.RejectedAt).Template(@<text></text>).ClientTemplate("#=kendo.toString(RejectedAt, 'yyyy-MM-dd hh:mm:ss')#");
+          c.Bound(vm => vm.RejectedBy);
+      })
+      .Pageable()
+      .Sortable()
+      .DataSource(ds => ds
+          .Ajax()
+          .PageSize(10)
+          .Read(r => r.Action("ReadRejectedReports", "ReportsList"))))

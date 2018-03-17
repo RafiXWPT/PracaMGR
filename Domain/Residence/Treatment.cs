@@ -15,16 +15,6 @@ namespace Domain.Residence
     }
 
     [DataContract]
-    public class TreatmentBasicTransferObject
-    {
-        [DataMember]
-        public Guid TreatmentId { get; set; }
-
-        [DataMember]
-        public DateTime TreatmentDateTime { get; set; }
-    }
-
-    [DataContract]
     public class TreatmentTransferObject
     {
         [DataMember]

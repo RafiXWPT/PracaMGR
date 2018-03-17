@@ -16,7 +16,6 @@ namespace WebsiteApplication.Models
         public static string Rights => "RIGHTS";
     }
 
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
         private readonly IRightsManager<RightViewModel, RoleViewModel, UserViewModel> _manager;
@@ -32,7 +31,6 @@ namespace WebsiteApplication.Models
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
 
             var userFromIdentity = _manager.Users().FirstOrDefault(u => u.Name == userIdentity.Name);

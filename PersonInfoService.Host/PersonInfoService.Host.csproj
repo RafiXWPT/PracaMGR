@@ -54,9 +54,9 @@
     <Compile Include="Code\Core\WcfServiceProvider.cs" />
     <Compile Include="Code\DataAccessLayer\PersonInfoServiceDatabaseContext.cs" />
     <Compile Include="Code\DummyDatabaseInitializer\PersonInfoDatabaseInitializer.cs" />
-    <Compile Include="Migrations\201701282238166_Init.cs" />
-    <Compile Include="Migrations\201701282238166_Init.Designer.cs">
-      <DependentUpon>201701282238166_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201710280915072_Init.cs" />
+    <Compile Include="Migrations\201710280915072_Init.Designer.cs">
+      <DependentUpon>201710280915072_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -78,8 +78,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701282238166_Init.resx">
-      <DependentUpon>201701282238166_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710280915072_Init.resx">
+      <DependentUpon>201710280915072_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -32,15 +32,15 @@ namespace WebsiteApplication
                 // DTO OBJECTS
                 cfg.CreateMap<Institution, InstitutionTransferObject>();
                 // VIEW MODELS
-                cfg.CreateMap<ReaportRequest, ReportRequestViewModel>();
+                cfg.CreateMap<ReportRequest, ReportRequestViewModel>();
                 cfg.CreateMap<PersonTransferObject, PersonViewModel>();
                 cfg.CreateMap<PatientTransferObject, PatientViewModel>();
-                cfg.CreateMap<HospitalizationBasicTransferObject, HospitalizationViewModel>();
                 cfg.CreateMap<HospitalizationTransferObject, HospitalizationContainerViewModel>();
-                cfg.CreateMap<ExaminationBasicTransferObject, ExaminationViewModel>();
+                cfg.CreateMap<HospitalizationTransferObject, HospitalizationViewModel>();
                 cfg.CreateMap<ExaminationTransferObject, ExaminationContainerViewModel>();
-                cfg.CreateMap<TreatmentBasicTransferObject, TreatmentViewModel>();
                 cfg.CreateMap<TreatmentTransferObject, TreatmentContainerViewModel>();
+                cfg.CreateMap<ExaminationTransferObject, ExaminationViewModel>();
+                cfg.CreateMap<TreatmentTransferObject, TreatmentViewModel>();
             });
         }
     }

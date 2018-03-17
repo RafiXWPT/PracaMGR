@@ -13,6 +13,9 @@ namespace Domain.Inventory
     public class MedicineTransferObject
     {
         [DataMember]
+        public Guid MedicineId { get; set; }
+
+        [DataMember]
         public string MedicineName { get; set; }
     }
 }

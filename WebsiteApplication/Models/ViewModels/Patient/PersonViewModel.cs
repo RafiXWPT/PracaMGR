@@ -13,7 +13,7 @@ namespace WebsiteApplication.Models.ViewModels.Patient
         public string FirstName { get; set; }
 
         [Display(Name = "PersonSecondName", ResourceType = typeof(GlobalTranslations))]
-        public string SecondName { get; set; }
+        public string LastName { get; set; }
 
         [Display(Name = "PersonBirthDate", ResourceType = typeof(GlobalTranslations))]
         public DateTime BirthDate { get; set; }

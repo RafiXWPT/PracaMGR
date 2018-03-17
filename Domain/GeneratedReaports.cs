@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class GeneratedReaport
+    public class GeneratedReport
     {
-        [ForeignKey("ReaportRequest")]
-        public Guid GeneratedReaportId { get; set; }
+        [ForeignKey("ReportRequest")]
+        public Guid GeneratedReportId { get; set; }
         public string PatientPesel { get; set; }
         public DateTime CreatedAt { get; set; }
-        public byte[] Reaport { get; set; }
+        public byte[] Report { get; set; }
 
-        public virtual ReaportRequest ReaportRequest { get; set; }
+        public virtual ReportRequest ReportRequest { get; set; }
     }
 }

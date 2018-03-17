@@ -1,0 +1,32 @@
+﻿@using Newtonsoft.Json
+@{
+    ViewBag.Title = "Prośby o raport";
+}
+
+<h2>Raporty oczekujące na decyzje</h2>
+
+@(Html.Kendo().TabStrip()
+      .Name("reports-tabstrip")
+      .Animation(false)
+      .Events(e => e.Select("app.reportsList.onSelect"))
+      .Items(i =>
+      {
+          i.Add().Text("OCZEKUJĄCE").LoadContentFrom("PendingReports", "ReportsList").Selected(true);
+          i.Add().Text("ZAAKCEPTOWANE").LoadContentFrom("AcceptedReports", "ReportsList");
+          i.Add().Text("ODRZUCONE").LoadContentFrom("RejectedReports", "ReportsList");
+      }))
+
+@section scripts
+{
+    <script src="@Url.Content("~/Views/ReportsList/ReportsList.js")"></script>
+}
+
+<script>
+    $(function() {
+        app.reportsList.init(@Html.Raw(JsonConvert.SerializeObject(new
+                             {
+                                 AcceptRequestUrl = Url.Action("AcceptRequest", "ReportsList"),
+                                 RejectRequestUrl = Url.Action("RejectRequest", "ReportsList")
+                             })));
+    });
+</script>

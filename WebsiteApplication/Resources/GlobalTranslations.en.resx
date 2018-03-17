@@ -255,4 +255,25 @@
   <data name="GlobalPatientData" xml:space="preserve">
     <value>Global patient data</value>
   </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Log off</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="RolesAndRights" xml:space="preserve">
+    <value>Roles and rights</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="Mine" xml:space="preserve">
+    <value>Mine</value>
+  </data>
+  <data name="ToAcceptance" xml:space="preserve">
+    <value>To acceptance</value>
+  </data>
+  <data name="Patients" xml:space="preserve">
+    <value>Patients</value>
+  </data>
 </root>

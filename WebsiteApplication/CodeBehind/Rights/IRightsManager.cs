@@ -8,17 +8,17 @@ namespace WebsiteApplication.CodeBehind.Rights
         where TRoleViewModel : class
         where TUserViewModel : class
     {
-        List<TRightViewModel> Rights();
-        List<TRoleViewModel> Roles();
-        List<TUserViewModel> Users();
-        List<string> RolesForRight(TRightViewModel viewModel);
-        List<string> RolesForRight(string right);
-        List<string> RightsForRole(string role);
-        List<string> RoleNamesForGuid(List<string> roleGuids);
+        IEnumerable<TRightViewModel> Rights();
+        IEnumerable<TRoleViewModel> Roles();
+        IEnumerable<TUserViewModel> Users();
+        IEnumerable<string> RolesForRight(TRightViewModel viewModel);
+        IEnumerable<string> RolesForRight(string right);
+        IEnumerable<string> RightsForRole(string role);
+        IEnumerable<string> RoleNamesForGuid(List<string> roleGuids);
         void AddRight(TRightViewModel viewModel);
-        void AddRole(TRoleViewModel viewModel);
         void EditRight(TRightViewModel viewModel);
         void RemoveRight(TRightViewModel viewModel);
+        void AddRole(TRoleViewModel viewModel);
         void RemoveRole(TRoleViewModel viewModel);
         void AddRoleToRight(Guid rightId, string role);
         void RemoveRoleFromRight(Guid rightId, string role);

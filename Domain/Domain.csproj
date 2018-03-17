@@ -45,11 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeneratedReaports.cs" />
-    <Compile Include="Interfaces\ICreatedCountable.cs" />
+    <Compile Include="Interfaces\IDateTimeCountable.cs" />
     <Compile Include="Interfaces\IDbRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Person.cs" />
-    <Compile Include="ReaportRequest.cs" />
+    <Compile Include="ReportRequest.cs" />
     <Compile Include="Residence\Examination.cs" />
     <Compile Include="Residence\Hospitalization.cs" />
     <Compile Include="Institution.cs" />

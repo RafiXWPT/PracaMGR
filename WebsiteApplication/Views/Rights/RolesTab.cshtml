@@ -6,7 +6,7 @@
       .Selectable()
       .Filterable(f => f.Mode(GridFilterMode.Row))
       .Editable()
-      .Events(e => e.DataBound("onDataBound"))
+      .Events(e => e.DataBound("onRoleGridDataBound"))
       .Columns(c =>
       {
           c.Bound(vm => vm.Name);
@@ -25,11 +25,3 @@
           .Update(u => u.Action("UpdateRole", "Rights"))
           .Destroy(d => d.Action("DestroyRole", "Rights"))
       ))
-
-<script>
-    function onDataBound() {
-        $(".k-grid-edit").each(function() {
-            $(this).remove();
-        });
-    }
-</script>
