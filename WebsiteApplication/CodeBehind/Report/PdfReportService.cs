@@ -92,10 +92,15 @@ namespace WebsiteApplication.CodeBehind.Report
 
             var hasBeenTreatmentInInstitution = patient.Hospitalizations.Any(x => x.Treatments.Any());
             var hasBeenExaminedInInstitution = patient.Hospitalizations.Any(x => x.Examinations.Any());
+            var numberOfInstitutions = patient.Hospitalizations.GroupBy(h => h.InstitutionId)
+                .Select(g => g.Key)
+                .Count();
 
             var infoParagraph = new Paragraph();
             infoParagraph.Add(
-                $"Ilość placówek w których osoba była leczona: {patient.Hospitalizations.Select(x => x.HospitalizationId).Distinct().Count()}");
+                $"Ilość placówek w których osoba była leczona: {numberOfInstitutions}");
+            infoParagraph.Add(
+                $"\nIlość wizyt w placówkach ogółem: {patient.Hospitalizations.Count}");
             infoParagraph.Add(
                 $"\nPierwsze wizyta w placówce medycznej: {patient.Hospitalizations.Min(x => x.HospitalizationStartTime)}");
             infoParagraph.Add(
@@ -116,19 +121,26 @@ namespace WebsiteApplication.CodeBehind.Report
         private void GenerateDetailedHospitalizationInfo(Document document, PatientTransferObject patient)
         {
             var hospitalizations = patient.Hospitalizations.OrderBy(x => x.HospitalizationStartTime);
-            var institutionGroups = hospitalizations.GroupBy(x => x.HospitalizationId).ToList();
+            var institutionGroups = hospitalizations.GroupBy(x => x.InstitutionId).ToList();
+            document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
             document.Add(new Paragraph("Dane szczegółowe na temat hospitalizacji:").SetFontSize(20));
             foreach (var institutionKey in institutionGroups)
             foreach (var hospitalization in institutionKey.ToList())
+            {
                 GenerateNewHospitalizationInfo(document, hospitalization);
+                if(institutionKey == institutionGroups.Last() && hospitalization.HospitalizationId == institutionKey.Last().HospitalizationId)
+                        continue;
+
+                document.GetPdfDocument().AddNewPage();
+                document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            }
+
         }
 
         private void GenerateNewHospitalizationInfo(Document document,
             HospitalizationTransferObject hospitalization)
         {
-            var currentInstitutionName = _institutionRepository.Read(hospitalization.HospitalizationId).InstitutionName;
-            document.GetPdfDocument().AddNewPage();
-            document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            var currentInstitutionName = _institutionRepository.Read(hospitalization.InstitutionId).InstitutionName;
             document.Add(new Paragraph($"{currentInstitutionName}:").SetFontSize(20));
 
             var datesList = new List();
@@ -142,6 +154,8 @@ namespace WebsiteApplication.CodeBehind.Report
 
         private void GenerateExaminationTable(Document document, List<ExaminationTransferObject> examinations)
         {
+            document.GetPdfDocument().AddNewPage();
+            document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
             document.Add(new Paragraph("Przeprowadzone badania").SetFontSize(20));
 
             var examinationTable = GetExaminationTable();
@@ -158,6 +172,8 @@ namespace WebsiteApplication.CodeBehind.Report
 
         private void GenerateTreatmentTable(Document document, List<TreatmentTransferObject> treatments)
         {
+            document.GetPdfDocument().AddNewPage();
+            document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
             document.Add(new Paragraph("Przeprowadzone operacje:").SetFontSize(20));
 
             var treatmentTable = GetTreatmentTable();

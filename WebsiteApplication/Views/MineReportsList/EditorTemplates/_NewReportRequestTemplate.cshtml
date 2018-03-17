@@ -13,6 +13,7 @@
               .Selectable()
               .Filterable(f => f.Mode(GridFilterMode.Row))
               .Editable()
+              .AutoBind(false)
               .DataSource(ds => ds
                   .Ajax()
                   .Model(m =>

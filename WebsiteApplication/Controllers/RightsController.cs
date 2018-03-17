@@ -122,7 +122,7 @@ namespace WebsiteApplication.Controllers
                 rolesToRights.Add(rightViewModel);
             }
 
-            return JsonDataSourceResult(request, rolesToRights);
+            return JsonDataSourceResult(request, rolesToRights.AsEnumerable());
         }
 
         public ActionResult UpdateRolesToRight([DataSourceRequest] DataSourceRequest request, RightViewModel viewModel)

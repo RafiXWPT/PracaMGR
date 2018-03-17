@@ -34,6 +34,8 @@ namespace WebsiteApplication.CodeBehind.WcfServices
         private static IInstitutionService EstablishConnection(string urlEndpoint)
         {
             var binding = new NetTcpBinding();
+            binding.MaxBufferSize = int.MaxValue;
+            binding.MaxReceivedMessageSize = int.MaxValue;
             var channel = new ChannelFactory<IInstitutionService>(binding, urlEndpoint);
 
             IInstitutionService client;

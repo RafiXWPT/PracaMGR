@@ -87,6 +87,7 @@ namespace WebsiteApplication.Controllers.Reports
                         return;
 
                     var personInfo = _personInfoFetcher.GetPersonInfo(innerAction.Pesel);
+
                     var displayObject = new PatientViewModel
                     {
                         Pesel = innerAction.Pesel,
