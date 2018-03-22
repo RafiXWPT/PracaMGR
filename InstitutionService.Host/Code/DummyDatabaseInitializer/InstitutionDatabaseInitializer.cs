@@ -257,12 +257,14 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                 var takeCount = _rnd.Next(0, 3);
                 for (var i = 0; i < takeCount; i++)
                 {
+                    var treatmentStartDate = GenRandomDate(hospitalization.HospitalizationStartTime, hospitalization.HospitalizationEndTime);
+                    var treatmentEndDate = treatmentStartDate.AddHours(_rnd.Next(3,18));
                     var treatment = new Treatment
                     {
                         TreatmentId = Guid.NewGuid(),
                         HospitalizationId = hospitalization.HospitalizationId,
-                        TreatmentDateTime = GenRandomDate(hospitalization.HospitalizationStartTime,
-                            hospitalization.HospitalizationEndTime)
+                        TreatmentStartDate = treatmentStartDate,
+                        TreatmentEndDate = treatmentEndDate
                     };
 
                     Console.WriteLine($"Adding Treatment to Hospitalization {hospitalization.HospitalizationId}");

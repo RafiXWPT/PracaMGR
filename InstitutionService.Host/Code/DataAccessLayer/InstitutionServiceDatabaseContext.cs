@@ -14,8 +14,7 @@ namespace InstitutionService.Host.Code.DataAccessLayer
             Database.SetInitializer(new CreateDatabaseIfNotExists<InstitutionServiceDatabaseContext>());
         }
 
-        public InstitutionServiceDatabaseContext() : base(
-            ConfigurationProvider.Instance.GetValue("INSTITUTION_DATABASE_NAME"))
+        public InstitutionServiceDatabaseContext() : base(ConfigurationProvider.Instance.GetValue("INSTITUTION_DATABASE_NAME"))
         {
         }
 

@@ -92,9 +92,9 @@
     <Compile Include="Code\DatabaseProvider\TreatmentRepository.cs" />
     <Compile Include="Code\DatabaseProvider\UsedMedicineRepository.cs" />
     <Compile Include="Code\DummyDatabaseInitializer\InstitutionDatabaseInitializer.cs" />
-    <Compile Include="Migrations\201701282235277_Init.cs" />
-    <Compile Include="Migrations\201701282235277_Init.Designer.cs">
-      <DependentUpon>201701282235277_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201803222005003_Init.cs" />
+    <Compile Include="Migrations\201803222005003_Init.Designer.cs">
+      <DependentUpon>201803222005003_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -116,8 +116,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701282235277_Init.resx">
-      <DependentUpon>201701282235277_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803222005003_Init.resx">
+      <DependentUpon>201803222005003_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

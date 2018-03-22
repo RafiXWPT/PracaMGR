@@ -177,9 +177,10 @@ namespace WebsiteApplication.CodeBehind.Report
             document.Add(new Paragraph("Przeprowadzone operacje:").SetFontSize(20));
 
             var treatmentTable = GetTreatmentTable();
-            foreach (var treatment in treatments.OrderBy(x => x.TreatmentDateTime))
+            foreach (var treatment in treatments.OrderBy(x => x.TreatmentStartDate))
             {
-                treatmentTable.AddCell($"{treatment.TreatmentDateTime}");
+                treatmentTable.AddCell($"{treatment.TreatmentStartDate}");
+                treatmentTable.AddCell($"{treatment.TreatmentEndDate}");
                 var medicineList = new List().SetListSymbol("");
                 foreach (var medicine in treatment.UsedMedicines)
                     medicineList.Add(new ListItem($"{medicine.Medicine.MedicineName} - {medicine.Dose:F2} mg"));
@@ -202,7 +203,8 @@ namespace WebsiteApplication.CodeBehind.Report
         private Table GetTreatmentTable()
         {
             var table = new Table(new float[] {4, 4}).SetWidthPercent(100).SetKeepTogether(true);
-            table.AddHeaderCell("Data operacji");
+            table.AddHeaderCell("Data rozpoczęcia operacji");
+            table.AddHeaderCell("Data zakończenia operacji");
             table.AddHeaderCell("Użyte medykamenty");
             return table;
         }
