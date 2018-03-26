@@ -202,7 +202,7 @@ namespace WebsiteApplication.CodeBehind.Report
 
         private Table GetTreatmentTable()
         {
-            var table = new Table(new float[] {4, 4}).SetWidthPercent(100).SetKeepTogether(true);
+            var table = new Table(new float[] {4, 4, 4}).SetWidthPercent(100).SetKeepTogether(true);
             table.AddHeaderCell("Data rozpoczęcia operacji");
             table.AddHeaderCell("Data zakończenia operacji");
             table.AddHeaderCell("Użyte medykamenty");

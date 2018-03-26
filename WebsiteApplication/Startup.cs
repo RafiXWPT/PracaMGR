@@ -37,18 +37,20 @@ namespace WebsiteApplication
             container.Register<ApplicationSignInManager>(Lifestyle.Scoped);
             container.Register<IRepository<Institution>, InstitutionRepository>(Lifestyle.Scoped);
             container.Register<IRepository<ReportRequest>, ReportRequestRepository>(Lifestyle.Scoped);
+            container.Register<IRepository<GeneratedReport>, GeneratedReportRepository>(Lifestyle.Scoped);
             container.Register<IRepository<SearchHistory>, SearchHistoryRepository>(Lifestyle.Scoped);
-            container.Register<IRightsManager<RightViewModel, RoleViewModel, UserViewModel>, RightsManager>(Lifestyle
-                .Scoped);
+            container.Register<IRightsManager<RightViewModel, RoleViewModel, UserViewModel>, RightsManager>(Lifestyle.Scoped);
             container.Register<IReportService, PdfReportService>(Lifestyle.Scoped);
 
             container.Register<IUserStore<ApplicationUser>>(
                 () => new UserStore<ApplicationUser>(container.GetInstance<WebsiteDatabaseContext>()),
                 Lifestyle.Scoped);
+
             container.Register(
                 () => container.IsVerifying
                     ? new OwinContext(new Dictionary<string, object>()).Authentication
                     : HttpContext.Current.GetOwinContext().Authentication, Lifestyle.Scoped);
+
             container.RegisterInitializer<ApplicationUserManager>(manager => InitializeUserManager(manager, app));
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
