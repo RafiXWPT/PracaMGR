@@ -4,6 +4,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
 using Domain;
+using Domain.Inventory;
 using Domain.Residence;
 using Microsoft.AspNet.Identity.EntityFramework;
 using WebsiteApplication.Models.ViewModels.Institution;
@@ -41,6 +42,7 @@ namespace WebsiteApplication
                 cfg.CreateMap<TreatmentTransferObject, TreatmentContainerViewModel>();
                 cfg.CreateMap<ExaminationTransferObject, ExaminationViewModel>();
                 cfg.CreateMap<TreatmentTransferObject, TreatmentViewModel>();
+                cfg.CreateMap<UsedMedicineTransferObject, UsedMedicineViewModel>();
             });
         }
     }

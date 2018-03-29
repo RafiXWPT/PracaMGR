@@ -116,14 +116,21 @@ namespace WebsiteApplication.Controllers
             return View(hospitalization);
         }
 
-        [Route("ExaminationDetails/{treatmentId}")]
+        [Route("ExaminationDetails/{examinationId}")]
         public ActionResult ExaminationDetails(Guid examinationId, Guid institutionId)
         {
             if (TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
                 return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
 
+            var personViewModel = TempData["CurrentPerson"] as PersonViewModel;
+            if (personViewModel == null)
+                return RedirectToAction("Index");
+
+            TempData.Keep();
+
             var institution = _institutionRepository.Read(institutionId);
             var examination = _patientInfoFetcher.GetExamination<ExaminationContainerViewModel>(examinationId, institution.InstitutionEndpointAddress);
+            examination.Person = personViewModel;
             return View(examination);
         }
 
@@ -133,8 +140,15 @@ namespace WebsiteApplication.Controllers
             if (TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
                 return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
 
+            var personViewModel = TempData["CurrentPerson"] as PersonViewModel;
+            if (personViewModel == null)
+                return RedirectToAction("Index");
+
+            TempData.Keep();
+
             var institution = _institutionRepository.Read(institutionId);
             var treatment = _patientInfoFetcher.GetTreatment<TreatmentContainerViewModel>(treatmentId, institution.InstitutionEndpointAddress);
+            treatment.Person = personViewModel;
             return View(treatment);
         }
     }

@@ -4,4 +4,61 @@
     ViewBag.Title = GlobalTranslations.ExaminationDetails;
 }
 
+<hr/>
+
+<div id="personInfoHolder" class="panel panel-primary">
+    <div class="panel-heading">Dane osobowe Pacjenta</div>
+    <div id="personInfo">
+        @Html.Partial("_PersonInfo", Model.Person)
+    </div>
+</div>
+
 <h2>@GlobalTranslations.ExaminationDetails</h2>
+
+<div>
+    <div class="row">
+        @Html.LabelFor(vm => vm.ExaminationStartTime): @Model.ExaminationStartTime
+    </div>
+    <div class="row">
+        @Html.LabelFor(vm => vm.ExaminationEndTime): @Model.ExaminationEndTime
+    </div>
+    <div class="row">
+        @Html.LabelFor(vm => vm.Examinator): @Model.Examinator
+    </div>
+    <div class="row">
+        @Html.LabelFor(vm => vm.PrivateVisit): @(Model.PrivateVisit ? "tak" : "nie")
+    </div>
+    <div class="row">
+        @Html.LabelFor(vm => vm.SeparatedUsedDevices):
+        @if (Model.SeparatedUsedDevices.Any())
+        {
+            foreach (var device in Model.SeparatedUsedDevices)
+            {
+                <div>
+                    - @device
+                </div>
+            }
+        }
+        else
+        {
+            <div>brak</div>
+        }
+    </div>
+    <div class="row">
+        @Html.LabelFor(vm => vm.SickLeave): @(Model.SickLeave ? "tak" : "nie")
+    </div>
+    @if (Model.SickLeave)
+    {
+        <div class="row">
+            @Html.LabelFor(vm => vm.SickLeaveFrom): @Model.SickLeaveFrom
+        </div>
+        <div class="row">
+            @Html.LabelFor(vm => vm.SickLeaveTo): @Model.SickLeaveTo
+        </div>
+    }
+    <div class="row">
+        @Html.LabelFor(vm => vm.ExaminationDetails):
+        <br />
+        @Model.ExaminationDetails
+    </div>
+</div>

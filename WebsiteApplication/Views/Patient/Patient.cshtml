@@ -47,7 +47,7 @@
                 getPatientHistory();
             },
             error: function(req, status, err) {
-                alert(err);
+                app.notify.error(err);
                 $('#personInfoHolder').attr('class', 'panel panel-danger');
                 $('#personInfo').html('<img class="waiter" src=@(Url.Content("~/Content/Images/error.png")) />');
                 getPatientHistory(true);
@@ -75,7 +75,7 @@
                     $('#personHistory').html("");
                     return;
                 }
-                alert(err);
+                app.notify.error(err);
                 $('#personHistoryHolder').attr('class', 'panel panel-danger');
                 $('#personHistory').html('<img class="waiter" src=@(Url.Content("~/Content/Images/error.png")) />');
             }

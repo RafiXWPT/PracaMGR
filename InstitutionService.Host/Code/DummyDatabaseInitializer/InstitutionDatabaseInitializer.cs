@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Domain;
 using Domain.Interfaces;
@@ -116,6 +117,79 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
             "37455697470"
         };
 
+        private readonly List<string> FirstPersonelNames = new List<string>
+        {
+            "Zbigniew",
+            "Dominik",
+            "Robert",
+            "Oleksy",
+            "Igor",
+            "Damian",
+            "Bartosz",
+            "Krzysztof",
+            "Rafał",
+            "Dawid",
+            "Elżbieta",
+            "Dominika",
+            "Aleksandra",
+            "Joanna",
+            "Kinga",
+            "Beata",
+            "Diana"
+        };
+
+        private readonly List<string> LastPersonelNames = new List<string>
+        {   
+            "Polak",
+            "Rzemieślnik",
+            "Data",
+            "Szost",
+            "Zasadni",
+            "Cyrulik",
+            "Tomczyk",
+            "Lech",
+            "Szepielak",
+            "Gościński",
+            "Popko",
+            "Liść",
+            "Brzoza",
+            "Kwiat",
+            "Opel"
+        };
+
+        private readonly List<string> UsedDevices = new List<string>
+        {
+            "Patyczki higieniczne",
+            "Ciśnieniomierz",
+            "Skalpel",
+            "Nożyczki",
+            "Szkło powiększające",
+            "Wkładka termiczna",
+            "Termometr",
+            "Zaciskacz",
+            "Gips",
+            "Parownica",
+            "Rurka z kamerą",
+            "Lupa",
+            "USG",
+            "EKG",
+            "Rentgen"
+        };
+
+        private readonly List<string> Documents = new List<string>
+        {
+            "sampleDoc1.docx",
+            "sampleDoc2.docx",
+            "sampleDoc3.docx",
+            "sampleDoc4.docx",
+            "sampleDoc5.docx",
+            "sampleDoc6.pdf",
+            "sampleDoc7.pdf",
+            "sampleDoc8.pdf",
+            "sampleDoc9.pdf",
+            "sampleDoc10.pdf",
+        };
+
         private readonly List<Examination> _examinations = new List<Examination>();
         private readonly List<Hospitalization> _hospitalizations = new List<Hospitalization>();
         private readonly List<Medicine> _medicines = new List<Medicine>();
@@ -172,7 +246,7 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                 });
             }
            
-            var takeCount = _rnd.Next(5, patients.Count);
+            var takeCount = _rnd.Next(50, patients.Count);
             for (var i = 0; i < takeCount; i++)
             {
                 var tmpPerson = patients[_rnd.Next(0, patients.Count)];
@@ -197,19 +271,35 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
 
             foreach (var patient in _patients)
             {
-                var takeCount = _rnd.Next(0, 50);
+                var takeCount = _rnd.Next(30, 50);
                 for (var i = 0; i < takeCount; i++)
                 {
                     var st = new DateTime(1995, 1, 1);
 
                     var dateOfHospitalizationBegin = GenRandomDate(st.AddDays(_rnd.Next((DateTime.Today - st).Days)));
                     var dateOfHospitalizationEnd = dateOfHospitalizationBegin.AddDays(_rnd.Next(1, 14));
+
+                    var randomDocumentsCount = _rnd.Next(1, 10);
+                    var documents = new List<HospitalizationDocument>();
+                    for (var j = 0; j < randomDocumentsCount; j++)
+                    {
+                        var rndDocument = Documents[_rnd.Next(0, Documents.Count - 1)];
+                        var rndDocumentBytes = File.ReadAllBytes($"{AppDomain.CurrentDomain.BaseDirectory}/SampleDocuments/{rndDocument}");
+                        documents.Add(new HospitalizationDocument
+                        {
+                            HospitalizationDocumentId = Guid.NewGuid(),
+                            Name = rndDocument,
+                            Content = rndDocumentBytes
+                        });
+                    }
+
                     var hospitalization = new Hospitalization
                     {
                         HospitalizationId = Guid.NewGuid(),
                         PatientId = patient.PatientId,
                         HospitalizationStartTime = dateOfHospitalizationBegin,
-                        HospitalizationEndTime = dateOfHospitalizationEnd
+                        HospitalizationEndTime = dateOfHospitalizationEnd,
+                        HospitalizationDocuments = documents
                     };
 
                     Console.WriteLine($"Adding Hospitalization to Patient {patient.PatientId}");
@@ -231,12 +321,30 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                 {
                     var dateOfExaminationBegin = GenRandomDate(hospitalization.HospitalizationStartTime, hospitalization.HospitalizationEndTime);
                     var dateOfExaminationEnd = dateOfExaminationBegin.AddHours(_rnd.Next(1, 6));
+
+                    var usedDevices = new List<string>();
+                    var usedDevicesCount = _rnd.Next(1, 3);
+
+                    for (var j = 0; j < usedDevicesCount; j++)
+                    {
+                        usedDevices.Add(UsedDevices[_rnd.Next(0, UsedDevices.Count - 1)]);
+                    }
+
+                    var sickLeave = _rnd.NextDouble() < 0.5;
+
                     var examination = new Examination
                     {
                         ExaminationId = Guid.NewGuid(),
                         HospitalizationId = hospitalization.HospitalizationId,
                         ExaminationStartTime = dateOfExaminationBegin,
                         ExaminationEndTime = dateOfExaminationEnd,
+                        UsedDevices = string.Join(",", usedDevices),
+                        Examinator = $"{FirstPersonelNames[_rnd.Next(0, FirstPersonelNames.Count - 1)]} {LastPersonelNames[_rnd.Next(0, LastPersonelNames.Count - 1)]}",
+                        PrivateVisit = _rnd.NextDouble() < 0.5,
+                        SignedReceip = _rnd.NextDouble() < 0.5,
+                        SickLeave = sickLeave,
+                        SickLeaveFrom = sickLeave ? GenRandomDate(dateOfExaminationBegin.AddDays(-3), dateOfExaminationEnd.AddDays(-1)) : (DateTime?)null,
+                        SickLeaveTo = sickLeave ? GenRandomDate(dateOfExaminationBegin.AddDays(7), dateOfExaminationEnd.AddDays(14)) : (DateTime?)null,
                         ExaminationDetails = Guid.NewGuid().ToString()
                     };
 
@@ -259,10 +367,27 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                 {
                     var treatmentStartDate = GenRandomDate(hospitalization.HospitalizationStartTime, hospitalization.HospitalizationEndTime);
                     var treatmentEndDate = treatmentStartDate.AddHours(_rnd.Next(3,18));
+                    var personel = new List<string>();
+                    var usedDevices = new List<string>();
+                    var personelCount = _rnd.Next(1, 3);
+                    var usedDevicesCount = _rnd.Next(1, 3);
+                    for (var j = 0; j < personelCount; j++)
+                    {
+                        personel.Add($"{FirstPersonelNames[_rnd.Next(0,FirstPersonelNames.Count-1)]} {LastPersonelNames[_rnd.Next(0, LastPersonelNames.Count-1)]}");
+                    }
+
+                    for (var j = 0; j < usedDevicesCount; j++)
+                    {
+                        usedDevices.Add(UsedDevices[_rnd.Next(0, UsedDevices.Count-1)]);
+                    }
+
+
                     var treatment = new Treatment
                     {
                         TreatmentId = Guid.NewGuid(),
                         HospitalizationId = hospitalization.HospitalizationId,
+                        Personel = string.Join(",", personel),
+                        UsedDevices = string.Join(",", usedDevices),
                         TreatmentStartDate = treatmentStartDate,
                         TreatmentEndDate = treatmentEndDate
                     };

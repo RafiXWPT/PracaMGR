@@ -24,6 +24,7 @@ namespace InstitutionService.Host.Code.DataAccessLayer
 
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Hospitalization> Hospitalizations { get; set; }
+        public DbSet<HospitalizationDocument> HospitalizationDocuments { get; set; }
         public DbSet<Examination> Examinations { get; set; }
         public DbSet<Treatment> Treatments { get; set; }
         public DbSet<Medicine> Medicines { get; set; }

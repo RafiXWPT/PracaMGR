@@ -11,6 +11,8 @@ namespace Domain.Residence
         public Guid HospitalizationId { get; set; }
         public DateTime TreatmentStartDate { get; set; }
         public DateTime TreatmentEndDate { get; set; }
+        public string Personel { get; set; }
+        public string UsedDevices { get; set; }
         public virtual Hospitalization Hospitalization { get; set; }
         public virtual ICollection<UsedMedicine> UsedMedicines { get; set; }
     }
@@ -26,6 +28,12 @@ namespace Domain.Residence
 
         [DataMember]
         public DateTime TreatmentEndDate { get; set; }
+
+        [DataMember]
+        public string Personel { get; set; }
+
+        [DataMember]
+        public string UsedDevices { get; set; }
 
         [DataMember]
         public List<UsedMedicineTransferObject> UsedMedicines { get; set; } = new List<UsedMedicineTransferObject>();

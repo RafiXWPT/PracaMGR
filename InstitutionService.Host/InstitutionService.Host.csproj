@@ -96,12 +96,50 @@
     <Compile Include="Migrations\201803222005003_Init.Designer.cs">
       <DependentUpon>201803222005003_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803271835100_Rozbudowa.cs" />
+    <Compile Include="Migrations\201803271835100_Rozbudowa.Designer.cs">
+      <DependentUpon>201803271835100_Rozbudowa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803291954173_Documents.cs" />
+    <Compile Include="Migrations\201803291954173_Documents.Designer.cs">
+      <DependentUpon>201803291954173_Documents.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="SampleDocuments\sampleDoc1.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc10.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc2.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc3.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc4.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc5.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc6.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc7.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc8.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc9.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Configuration\InstitutionSettings.config" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -119,6 +157,12 @@
     <EmbeddedResource Include="Migrations\201803222005003_Init.resx">
       <DependentUpon>201803222005003_Init.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803271835100_Rozbudowa.resx">
+      <DependentUpon>201803271835100_Rozbudowa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803291954173_Documents.resx">
+      <DependentUpon>201803291954173_Documents.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -128,7 +172,13 @@ if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bi
 if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\SzpitalWNowymSaczu\" /S /Y
 if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\SzpitalUniwersytecki\" /S /Y
 if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\SzpitalWKrynicy\" /S /Y
-if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\SzpitalWNowymSaczu\" /S /Y</PostBuildEvent>
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\SzpitalWNowymSaczu\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*pdf" "$(TargetDir)\..\SzpitalUniwersytecki\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*pdf" "$(TargetDir)\..\SzpitalWKrynicy\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*pdf" "$(TargetDir)\..\SzpitalWNowymSaczu\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*docx" "$(TargetDir)\..\SzpitalUniwersytecki\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*docx" "$(TargetDir)\..\SzpitalWKrynicy\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*docx" "$(TargetDir)\..\SzpitalWNowymSaczu\" /S /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
