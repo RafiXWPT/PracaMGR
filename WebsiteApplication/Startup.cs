@@ -36,9 +36,9 @@ namespace WebsiteApplication
             container.Register<ApplicationUserManager>(Lifestyle.Scoped);
             container.Register<ApplicationSignInManager>(Lifestyle.Scoped);
             container.Register<IRepository<Institution>, InstitutionRepository>(Lifestyle.Scoped);
-            container.Register<IRepository<ReportRequest>, ReportRequestRepository>(Lifestyle.Scoped);
+            container.Register<IDateTimeCountableRepository<ReportRequest>, ReportRequestRepository>(Lifestyle.Scoped);
             container.Register<IRepository<GeneratedReport>, GeneratedReportRepository>(Lifestyle.Scoped);
-            container.Register<IRepository<SearchHistory>, SearchHistoryRepository>(Lifestyle.Scoped);
+            container.Register<IDateTimeCountableRepository<SearchHistory>, SearchHistoryRepository>(Lifestyle.Scoped);
             container.Register<IRightsManager<RightViewModel, RoleViewModel, UserViewModel>, RightsManager>(Lifestyle.Scoped);
             container.Register<IReportService, PdfReportService>(Lifestyle.Scoped);
 

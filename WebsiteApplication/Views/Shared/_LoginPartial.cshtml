@@ -22,8 +22,8 @@ else
 {
     <div id="loginContainer" style="margin-right: 15px;">
         <ul class="nav navbar-nav">
-            <li>@Html.ActionLink("Rejestracja", "Register", "Account", null, new {id = "registerLink"})</li>
-            <li>@Html.ActionLink("Logowanie", "Login", "Account", null, new {id = "loginLink"})</li>
+            <li>@Html.ActionLink(GlobalTranslations.Register, "Register", "Account", null, new {id = "registerLink"})</li>
+            <li>@Html.ActionLink(GlobalTranslations.LogIn, "Login", "Account", null, new {id = "loginLink"})</li>
             <li>
                 @Html.Partial("_CultureSelector")
             </li>

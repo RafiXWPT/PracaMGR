@@ -10,8 +10,14 @@ namespace WebsiteApplication.Models.ViewModels.Patient.Hospitalization
         public Guid InstitutionId { get; set; }
         public Guid TreatmentId { get; set; }
 
-        [Display(Name = "Data przeprowadzenia leczenia")]
-        public DateTime TreatmentDateTime { get; set; }
+        [Display(Name = "Początek operacji")]
+        public DateTime TreatmentStartDate { get; set; }
+
+        [Display(Name = "Zakończenie operacji")]
+        public DateTime TreatmentEndDate { get; set; }
+
+        [Display(Name = "Personel")]
+        public string Personel { get; set; }
     }
 
     public class TreatmentContainerViewModel

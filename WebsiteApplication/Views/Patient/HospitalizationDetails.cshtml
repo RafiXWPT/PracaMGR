@@ -3,7 +3,7 @@
     ViewBag.Title = "HospitalizationDetails";
 }
 
-<hr/>
+<hr />
 <div id="personInfoHolder" class="panel panel-primary">
     <div class="panel-heading">Dane osobowe Pacjenta</div>
     <div id="personInfo">
@@ -11,48 +11,68 @@
     </div>
 </div>
 
+<h2>Dokumenty</h2>
+
+<div class="container">
+    <div class="row">
+        @foreach (var document in Model.HospitalizationDocuments)
+        {
+            <div class="col-md-4">
+                <a href="@(Url.Action("GetHospitalizationDocument", new {hospitalizationDocumentId = document.HospitalizationDocumentId, institutionId = document.InstitutionId}))">@document.Name</a>
+            </div>
+        }
+    </div>
+</div>
+
 <h2>@GlobalTranslations.Examinations</h2>
 
 @(Html.Kendo().Grid(Model.Examinations)
-      .Name("ExaminationGrid")
-      .Columns(columns =>
-      {
-          columns.Bound(c => c.InstitutionId)
-            .Hidden();
-          columns.Bound(c => c.ExaminationId)
-            .Hidden();
-          columns.Bound(x => x.ExaminationStartTime)
-            .Template(@<text></text>)
-            .ClientTemplate("#=kendo.toString(ExaminationStartTime, 'yyyy-MM-dd hh:mm:ss')#")
-            .Width(100);
-          columns.Bound(x => x.ExaminationEndTime)
-            .Template(@<text></text>)
-            .ClientTemplate("#=kendo.toString(ExaminationEndTime, 'yyyy-MM-dd hh:mm:ss')#")
-            .Width(100);
-          columns.Command(command => command.Custom(GlobalTranslations.Details)
-            .Click("showExaminationDetails"))
-            .Width(25);
-      })
-      .Sortable()
-      .Pageable()
-      .DataSource(ds =>
-          ds.Ajax().ServerOperation(false).PageSize(10)))
+          .Name("ExaminationGrid")
+          .Columns(columns =>
+          {
+              columns.Bound(c => c.InstitutionId)
+                .Hidden();
+              columns.Bound(c => c.ExaminationId)
+                .Hidden();
+              columns.Bound(x => x.ExaminationStartTime)
+                .Template(@<text></text>)
+                        .ClientTemplate("#=kendo.toString(ExaminationStartTime, 'yyyy-MM-dd HH:mm:ss')#")
+                        .Width(200);
+                      columns.Bound(x => x.ExaminationEndTime)
+                        .Template(@<text></text>)
+                                .ClientTemplate("#=kendo.toString(ExaminationEndTime, 'yyyy-MM-dd HH:mm:ss')#")
+                                .Width(200);
+                              columns.Bound(c => c.Examinator);
+                              columns.Bound(c => c.SignedReceip).ClientTemplate("#= SignedReceip ? 'Tak' : 'Nie' #").Width(50);
+                              columns.Bound(c => c.PrivateVisit).ClientTemplate("#= PrivateVisit ? 'Tak' : 'Nie' #").Width(50);
+                              columns.Command(command => command.Custom(GlobalTranslations.Details)
+                                .Click("showExaminationDetails"))
+                                .Width(25);
+                          })
+                          .Sortable()
+                          .Pageable()
+                          .DataSource(ds =>
+                              ds.Ajax().ServerOperation(false).PageSize(5)))
 
 <h2>@GlobalTranslations.Treatments</h2>
 
 @(Html.Kendo().Grid(Model.Treatments)
-      .Name("TreatmentGrid")
-      .Columns(columns =>
-      {
-          columns.Bound(c => c.TreatmentId).Hidden();
-          columns.Bound(c => c.TreatmentId).Hidden();
-          columns.Bound(c => c.TreatmentDateTime).Width(100);
-          columns.Command(command => command.Custom(GlobalTranslations.Details).Click("showTreatmentDetails")).Width(25);
-      })
-      .Sortable()
-      .Pageable()
-      .DataSource(ds =>
-          ds.Ajax().ServerOperation(false).PageSize(10)))
+          .Name("TreatmentGrid")
+          .Columns(columns =>
+          {
+              columns.Bound(c => c.TreatmentId).Hidden();
+              columns.Bound(c => c.TreatmentId).Hidden();
+              columns.Bound(c => c.TreatmentStartDate).Template(@<text></text>)
+                        .ClientTemplate("#=kendo.toString(TreatmentStartDate, 'yyyy-MM-dd HH:mm:ss')#").Width(200);
+                    columns.Bound(c => c.TreatmentEndDate).Template(@<text></text>)
+                                .ClientTemplate("#=kendo.toString(TreatmentEndDate, 'yyyy-MM-dd HH:mm:ss')#").Width(200);
+                            columns.Bound(c => c.Personel);
+                            columns.Command(command => command.Custom(GlobalTranslations.Details).Click("showTreatmentDetails")).Width(25);
+                        })
+                        .Sortable()
+                        .Pageable()
+                        .DataSource(ds =>
+                            ds.Ajax().ServerOperation(false).PageSize(5)))
 
 
 <script>

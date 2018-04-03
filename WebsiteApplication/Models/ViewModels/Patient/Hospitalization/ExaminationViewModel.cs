@@ -15,6 +15,15 @@ namespace WebsiteApplication.Models.ViewModels.Patient.Hospitalization
 
         [Display(Name = "Zakończenie badania")]
         public DateTime ExaminationEndTime { get; set; }
+
+        [Display(Name = "Lekarz badający")]
+        public string Examinator { get; set; }
+
+        [Display(Name = "Recepta")]
+        public bool SignedReceip { get; set; }
+
+        [Display(Name = "Prywatnie")]
+        public bool PrivateVisit { get; set; }
     }
 
     public class ExaminationContainerViewModel

@@ -276,4 +276,13 @@
   <data name="Patients" xml:space="preserve">
     <value>Patients</value>
   </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="HomeIndexDescription" xml:space="preserve">
+    <value>Application allows authorized persons to view patient's medical information and generate report on the course of their hospitalization.</value>
+  </data>
 </root>

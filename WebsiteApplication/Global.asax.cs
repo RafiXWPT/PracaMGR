@@ -43,6 +43,7 @@ namespace WebsiteApplication
                 cfg.CreateMap<ExaminationTransferObject, ExaminationViewModel>();
                 cfg.CreateMap<TreatmentTransferObject, TreatmentViewModel>();
                 cfg.CreateMap<UsedMedicineTransferObject, UsedMedicineViewModel>();
+                cfg.CreateMap<HospitalizationDocumentTransferObject, HospitalizationDocumentViewModel>();
             });
         }
     }
