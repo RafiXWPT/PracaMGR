@@ -6,7 +6,7 @@ using Domain.Interfaces;
 
 namespace WebsiteApplication.DataAccessLayer
 {
-    public class SearchHistoryRepository : IRepository<SearchHistory>
+    public class SearchHistoryRepository : IDateTimeCountableRepository<SearchHistory>
     {
         private readonly WebsiteDatabaseContext _context;
 

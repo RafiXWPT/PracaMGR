@@ -19,9 +19,9 @@ namespace WebsiteApplication.CodeBehind.Report
     {
         private readonly WcfPersonInfoFetcher _personInfoFetcher;
         private readonly IRepository<Institution> _institutionRepository;
-        private readonly IRepository<SearchHistory> _searchHistoryRepository;
+        private readonly IDateTimeCountableRepository<SearchHistory> _searchHistoryRepository;
 
-        public PdfReportService(IRepository<Institution> institutionRepository, IRepository<SearchHistory> searchHistoryRepository)
+        public PdfReportService(IRepository<Institution> institutionRepository, IDateTimeCountableRepository<SearchHistory> searchHistoryRepository)
         {
             _institutionRepository = institutionRepository;
             _searchHistoryRepository = searchHistoryRepository;

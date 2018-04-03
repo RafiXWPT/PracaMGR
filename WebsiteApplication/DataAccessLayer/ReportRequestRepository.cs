@@ -6,7 +6,7 @@ using Domain.Interfaces;
 
 namespace WebsiteApplication.DataAccessLayer
 {
-    public class ReportRequestRepository : IRepository<ReportRequest>
+    public class ReportRequestRepository : IDateTimeCountableRepository<ReportRequest>
     {
         private readonly WebsiteDatabaseContext _context;
 

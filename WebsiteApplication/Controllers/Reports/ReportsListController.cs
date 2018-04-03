@@ -15,10 +15,10 @@ namespace WebsiteApplication.Controllers.Reports
     [AuthorizeRight(Right = "REPORT_ACCEPTANCE")]
     public class ReportsListController : KendoController
     {
-        private readonly IRepository<ReportRequest> _repository;
+        private readonly IDateTimeCountableRepository<ReportRequest> _repository;
         private readonly IReportService _service;
 
-        public ReportsListController(IRepository<ReportRequest> repository, IReportService service)
+        public ReportsListController(IDateTimeCountableRepository<ReportRequest> repository, IReportService service)
         {
             _repository = repository;
             _service = service;

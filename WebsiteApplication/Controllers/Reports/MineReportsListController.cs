@@ -20,11 +20,11 @@ namespace WebsiteApplication.Controllers.Reports
     {
         private readonly WcfDataFetcher _patientFetcher;
         private readonly WcfPersonInfoFetcher _personInfoFetcher;
-        private readonly IRepository<ReportRequest> _reportRequestRepository;
+        private readonly IDateTimeCountableRepository<ReportRequest> _reportRequestRepository;
         private readonly IRepository<Institution> _institutionRepository;
-        private readonly IRepository<SearchHistory> _searchHistoryRepository;
+        private readonly IDateTimeCountableRepository<SearchHistory> _searchHistoryRepository;
 
-        public MineReportsListController(IRepository<ReportRequest> reportRequestRepository, IRepository<Institution> institutionRepository, IRepository<SearchHistory> searchHistoryRepository)
+        public MineReportsListController(IDateTimeCountableRepository<ReportRequest> reportRequestRepository, IRepository<Institution> institutionRepository, IDateTimeCountableRepository<SearchHistory> searchHistoryRepository)
         {
             _reportRequestRepository = reportRequestRepository;
             _institutionRepository = institutionRepository;

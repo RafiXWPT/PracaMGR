@@ -23,9 +23,9 @@ namespace WebsiteApplication.Controllers
         private readonly WcfDataFetcher _patientInfoFetcher;
         private readonly WcfPersonInfoFetcher _personInfoFetcher;
         private readonly IRepository<Institution> _institutionRepository;
-        private readonly IRepository<SearchHistory> _searchHistoryRepository;
+        private readonly IDateTimeCountableRepository<SearchHistory> _searchHistoryRepository;
 
-        public PatientController(IRepository<Institution> institutionRepository, IRepository<SearchHistory> searchHistoryRepository)
+        public PatientController(IRepository<Institution> institutionRepository, IDateTimeCountableRepository<SearchHistory> searchHistoryRepository)
         {
             _institutionRepository = institutionRepository;
             _searchHistoryRepository = searchHistoryRepository;
@@ -110,6 +110,7 @@ namespace WebsiteApplication.Controllers
             var hospitalization = _patientInfoFetcher.GetHospitalization<HospitalizationContainerViewModel>(hospitalizationId, institution.InstitutionEndpointAddress);
 
             hospitalization.Person = personViewModel;
+            hospitalization.HospitalizationDocuments.ForEach(x => x.InstitutionId = institutionId);
             hospitalization.Examinations.ForEach(x => x.InstitutionId = institutionId);
             hospitalization.Treatments.ForEach(x => x.InstitutionId = institutionId);
 
@@ -150,6 +151,13 @@ namespace WebsiteApplication.Controllers
             var treatment = _patientInfoFetcher.GetTreatment<TreatmentContainerViewModel>(treatmentId, institution.InstitutionEndpointAddress);
             treatment.Person = personViewModel;
             return View(treatment);
+        }
+
+        public ActionResult GetHospitalizationDocument(Guid hospitalizationDocumentId, Guid institutionId)
+        {
+            var institution = _institutionRepository.Read(institutionId);
+            var hospitalizationDocument = _patientInfoFetcher.GetDocument<HospitalizationDocumentViewModel>(hospitalizationDocumentId, institution.InstitutionEndpointAddress);
+            return File(hospitalizationDocument.Content, "docx", hospitalizationDocument.Name);
         }
     }
 }

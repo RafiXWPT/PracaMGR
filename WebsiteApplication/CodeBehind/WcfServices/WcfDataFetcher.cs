@@ -15,11 +15,11 @@ namespace WebsiteApplication.CodeBehind.WcfServices
     internal class WcfDataFetcher : IDisposable
     {
         private readonly IRepository<Institution> _repository;
-        private readonly IRepository<SearchHistory> _searchHistoryRepository;
+        private readonly IDateTimeCountableRepository<SearchHistory> _searchHistoryRepository;
         private readonly string _username;
         private IInstitutionService _connection;
 
-        public WcfDataFetcher(IRepository<Institution> repository, IRepository<SearchHistory> searchHistoryRepository, string username)
+        public WcfDataFetcher(IRepository<Institution> repository, IDateTimeCountableRepository<SearchHistory> searchHistoryRepository, string username)
         {
             _repository = repository;
             _searchHistoryRepository = searchHistoryRepository;
@@ -154,6 +154,15 @@ namespace WebsiteApplication.CodeBehind.WcfServices
             });
 
             return Mapper.Map<TViewModel>(treatment);
+        }
+
+        public TViewModel GetDocument<TViewModel>(Guid hospitalizationDocumentId, string endpoint) where TViewModel : class
+        {
+            _connection = EstablishConnection(endpoint);
+
+            var document = _connection?.GetDocument(hospitalizationDocumentId);
+
+            return Mapper.Map<TViewModel>(document);
         }
 
         private PatientTransferObject GetPatient(string pesel, Institution institution, bool fullHistory)

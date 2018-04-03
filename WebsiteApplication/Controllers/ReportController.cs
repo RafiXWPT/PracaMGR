@@ -14,9 +14,9 @@ namespace WebsiteApplication.Controllers
     public class ReportController : BaseController
     {
         private readonly IReportService _reportService;
-        private readonly IRepository<ReportRequest> _reportRequestRepository;
+        private readonly IDateTimeCountableRepository<ReportRequest> _reportRequestRepository;
 
-        public ReportController(IRepository<ReportRequest> reportRequestRepository, IReportService reportService)
+        public ReportController(IDateTimeCountableRepository<ReportRequest> reportRequestRepository, IReportService reportService)
         {
             _reportRequestRepository = reportRequestRepository;
             _reportService = reportService;

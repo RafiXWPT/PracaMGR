@@ -18,7 +18,7 @@ namespace WebsiteApplication.Controllers
         private readonly WcfPersonInfoFetcher _personInfoFetcher;
         private readonly IRepository<Institution> _institutionRepository;
 
-        public GlobalDataController(IRepository<Institution> institutionRepository, IRepository<SearchHistory> searchHistoryRepository)
+        public GlobalDataController(IRepository<Institution> institutionRepository, IDateTimeCountableRepository<SearchHistory> searchHistoryRepository)
         {
             _institutionRepository = institutionRepository;
             _patientFetcher = new WcfDataFetcher(institutionRepository, searchHistoryRepository, User.Name);
