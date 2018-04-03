@@ -29,5 +29,8 @@ namespace InstitutionService
 
         [OperationContract]
         TreatmentTransferObject GetTreatment(Guid treatmentId);
+
+        [OperationContract]
+        HospitalizationDocumentTransferObject GetDocument(Guid hospitalizationDocumentId);
     }
 }

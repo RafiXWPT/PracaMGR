@@ -1,26 +1,19 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using Domain;
 using Domain.Interfaces;
 using Domain.Inventory;
 using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    internal class UsedMedicineRepository : IRepository<UsedMedicine>
+    internal class UsedMedicineRepository : Repository<InstitutionServiceDatabaseContext>, IRepository<UsedMedicine>
     {
-        private readonly InstitutionServiceDatabaseContext _context;
-
-        public UsedMedicineRepository(IDbRepository context)
-        {
-            _context = context as InstitutionServiceDatabaseContext;
-        }
-
-
-        public IQueryable<UsedMedicine> Entities => _context.UsedMedicines;
+        public IQueryable<UsedMedicine> Entities => Context.UsedMedicines;
         public void Create(UsedMedicine entity)
         {
-            _context.UsedMedicines.Add(entity);
+            Context.UsedMedicines.Add(entity);
             SaveChanges();
         }
 
@@ -31,29 +24,23 @@ namespace InstitutionService.Host.Code.DatabaseProvider
 
         public void Update(UsedMedicine entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            Context.Entry(entity).State = EntityState.Modified;
             SaveChanges();
         }
 
         public void Delete(UsedMedicine entity)
         {
-            _context.UsedMedicines.Remove(entity);
+            Context.UsedMedicines.Remove(entity);
             SaveChanges();
         }
 
         public void SaveChanges()
         {
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
 
-        public int CreatedInLast(DateTime time, string username = null)
+        public UsedMedicineRepository(IDbRepository context) : base(context)
         {
-            throw new NotImplementedException();
-        }
-
-        public int CreatedBetween(DateTime from, DateTime to, string username = null)
-        {
-            throw new NotImplementedException();
         }
     }
 }

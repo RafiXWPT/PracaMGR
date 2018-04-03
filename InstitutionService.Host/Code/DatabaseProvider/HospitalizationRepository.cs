@@ -1,25 +1,19 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using Domain;
 using Domain.Interfaces;
 using Domain.Residence;
 using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    internal class HospitalizationRepository : IRepository<Hospitalization>
+    internal class HospitalizationRepository : Repository<InstitutionServiceDatabaseContext>, IRepository<Hospitalization>
     {
-        private readonly InstitutionServiceDatabaseContext _context;
-
-        public HospitalizationRepository(IDbRepository context)
-        {
-            _context = context as InstitutionServiceDatabaseContext;
-        }
-
-        public IQueryable<Hospitalization> Entities => _context.Hospitalizations;
+        public IQueryable<Hospitalization> Entities => Context.Hospitalizations;
         public void Create(Hospitalization entity)
         {
-            _context.Hospitalizations.Add(entity);
+            Context.Hospitalizations.Add(entity);
             SaveChanges();
         }
 
@@ -30,19 +24,19 @@ namespace InstitutionService.Host.Code.DatabaseProvider
 
         public void Update(Hospitalization entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            Context.Entry(entity).State = EntityState.Modified;
             SaveChanges();
         }
 
         public void Delete(Hospitalization entity)
         {
-            _context.Hospitalizations.Remove(entity);
+            Context.Hospitalizations.Remove(entity);
             SaveChanges();
         }
 
         public void SaveChanges()
         {
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
 
         public int CreatedInLast(DateTime time, string username = null)
@@ -53,6 +47,10 @@ namespace InstitutionService.Host.Code.DatabaseProvider
         public int CreatedBetween(DateTime from, DateTime to, string username = null)
         {
             throw new NotImplementedException();
+        }
+
+        public HospitalizationRepository(IDbRepository context) : base(context)
+        {
         }
     }
 }

@@ -25,6 +25,7 @@ namespace InstitutionService.Host.Code.Core
 
             Container.Register<IDbRepository>(() => new InstitutionServiceDatabaseContext("InstitutionContext"));
             Container.Register<IRepository<Patient>, PatientRepository>(Lifestyle.Transient);
+            Container.Register<IRepository<HospitalizationDocument>, HospitalizationDocumentRepository>(Lifestyle.Transient);
             Container.Register<IRepository<Hospitalization>, HospitalizationRepository>(Lifestyle.Transient);
             Container.Register<IRepository<Treatment>, TreatmentRepository>(Lifestyle.Transient);
             Container.Register<IRepository<Examination>, ExaminationRepository>(Lifestyle.Transient);

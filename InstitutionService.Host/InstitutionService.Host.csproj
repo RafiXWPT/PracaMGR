@@ -86,6 +86,7 @@
     <Compile Include="Code\Core\WcfServiceProvider.cs" />
     <Compile Include="Code\DataAccessLayer\InstitutionServiceDatabaseContext.cs" />
     <Compile Include="Code\DatabaseProvider\ExaminationRepository.cs" />
+    <Compile Include="Code\DatabaseProvider\HospitalizationDocumentRepository.cs" />
     <Compile Include="Code\DatabaseProvider\HospitalizationRepository.cs" />
     <Compile Include="Code\DatabaseProvider\MedicineRepository.cs" />
     <Compile Include="Code\DatabaseProvider\PatientRepository.cs" />

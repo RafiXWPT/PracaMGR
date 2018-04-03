@@ -1,27 +1,20 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using Domain;
 using Domain.Interfaces;
 using Domain.Residence;
 using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    internal class TreatmentRepository : IRepository<Treatment>
+    internal class TreatmentRepository : Repository<InstitutionServiceDatabaseContext>, IRepository<Treatment>
     {
-        private readonly InstitutionServiceDatabaseContext _context;
-
-        public TreatmentRepository(IDbRepository context)
-        {
-            _context = context as InstitutionServiceDatabaseContext;
-        }
-
-
-        public IQueryable<Treatment> Entities => _context.Treatments;
+        public IQueryable<Treatment> Entities => Context.Treatments;
 
         public void Create(Treatment entity)
         {
-            _context.Treatments.Add(entity);
+            Context.Treatments.Add(entity);
             SaveChanges();
         }
 
@@ -32,29 +25,23 @@ namespace InstitutionService.Host.Code.DatabaseProvider
 
         public void Update(Treatment entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            Context.Entry(entity).State = EntityState.Modified;
             SaveChanges();
         }
 
         public void Delete(Treatment entity)
         {
-            _context.Treatments.Remove(entity);
+            Context.Treatments.Remove(entity);
             SaveChanges();
         }
 
         public void SaveChanges()
         {
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
 
-        public int CreatedInLast(DateTime time, string username = null)
+        public TreatmentRepository(IDbRepository context) : base(context)
         {
-            throw new NotImplementedException();
-        }
-
-        public int CreatedBetween(DateTime from, DateTime to, string username = null)
-        {
-            throw new NotImplementedException();
         }
     }
 }
