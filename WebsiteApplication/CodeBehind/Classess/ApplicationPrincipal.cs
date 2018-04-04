@@ -31,5 +31,10 @@ namespace WebsiteApplication.CodeBehind.Classess
             _claimCache.Add(claimType, claimValue);
             return claimValue;
         }
+
+        public bool HasRight(string right)
+        {
+            return Rights.Contains(right);
+        }
     }
 }

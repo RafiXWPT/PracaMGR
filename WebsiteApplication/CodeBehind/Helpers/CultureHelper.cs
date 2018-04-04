@@ -284,7 +284,7 @@ namespace WebsiteApplication.CodeBehind.Helpers
             "yo-NG"
         };
 
-        private static readonly List<string> Cultures = new List<string> {"pl-PL", "en-US"};
+        private static readonly List<string> Cultures = new List<string> {"pl-PL", "en-GB"};
 
         public static bool IsRighToLeft() => Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft;
 

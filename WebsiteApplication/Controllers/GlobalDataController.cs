@@ -62,7 +62,7 @@ namespace WebsiteApplication.Controllers
                 });
             }
 
-            return Json(displayList.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            return JsonDataSourceResult(request, displayList);
         }
     }
 }
