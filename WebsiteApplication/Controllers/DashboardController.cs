@@ -33,6 +33,20 @@ namespace WebsiteApplication.Controllers
                     TileUrl = Url.Action("Index", "Rights")
                 });
             }
+            if (User.Rights.Contains("REPORT_ACCEPTANCE"))
+            {
+                availableActions.Add(new TileBreakViewModel { BreakHeader = "ADMINISTRACJA RAPORTAMI" });
+                var reportsToAcceptance = Context.ReaportRequests.Count(r => r.Status == ReportRequestStatus.PENDING);
+                availableActions.Add(new TileViewModel
+                {
+                    TileCircleColor = reportsToAcceptance > 0 ? "green" : "dark-blue",
+                    TileContentColor = "dark-blue",
+                    TileIcon = reportsToAcceptance > 0 ? "folder-open" : "folder",
+                    TileValue = reportsToAcceptance.ToString(),
+                    TileContentText = "raporty oczekujące",
+                    TileUrl = Url.Action("ReportsList", "ReportsList")
+                });
+            }
             if (User.Rights.Contains("APPLICATION_INFO"))
             {
                 availableActions.Add(new TileBreakViewModel {BreakHeader = "APLIKACJA"});
@@ -51,7 +65,7 @@ namespace WebsiteApplication.Controllers
                     TileIcon = "check",
                     TileValue =
                         Context.ReaportRequests.Count(r => r.Status == ReportRequestStatus.ACCEPTED).ToString(),
-                    TileContentText = "raporty"
+                    TileContentText = "raporty zaakceptowane"
                 });
                 availableActions.Add(new TileViewModel
                 {
@@ -60,7 +74,7 @@ namespace WebsiteApplication.Controllers
                     TileIcon = "ban",
                     TileValue =
                         Context.ReaportRequests.Count(r => r.Status == ReportRequestStatus.REJECTED).ToString(),
-                    TileContentText = "raporty"
+                    TileContentText = "raporty odrzucone"
                 });
                 availableActions.Add(new TileViewModel
                 {
@@ -69,20 +83,6 @@ namespace WebsiteApplication.Controllers
                     TileIcon = "search",
                     TileValue = Context.SearchHistories.Count().ToString(),
                     TileContentText = "żądania wyszukania"
-                });
-            }
-            if (User.Rights.Contains("REPORT_ACCEPTANCE"))
-            {
-                availableActions.Add(new TileBreakViewModel {BreakHeader = "RAPORTY"});
-                var reportsToAcceptance = Context.ReaportRequests.Count(r => r.Status == ReportRequestStatus.PENDING);
-                availableActions.Add(new TileViewModel
-                {
-                    TileCircleColor = reportsToAcceptance > 0 ? "green" : "dark-blue",
-                    TileContentColor = "dark-blue",
-                    TileIcon = reportsToAcceptance > 0 ? "folder-open" : "folder",
-                    TileValue = reportsToAcceptance.ToString(),
-                    TileContentText = "raporty oczekujące",
-                    TileUrl = Url.Action("ReportsList", "ReportsList")
                 });
             }
 

@@ -65,7 +65,7 @@ namespace WebsiteApplication.Controllers
         public ActionResult Patient(string pesel)
         {
             if(TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
-                return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
+                return Json("Przekroczono ilość zapytań jaka jest dostępna.", JsonRequestBehavior.AllowGet);
 
             return View();
         }

@@ -108,8 +108,24 @@ namespace WebsiteApplication.CodeBehind.Report
             infoParagraph.Add(
                 $"\n{(hasBeenExaminedInInstitution ? "Osoba była badana" : "Osoba nigdy nie była badana")}");
             if (hasBeenExaminedInInstitution)
+            {
                 infoParagraph.Add(
                     $"\nCałkowita ilość przeprowadzonych badań: {patient.Hospitalizations.Sum(hospitalization => hospitalization.Examinations.Count)}");
+                infoParagraph.Add(
+                    $"\nWizyty prywatne: {patient.Hospitalizations.Sum(hospitalization => hospitalization.Examinations.Count(e => e.PrivateVisit))}");
+                infoParagraph.Add(
+                    $"\nWizyty publiczne: {patient.Hospitalizations.Sum(hospitalization => hospitalization.Examinations.Count(e => !e.PrivateVisit))}");
+                infoParagraph.Add(
+                    $"\nCałkowita ilość przepisanych recept: {patient.Hospitalizations.Sum(hospitalization => hospitalization.Examinations.Count(e => e.SignedReceip))}");
+                if (patient.Hospitalizations.Any(hospitalization => hospitalization.Examinations.Any(e => e.SickLeave)))
+                {
+                    infoParagraph.Add(
+                        $"\nCałkowita ilość wystawionych zwolnień lekarskich: {patient.Hospitalizations.Sum(hospitalization => hospitalization.Examinations.Count(e => e.SickLeave))}");
+                    infoParagraph.Add(
+                        $"\nNajdłuższe zwolnienie lekarskie: {patient.Hospitalizations.Max(hospitalization => hospitalization.Examinations.Max(e => (e.SickLeaveTo - e.SickLeaveFrom)?.TotalDays))} dni");
+                }
+            }
+
             infoParagraph.Add(
                 $"\n{(hasBeenTreatmentInInstitution ? "Osoba była operowana" : "Osoba nigdy nie była operowana")}");
             if (hasBeenTreatmentInInstitution)

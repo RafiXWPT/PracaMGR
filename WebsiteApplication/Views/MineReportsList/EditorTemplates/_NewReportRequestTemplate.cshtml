@@ -1,4 +1,5 @@
 ﻿@using WebsiteApplication.Models.ViewModels.GlobalData
+
 <div id="window-container">
     <div id="window-content">
         @(Html.Kendo().Grid<PatientViewModel>().Name("all-patients-grid")
@@ -28,3 +29,4 @@
         @Html.Kendo().Button().Name("cancel-button").Content("Anuluj").Events(e => e.Click("app.mineReportsList.buttons.cancel"))
     </div>
 </div>
+

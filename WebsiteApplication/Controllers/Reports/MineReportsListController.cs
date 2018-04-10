@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Domain;
 using Domain.Interfaces;
+using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using WebsiteApplication.CodeBehind.Classess;
@@ -73,6 +74,16 @@ namespace WebsiteApplication.Controllers.Reports
 
         public ActionResult ReadAllPatientsFromInstitutions([DataSourceRequest] DataSourceRequest request)
         {
+            if (request.Filters.Any(f => ((FilterDescriptor)f).Operator == FilterOperator.StartsWith))
+            {
+                var filters = request.Filters.OfType<FilterDescriptor>().ToList();
+                var peselFilter = filters.FirstOrDefault(f => f.Member == "Pesel");
+                {
+                    var personWithPesel = _personInfoFetcher.GetPersonInfo((peselFilter?.Value as string) ?? "");
+                    return Json(new List<PatientViewModel> {new PatientViewModel {Pesel = personWithPesel?.Pesel ?? ""}}.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+                }
+            }
+
             var patientsData = new List<PatientViewModel>();
             var institutions = _institutionRepository.Entities.ToList();
             institutions.ForEach(action =>
