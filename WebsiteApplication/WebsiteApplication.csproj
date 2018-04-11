@@ -239,7 +239,7 @@
     <Compile Include="Models\ViewModels\ASPNET.Identity\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ViewModels\ASPNET.Identity\ManageViewModels.cs" />
-    <Compile Include="Models\ViewModels\GlobalData\PatientViewModel.cs" />
+    <Compile Include="Models\ViewModels\GlobalData\PersonViewModel.cs" />
     <Compile Include="Models\ViewModels\GlobalData\PersonInfoViewModel.cs" />
     <Compile Include="Models\ViewModels\GlobalData\TabStripItemViewModel.cs" />
     <Compile Include="Models\ViewModels\GlobalData\TabStripViewModel.cs" />

@@ -1,14 +1,23 @@
 ﻿@using WebsiteApplication.Models.ViewModels.GlobalData
 
+<script>
+    function datePicker(args) {
+        args.element.kendoDatePicker({
+            format: "yyyy-MM-dd"
+        });
+    }
+</script>
+
 <div id="window-container">
     <div id="window-content">
-        @(Html.Kendo().Grid<PatientViewModel>().Name("all-patients-grid")
+        @(Html.Kendo().Grid<PersonViewModel>().Name("all-patients-grid")
               .Columns(c =>
               {
                   c.Bound(vm => vm.Pesel);
                   c.Bound(vm => vm.FirstName);
                   c.Bound(vm => vm.LastName);
-                  c.Bound(vm => vm.LastHospitalizationTime).Template(@<text></text>).ClientTemplate("#=kendo.toString(BirthDate, 'yyyy-MM-dd hh:mm:ss')#");
+                  c.Bound(vm => vm.InsuranceId);
+                  c.Bound(vm => vm.BirthDate).Format("{0: yyyy-MM-dd}").Filterable(x => x.Cell(y => y.Template("datePicker")));
               })
               .Pageable()
               .Selectable()
@@ -22,11 +31,10 @@
                       m.Id(vm => vm.Pesel);
                   })
                   .PageSize(10)
-                  .Read(r => r.Action("ReadAllPatientsFromInstitutions", "MineReportsList"))))
+                  .Read(r => r.Action("FilterPersons", "MineReportsList"))))
     </div>
     <div id="window-buttons" style="position: absolute; bottom: 3px; right: 3px;">
         @Html.Kendo().Button().Name("accept-button").Content("Akceptuj").Events(e => e.Click("app.mineReportsList.buttons.accept"))
         @Html.Kendo().Button().Name("cancel-button").Content("Anuluj").Events(e => e.Click("app.mineReportsList.buttons.cancel"))
     </div>
 </div>
-

@@ -33,7 +33,7 @@ namespace WebsiteApplication.Controllers.Reports
             _patientFetcher = new WcfDataFetcher(institutionRepository, searchHistoryRepository, User.Name);
             _personInfoFetcher = new WcfPersonInfoFetcher();
         }
-        // GET: MineReportsList
+
         public ActionResult MineReportsList()
         {
             return View();
@@ -72,49 +72,20 @@ namespace WebsiteApplication.Controllers.Reports
                 _reportRequestRepository.Entities.Where(r => r.Status == ReportRequestStatus.REJECTED && r.CreatedBy == User.Name));
         }
 
-        public ActionResult ReadAllPatientsFromInstitutions([DataSourceRequest] DataSourceRequest request)
+        public ActionResult FilterPersons([DataSourceRequest] DataSourceRequest request)
         {
-            if (request.Filters.Any(f => ((FilterDescriptor)f).Operator == FilterOperator.StartsWith))
-            {
-                var filters = request.Filters.OfType<FilterDescriptor>().ToList();
-                var peselFilter = filters.FirstOrDefault(f => f.Member == "Pesel");
-                {
-                    var personWithPesel = _personInfoFetcher.GetPersonInfo((peselFilter?.Value as string) ?? "");
-                    return Json(new List<PatientViewModel> {new PatientViewModel {Pesel = personWithPesel?.Pesel ?? ""}}.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
-                }
-            }
+            var filters = GetAllFilters(request);
+            if (!filters.Any())
+                return Json(new List<PersonViewModel>().ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
 
-            var patientsData = new List<PatientViewModel>();
-            var institutions = _institutionRepository.Entities.ToList();
-            institutions.ForEach(action =>
-            {
-                var institutionData = _patientFetcher.GetAllPatientsFromInstitution<PatientTransferObject>(action.InstitutionId);
-                if (!institutionData.Any())
-                    return;
-
-                institutionData.ForEach(innerAction =>
-                {
-                    if (patientsData.Any(p => p.Pesel == innerAction.Pesel))
-                        return;
-
-                    var personInfo = _personInfoFetcher.GetPersonInfo(innerAction.Pesel);
-
-                    var displayObject = new PatientViewModel
-                    {
-                        Pesel = innerAction.Pesel,
-                        LastHospitalizationTime = innerAction.Hospitalizations.Any()
-                            ? innerAction.Hospitalizations.Max(d => d.HospitalizationEndTime)
-                            : (DateTime?) null,
-                        BirthDate = personInfo.BirthDate,
-                        FirstName = personInfo.FirstName,
-                        LastName = personInfo.LastName
-                    };
-                    patientsData.Add(displayObject);
-                });
-            });
-
-            return Json(patientsData.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
-        }
+            return Json(_personInfoFetcher.FilterPersons(
+                    (string) filters.FirstOrDefault(f => f.Member == "Pesel")?.Value,
+                    (string) filters.FirstOrDefault(f => f.Member == "FirstName")?.Value,
+                    (string) filters.FirstOrDefault(f => f.Member == "LastName")?.Value,
+                    (string) filters.FirstOrDefault(f => f.Member == "InsuranceId")?.Value,
+                    (DateTime?) filters.FirstOrDefault(f => f.Member == "BirthDate")?.Value).ToDataSourceResult(request),
+                JsonRequestBehavior.AllowGet);
+        }     
 
         public ActionResult NewRequestWindowContent()
         {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
+using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 
@@ -58,6 +59,28 @@ namespace WebsiteApplication.Controllers.AdditionalControllers
             where TViewModel : class
         {
             return Mapper.Map<IEnumerable<TViewModel>>(entities);
+        }
+
+        protected List<FilterDescriptor> GetAllFilters(DataSourceRequest request)
+        {
+            var allFilterDescriptors = new List<FilterDescriptor>();
+            RecurseFilterDescriptors(request.Filters, allFilterDescriptors);
+            return allFilterDescriptors;
+        }
+
+        private void RecurseFilterDescriptors(IList<IFilterDescriptor> filters, List<FilterDescriptor> descriptors)
+        {
+            foreach (var filterDescriptor in filters)
+            {
+                if (filterDescriptor is FilterDescriptor)
+                {
+                    descriptors.Add((FilterDescriptor)filterDescriptor);
+                }
+                else if (filterDescriptor is CompositeFilterDescriptor)
+                {
+                    RecurseFilterDescriptors(((CompositeFilterDescriptor)filterDescriptor).FilterDescriptors, descriptors);
+                }
+            }
         }
     }
 }

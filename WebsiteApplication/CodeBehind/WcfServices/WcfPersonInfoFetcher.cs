@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.ServiceModel;
 using Domain;
@@ -43,6 +44,17 @@ namespace WebsiteApplication.CodeBehind.WcfServices
             var person = connection.GetPersonInfo(pesel);
             CloseConnection(connection);
             return person;
+        }
+
+        public List<PersonTransferObject> FilterPersons(string pesel = null, string firstName = null, string lastName = null, string insuranceId = null, DateTime? birthDate = null)
+        {
+            var connection = EstablishConnection();
+            if(connection == null)
+                return new List<PersonTransferObject>();
+
+            var persons = connection.FilterPersons(pesel, firstName, lastName, insuranceId, birthDate);
+            CloseConnection(connection);
+            return persons;
         }
     }
 }

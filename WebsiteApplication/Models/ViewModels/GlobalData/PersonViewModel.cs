@@ -4,7 +4,7 @@ using WebsiteApplication.Resources;
 
 namespace WebsiteApplication.Models.ViewModels.GlobalData
 {
-    public class PatientViewModel
+    public class PersonViewModel
     {
         [Display(Name = "PESEL")]
         public string Pesel { get; set; }
@@ -15,8 +15,11 @@ namespace WebsiteApplication.Models.ViewModels.GlobalData
         [Display(Name = "Nazwisko")]
         public string LastName { get; set; }
 
+        [Display(Name = "Number ubezpieczenia")]
+        public string InsuranceId { get; set; }
+
         [Display(Name = "PersonBirthDate", ResourceType = typeof(GlobalTranslations))]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
         [Display(Name = "LastHospitalizationTime", ResourceType = typeof(GlobalTranslations))]

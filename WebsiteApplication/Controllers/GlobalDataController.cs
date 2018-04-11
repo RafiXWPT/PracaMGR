@@ -45,12 +45,12 @@ namespace WebsiteApplication.Controllers
 
         public ActionResult ReadInstitutionData(DataSourceRequest request, Guid institutionId)
         {
-            var displayList = new List<PatientViewModel>();
+            var displayList = new List<PersonViewModel>();
             var ptos = _patientFetcher.GetAllPatientsFromInstitution<PatientTransferObject>(institutionId);
             foreach (var pto in ptos)
             {
                 var personInfo = _personInfoFetcher.GetPersonInfo(pto.Pesel);
-                displayList.Add(new PatientViewModel
+                displayList.Add(new PersonViewModel
                 {
                     Pesel = pto.Pesel,
                     LastHospitalizationTime = pto.Hospitalizations.Any()

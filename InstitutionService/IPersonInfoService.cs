@@ -1,4 +1,6 @@
-﻿using System.ServiceModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ServiceModel;
 using Domain;
 
 namespace InstitutionService
@@ -11,5 +13,8 @@ namespace InstitutionService
 
         [OperationContract]
         PersonTransferObject GetPersonInfo(string pesel);
+
+        [OperationContract]
+        List<PersonTransferObject> FilterPersons(string pesel = null, string firstName = null, string lastName = null, string insuranceId = null, DateTime? birthDate = null);
     }
 }
