@@ -246,7 +246,7 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
                 });
             }
            
-            var takeCount = _rnd.Next(50, patients.Count);
+            var takeCount = _rnd.Next(25, patients.Count);
             for (var i = 0; i < takeCount; i++)
             {
                 var tmpPerson = patients[_rnd.Next(0, patients.Count)];
@@ -271,7 +271,7 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
 
             foreach (var patient in _patients)
             {
-                var takeCount = _rnd.Next(30, 50);
+                var takeCount = _rnd.Next(1, 10);
                 for (var i = 0; i < takeCount; i++)
                 {
                     var st = new DateTime(1995, 1, 1);
@@ -316,7 +316,7 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
 
             foreach (var hospitalization in _hospitalizations)
             {
-                var takeCount = _rnd.Next(1, 10);
+                var takeCount = _rnd.Next(1, 5);
                 for (var i = 0; i < takeCount; i++)
                 {
                     var dateOfExaminationBegin = GenRandomDate(hospitalization.HospitalizationStartTime, hospitalization.HospitalizationEndTime);
@@ -406,7 +406,7 @@ namespace InstitutionService.Host.Code.DummyDatabaseInitializer
             var usedMedicineRepository = ObjectBuilder.Container.GetInstance<IRepository<UsedMedicine>>();
             foreach (var treatment in _treatments)
             {
-                var takeCount = _rnd.Next(3, 20);
+                var takeCount = _rnd.Next(3, 10);
                 for (var i = 0; i < takeCount; i++)
                 {
                     var usedMedicine = new UsedMedicine
