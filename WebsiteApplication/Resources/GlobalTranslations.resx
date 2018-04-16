@@ -202,7 +202,7 @@
     <value>Przeprowadzone badania</value>
   </data>
   <data name="Treatments" xml:space="preserve">
-    <value>Przeprowadzone leczenia</value>
+    <value>Przeprowadzone operacje</value>
   </data>
   <data name="Details" xml:space="preserve">
     <value>Szczegóły</value>
@@ -275,5 +275,14 @@
   </data>
   <data name="Patients" xml:space="preserve">
     <value>Pacjenci</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Zarejestruj się</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Zaloguj się</value>
+  </data>
+  <data name="HomeIndexDescription" xml:space="preserve">
+    <value>Aplikacja umożliwia osobom upoważnionym na przeglądanie informacji medycznych pacjenta oraz wygenerowanie raportu z przebiegu jego hospitalizacji.</value>
   </data>
 </root>

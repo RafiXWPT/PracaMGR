@@ -87,5 +87,15 @@ namespace InstitutionService.Host.Code.Core
 
             return transferObject;
         }
+
+        public HospitalizationDocumentTransferObject GetDocument(Guid hospitalizationDocumentId)
+        {
+            Console.WriteLine("Pobieranie zawartości pliku");
+            var documentRepository = ObjectBuilder.Container.GetInstance<IRepository<HospitalizationDocument>>();
+            var document = documentRepository.Read(hospitalizationDocumentId);
+            return document == null
+                ? new HospitalizationDocumentTransferObject()
+                : Mapper.Map<HospitalizationDocumentTransferObject>(document);
+        }
     }
 }

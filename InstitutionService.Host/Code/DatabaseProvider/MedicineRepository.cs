@@ -1,25 +1,19 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using Domain;
 using Domain.Interfaces;
 using Domain.Inventory;
 using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    internal class MedicineRepository : IRepository<Medicine>
+    internal class MedicineRepository : Repository<InstitutionServiceDatabaseContext>, IRepository<Medicine>
     {
-        private readonly InstitutionServiceDatabaseContext _context;
-
-        public MedicineRepository(IDbRepository context)
-        {
-            _context = context as InstitutionServiceDatabaseContext;
-        }
-
-        public IQueryable<Medicine> Entities => _context.Medicines;
+        public IQueryable<Medicine> Entities => Context.Medicines;
         public void Create(Medicine entity)
         {
-            _context.Medicines.Add(entity);
+            Context.Medicines.Add(entity);
             SaveChanges();
         }
 
@@ -30,19 +24,19 @@ namespace InstitutionService.Host.Code.DatabaseProvider
 
         public void Update(Medicine entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            Context.Entry(entity).State = EntityState.Modified;
             SaveChanges();
         }
 
         public void Delete(Medicine entity)
         {
-            _context.Medicines.Remove(entity);
+            Context.Medicines.Remove(entity);
             SaveChanges();
         }
 
         public void SaveChanges()
         {
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
 
         public int CreatedInLast(DateTime time, string username = null)
@@ -53,6 +47,10 @@ namespace InstitutionService.Host.Code.DatabaseProvider
         public int CreatedBetween(DateTime from, DateTime to, string username = null)
         {
             throw new NotImplementedException();
+        }
+
+        public MedicineRepository(IDbRepository context) : base(context)
+        {
         }
     }
 }

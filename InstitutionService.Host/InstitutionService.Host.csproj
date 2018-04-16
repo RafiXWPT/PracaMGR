@@ -86,15 +86,24 @@
     <Compile Include="Code\Core\WcfServiceProvider.cs" />
     <Compile Include="Code\DataAccessLayer\InstitutionServiceDatabaseContext.cs" />
     <Compile Include="Code\DatabaseProvider\ExaminationRepository.cs" />
+    <Compile Include="Code\DatabaseProvider\HospitalizationDocumentRepository.cs" />
     <Compile Include="Code\DatabaseProvider\HospitalizationRepository.cs" />
     <Compile Include="Code\DatabaseProvider\MedicineRepository.cs" />
     <Compile Include="Code\DatabaseProvider\PatientRepository.cs" />
     <Compile Include="Code\DatabaseProvider\TreatmentRepository.cs" />
     <Compile Include="Code\DatabaseProvider\UsedMedicineRepository.cs" />
     <Compile Include="Code\DummyDatabaseInitializer\InstitutionDatabaseInitializer.cs" />
-    <Compile Include="Migrations\201701282235277_Init.cs" />
-    <Compile Include="Migrations\201701282235277_Init.Designer.cs">
-      <DependentUpon>201701282235277_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201803222005003_Init.cs" />
+    <Compile Include="Migrations\201803222005003_Init.Designer.cs">
+      <DependentUpon>201803222005003_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803271835100_Rozbudowa.cs" />
+    <Compile Include="Migrations\201803271835100_Rozbudowa.Designer.cs">
+      <DependentUpon>201803271835100_Rozbudowa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803291954173_Documents.cs" />
+    <Compile Include="Migrations\201803291954173_Documents.Designer.cs">
+      <DependentUpon>201803291954173_Documents.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -102,6 +111,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="SampleDocuments\sampleDoc1.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc10.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc2.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc3.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc4.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc5.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc6.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc7.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc8.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleDocuments\sampleDoc9.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Configuration\InstitutionSettings.config" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -116,19 +155,59 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701282235277_Init.resx">
-      <DependentUpon>201701282235277_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803222005003_Init.resx">
+      <DependentUpon>201803222005003_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803271835100_Rozbudowa.resx">
+      <DependentUpon>201803271835100_Rozbudowa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803291954173_Documents.resx">
+      <DependentUpon>201803291954173_Documents.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>XCOPY "$(SolutionDir)InstitutionService.Host\Configuration" "$(TargetDir)\Configuration\" /S /Y
-if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\SzpitalUniwersytecki\" /S /Y
-if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\SzpitalWKrynicy\" /S /Y
-if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\SzpitalWNowymSaczu\" /S /Y
-if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\SzpitalUniwersytecki\" /S /Y
-if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\SzpitalWKrynicy\" /S /Y
-if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\SzpitalWNowymSaczu\" /S /Y</PostBuildEvent>
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\1_KrakowskiePogotowieRatunkowe\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\2_KrakowskiSzpitalWojskowy\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\3_PogotowieRatunkoweWGdyni\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\4_PoznanskiSzpitalOswiecenia\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\5_SzpitalUniwersyteckiWKrakowie\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\6_SzpitalWBieszczadach\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\7_SzpitalWKrynicy\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\8_SzpitalWNowymSaczu\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\9_WarszawskiSzpitalSpecjalistyczny\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\InstitutionService.Host.exe" "$(TargetDir)\..\10_WroclawskiSzpitalSpecjalistyczny\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\1_KrakowskiePogotowieRatunkowe\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\2_KrakowskiSzpitalWojskowy\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\3_PogotowieRatunkoweWGdyni\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\4_PoznanskiSzpitalOswiecenia\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\5_SzpitalUniwersyteckiWKrakowie\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\6_SzpitalWBieszczadach\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\7_SzpitalWKrynicy\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\8_SzpitalWNowymSaczu\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\9_WarszawskiSzpitalSpecjalistyczny\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*dll" "$(TargetDir)\..\10_WroclawskiSzpitalSpecjalistyczny\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*pdf" "$(TargetDir)\..\1_KrakowskiePogotowieRatunkowe\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*pdf" "$(TargetDir)\..\2_KrakowskiSzpitalWojskowy\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*pdf" "$(TargetDir)\..\3_PogotowieRatunkoweWGdyni\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*pdf" "$(TargetDir)\..\4_PoznanskiSzpitalOswiecenia\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*pdf" "$(TargetDir)\..\5_SzpitalUniwersyteckiWKrakowie\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*pdf" "$(TargetDir)\..\6_SzpitalWBieszczadach\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*pdf" "$(TargetDir)\..\7_SzpitalWKrynicy\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*pdf" "$(TargetDir)\..\8_SzpitalWNowymSaczu\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*pdf" "$(TargetDir)\..\9_WarszawskiSzpitalSpecjalistyczny\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*pdf" "$(TargetDir)\..\10_WroclawskiSzpitalSpecjalistyczny\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*docx" "$(TargetDir)\..\1_KrakowskiePogotowieRatunkowe\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*docx" "$(TargetDir)\..\2_KrakowskiSzpitalWojskowy\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*docx" "$(TargetDir)\..\3_PogotowieRatunkoweWGdyni\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*docx" "$(TargetDir)\..\4_PoznanskiSzpitalOswiecenia\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*docx" "$(TargetDir)\..\5_SzpitalUniwersyteckiWKrakowie\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*docx" "$(TargetDir)\..\6_SzpitalWBieszczadach\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*docx" "$(TargetDir)\..\7_SzpitalWKrynicy\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*docx" "$(TargetDir)\..\8_SzpitalWNowymSaczu\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*docx" "$(TargetDir)\..\9_WarszawskiSzpitalSpecjalistyczny\" /S /Y
+if $(ConfigurationName) == Debug XCOPY "$(SolutionDir)InstitutionService.Host\bin\Debug\*docx" "$(TargetDir)\..\10_WroclawskiSzpitalSpecjalistyczny\" /S /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

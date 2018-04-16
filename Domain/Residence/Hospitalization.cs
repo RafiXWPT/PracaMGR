@@ -11,6 +11,7 @@ namespace Domain.Residence
         public DateTime HospitalizationStartTime { get; set; }
         public DateTime HospitalizationEndTime { get; set; }
         public virtual Patient Patient { get; set; }
+        public virtual ICollection<HospitalizationDocument> HospitalizationDocuments { get; set; }
         public virtual ICollection<Examination> Examinations { get; set; }
         public virtual ICollection<Treatment> Treatments { get; set; }
     }
@@ -26,6 +27,9 @@ namespace Domain.Residence
 
         [DataMember]
         public DateTime HospitalizationEndTime { get; set; }
+
+        [DataMember]
+        public List<HospitalizationDocumentTransferObject> HospitalizationDocuments { get; set; } = new List<HospitalizationDocumentTransferObject>();
 
         [DataMember]
         public List<ExaminationTransferObject> Examinations { get; set; } = new List<ExaminationTransferObject>();

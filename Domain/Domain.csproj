@@ -50,6 +50,8 @@
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="ReportRequest.cs" />
+    <Compile Include="Repository.cs" />
+    <Compile Include="Residence\HospitalizationDocument.cs" />
     <Compile Include="Residence\Examination.cs" />
     <Compile Include="Residence\Hospitalization.cs" />
     <Compile Include="Institution.cs" />

@@ -1,7 +1,7 @@
 ﻿@using WebsiteApplication.Models.ViewModels.GlobalData
 @model WebsiteApplication.Models.ViewModels.GlobalData.TabStripItemViewModel
 
-@(Html.Kendo().Grid<PatientViewModel>()
+@(Html.Kendo().Grid<PersonViewModel>()
       .Name(Model.InstitutionId.ToString())
       .Columns(c =>
       {

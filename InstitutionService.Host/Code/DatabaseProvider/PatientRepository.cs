@@ -7,20 +7,12 @@ using InstitutionService.Host.Code.DataAccessLayer;
 
 namespace InstitutionService.Host.Code.DatabaseProvider
 {
-    public class PatientRepository : IRepository<Patient>
+    public class PatientRepository : Repository<InstitutionServiceDatabaseContext>, IRepository<Patient>
     {
-        private readonly InstitutionServiceDatabaseContext _context;
-
-        public PatientRepository(IDbRepository context)
-        {
-            _context = context as InstitutionServiceDatabaseContext;
-        }
-
-
-        public IQueryable<Patient> Entities => _context.Patients;
+        public IQueryable<Patient> Entities => Context.Patients;
         public void Create(Patient entity)
         {
-            _context.Patients.Add(entity);
+            Context.Patients.Add(entity);
             SaveChanges();
         }
 
@@ -31,29 +23,23 @@ namespace InstitutionService.Host.Code.DatabaseProvider
 
         public void Update(Patient entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            Context.Entry(entity).State = EntityState.Modified;
             SaveChanges();
         }
 
         public void Delete(Patient entity)
         {
-            _context.Patients.Remove(entity);
+            Context.Patients.Remove(entity);
             SaveChanges();
         }
 
         public void SaveChanges()
         {
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
 
-        public int CreatedInLast(DateTime time, string username = null)
+        public PatientRepository(IDbRepository context) : base(context)
         {
-            throw new NotImplementedException();
-        }
-
-        public int CreatedBetween(DateTime from, DateTime to, string username = null)
-        {
-            throw new NotImplementedException();
         }
     }
 }

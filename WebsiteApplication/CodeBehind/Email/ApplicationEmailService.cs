@@ -9,13 +9,13 @@ namespace WebsiteApplication.CodeBehind.Email
     {
         public Task SendAsync(IdentityMessage message)
         {
-            var fromAddress = new MailAddress("palej@student.agh.edu.pl", "Rafał Palej");
+            var fromAddress = new MailAddress("rafal.palej.mgr@gmail.com", "Rafał Palej");
             var toAddress = new MailAddress(message.Destination);
-            const string fromPassword = "zaq!2wsx";
+            const string fromPassword = "qwer7410";
 
             var smtp = new SmtpClient
             {
-                Host = "poczta.agh.edu.pl",
+                Host = "smtp.gmail.com",
                 Port = 587,
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,

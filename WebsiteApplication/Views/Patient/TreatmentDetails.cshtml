@@ -1,5 +1,66 @@
-﻿@{
+﻿@model WebsiteApplication.Models.ViewModels.Patient.Hospitalization.TreatmentContainerViewModel
+
+@{
     ViewBag.Title = GlobalTranslations.TreatmentDetails;
 }
 
+<hr/>
+
+<div id="personInfoHolder" class="panel panel-primary">
+    <div class="panel-heading">Dane osobowe Pacjenta</div>
+    <div id="personInfo">
+        @Html.Partial("_PersonInfo", Model.Person)
+    </div>
+</div>
+
 <h2>@GlobalTranslations.TreatmentDetails</h2>
+
+<div>
+    <div class="row">
+        @Html.LabelFor(vm => vm.TreatmentStartDate): @Model.TreatmentStartDate
+    </div>
+    <div class="row">
+        @Html.LabelFor(vm => vm.TreatmentEndDate): @Model.TreatmentEndDate
+    </div>
+    <div class="row">
+        @Html.LabelFor(vm => vm.SeparatedPersonel):
+        @foreach (var person in Model.SeparatedPersonel)
+        {
+            <div>
+                - @person
+            </div>
+        }
+    </div>
+    <div class="row">
+        @Html.LabelFor(vm => vm.SeparatedUsedDevices):
+        @if (Model.SeparatedUsedDevices.Any())
+        {
+            foreach (var device in Model.SeparatedUsedDevices)
+            {
+                <div>
+                    - @device
+                </div>
+            }
+        }
+        else
+        {
+            <div>brak</div>
+        }
+    </div>
+    <div class="row">
+        @Html.LabelFor(vm => vm.UsedMedicines):
+        @if (Model.UsedMedicines.Any())
+        {
+            foreach (var medicine in Model.UsedMedicines)
+            {
+                <div>
+                    - @medicine.MedicineMedicineName (@medicine.Dose mg)
+                </div>
+            }
+        }
+        else
+        {
+            <div>brak</div>
+        }
+    </div>
+</div>

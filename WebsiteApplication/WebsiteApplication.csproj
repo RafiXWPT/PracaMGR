@@ -235,48 +235,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708161936063_Init.cs" />
-    <Compile Include="Migrations\201708161936063_Init.Designer.cs">
-      <DependentUpon>201708161936063_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708171842029_deleteFields.cs" />
-    <Compile Include="Migrations\201708171842029_deleteFields.Designer.cs">
-      <DependentUpon>201708171842029_deleteFields.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708172033306_dataWygenerowaniaRaportu.cs" />
-    <Compile Include="Migrations\201708172033306_dataWygenerowaniaRaportu.Designer.cs">
-      <DependentUpon>201708172033306_dataWygenerowaniaRaportu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708191532490_HistoriaWyszukiwania.cs" />
-    <Compile Include="Migrations\201708191532490_HistoriaWyszukiwania.Designer.cs">
-      <DependentUpon>201708191532490_HistoriaWyszukiwania.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708191646195_CreatedCountable.cs" />
-    <Compile Include="Migrations\201708191646195_CreatedCountable.Designer.cs">
-      <DependentUpon>201708191646195_CreatedCountable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708191805526_RejectedAcceptedAtBy.cs" />
-    <Compile Include="Migrations\201708191805526_RejectedAcceptedAtBy.Designer.cs">
-      <DependentUpon>201708191805526_RejectedAcceptedAtBy.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708211736556_ReportInsteadReaport.cs" />
-    <Compile Include="Migrations\201708211736556_ReportInsteadReaport.Designer.cs">
-      <DependentUpon>201708211736556_ReportInsteadReaport.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ViewModels\ASPNET.Identity\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ViewModels\ASPNET.Identity\ManageViewModels.cs" />
-    <Compile Include="Models\ViewModels\GlobalData\PatientViewModel.cs" />
+    <Compile Include="Models\ViewModels\GlobalData\PersonViewModel.cs" />
     <Compile Include="Models\ViewModels\GlobalData\PersonInfoViewModel.cs" />
     <Compile Include="Models\ViewModels\GlobalData\TabStripItemViewModel.cs" />
     <Compile Include="Models\ViewModels\GlobalData\TabStripViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\CultureListItem.cs" />
     <Compile Include="Models\ViewModels\Institution\InstitutionViewModel.cs" />
-    <Compile Include="Models\ViewModels\Menu\UserInfoContainerViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\ExaminationViewModel.cs" />
+    <Compile Include="Models\ViewModels\Patient\Hospitalization\HospitalizationDocumentViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\HospitalizationViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\Hospitalization\TreatmentViewModel.cs" />
+    <Compile Include="Models\ViewModels\Patient\Hospitalization\UsedMedicineViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\PatientHistoryViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\PatientViewModel.cs" />
     <Compile Include="Models\ViewModels\Patient\PersonizedPatientViewModel.cs" />
@@ -305,6 +278,7 @@
       <DependentUpon>GlobalTranslations.pl.resx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Views\IdentityWebViewPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Additional\additional.css" />
@@ -2104,27 +2078,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708161936063_Init.resx">
-      <DependentUpon>201708161936063_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708171842029_deleteFields.resx">
-      <DependentUpon>201708171842029_deleteFields.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708172033306_dataWygenerowaniaRaportu.resx">
-      <DependentUpon>201708172033306_dataWygenerowaniaRaportu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708191532490_HistoriaWyszukiwania.resx">
-      <DependentUpon>201708191532490_HistoriaWyszukiwania.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708191646195_CreatedCountable.resx">
-      <DependentUpon>201708191646195_CreatedCountable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708191805526_RejectedAcceptedAtBy.resx">
-      <DependentUpon>201708191805526_RejectedAcceptedAtBy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708211736556_ReportInsteadReaport.resx">
-      <DependentUpon>201708211736556_ReportInsteadReaport.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\GlobalTranslations.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>GlobalTranslations.en.Designer.cs</LastGenOutput>
@@ -2136,6 +2089,7 @@
     <EmbeddedResource Include="Resources\GlobalTranslations.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>GlobalTranslations.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -18,7 +18,7 @@ namespace WebsiteApplication.Controllers
         private readonly WcfPersonInfoFetcher _personInfoFetcher;
         private readonly IRepository<Institution> _institutionRepository;
 
-        public GlobalDataController(IRepository<Institution> institutionRepository, IRepository<SearchHistory> searchHistoryRepository)
+        public GlobalDataController(IRepository<Institution> institutionRepository, IDateTimeCountableRepository<SearchHistory> searchHistoryRepository)
         {
             _institutionRepository = institutionRepository;
             _patientFetcher = new WcfDataFetcher(institutionRepository, searchHistoryRepository, User.Name);
@@ -45,12 +45,12 @@ namespace WebsiteApplication.Controllers
 
         public ActionResult ReadInstitutionData(DataSourceRequest request, Guid institutionId)
         {
-            var displayList = new List<PatientViewModel>();
+            var displayList = new List<PersonViewModel>();
             var ptos = _patientFetcher.GetAllPatientsFromInstitution<PatientTransferObject>(institutionId);
             foreach (var pto in ptos)
             {
                 var personInfo = _personInfoFetcher.GetPersonInfo(pto.Pesel);
-                displayList.Add(new PatientViewModel
+                displayList.Add(new PersonViewModel
                 {
                     Pesel = pto.Pesel,
                     LastHospitalizationTime = pto.Hospitalizations.Any()
@@ -62,7 +62,7 @@ namespace WebsiteApplication.Controllers
                 });
             }
 
-            return Json(displayList.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            return JsonDataSourceResult(request, displayList);
         }
     }
 }

@@ -23,9 +23,9 @@ namespace WebsiteApplication.Controllers
         private readonly WcfDataFetcher _patientInfoFetcher;
         private readonly WcfPersonInfoFetcher _personInfoFetcher;
         private readonly IRepository<Institution> _institutionRepository;
-        private readonly IRepository<SearchHistory> _searchHistoryRepository;
+        private readonly IDateTimeCountableRepository<SearchHistory> _searchHistoryRepository;
 
-        public PatientController(IRepository<Institution> institutionRepository, IRepository<SearchHistory> searchHistoryRepository)
+        public PatientController(IRepository<Institution> institutionRepository, IDateTimeCountableRepository<SearchHistory> searchHistoryRepository)
         {
             _institutionRepository = institutionRepository;
             _searchHistoryRepository = searchHistoryRepository;
@@ -65,7 +65,7 @@ namespace WebsiteApplication.Controllers
         public ActionResult Patient(string pesel)
         {
             if(TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
-                return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
+                return Json("Przekroczono ilość zapytań jaka jest dostępna.", JsonRequestBehavior.AllowGet);
 
             return View();
         }
@@ -110,20 +110,28 @@ namespace WebsiteApplication.Controllers
             var hospitalization = _patientInfoFetcher.GetHospitalization<HospitalizationContainerViewModel>(hospitalizationId, institution.InstitutionEndpointAddress);
 
             hospitalization.Person = personViewModel;
+            hospitalization.HospitalizationDocuments.ForEach(x => x.InstitutionId = institutionId);
             hospitalization.Examinations.ForEach(x => x.InstitutionId = institutionId);
             hospitalization.Treatments.ForEach(x => x.InstitutionId = institutionId);
 
             return View(hospitalization);
         }
 
-        [Route("ExaminationDetails/{treatmentId}")]
+        [Route("ExaminationDetails/{examinationId}")]
         public ActionResult ExaminationDetails(Guid examinationId, Guid institutionId)
         {
             if (TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
                 return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
 
+            var personViewModel = TempData["CurrentPerson"] as PersonViewModel;
+            if (personViewModel == null)
+                return RedirectToAction("Index");
+
+            TempData.Keep();
+
             var institution = _institutionRepository.Read(institutionId);
             var examination = _patientInfoFetcher.GetExamination<ExaminationContainerViewModel>(examinationId, institution.InstitutionEndpointAddress);
+            examination.Person = personViewModel;
             return View(examination);
         }
 
@@ -133,9 +141,23 @@ namespace WebsiteApplication.Controllers
             if (TimeHelper.IsSearchCounterViolated(_searchHistoryRepository, User.Name))
                 return Json("Przekroczono ilość zapytań jaka jest dostępna", JsonRequestBehavior.AllowGet);
 
+            var personViewModel = TempData["CurrentPerson"] as PersonViewModel;
+            if (personViewModel == null)
+                return RedirectToAction("Index");
+
+            TempData.Keep();
+
             var institution = _institutionRepository.Read(institutionId);
             var treatment = _patientInfoFetcher.GetTreatment<TreatmentContainerViewModel>(treatmentId, institution.InstitutionEndpointAddress);
+            treatment.Person = personViewModel;
             return View(treatment);
+        }
+
+        public ActionResult GetHospitalizationDocument(Guid hospitalizationDocumentId, Guid institutionId)
+        {
+            var institution = _institutionRepository.Read(institutionId);
+            var hospitalizationDocument = _patientInfoFetcher.GetDocument<HospitalizationDocumentViewModel>(hospitalizationDocumentId, institution.InstitutionEndpointAddress);
+            return File(hospitalizationDocument.Content, "docx", hospitalizationDocument.Name);
         }
     }
 }

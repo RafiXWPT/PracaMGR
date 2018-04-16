@@ -19,6 +19,7 @@ namespace WebsiteApplication.Models.ViewModels.Patient.Hospitalization
     public class HospitalizationContainerViewModel
     {
         public PersonViewModel Person { get; set; }
+        public List<HospitalizationDocumentViewModel> HospitalizationDocuments { get; set; }
         public List<ExaminationViewModel> Examinations { get; set; }
         public List<TreatmentViewModel> Treatments { get; set; }
     }

@@ -223,6 +223,15 @@ namespace WebsiteApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aplikacja umożliwia osobom upoważnionym na przeglądanie informacji medycznych pacjenta oraz wygenerowanie raportu z przebiegu jego hospitalizacji..
+        /// </summary>
+        public static string HomeIndexDescription {
+            get {
+                return ResourceManager.GetString("HomeIndexDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Instytucja.
         /// </summary>
         public static string Institution {
@@ -282,6 +291,15 @@ namespace WebsiteApplication.Resources {
         public static string LastHospitalizationTime {
             get {
                 return ResourceManager.GetString("LastHospitalizationTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zaloguj się.
+        /// </summary>
+        public static string LogIn {
+            get {
+                return ResourceManager.GetString("LogIn", resourceCulture);
             }
         }
         
@@ -412,6 +430,15 @@ namespace WebsiteApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zarejestruj się.
+        /// </summary>
+        public static string Register {
+            get {
+                return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zarejestruj się jako nowy użytkownik.
         /// </summary>
         public static string RegisterAsANewUser {
@@ -511,7 +538,7 @@ namespace WebsiteApplication.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Przeprowadzone leczenia.
+        ///   Looks up a localized string similar to Przeprowadzone operacje.
         /// </summary>
         public static string Treatments {
             get {

@@ -1,5 +1,12 @@
 @echo off
 start PersonInfoService.Host\bin\Debug\PersonInfoService.Host.exe
-start InstitutionService.Host\bin\SzpitalUniwersytecki\InstitutionService.Host.exe
-start InstitutionService.Host\bin\SzpitalWKrynicy\InstitutionService.Host.exe
-start InstitutionService.Host\bin\SzpitalWNowymSaczu\InstitutionService.Host.exe
+start InstitutionService.Host\bin\1_KrakowskiePogotowieRatunkowe\InstitutionService.Host.exe
+start InstitutionService.Host\bin\2_KrakowskiSzpitalWojskowy\InstitutionService.Host.exe
+start InstitutionService.Host\bin\3_PogotowieRatunkoweWGdyni\InstitutionService.Host.exe
+start InstitutionService.Host\bin\4_PoznanskiSzpitalOswiecenia\InstitutionService.Host.exe
+start InstitutionService.Host\bin\5_SzpitalUniwersyteckiWKrakowie\InstitutionService.Host.exe
+start InstitutionService.Host\bin\6_SzpitalWBieszczadach\InstitutionService.Host.exe
+start InstitutionService.Host\bin\7_SzpitalWKrynicy\InstitutionService.Host.exe
+start InstitutionService.Host\bin\8_SzpitalWNowymSaczu\InstitutionService.Host.exe
+start InstitutionService.Host\bin\9_WarszawskiSzpitalSpecjalistyczny\InstitutionService.Host.exe
+start InstitutionService.Host\bin\10_WroclawskiSzpitalSpecjalistyczny\InstitutionService.Host.exe
